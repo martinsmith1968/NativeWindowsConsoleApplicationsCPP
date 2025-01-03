@@ -101,3 +101,71 @@ TEST(TEST_GROUP, GetAt_returns_references_not_copies)
     result.Text = "Bob";
     EXPECT_EQ("Bob", ListUtils::GetAt(items, 2).Text);
 }
+
+TEST(TEST_GROUP, Exists_for_values_that_are_present_returns_appropriately)
+{
+    // Arrange
+    auto items = list<string>();
+    items.emplace_back("Item 1");
+    items.emplace_back("Item 2");
+    items.emplace_back("Item 3");
+    items.emplace_back("Item 4");
+    items.emplace_back("Item 5");
+
+    // Act
+    const auto result = ListUtils::Exists<string>(items, "Item 4");
+
+    // Assert
+    EXPECT_EQ(true, result);
+}
+
+TEST(TEST_GROUP, Exists_for_values_that_are_not_present_returns_appropriately)
+{
+    // Arrange
+    auto items = list<string>();
+    items.emplace_back("Item 1");
+    items.emplace_back("Item 2");
+    items.emplace_back("Item 3");
+    items.emplace_back("Item 4");
+    items.emplace_back("Item 5");
+
+    // Act
+    const auto result = ListUtils::Exists<string>(items, "Item 10");
+
+    // Assert
+    EXPECT_EQ(false, result);
+}
+
+TEST(TEST_GROUP, GetRandom_returns_different_items)
+{
+    // Arrange
+    MathUtils::ReseedRandomizer();
+
+    auto items = list<string>();
+    items.emplace_back("Item 1");
+    items.emplace_back("Item 2");
+    items.emplace_back("Item 3");
+    items.emplace_back("Item 4");
+    items.emplace_back("Item 5");
+
+    auto found = map<string, int>();
+
+    constexpr int repetitions = 100;
+
+    for (int attempt=0; attempt < repetitions; ++attempt)
+    {
+        // Act
+        string& instance = ListUtils::GetRandom<string>(items);
+
+        const auto count = (found.find(instance) == found.end())
+            ? 1
+            : found[instance] + 1;
+        found[instance] = count;
+    }
+
+    // Assert
+    EXPECT_EQ(found.size(), items.size());
+
+    for (const auto& [key, value] : found)
+        cout << key << " = " << value << endl;
+}

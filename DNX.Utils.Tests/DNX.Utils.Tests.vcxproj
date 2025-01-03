@@ -107,7 +107,9 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnvironmentUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />
+    <ClCompile Include="MathUtils_Tests.cpp" />
     <ClCompile Include="PathUtils_Tests.cpp" />
     <ClCompile Include="ProcessUtils_Tests.cpp" />
     <ClCompile Include="StringUtils_Tests.cpp" />

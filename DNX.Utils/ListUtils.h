@@ -2,6 +2,7 @@
 
 #include <list>
 #include <string>
+#include "MathUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -31,6 +32,30 @@ namespace DNX::Utils
             std::advance(iter, index);
 
             return *iter;
+        }
+
+        template<class T>
+        static bool Exists(const list<T>& list, const T value)
+        {
+            for (auto iter = list.begin(); iter != list.end(); ++iter)
+            {
+                if (*iter == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        template<class T>
+        static T& GetRandom(list<T>& list)
+        {
+            const auto index = MathUtils::GetRandomNumber(0, list.size(), false);
+
+            T& result = GetAt(list, index);
+
+            return result;
         }
     };
 }
