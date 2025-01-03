@@ -48,6 +48,8 @@ namespace DNX::Utils
             return false;
         }
 
+        static string Find(const list<string>& list, const string& value, bool case_sensitive = true);
+
         template<class T>
         static T& GetRandom(list<T>& list)
         {

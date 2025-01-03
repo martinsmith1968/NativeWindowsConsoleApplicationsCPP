@@ -49,7 +49,7 @@ class AppArguments final : public Arguments
         AddOption(ValueType::INT, "tsc", "title-suffix-count", "2", "Set Title Suffix Count", false);
         AddOption(ValueType::INT, "tpgs", "title-prefix-gap-size", "2", "Set Title Prefix Gap Size", false);
         AddOption(ValueType::INT, "tsgs", "title-suffix-gap-size", "2", "Set Title Suffix Gap Size", false);
-        AddOption(ValueType::ENUM, "ta", "text-alignment", "CENTER", "Set Text Alignment", false, 0, TextAlignmentTypeTextConverter.GetAllText());
+        AddOption(ValueType::ENUM, "ta", "text-alignment", TextAlignmentTypeText().GetText(TextAlignmentType::LEFT), "Set Text Alignment", false, 0, TextAlignmentTypeTextConverter.GetAllText());
         AddOption(ValueType::INT, "minl", "min-total-length", "0", "Set Minimum Total line length", false);
         AddOption(ValueType::INT, "maxl", "max-total-length", "0", "Set Maximum Total line length", false);
     }

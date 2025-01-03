@@ -15,8 +15,8 @@ public:
         AddArgument(ArgumentType::OPTION, ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
         AddArgument(ArgumentType::OPTION, ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
 
-        SetOptionValue("timeout", defaultTimeout);
-        SetOptionValue("sleep", defaultSleep);
+        SetArgumentValue("timeout", defaultTimeout);
+        SetArgumentValue("sleep", defaultSleep);
     }
 
     string GetMessageText()

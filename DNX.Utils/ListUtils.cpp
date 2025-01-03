@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ListUtils.h"
+#include "StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 
@@ -20,4 +21,18 @@ list<string> ListUtils::ToList(const int argc, char* argv[], const int startAt)
     }
 
     return list;
+}
+
+string ListUtils::Find(const list<string>& list, const string& value, bool case_sensitive)
+{
+    for (auto iter = list.begin(); iter != list.end(); ++iter)
+    {
+        if (*iter == value)
+            return *iter;
+
+        if (!case_sensitive && StringUtils::ToLower(*iter) == StringUtils::ToLower(value))
+            return *iter;
+    }
+
+    return "";
 }

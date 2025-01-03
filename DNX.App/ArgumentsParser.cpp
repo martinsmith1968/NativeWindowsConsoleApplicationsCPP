@@ -150,7 +150,7 @@ bool ArgumentsParser::HandleAsSwitch(Arguments& arguments, const ParserConfig& p
         switchValue = false;
     }
 
-    const auto& option = arguments.GetOptionByName(argumentName);
+    const auto& option = arguments.GetArgumentByName(argumentName);
     if (option.IsEmpty())
         return false;
 
@@ -159,14 +159,14 @@ bool ArgumentsParser::HandleAsSwitch(Arguments& arguments, const ParserConfig& p
         return false;
     }
 
-    arguments.SetOptionValue(option.GetLongName(), StringUtils::BoolToString(switchValue));
+    arguments.SetArgumentValue(option.GetLongName(), StringUtils::BoolToString(switchValue));
 
     return true;
 }
 
 bool ArgumentsParser::HandleAsOption(Arguments& arguments, const string& argumentName, const string& argumentValue)
 {
-    const auto& option = arguments.GetOptionByName(argumentName);
+    const auto& option = arguments.GetArgumentByName(argumentName);
     if (option.IsEmpty())
         return false;
 
@@ -175,7 +175,7 @@ bool ArgumentsParser::HandleAsOption(Arguments& arguments, const string& argumen
         return false;
     }
 
-    arguments.SetOptionValue(option.GetLongName(), argumentValue);
+    arguments.SetArgumentValue(option.GetLongName(), argumentValue);
 
     return true;
 }
@@ -186,7 +186,7 @@ bool ArgumentsParser::HandleAsParameter(Arguments& arguments, const int position
     if (option.IsEmpty())
         return false;
 
-    arguments.SetOptionValue(option.GetLongName(), argumentValue);
+    arguments.SetArgumentValue(option.GetLongName(), argumentValue);
 
     return true;
 }
@@ -197,7 +197,7 @@ void ArgumentsParser::ValidateRequired(Arguments& arguments)
 
     for (auto iter = requiredArguments.begin(); iter != requiredArguments.end(); ++iter)
     {
-        if (!arguments.HasOptionValue(iter->GetShortName()))
+        if (!arguments.HasArgumentValue(iter->GetShortName()))
         {
             arguments.AddError(iter->GetNameDescription() + " is required");
         }
@@ -210,7 +210,7 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
 
     for (auto iter = optionList.begin(); iter != optionList.end(); ++iter)
     {
-        const auto optionValue = arguments.GetOptionValue(iter->GetShortName());
+        const auto optionValue = arguments.GetArgumentValue(iter->GetShortName());
         if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
         {
             if (!(iter->GetRequired() && optionValue.empty()))

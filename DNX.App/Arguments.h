@@ -24,18 +24,15 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Arguments
     {
-        const string DebugShortName                   = "x";
         const string HelpShortName                    = "?";
         const string UseDefaultArgumentsFileShortName = "@";
         const string UseLocalArgumentsFileShortName   = "$";
 
-        const string DebugLongName                   = "debug";
         const string HelpLongName                    = "help";
         const string UseDefaultArgumentsFileLongName = "use-default-arguments-file";
         const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
         const string HelpDescription             = "Show Help screen";
-        const string DebugDescription            = "Activate debug mode";
         const string useDefaultArgumentsFileDesc = "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
         const string useLocalArgumentsFileDesc   = "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
 
@@ -104,26 +101,29 @@ namespace DNX::App
 
         void AddError(const string& text);
 
-        Argument& GetOptionByLongName(const string& longName);
-        Argument& GetOptionByShortName(const string& shortName);
-        Argument& GetOptionByName(const string& name);
+        Argument& GetArgumentByLongName(const string& longName);
+        Argument& GetArgumentByShortName(const string& shortName);
+        Argument& GetArgumentByName(const string& name);
         [[nodiscard]] Argument& GetParameterAtPosition(const int position);
 
         [[nodiscard]] list<Argument> GetRequiredArguments() const;
 
-        string GetOptionValue(const string& name);
+        string GetArgumentValue(const string& name);
         bool GetSwitchValue(const string& name);
-        void SetOptionValue(const string& name, const string& value);
-        bool HasOptionValue(const string& name);
+        void SetArgumentValue(const string& name, const string& value);
+        bool HasArgumentValue(const string& name);
 
         [[nodiscard]] int GetNextPosition() const;
         void AdvancePosition();
 
         friend class ArgumentsParser;
+        friend class Commands;
+        friend class CommandsParser;
 
     public:
         Arguments();
         virtual ~Arguments() = default;
+        //void CopyFrom(const Arguments& other);
 
         [[nodiscard]] bool IsEmpty() const;
         void Reset();
@@ -137,7 +137,6 @@ namespace DNX::App
 
         [[nodiscard]] list<string> GetErrors() const;
         [[nodiscard]] bool IsValid() const;
-        bool IsDebug();
         bool IsHelp();
         bool IsUsingDefaultArgumentsFile();
 

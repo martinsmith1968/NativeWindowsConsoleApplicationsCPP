@@ -28,9 +28,9 @@ public:
         AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
         AddOption(ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
 
-        SetOptionValue("message-text", defaultMessageText);
-        SetOptionValue("timeout", defaultTimeout);
-        SetOptionValue("sleep", defaultSleep);
+        SetArgumentValue("message-text", defaultMessageText);
+        SetArgumentValue("timeout", defaultTimeout);
+        SetArgumentValue("sleep", defaultSleep);
     }
 
     string GetMessageText()
