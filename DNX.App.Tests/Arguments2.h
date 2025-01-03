@@ -21,16 +21,16 @@ public:
 
     string GetMessageText()
     {
-        return GetOptionValue("message-text");
+        return GetArgumentValue("message-text");
     }
 
     int GetTimeoutSeconds()
     {
-        return ValueConverter::ToInt(GetOptionValue("timeout"));
+        return ValueConverter::ToInt(GetArgumentValue("timeout"));
     }
 
     int GetSleepMilliseconds()
     {
-        return ValueConverter::ToInt(GetOptionValue("sleep"));
+        return ValueConverter::ToInt(GetArgumentValue("sleep"));
     }
 };

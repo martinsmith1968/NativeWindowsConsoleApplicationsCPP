@@ -17,6 +17,7 @@ public:
         AddArgument(ArgumentType::PARAMETER, ValueType::STRING, "", "message-text", defaultMessageText, "The Text to display", false, 0);
         AddArgument(ArgumentType::OPTION, ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
         AddArgument(ArgumentType::OPTION, ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
+        AddSwitch("x", "debug", "false", "Activate debug mode", false);
 
         SetOptionValue("message-text", defaultMessageText);
         SetOptionValue("timeout", defaultTimeout);
@@ -25,16 +26,21 @@ public:
 
     string GetMessageText()
     {
-        return GetOptionValue("message-text");
+        return GetArgumentValue("message-text");
     }
 
     int GetTimeoutSeconds()
     {
-        return ValueConverter::ToInt(GetOptionValue("timeout"));
+        return ValueConverter::ToInt(GetArgumentValue("timeout"));
     }
 
     int GetSleepMilliseconds()
     {
-        return ValueConverter::ToInt(GetOptionValue("sleep"));
+        return ValueConverter::ToInt(GetArgumentValue("sleep"));
+    }
+
+    bool IsDebug()
+    {
+        return GetSwitchValue("debug");
     }
 };

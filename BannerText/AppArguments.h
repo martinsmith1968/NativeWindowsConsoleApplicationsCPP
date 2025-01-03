@@ -68,67 +68,67 @@ class AppArguments final : public Arguments
 
     string GetMessageText()
     {
-        return GetOptionValue("message-text");
+        return GetArgumentValue("message-text");
     }
 
     char GetHeaderLineChar()
     {
-        return ValueConverter::ToChar(GetOptionValue("hlc"));
+        return ValueConverter::ToChar(GetArgumentValue("hlc"));
     }
 
     size_t GetHeaderLineCount()
     {
-        return ValueConverter::ToInt(GetOptionValue("hln"));
+        return ValueConverter::ToInt(GetArgumentValue("hln"));
     }
 
     char GetFooterLineChar()
     {
-        return ValueConverter::ToChar(GetOptionValue("flc"));
+        return ValueConverter::ToChar(GetArgumentValue("flc"));
     }
 
     size_t GetFooterLineCount()
     {
-        return ValueConverter::ToInt(GetOptionValue("fln"));
+        return ValueConverter::ToInt(GetArgumentValue("fln"));
     }
 
     char GetTextLineChar()
     {
-        return ValueConverter::ToChar(GetOptionValue("tlc"));
+        return ValueConverter::ToChar(GetArgumentValue("tlc"));
     }
 
     size_t GetTitlePrefixCount()
     {
-        return ValueConverter::ToInt(GetOptionValue("tpc"));
+        return ValueConverter::ToInt(GetArgumentValue("tpc"));
     }
 
     size_t GetTitleSuffixCount()
     {
-        return ValueConverter::ToInt(GetOptionValue("tsc"));
+        return ValueConverter::ToInt(GetArgumentValue("tsc"));
     }
 
     size_t GetTitlePrefixGapSize()
     {
-        return ValueConverter::ToInt(GetOptionValue("tpgs"));
+        return ValueConverter::ToInt(GetArgumentValue("tpgs"));
     }
 
     size_t GetTitleSuffixGapSize()
     {
-        return ValueConverter::ToInt(GetOptionValue("tsgs"));
+        return ValueConverter::ToInt(GetArgumentValue("tsgs"));
     }
 
     TextAlignmentType GetTextAlignment()
     {
-        return TextAlignmentTypeTextConverter.GetValue(GetOptionValue("ta"));
+        return TextAlignmentTypeTextConverter.GetValue(GetArgumentValue("ta"));
     }
 
     size_t GetMinimumTotalLength()
     {
-        return ValueConverter::ToInt(GetOptionValue("minl"));
+        return ValueConverter::ToInt(GetArgumentValue("minl"));
     }
 
     size_t GetMaximumTotalLength()
     {
-        return ValueConverter::ToInt(GetOptionValue("maxl"));
+        return ValueConverter::ToInt(GetArgumentValue("maxl"));
     }
 
     list<string> GetTextLines()
