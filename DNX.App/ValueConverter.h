@@ -24,6 +24,7 @@ namespace DNX::App
         static bool IsChar(const string& value);
         static bool IsBool(const string& value);
         static bool IsInt(const string& value);
+        static bool IsLong(const string& value);
         static bool IsDouble(const string& value);
         static bool IsEnum(const string& value);
         static bool IsDate(const string& value);
@@ -32,6 +33,7 @@ namespace DNX::App
         static char ToChar(const string& value);
         static bool ToBool(const string& value);
         static int ToInt(const string& value);
+        static long ToLong(const string& value);
         static double ToDouble(const string& value);
         static bool ToDate(const string& value, tm* date);
         static bool ToDateTime(const string& value, tm* datetime);

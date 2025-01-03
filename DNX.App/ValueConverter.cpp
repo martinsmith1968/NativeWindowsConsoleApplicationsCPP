@@ -58,6 +58,17 @@ bool ValueConverter::IsInt(const string& value)
     char* p;
     auto parsed = strtol(value.c_str(), &p, 10);
 
+    return (p != value.c_str() && parsed >= INT32_MIN && parsed <= INT32_MAX);
+}
+
+bool ValueConverter::IsLong(const string& value)
+{
+    if (value.empty() || ((!isdigit(value[0])) && (value[0] != '-') && (value[0] != '+')))
+        return false;
+
+    char* p;
+    auto parsed = strtol(value.c_str(), &p, 10);
+
     return (p != value.c_str());
 }
 
@@ -107,6 +118,11 @@ bool ValueConverter::ToBool(const string& value)
 int ValueConverter::ToInt(const string& value)
 {
     return stoi(value);
+}
+
+long ValueConverter::ToLong(const string& value)
+{
+    return stol(value);
 }
 
 double ValueConverter::ToDouble(const string& value)
