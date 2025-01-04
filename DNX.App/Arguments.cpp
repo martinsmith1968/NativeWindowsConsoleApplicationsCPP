@@ -262,7 +262,7 @@ void Arguments::SetArgumentValue(const string& name, const string& value)
         {
             actual_value = ListUtils::Find(values, value, false);
             if (actual_value.empty())
-                throw exception((string("Unrecognised Argument value: ") + value).c_str());
+                AddError(argument.GetLongName() + string(": Invalid value: ") + value);
         }
     }
 
@@ -294,13 +294,17 @@ void Arguments::AdvancePosition()
 Arguments::Arguments()
 {
     AddStandardArguments();
+    AddFileOverrideArguments();
 }
 
 void Arguments::AddStandardArguments()
 {
     AddSwitch(HelpShortName, HelpLongName, "false", HelpDescription, false, INT_MAX - 2);
+}
+void Arguments::AddFileOverrideArguments()
+{
     AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, "true", useDefaultArgumentsFileDesc, false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName, UseLocalArgumentsFileLongName, "true", useLocalArgumentsFileDesc, false, INT_MAX);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , "true", useLocalArgumentsFileDesc  , false, INT_MAX);
 }
 
 bool Arguments::IsEmpty() const

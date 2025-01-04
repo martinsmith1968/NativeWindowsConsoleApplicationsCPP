@@ -7,37 +7,30 @@
 using namespace std;
 using namespace DNX::App;
 
-Command Command::_empty_command = Command(Arguments::Empty(), "", "");
+Command Command::_empty_command = Command();
 
 Command::Command(
-    Arguments& arguments,
+    Arguments* arguments,
     const string& name,
     const string& description
-) :
-    _arguments(arguments)
+)
 {
+    if (arguments == nullptr)
+        throw exception("Arguments must be valid");
     if (StringUtils::Trim(name).empty())
         throw exception("name cannot be empty or blank");
 
-    _name = name;
+    _arguments   = arguments;
+    _name        = name;
     _description = description;
 }
 
-//Command::Command(const Command& other)
-//    :
-//    _arguments(other.GetArguments())
-//{
-//    _name = other.GetName();
-//    _description = other.GetDescription();
-//}
-//
-//Command& Command::operator=(const Command& other)
-//{
-//    _arguments.CopyFrom(other.GetArguments());
-//    _name = other.GetName();
-//    _description = other.GetDescription();
-//    return *this;
-//}
+Command::Command()
+{
+    _arguments   = &Arguments::Empty();
+    _name        = "";
+    _description = "";
+}
 
 bool Command::IsEmpty() const
 {
@@ -45,7 +38,7 @@ bool Command::IsEmpty() const
 }
 Arguments& Command::GetArguments() const
 {
-    return _arguments;
+    return *_arguments;
 }
 string Command::GetName() const
 {

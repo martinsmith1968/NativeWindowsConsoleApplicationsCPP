@@ -233,13 +233,16 @@ ArgumentsParser::ArgumentsParser(Arguments& arguments, const AppDetails& app_det
 
 void ArgumentsParser::Parse(const int argc, char* argv[]) const
 {
+    Parse(ListUtils::ToList(argc, argv, 1));
+}
+
+void ArgumentsParser::Parse(list<string> arguments) const
+{
     if (_parser_config.GetUseCustomArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, AppDetails::GetDefaultArgumentsFileName());
 
     if (_parser_config.GetUseLocalArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, AppDetails::GetLocalArgumentsFileName());
-
-    auto arguments = ListUtils::ToList(argc, argv, 1);
 
     ParseArguments(_arguments, arguments);
 
@@ -248,7 +251,6 @@ void ArgumentsParser::Parse(const int argc, char* argv[]) const
     ValidateValues(_arguments);
     _arguments.PostParseValidate();
 }
-
 
 //-----------------------------------------------------------------------------
 // Static Public methods

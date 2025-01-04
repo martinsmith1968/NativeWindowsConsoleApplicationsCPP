@@ -57,6 +57,7 @@ namespace DNX::App
         ArgumentTypeText ArgumentTypeText;
 
         void AddStandardArguments();
+        void AddFileOverrideArguments();
         void virtual PostParseValidate();
 
         void AddArgument(

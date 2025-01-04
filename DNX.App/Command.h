@@ -15,14 +15,13 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Command
     {
-        Arguments& _arguments;
+        Arguments* _arguments;
         string _name;
         string _description;
 
     public:
+        Command();
         virtual ~Command() = default;
-        //Command(const Command& other);
-        //Command& operator=(const Command& other);
 
         [[nodiscard]] bool IsEmpty() const;
 
@@ -31,7 +30,7 @@ namespace DNX::App
         [[nodiscard]] string GetDescription() const;
 
         Command(
-            Arguments& arguments,
+            Arguments* arguments,
             const string& name,
             const string& description
         );

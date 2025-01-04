@@ -19,12 +19,12 @@ namespace DNX::App
         const string CommandNameDescription = "The command to execute";
 
     public:
-        CommandArguments();
+        CommandArguments() = default;
 
         void BuildFromCommands(list<Command> commands)
         {
             Reset();
-            AddStandardArguments();
+            AddFileOverrideArguments();
 
             list<string> command_name_value_list;
             for (auto iter = commands.begin(); iter != commands.end(); ++iter)
@@ -37,7 +37,7 @@ namespace DNX::App
 
         string GetCommandNameValue()
         {
-            return GetOptionValue(CommandNameLongName);
+            return GetArgumentValue(CommandNameLongName);
         }
     };
 }

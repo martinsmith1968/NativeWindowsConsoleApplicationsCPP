@@ -65,22 +65,22 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
         size_t maxArgumentDescriptionLength = 0;
         for (auto iter = optionsAndSwitches.begin(); iter != optionsAndSwitches.end(); ++iter)
         {
-            string optionDesc;
+            string argument_description;
             if (iter->GetArgumentType() == ArgumentType::PARAMETER)
             {
-                optionDesc = "[" + iter->GetLongName() + "]";
+                argument_description = "[" + iter->GetLongName() + "]";
             }
             else
             {
-                optionDesc = "-" + iter->GetShortName();
+                argument_description = "-" + iter->GetShortName();
                 if (iter->HasLongName())
                 {
-                    optionDesc += ", --" + iter->GetLongName();
+                    argument_description += ", --" + iter->GetLongName();
                 }
             }
-            optionDesc += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
+            argument_description += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
 
-            maxArgumentDescriptionLength = std::max(optionDesc.length(), maxArgumentDescriptionLength);
+            maxArgumentDescriptionLength = std::max(argument_description.length(), maxArgumentDescriptionLength);
 
             auto textDesc = iter->GetDescription();
 
@@ -121,7 +121,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
                 textDesc += ")";
             }
 
-            const auto optionAndDesc = tuple<Argument, string, string>(*iter, optionDesc, textDesc);
+            const auto optionAndDesc = tuple(*iter, argument_description, textDesc);
 
             argumentDescriptions.push_back(optionAndDesc);
         }

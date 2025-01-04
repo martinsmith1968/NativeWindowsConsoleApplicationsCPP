@@ -39,6 +39,7 @@ namespace DNX::App
     public:
         explicit ArgumentsParser(Arguments& arguments, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
         void Parse(int argc, char* argv[]) const;
+        void Parse(list<string> arguments) const;
 
         static void ParseArguments(Arguments& arguments, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
     };
