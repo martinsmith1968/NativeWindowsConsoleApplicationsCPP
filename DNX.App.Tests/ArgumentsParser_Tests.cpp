@@ -3,6 +3,7 @@
 #include "../DNX.App/ArgumentsParser.h"
 #include "Arguments1.h"
 #include "Arguments2.h"
+#include "TestHelper.h"
 
 // ReSharper disable CppClangTidyPerformanceUnnecessaryCopyInitialization
 // ReSharper disable CppInconsistentNaming
@@ -16,15 +17,6 @@ using namespace DNX::App;
 
 #define TEST_GROUP ArgumentsParser
 
-static void ShowErrors(const Arguments& arguments)
-{
-    cout << "Error Count: " << arguments.GetErrors().size() << endl;
-    for (const auto& error : arguments.GetErrors())
-    {
-        cout << "Error: " << error << endl;
-    }
-}
-
 TEST(TEST_GROUP, ParseArguments_single_positional_arguments_assigns_correctly)
 {
     constexpr auto argc = 2;
@@ -37,7 +29,7 @@ TEST(TEST_GROUP, ParseArguments_single_positional_arguments_assigns_correctly)
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_TRUE(arguments.IsValid());
@@ -59,7 +51,7 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_TRUE(arguments.IsValid());
@@ -83,7 +75,7 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_TRUE(arguments.IsValid());
@@ -109,7 +101,7 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_argume
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_TRUE(arguments.IsValid());
@@ -130,7 +122,7 @@ TEST(TEST_GROUP, IsValid_arguments_without_any_required_arguments_returns_succes
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_TRUE(arguments.IsValid());
@@ -147,7 +139,7 @@ TEST(TEST_GROUP, IsValid_arguments_with_required_arguments_returns_successfully)
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_FALSE(arguments.IsValid());
@@ -165,7 +157,7 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_shortname_without_value_returns_s
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_FALSE(arguments.IsValid());
@@ -183,7 +175,7 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_longname_without_value_returns_su
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_FALSE(arguments.IsValid());
@@ -202,7 +194,7 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_longname_with_invalid_value_retur
 
     // Act
     ArgumentsParser::ParseArguments(arguments, argc, argv);
-    ShowErrors(arguments);
+    TestHelper::ShowErrors(arguments);
 
     // Assert
     EXPECT_FALSE(arguments.IsValid());
