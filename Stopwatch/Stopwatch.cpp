@@ -20,7 +20,7 @@ using namespace DNX::Utils;
 
 //------------------------------------------------------------------------------
 // Declarations
-namespace SimpleTimer {
+namespace Stopwatch {
     static void List(AppArgumentsList& arguments);  // NOLINT(misc-use-anonymous-namespace)
 };
 
@@ -49,7 +49,7 @@ int main(const int argc, char* argv[])
 
         if (command.GetName() == "list")
         {
-            SimpleTimer::List(dynamic_cast<AppArgumentsList&>(command.GetArguments()));
+            Stopwatch::List(dynamic_cast<AppArgumentsList&>(command.GetArguments()));
         }
 
         return 0;
@@ -66,7 +66,7 @@ int main(const int argc, char* argv[])
     }
 }
 
-void SimpleTimer::List(AppArgumentsList& arguments)
+void Stopwatch::List(AppArgumentsList& arguments)
 {
     cout << "Well, shit" << endl;
     cout << "Format: " << arguments.GetFormat() << endl;

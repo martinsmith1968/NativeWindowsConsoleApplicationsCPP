@@ -4,7 +4,6 @@
 #include "TestHelper.h"
 #include "../DNX.App/Commands.h"
 #include "../DNX.App/CommandsParser.h"
-#include "../SimpleTimer/AppArguments.h"
 
 using namespace std;
 using namespace DNX::App;

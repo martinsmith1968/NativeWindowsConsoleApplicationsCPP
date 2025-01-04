@@ -9,7 +9,7 @@
 #include "../DNX.Utils/StringUtils.h"
 
 using namespace std;
-using namespace SimpleTimer;
+using namespace Stopwatch;
 using namespace DNX::App;
 using namespace DNX::Utils;
 

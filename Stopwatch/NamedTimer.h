@@ -8,7 +8,7 @@
 
 using namespace std;
 
-namespace SimpleTimer
+namespace Stopwatch
 {
     class NamedTimer
     {

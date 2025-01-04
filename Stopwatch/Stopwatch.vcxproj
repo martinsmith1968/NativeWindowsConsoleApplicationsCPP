@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{03ea8ce3-1a80-4b88-904e-9874db82b1cf}</ProjectGuid>
-    <RootNamespace>SimpleTimer</RootNamespace>
+    <RootNamespace>Stopwatch</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -173,7 +173,7 @@
     <ClCompile Include="AppArguments.h" />
     <ClCompile Include="NamedTimer.cpp" />
     <ClCompile Include="NamedTimerRepository.cpp" />
-    <ClCompile Include="SimpleTimer.cpp" />
+    <ClCompile Include="Stopwatch.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -46,7 +46,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils.Tests", "DNX.Util
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App.Tests", "DNX.App.Tests\DNX.App.Tests.vcxproj", "{01774A04-F33B-40EC-B35C-203F0B8A96A8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleTimer", "SimpleTimer\SimpleTimer.vcxproj", "{03EA8CE3-1A80-4B88-904E-9874DB82B1CF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stopwatch", "Stopwatch\Stopwatch.vcxproj", "{03EA8CE3-1A80-4B88-904E-9874DB82B1CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -32,4 +32,4 @@ BEGIN
     END
 END
 
-MAIN_ICON   ICON  "SimpleTimer.ico"
+MAIN_ICON   ICON  "Stopwatch.ico"

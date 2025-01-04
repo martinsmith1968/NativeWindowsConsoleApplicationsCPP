@@ -4,7 +4,7 @@
 #include "../DNX.Utils/FileUtils.h"
 
 using namespace std;
-using namespace SimpleTimer;
+using namespace Stopwatch;
 using namespace DNX::Utils;
 
 // ReSharper disable CppInconsistentNaming
