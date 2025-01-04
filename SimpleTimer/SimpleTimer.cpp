@@ -4,9 +4,10 @@
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/ArgumentsParser.h"
 #include "../DNX.App/ArgumentsUsageDisplay.h"
+#include "../DNX.App/CommandsParser.h"
+#include "../DNX.App/CommandsUsageDisplay.h"
 #include <iostream>
 #include <regex>
-#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -20,31 +21,36 @@ using namespace DNX::Utils;
 //------------------------------------------------------------------------------
 // Declarations
 namespace SimpleTimer {
-    static void Execute(AppArguments& arguments);  // NOLINT(misc-use-anonymous-namespace)
-}
+    static void List(AppArgumentsList& arguments);  // NOLINT(misc-use-anonymous-namespace)
+};
 
+//------------------------------------------------------------------------------
 int main(const int argc, char* argv[])
 {
     try
     {
         const AppInfo appInfo;
 
-        AppArguments arguments;
-        ArgumentsParser::ParseArguments(arguments, argc, argv);
+        AppCommands commands;
+        const auto& command = CommandsParser::ParseCommands(commands, argc, argv);
 
-        if (arguments.IsHelp())
+        if (command.IsEmpty())
         {
-            ArgumentsUsageDisplay::ShowUsage(arguments, appInfo);
+            CommandsUsageDisplay::ShowUsage(commands, appInfo);
             return 1;
         }
-        if (!arguments.IsValid())
+
+        if (!commands.IsValid())
         {
-            ArgumentsUsageDisplay::ShowUsage(arguments, appInfo);
-            ArgumentsUsageDisplay::ShowErrors(arguments, 1);
+            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), appInfo);
+            ArgumentsUsageDisplay::ShowErrors(command.GetArguments(), 1);
             return 2;
         }
 
-        SimpleTimer::Execute(arguments);
+        if (command.GetName() == "list")
+        {
+            SimpleTimer::List(dynamic_cast<AppArgumentsList&>(command.GetArguments()));
+        }
 
         return 0;
     }
@@ -58,11 +64,11 @@ int main(const int argc, char* argv[])
         cerr << ArgumentsUsageDisplay::ErrorLinePrefix << ": Unknown error occurred" << endl;
         return 98;
     }
-
 }
 
-//------------------------------------------------------------------------------
-// Execute
-void SimpleTimer::Execute(AppArguments& arguments)
+void SimpleTimer::List(AppArgumentsList& arguments)
 {
+    cout << "Well, shit" << endl;
+    cout << "Format: " << arguments.GetFormat() << endl;
+    cout << "Verbose: " << arguments.GetVerbose() << endl;
 }

@@ -2,8 +2,10 @@
 #include "stdafx.h"
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/Arguments.h"
+#include "../DNX.App/Commands.h"
 #include <string>
 #include <chrono>
+#include <iostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -21,56 +23,78 @@ enum class CommandType : uint8_t
     DELETE,
 };
 
-class CommandTypeText : public EnumTextResolver<CommandType>
+enum class ListFormatType : uint8_t
+{
+    DISPLAY,
+    CSV
+};
+
+class ListFormatTypeText : public EnumTextResolver<ListFormatType>
 {
 public:
-    CommandTypeText()
+    ListFormatTypeText()
     {
-        SetText(CommandType::LIST, "List");
-        SetText(CommandType::START, "Start");
-        SetText(CommandType::STOP, "Stop");
-        SetText(CommandType::ELAPSED, "Elapsed");
-        SetText(CommandType::DELETE, "Delete");
+        SetText(ListFormatType::DISPLAY, "Display");
+        SetText(ListFormatType::CSV, "CSV");
     }
 };
 
+//class CommandTypeText : public EnumTextResolver<CommandType>
+//{
+//public:
+//    CommandTypeText()
+//    {
+//        SetText(CommandType::LIST, "List");
+//        SetText(CommandType::START, "Start");
+//        SetText(CommandType::STOP, "Stop");
+//        SetText(CommandType::ELAPSED, "Elapsed");
+//        SetText(CommandType::DELETE, "Delete");
+//    }
+//};
+
 //------------------------------------------------------------------------------
 // Arguments
-class AppArguments final : public Arguments
+class AppArgumentsList final : public Arguments
 {
-    CommandTypeText CommandTypeTextConverter;
+    //CommandTypeText CommandTypeTextConverter;
 
-    const string ArgumentNameCommand   = "command";
-    const string ArgumentNameTimerName = "timer-name";
-    const string ArgumentNameQuiet     = "quiet";
+    const string ArgumentNameFormat  = "format";
+    const string ArgumentNameVerbose = "verbose";
 
 public:
-    AppArguments()
+    AppArgumentsList()
     {
-        AddParameter(ValueType::STRING, 1, ArgumentNameCommand, "", "The command to execute", true, CommandTypeTextConverter.GetAllText());
-        AddParameter(ValueType::STRING, 2, ArgumentNameTimerName, "", "The command to execute", true);
-
-
-
-        AddSwitch("q", ArgumentNameQuiet, "false", "Disable/Enable output messages", false);
+        AddOption(ValueType::STRING, "f", ArgumentNameFormat, ListFormatTypeText().GetText(ListFormatType::DISPLAY), "Control format of list", false, 0, ListFormatTypeText().GetAllText());
+        AddSwitch("v", ArgumentNameVerbose, "false", "Control verbosity of output messages", false, 0);
     }
 
-    string GetCommand()
+    string GetFormat()
     {
-        return GetOptionValue(ArgumentNameCommand);
+        return GetArgumentValue(ArgumentNameFormat);
     }
 
-    string GetTimerName()
+    bool GetVerbose()
     {
-        return GetOptionValue(ArgumentNameTimerName);
-    }
-
-    bool GetQuiet()
-    {
-        return GetSwitchValue(ArgumentNameQuiet);
+        return GetSwitchValue(ArgumentNameVerbose);
     }
 
     void PostParseValidate() override
     {
+    }
+};
+
+class AppCommands final : public Commands
+{
+    AppArgumentsList _arguments_list;
+
+public:
+    AppCommands()
+    {
+        AddCommand(&_arguments_list,    "list",    "List the current active Timers");
+        //AddCommand(AppArgumentsStart(),   "start",   "Start a named Timer");
+        //AddCommand(AppArgumentsStop(),    "stop",    "Stop an active Timer");
+        //AddCommand(AppArgumentsCancel(),  "cancel",  "Cancel an active Timer");
+        //AddCommand(AppArgumentsPause(),   "pause",   "Pause an active Timer");
+        //AddCommand(AppArgumentsElapsed(), "elapsed", "Get the elapsed time of an active timer");
     }
 };

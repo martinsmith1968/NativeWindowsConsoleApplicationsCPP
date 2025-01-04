@@ -2,7 +2,7 @@
 
 // ReSharper disable IdentifierTypo
 
-#define VER_PRODUCTNAME_STR         "PauseN"
-#define VER_FILE_DESCRIPTION_STR    "Pause with a timeout"
+#define VER_PRODUCTNAME_STR         "SimpleTimer"
+#define VER_FILE_DESCRIPTION_STR    "Control named out-of-process Timers"
 
 #include "../Common/AppInfo.h"
