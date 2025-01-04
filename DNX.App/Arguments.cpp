@@ -4,6 +4,7 @@
 #include <complex>
 
 #include "../DNX.Utils/ListUtils.h"
+#include "../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppTooWideScope
@@ -299,12 +300,12 @@ Arguments::Arguments()
 
 void Arguments::AddStandardArguments()
 {
-    AddSwitch(HelpShortName, HelpLongName, "false", HelpDescription, false, INT_MAX - 2);
+    AddSwitch(HelpShortName, HelpLongName, StringUtils::BoolToString(false), HelpDescription, false, INT_MAX - 2);
 }
 void Arguments::AddFileOverrideArguments()
 {
-    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, "true", useDefaultArgumentsFileDesc, false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , "true", useLocalArgumentsFileDesc  , false, INT_MAX);
+    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), useDefaultArgumentsFileDesc, false, INT_MAX - 1);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), useLocalArgumentsFileDesc  , false, INT_MAX);
 }
 
 bool Arguments::IsEmpty() const

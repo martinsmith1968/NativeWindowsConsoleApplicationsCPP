@@ -15,7 +15,7 @@ using namespace DNX::Utils;
 
 string ArgumentsUsageDisplay::ErrorLinePrefix = "ERROR";
 
-void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetails& appDetails)
+void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetails& appDetails, const string& command_name)
 {
     cout << appDetails.GetHeaderLine() << std::endl;
     if (!appDetails.Copyright.empty())
@@ -33,6 +33,13 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
     const auto hasOptions = !optionsAndSwitches.empty();
 
     string argumentText;
+    if (!command_name.empty())
+    {
+        argumentText
+            .append(" ")
+            .append(command_name);
+    }
+
     for (auto iter = parameters.begin(); iter != parameters.end(); ++iter)
     {
         argumentText
@@ -43,12 +50,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
 
     if (hasOptions)
     {
-        if (!argumentText.empty())
-        {
-            argumentText.append(" ");
-        }
-
-        argumentText.append("[OPTIONS]");
+        argumentText.append(" [OPTIONS]");
     }
 
     cout << std::endl;

@@ -2,6 +2,7 @@
 
 #include "pch.h"
 #include "../DNX.App/Arguments.h"
+#include "../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 
@@ -17,7 +18,7 @@ public:
         AddArgument(ArgumentType::PARAMETER, ValueType::STRING, "", "message-text", defaultMessageText, "The Text to display", false, 0);
         AddArgument(ArgumentType::OPTION, ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
         AddArgument(ArgumentType::OPTION, ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
-        AddSwitch("x", "debug", "false", "Activate debug mode", false);
+        AddSwitch("x", "debug", StringUtils::BoolToString(false), "Activate debug mode", false);
 
         SetArgumentValue("message-text", defaultMessageText);
         SetArgumentValue("timeout", defaultTimeout);

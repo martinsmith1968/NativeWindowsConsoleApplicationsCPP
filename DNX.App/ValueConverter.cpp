@@ -47,7 +47,7 @@ bool ValueConverter::IsChar(const string& value)
 bool ValueConverter::IsBool(const string& value)
 {
     return !value.empty()
-        && (StringUtils::ToLower(value) == "true" || StringUtils::ToLower(value) == "false");
+        && (StringUtils::ToLower(value) == StringUtils::BoolToString(true) || StringUtils::ToLower(value) == StringUtils::BoolToString(false));
 }
 
 bool ValueConverter::IsInt(const string& value)
@@ -107,9 +107,9 @@ char ValueConverter::ToChar(const string& value)
 
 bool ValueConverter::ToBool(const string& value)
 {
-    if (StringUtils::ToLower(value) == "true")
+    if (StringUtils::ToLower(value) == StringUtils::BoolToString(true))
         return true;
-    if (StringUtils::ToLower(value) == "false")
+    if (StringUtils::ToLower(value) == StringUtils::BoolToString(false))
         return false;
 
     throw exception((string("Invalid boolean value: ") + value).c_str());
