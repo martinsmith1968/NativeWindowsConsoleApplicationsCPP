@@ -48,6 +48,9 @@
     <ClInclude Include="MathUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

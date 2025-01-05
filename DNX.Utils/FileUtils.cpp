@@ -3,9 +3,13 @@
 #include <fstream>
 #include <io.h>
 
+#include "PathUtils.h"
+#include "StringUtils.h"
+
 #define ACCESS    _access_s
 
 // ReSharper disable CppInconsistentNaming
+// ReSharper disable CppClangTidyPerformanceAvoidEndl
 
 using namespace std;
 using namespace DNX::Utils;
@@ -13,6 +17,12 @@ using namespace DNX::Utils;
 //--------------------------------------------------------------------------
 // Class: FileUtils
 //--------------------------------------------------------------------------
+
+string FileUtils::GetPath(const string& filePath)
+{
+    return StringUtils::BeforeLast(filePath, PathUtils::PATH_SEPARATOR);
+}
+
 
 string FileUtils::GetFileNameOnly(const string& filePath)
 {
@@ -93,4 +103,19 @@ list<string> FileUtils::ReadLines(const string& fileName)
     }
 
     return lines;
+}
+
+void FileUtils::WriteLines(const string& fileName, const list<string>& lines)
+{
+    if (ofstream out(fileName); out)
+    {
+        if (out.is_open())
+        {
+            for (const string& line : lines)
+            {
+                out << line << endl;
+            }
+            out.close();
+        }
+    }
 }

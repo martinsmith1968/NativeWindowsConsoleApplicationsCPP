@@ -26,5 +26,6 @@ namespace DNX::Utils
         static bool DeleteDirectory(const string& path, bool recurse_sub_directories = false, bool remove_files = false);
 
         static string GetUserHomeDirectory();
+        static string GetUserDataDirectory();
     };
 }

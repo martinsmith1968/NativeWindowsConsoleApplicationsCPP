@@ -105,10 +105,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TestItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnvironmentUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />
+    <ClCompile Include="MapUtils_Tests.cpp" />
     <ClCompile Include="MathUtils_Tests.cpp" />
     <ClCompile Include="PathUtils_Tests.cpp" />
     <ClCompile Include="ProcessUtils_Tests.cpp" />

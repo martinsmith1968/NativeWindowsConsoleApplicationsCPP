@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "../DNX.Utils/ListUtils.h"
+#include "TestItem.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -8,15 +9,6 @@ using namespace DNX::Utils;
 // ReSharper disable CppInconsistentNaming
 
 #define TEST_GROUP ListUtils
-
-class TestItem
-{
-public:
-    string Text;
-
-    TestItem() { Text = "empty"; }
-    explicit TestItem(const string& text) { Text = text; }
-};
 
 TEST(TEST_GROUP, ToList_converts_correctly)
 {

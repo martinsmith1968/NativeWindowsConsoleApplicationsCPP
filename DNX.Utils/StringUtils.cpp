@@ -381,7 +381,7 @@ string StringUtils::EnsureEndsWith(const string& str, const string& suffix)
 
     auto text = EndsWith(str, suffix)
         ? str
-        : suffix + str;
+        : str + suffix;
 
     return text;
 }

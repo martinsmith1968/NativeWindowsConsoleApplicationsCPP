@@ -81,6 +81,8 @@ bool PathUtils::CreateDirectory(const string& path)
 
 bool PathUtils::DeleteDirectory(const string& path, bool recurse_sub_directories, bool remove_files)
 {
+    // TODO: recursion needs implementing
+
     if (!DirectoryExists(path))
         return false;
 
@@ -114,5 +116,13 @@ string PathUtils::GetUserHomeDirectory()
         path = Combine(EnvironmentUtils::GetEnvironmentVariableValue("HOMEDRIVE"), EnvironmentUtils::GetEnvironmentVariableValue("HOMEPATH"));
     }
 
+    return path;
+}
+
+string PathUtils::GetUserDataDirectory()
+{
+    auto path = GetUserHomeDirectory();
+    path = Combine(path, "AppData");
+    path = Combine(path, "Local");
     return path;
 }

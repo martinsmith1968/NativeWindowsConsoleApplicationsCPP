@@ -163,6 +163,7 @@
     <ClInclude Include="EnvironmentUtils.h" />
     <ClInclude Include="FileUtils.h" />
     <ClInclude Include="ListUtils.h" />
+    <ClInclude Include="MapUtils.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="PathUtils.h" />
     <ClInclude Include="ProcessUtils.h" />
