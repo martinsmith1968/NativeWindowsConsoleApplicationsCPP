@@ -43,7 +43,6 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const AppDetails&
         {
             std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(argument_name_width)) << command.GetName()
                 << command.GetDescription()
-                << std::endl
                 << std::endl;
         }
     }
