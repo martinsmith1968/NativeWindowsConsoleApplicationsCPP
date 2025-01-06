@@ -37,7 +37,7 @@ namespace Stopwatch
 
     public:
         StartCommand()
-            : BaseCommand(&m_arguments, CommandType::START, "Start a named Stopwatch")
+            : BaseCommand(&m_arguments, CommandType::START, "Start a named Stopwatch", 20)
         { }
 
         void Execute() override

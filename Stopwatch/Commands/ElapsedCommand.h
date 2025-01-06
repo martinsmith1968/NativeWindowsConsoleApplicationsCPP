@@ -36,7 +36,7 @@ namespace Stopwatch
 
     public:
         ElapsedCommand()
-            : BaseCommand(&m_arguments, CommandType::ELAPSED, "Display the current elapsed time of an active Stopwatch")
+            : BaseCommand(&m_arguments, CommandType::ELAPSED, "Display the current elapsed time of an active Stopwatch", 30)
         {
         }
 

@@ -53,7 +53,7 @@ namespace Stopwatch
 
     public:
         ListCommand()
-            : BaseCommand(&m_arguments, CommandType::LIST, "List all active Stopwatches")
+            : BaseCommand(&m_arguments, CommandType::LIST, "List all active Stopwatches", 10)
         {
         }
 

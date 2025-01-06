@@ -36,7 +36,7 @@ namespace Stopwatch
 
     public:
         CancelCommand()
-            : BaseCommand(&m_arguments, CommandType::CANCEL, "Cancel an active Stopwatch")
+            : BaseCommand(&m_arguments, CommandType::CANCEL, "Cancel an active Stopwatch", 25)
         {
         }
 

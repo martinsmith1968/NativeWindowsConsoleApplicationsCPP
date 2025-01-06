@@ -1,12 +1,11 @@
 #pragma once
 #include "../stdafx.h"
+#include "CommandType.h"
 #include "../TimerRepository.h"
 #include "../../DNX.App/Arguments.h"
 #include "../../DNX.App/ValueType.h"
 #include <chrono>
 #include <string>
-
-#include "CommandType.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
@@ -47,9 +46,10 @@ namespace Stopwatch
         BaseCommand(
             Arguments* arguments,
             const CommandType commandType,
-            const string& description
+            const string& description,
+            const int sequence = 0
         )
-            : Command(arguments, CommandTypeTextResolver().GetText(commandType), description)
+            : Command(arguments, CommandTypeTextResolver().GetText(commandType), description, sequence)
         {
             m_command_type = commandType;
         }
@@ -126,6 +126,6 @@ namespace Stopwatch
         }
 
     public:
-        CommandType GetCommandType() const { return m_command_type; }
+        [[nodiscard]] CommandType GetCommandType() const { return m_command_type; }
     };
 }

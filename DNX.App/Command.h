@@ -18,9 +18,10 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Command
     {
-        Arguments* _arguments;
-        string _name;
-        string _description;
+        Arguments* m_arguments;
+        string m_name;
+        string m_description;
+        int m_sequence;
 
     public:
         Command();
@@ -31,11 +32,13 @@ namespace DNX::App
         [[nodiscard]] Arguments& GetArguments() const;
         [[nodiscard]] string GetName() const;
         [[nodiscard]] string GetDescription() const;
+        [[nodiscard]] int GetSequence() const;
 
         Command(
             Arguments* arguments,
             const string& name,
-            const string& description
+            const string& description,
+            int sequence = 0
         );
 
         static EmptyCommand _empty_command;

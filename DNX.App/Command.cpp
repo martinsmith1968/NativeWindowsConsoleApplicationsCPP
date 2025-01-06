@@ -12,7 +12,8 @@ EmptyCommand Command::_empty_command = EmptyCommand();
 Command::Command(
     Arguments* arguments,
     const string& name,
-    const string& description
+    const string& description,
+    const int sequence
 )
 {
     if (arguments == nullptr)
@@ -20,33 +21,39 @@ Command::Command(
     if (StringUtils::Trim(name).empty())
         throw exception("name cannot be empty or blank");
 
-    _arguments   = arguments;
-    _name        = name;
-    _description = description;
+    m_arguments   = arguments;
+    m_name        = name;
+    m_description = description;
+    m_sequence    = sequence;
 }
 
 Command::Command()
 {
-    _arguments   = &Arguments::Empty();
-    _name        = "";
-    _description = "";
+    m_arguments   = &Arguments::Empty();
+    m_name        = "";
+    m_description = "";
+    m_sequence    = 0;
 }
 
 bool Command::IsEmpty() const
 {
-    return _name.empty();
+    return m_name.empty();
 }
 Arguments& Command::GetArguments() const
 {
-    return *_arguments;
+    return *m_arguments;
 }
 string Command::GetName() const
 {
-    return _name;
+    return m_name;
 }
 string Command::GetDescription() const
 {
-    return _description;
+    return m_description;
+}
+int Command::GetSequence() const
+{
+    return m_sequence;
 }
 
 void Command::Execute()
