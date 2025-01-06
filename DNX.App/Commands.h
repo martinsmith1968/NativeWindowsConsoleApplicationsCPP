@@ -28,7 +28,7 @@ namespace DNX::App
 
         CommandArguments& GetArguments();
 
-        void AddCommand(Arguments* arguments, const string& name, const string& description);
+        void AddCommand(const Command& command);
 
         list<Command> GetCommands() const;
         Command& GetCommandByName(const string& commandName);

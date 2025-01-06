@@ -47,17 +47,41 @@ public:
     bool GetFlagX() { return GetSwitchValue("xflag"); }
 };
 
+class AppCommandC1 final : public Command
+{
+    AppArgumentsC1 m_arguments;
+public:
+    AppCommandC1() : Command(&m_arguments, "c1", "Command 1") {}
+    void Execute() override {}
+};
+
+class AppCommandC2 final : public Command
+{
+    AppArgumentsC2 m_arguments;
+public:
+    AppCommandC2() : Command(&m_arguments, "c2", "Command 2") {}
+    void Execute() override {}
+};
+
+class AppCommandC3 final : public Command
+{
+    AppArgumentsC3 m_arguments;
+public:
+    AppCommandC3() : Command(&m_arguments, "c3", "Command 3") {}
+    void Execute() override {}
+};
+
 class Commands1 final : public Commands
 {
-    AppArgumentsC1 _arguments_c1;
-    AppArgumentsC2 _arguments_c2;
-    AppArgumentsC3 _arguments_c3;
+    AppCommandC1 _command_c1;
+    AppCommandC2 _command_c2;
+    AppCommandC3 _command_c3;
 
 public:
     Commands1()
     {
-        AddCommand(&_arguments_c1, "c1", "Command 1");
-        AddCommand(&_arguments_c2, "c2", "Command 2");
-        AddCommand(&_arguments_c3, "c3", "Command 3");
+        AddCommand(_command_c1);
+        AddCommand(_command_c2);
+        AddCommand(_command_c3);
     }
 };

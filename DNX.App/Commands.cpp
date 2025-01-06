@@ -16,10 +16,8 @@ CommandArguments& Commands::GetArguments()
     return _arguments;
 }
 
-void Commands::AddCommand(Arguments* arguments, const string& name, const string& description)
+void Commands::AddCommand(const Command& command)
 {
-    const auto command = Command(arguments, name, description);
-
     _commands[command.GetName()] = command;
 }
 
@@ -29,7 +27,7 @@ list<Command> Commands::GetCommands() const
 
     for (auto iter = _commands.begin(); iter != _commands.end(); ++iter)
     {
-        auto command = iter->second;
+        auto& command = iter->second;
         commands.emplace_back(command);
     }
 
