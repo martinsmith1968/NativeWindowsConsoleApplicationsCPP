@@ -1,6 +1,5 @@
 #pragma once
 #include "../stdafx.h"
-#include "BaseCommand.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -21,7 +20,7 @@ namespace Stopwatch
         PAUSE,
         RESUME,
         ELAPSED,
-        DELETE,
+        CANCEL,
     };
 
     class CommandTypeTextResolver : public EnumTextResolver<CommandType>
@@ -35,7 +34,7 @@ namespace Stopwatch
             SetText(CommandType::PAUSE, "Pause");
             SetText(CommandType::RESUME, "Resume");
             SetText(CommandType::ELAPSED, "Elapsed");
-            SetText(CommandType::DELETE, "Delete");
+            SetText(CommandType::CANCEL, "Cancel");
         }
     };
 }

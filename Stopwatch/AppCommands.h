@@ -1,8 +1,11 @@
 #pragma once
 #include "stdafx.h"
 #include "../DNX.App/Commands.h"
+#include "Commands/CancelCommand.h"
 #include "Commands/ElapsedCommand.h"
 #include "Commands/ListCommand.h"
+#include "Commands/PauseCommand.h"
+#include "Commands/ResumeCommand.h"
 #include "Commands/StartCommand.h"
 #include "Commands/StopCommand.h"
 
@@ -27,6 +30,9 @@ namespace Stopwatch
         StartCommand m_start_command;
         StopCommand m_stop_command;
         ElapsedCommand m_elapsed_command;
+        PauseCommand m_pause_command;
+        ResumeCommand m_resume_command;
+        CancelCommand m_cancel_command;
 
     public:
         AppCommands()
@@ -37,18 +43,16 @@ namespace Stopwatch
             AddCommand(m_start_command);
             AddCommand(m_stop_command);
             AddCommand(m_elapsed_command);
-
-            //AddCommand(&_list_arguments, commandTypeTextResolver.GetText(CommandType::LIST), "List the current active Stopwatches");
-            //AddCommand(&_start_arguments, commandTypeTextResolver.GetText(CommandType::START), "Start a named Stopwatch");
-            //AddCommand(&_stop_arguments, commandTypeTextResolver.GetText(CommandType::STOP), "Stop a named Stopwatch");
-            //AddCommand(AppArgumentsStop(),    "stop",    "Stop an active Timer");
-            //AddCommand(AppArgumentsCancel(),  "cancel",  "Cancel an active Timer");
-            //AddCommand(AppArgumentsPause(),   "pause",   "Pause an active Timer");
-            //AddCommand(AppArgumentsElapsed(), "elapsed", "Get the elapsed time of an active timer");
+            AddCommand(m_pause_command);
+            AddCommand(m_resume_command);
+            AddCommand(m_cancel_command);
         }
 
         void Execute(const Command& command)
         {
+            // NOTE: Necessary until rework for Parse to return a pointer rather than a reference
+            //       Then we *should* be able to call command->Execute() from main and let the vtable execute the correct instance method
+            //       (Currently doesn't work with references, but at least it's all encapsulated here)
             if (command.GetName() == m_list_command.GetName())
             {
                 m_list_command.Execute();
@@ -64,6 +68,18 @@ namespace Stopwatch
             else if (command.GetName() == m_elapsed_command.GetName())
             {
                 m_elapsed_command.Execute();
+            }
+            else if (command.GetName() == m_pause_command.GetName())
+            {
+                m_pause_command.Execute();
+            }
+            else if (command.GetName() == m_resume_command.GetName())
+            {
+                m_resume_command.Execute();
+            }
+            else if (command.GetName() == m_cancel_command.GetName())
+            {
+                m_cancel_command.Execute();
             }
             else
             {

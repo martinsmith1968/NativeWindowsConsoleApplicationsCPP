@@ -165,12 +165,15 @@
   <ItemGroup>
     <ClInclude Include="AppInfo.h" />
     <ClInclude Include="Commands\BaseCommand.h" />
+    <ClInclude Include="Commands\CancelCommand.h" />
     <ClInclude Include="Commands\CommandType.h" />
     <ClInclude Include="Commands\ElapsedCommand.h" />
     <ClInclude Include="Commands\ListCommand.h" />
+    <ClInclude Include="Commands\StopCommand.h" />
+    <ClInclude Include="Commands\ResumeCommand.h" />
     <ClInclude Include="Commands\StartCommand.h" />
     <ClInclude Include="AppCommands.h" />
-    <ClInclude Include="Commands\StopCommand.h" />
+    <ClInclude Include="Commands\PauseCommand.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerRepository.h" />
     <ClInclude Include="stdafx.h" />

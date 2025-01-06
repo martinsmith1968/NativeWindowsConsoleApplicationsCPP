@@ -59,13 +59,22 @@
     <ClInclude Include="AppCommands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\StopCommand.h">
+    <ClInclude Include="Commands\PauseCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Commands\CommandType.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Commands\ElapsedCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\StopCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ResumeCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CancelCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
