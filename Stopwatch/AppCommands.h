@@ -37,8 +37,6 @@ namespace Stopwatch
     public:
         AppCommands()
         {
-            const CommandTypeTextResolver commandTypeTextResolver;
-
             AddCommand(m_list_command);
             AddCommand(m_start_command);
             AddCommand(m_stop_command);

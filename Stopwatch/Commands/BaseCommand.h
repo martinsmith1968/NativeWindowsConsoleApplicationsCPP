@@ -42,13 +42,17 @@ namespace Stopwatch
     class BaseCommand : public Command
     {
     protected:
+        CommandType m_command_type;
+
         BaseCommand(
             Arguments* arguments,
             const CommandType commandType,
             const string& description
         )
             : Command(arguments, CommandTypeTextResolver().GetText(commandType), description)
-        { }
+        {
+            m_command_type = commandType;
+        }
 
         void Execute() override = 0;
 
@@ -120,5 +124,8 @@ namespace Stopwatch
 
             return display;
         }
+
+    public:
+        CommandType GetCommandType() const { return m_command_type; }
     };
 }
