@@ -53,7 +53,7 @@ namespace Stopwatch
                 throw exception(exception_text.c_str());
             }
 
-            auto timer = timers.at(stopwatch_name);
+            auto& timer = timers.at(stopwatch_name);
             timer.Stop();
 
             if (m_arguments.GetVerbose())

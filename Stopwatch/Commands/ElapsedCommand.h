@@ -53,7 +53,7 @@ namespace Stopwatch
                 throw exception(exception_text.c_str());
             }
 
-            const auto timer = timers.at(stopwatch_name);
+            const auto& timer = timers.at(stopwatch_name);
 
             const auto start_time = timer.GetStartDateTime();
             const auto formatted_start_time = FormatForDisplay(start_time);

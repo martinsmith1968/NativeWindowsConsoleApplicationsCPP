@@ -23,10 +23,10 @@ namespace Stopwatch
         CUSTOM
     };
 
-    class ListFormatTypeText : public EnumTextResolver<ListFormatType>
+    class ListFormatTypeTextResolver : public EnumTextResolver<ListFormatType>
     {
     public:
-        ListFormatTypeText()
+        ListFormatTypeTextResolver()
         {
             SetText(ListFormatType::DISPLAY, "Display");
             SetText(ListFormatType::CSV, "CSV");
@@ -39,7 +39,7 @@ namespace Stopwatch
     public:
         ListArguments()
         {
-            AddOption(ValueType::STRING, "o", ArgumentNameFormat, ListFormatTypeText().GetText(ListFormatType::DISPLAY), "Control output format of list", false, 0, ListFormatTypeText().GetAllText());
+            AddOption(ValueType::STRING, "o", ArgumentNameFormat, ListFormatTypeTextResolver().GetText(ListFormatType::DISPLAY), "Control output format of list", false, 0, ListFormatTypeTextResolver().GetAllText());
             AddSwitch("v", ArgumentNameVerbose, StringUtils::BoolToString(false), "Control verbosity of output messages", false, 0);
         }
 

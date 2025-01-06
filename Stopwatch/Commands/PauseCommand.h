@@ -53,10 +53,10 @@ namespace Stopwatch
                 throw exception(exception_text.c_str());
             }
 
-            auto timer = timers.at(stopwatch_name);
+            auto& timer = timers.at(stopwatch_name);
             if (timer.GetState() != TimerStateType::RUNNING)
             {
-                const string exception_text = stopwatch_name + " is not currently active";
+                const string exception_text = stopwatch_name + " is not currently active - " + TimerStateTypeTextResolver().GetText(timer.GetState());
                 throw exception(exception_text.c_str());
             }
 
@@ -64,7 +64,6 @@ namespace Stopwatch
 
             if (m_arguments.GetVerbose())
             {
-
                 const auto start_time = timer.GetStartDateTime();
                 const auto formatted_start_time = FormatForDisplay(start_time);
                 cout << timer.GetName() << "  " << FormatForDisplay(timer.GetStartDateTime()) << " - " << FormatForDisplay(timer.GetAccumulatedElapsed()) << endl;

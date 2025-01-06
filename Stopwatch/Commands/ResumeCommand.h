@@ -53,7 +53,7 @@ namespace Stopwatch
                 throw exception(exception_text.c_str());
             }
 
-            auto timer = timers.at(stopwatch_name);
+            auto& timer = timers.at(stopwatch_name);
             if (timer.GetState() != TimerStateType::PAUSED)
             {
                 const string exception_text = stopwatch_name + " is not currently paused";

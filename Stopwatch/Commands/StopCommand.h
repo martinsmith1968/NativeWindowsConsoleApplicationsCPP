@@ -53,7 +53,7 @@ namespace Stopwatch
                 throw exception(exception_text.c_str());
             }
 
-            auto timer = timers.at(stopwatch_name);
+            auto& timer = timers.at(stopwatch_name);
             timer.Stop();
 
             if (m_arguments.GetVerbose())
@@ -61,7 +61,7 @@ namespace Stopwatch
 
                 const auto start_time = timer.GetStartDateTime();
                 const auto formatted_start_time = FormatForDisplay(start_time);
-                cout << timer.GetName() << "  " << FormatForDisplay(timer.GetStartDateTime()) << " - " << FormatForDisplay(timer.GetAccumulatedElapsed()) << endl;
+                cout << timer.GetName() << " - Total time: " << FormatForDisplay(timer.GetAccumulatedElapsed()) << endl;
             }
 
             timers.erase(timers.find(stopwatch_name));
