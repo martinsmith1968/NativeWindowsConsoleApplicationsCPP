@@ -4,8 +4,11 @@
 #include "../TimerRepository.h"
 #include "../../DNX.App/Arguments.h"
 #include "../../DNX.App/ValueType.h"
+#include "../../DNX.Utils/StringUtils.h"
 #include <chrono>
 #include <string>
+
+#include "../../DNX.Utils/DateUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
@@ -23,17 +26,28 @@ namespace Stopwatch
         const int APP_MAX = INT_MAX - 10;
 
         const string ArgumentNameStopwatchName = "stopwatch-name";
-        const string ArgumentNameFormat = "output-format";
-        const string ArgumentNameVerbose = "verbose";
-        const string ArgumentNameFileName = "filename";
+        const string ArgumentNameVerbose       = "verbose";
+        const string ArgumentNameFileName      = "filename";
 
         BaseArguments()
         {
             AddOption(ValueType::STRING, "f", ArgumentNameFileName, TimerRepository::GetDefaultRepositoryFileName(), "The filename to store Stopwatch data in", false, APP_MAX);
         }
 
+        void AddParameterStopwatchName()
+        {
+            AddParameter(ValueType::STRING, 1, ArgumentNameStopwatchName, "", "The name of the Stopwatch", true);
+        }
+        void AddSwitchVerboseOutput(const bool default_value)
+        {
+            AddSwitch("v", ArgumentNameVerbose, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, 0);
+        }
+
     public:
         string GetFileName() { return GetArgumentValue(ArgumentNameFileName); }
+
+        string GetStopwatchName() { return GetArgumentValue(ArgumentNameStopwatchName); }
+        bool GetVerbose() { return GetSwitchValue(ArgumentNameVerbose); }
     };
 
     //------------------------------------------------------------------------------
@@ -56,13 +70,46 @@ namespace Stopwatch
 
         void Execute() override = 0;
 
+        [[noreturn]] static void AbortNotFound(const string& stopwatch_name)
+        {
+            const string exception_text = "Stopwatch '" + stopwatch_name + "' not found";
+            throw exception(exception_text.c_str());
+        }
+
+        [[noreturn]] static void AbortAlreadyExists(const string& stopwatch_name)
+        {
+            const string exception_text = "Stopwatch '" + stopwatch_name + "' already exists";
+            throw exception(exception_text.c_str());
+        }
+
+        static string GetElapsedTimeDisplay(const Timer& timer, const string& prefix)
+        {
+            string text = string(prefix)
+                .append(": ")
+                .append(timer.GetName())
+                .append(" - Elapsed time: ")
+                .append(FormatForDisplay(timer.GetAccumulatedElapsed()));
+
+            return text;
+        }
+
+        static string GetTimerDetailsDisplay(const Timer& timer, const string& prefix)
+        {
+            const auto formatted_start_time = FormatForDisplay(timer.GetStartDateTime());
+
+            string text = string(prefix)
+                .append(": ")
+                .append(timer.GetName())
+                .append(" - ")
+                .append(formatted_start_time);
+
+            return text;
+        }
+
+    public:
         static string FormatForDisplay(const tm& tm)
         {
-            char buffer[20];
-
-            auto size = strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", &tm);
-
-            return buffer;
+            return DateUtils::FormatDate(&tm, "%Y-%m-%d %H:%M:%S");
         }
 
         static string FormatForDisplay(const double timespan)
