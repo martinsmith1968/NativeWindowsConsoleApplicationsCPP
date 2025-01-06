@@ -5,7 +5,7 @@
 
 using namespace DNX::App;
 
-ArgumentTypeText::ArgumentTypeText()
+ArgumentTypeTextResolver::ArgumentTypeTextResolver()
 {
     SetText(ArgumentType::PARAMETER, "Parameter");
     SetText(ArgumentType::OPTION, "Option");

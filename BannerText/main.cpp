@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "App.h"
 #include "AppInfo.h"
 #include "AppArguments.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -6,7 +7,6 @@
 #include "../DNX.App/ArgumentsUsageDisplay.h"
 #include <iostream>
 #include <regex>
-#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -16,12 +16,7 @@
 using namespace std;
 using namespace DNX::App;
 using namespace DNX::Utils;
-
-//------------------------------------------------------------------------------
-// Declarations
-namespace BannerText {
-    static void Execute(AppArguments& arguments);  // NOLINT(misc-use-anonymous-namespace)
-}
+using namespace BannerText;
 
 //------------------------------------------------------------------------------
 // main
@@ -32,7 +27,7 @@ int main(const int argc, char* argv[])
         const AppInfo appInfo;
 
         AppArguments arguments;
-        ArgumentsParser::ParseArguments(argc, argv, arguments);
+        ArgumentsParser::ParseArguments(arguments, argc, argv);
 
         if (arguments.IsHelp())
         {
@@ -46,7 +41,7 @@ int main(const int argc, char* argv[])
             return 2;
         }
 
-        BannerText::Execute(arguments);
+        App::Execute(arguments);
 
         return 0;
     }
@@ -59,38 +54,5 @@ int main(const int argc, char* argv[])
     {
         cerr << ArgumentsUsageDisplay::ErrorLinePrefix << ": Unknown error occurred" << endl;
         return 98;
-    }
-}
-
-//------------------------------------------------------------------------------
-// Execute
-void BannerText::Execute(AppArguments& arguments)
-{
-    const auto header_line_count = arguments.GetHeaderLineCount();
-    if (header_line_count > 0)
-    {
-        const auto header_line = arguments.GetHeaderLine();
-
-        for (auto i = 0; i < static_cast<int>(header_line_count); ++i)
-        {
-            cout << header_line << endl;
-        }
-    }
-
-    auto text_lines = arguments.GetTextLines();
-    for (auto iter = text_lines.begin(); iter != text_lines.end(); ++iter)
-    {
-        cout << *iter << endl;
-    }
-
-    const auto footer_line_count = arguments.GetFooterLineCount();
-    if (footer_line_count)
-    {
-        const auto footer_line = arguments.GetFooterLine();
-
-        for (auto i = 0; i < static_cast<int>(arguments.GetFooterLineCount()); ++i)
-        {
-            cout << footer_line << endl;
-        }
     }
 }

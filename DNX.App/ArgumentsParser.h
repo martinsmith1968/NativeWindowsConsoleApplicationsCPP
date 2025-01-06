@@ -19,17 +19,17 @@ namespace DNX::App
     class ArgumentsParser
     {
         Arguments& _arguments;
-        const ParserConfig _config;
+        const ParserConfig _parser_config;
         const AppDetails _app_details;
 
         static string SanitizeText(const string& text);
         static list<string> ConvertLinesToRawArguments(const list<string>& lines);
 
         void ParseArgumentsFile(Arguments& arguments, const string& fileName) const;
-        void ParseArguments(list<string>& argumentsText, Arguments& arguments) const;
-        bool ParseArgument(const string& argumentName, const string& argumentValue, Arguments& arguments, bool& argumentValueConsumed) const;
+        void ParseArguments(Arguments& arguments, list<string>& argumentsText) const;
+        bool ParseArgument(Arguments& arguments, const string& argumentName, const string& argumentValue, bool& argumentValueConsumed) const;
 
-        static bool HandleAsSwitch(Arguments& arguments, const ParserConfig& config, const string& argumentName);
+        static bool HandleAsSwitch(Arguments& arguments, const ParserConfig& parser_config, const string& argumentName);
         static bool HandleAsOption(Arguments& arguments, const string& argumentName, const string& argumentValue);
         static bool HandleAsParameter(Arguments& arguments, int position, const string& argumentValue);
 
@@ -37,9 +37,10 @@ namespace DNX::App
         static void ValidateValues(Arguments& arguments);
 
     public:
-        ArgumentsParser(Arguments& arguments, const AppDetails& app_details, const ParserConfig& config);
+        explicit ArgumentsParser(Arguments& arguments, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
         void Parse(int argc, char* argv[]) const;
+        void Parse(list<string> arguments) const;
 
-        static void ParseArguments(int argc, char* argv[], Arguments& arguments, const ParserConfig& config = ParserConfig());
+        static void ParseArguments(Arguments& arguments, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
     };
 }

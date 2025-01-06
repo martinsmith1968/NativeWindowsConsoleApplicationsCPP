@@ -86,6 +86,22 @@ string StringUtils::RTrim(const string& str, const string& suffix)
     return result;
 }
 
+string StringUtils::LPad(const string& str, const size_t min_length, const char prefix)
+{
+    if (str.size() >= min_length)
+        return str;
+
+    return Right(string(min_length, prefix) + str, min_length);
+}
+
+string StringUtils::RPad(const string& str, const size_t min_length, const char prefix)
+{
+    if (str.size() >= min_length)
+        return str;
+
+    return Left(str + string(min_length, prefix), min_length);
+}
+
 string StringUtils::Before(const string& str, const string& find)
 {
     if (str.empty() || find.empty())
@@ -381,7 +397,7 @@ string StringUtils::EnsureEndsWith(const string& str, const string& suffix)
 
     auto text = EndsWith(str, suffix)
         ? str
-        : suffix + str;
+        : str + suffix;
 
     return text;
 }

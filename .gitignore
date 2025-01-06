@@ -357,3 +357,5 @@ ASALocalRun/
 *.exe
 *.out
 *.args.json
+
+*.bak

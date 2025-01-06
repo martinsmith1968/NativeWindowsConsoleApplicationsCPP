@@ -7,6 +7,8 @@
 #include <filesystem>
 #include <sys/stat.h>
 
+#include "EnvironmentUtils.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
@@ -79,6 +81,8 @@ bool PathUtils::CreateDirectory(const string& path)
 
 bool PathUtils::DeleteDirectory(const string& path, bool recurse_sub_directories, bool remove_files)
 {
+    // TODO: recursion needs implementing
+
     if (!DirectoryExists(path))
         return false;
 
@@ -98,4 +102,27 @@ bool PathUtils::DeleteDirectory(const string& path, bool recurse_sub_directories
 
     _mkdir(part.c_str());
     return true;
+}
+
+string PathUtils::GetUserHomeDirectory()
+{
+    string path = EnvironmentUtils::GetEnvironmentVariableValue("HOME");
+    if (StringUtils::Trim(path).empty())
+    {
+        path = EnvironmentUtils::GetEnvironmentVariableValue("USERPROFILE");
+    }
+    if (StringUtils::Trim(path).empty())
+    {
+        path = Combine(EnvironmentUtils::GetEnvironmentVariableValue("HOMEDRIVE"), EnvironmentUtils::GetEnvironmentVariableValue("HOMEPATH"));
+    }
+
+    return path;
+}
+
+string PathUtils::GetUserDataDirectory()
+{
+    auto path = GetUserHomeDirectory();
+    path = Combine(path, "AppData");
+    path = Combine(path, "Local");
+    return path;
 }
