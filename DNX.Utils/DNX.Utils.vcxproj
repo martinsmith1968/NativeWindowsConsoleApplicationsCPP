@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleUtils.h" />
+    <ClInclude Include="DateUtils.h" />
     <ClInclude Include="EnumUtils.h" />
     <ClInclude Include="EnvironmentUtils.h" />
     <ClInclude Include="FileUtils.h" />
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="AggregateException.h" />
     <ClCompile Include="ConsoleUtils.cpp" />
+    <ClCompile Include="DateUtils.cpp" />
     <ClCompile Include="EnvironmentUtils.cpp" />
     <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="ListUtils.cpp" />
