@@ -213,10 +213,10 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
         const auto optionValue = arguments.GetArgumentValue(iter->GetShortName());
         if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
         {
-            if (!(iter->GetRequired() && optionValue.empty()))
-            {
-                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
-            }
+            if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
+                continue;
+
+            arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
         }
     }
 }

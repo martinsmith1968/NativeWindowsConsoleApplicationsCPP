@@ -3,6 +3,7 @@
 #include "../DNX.App/ArgumentsParser.h"
 #include "Arguments1.h"
 #include "Arguments2.h"
+#include "Arguments3.h"
 #include "TestHelper.h"
 
 // ReSharper disable CppClangTidyPerformanceUnnecessaryCopyInitialization
@@ -198,4 +199,24 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_longname_with_invalid_value_retur
 
     // Assert
     EXPECT_FALSE(arguments.IsValid());
+}
+
+TEST(TEST_GROUP, IsValid_arguments_with_non_required_string_option_returns_successfully)
+{
+    constexpr auto argc = 2;
+    char* argv[argc] = {
+        "",
+        "bob",
+    };
+
+    Arguments3 arguments;
+
+    // Act
+    ArgumentsParser::ParseArguments(arguments, argc, argv);
+    TestHelper::ShowErrors(arguments);
+
+    // Assert
+    EXPECT_TRUE(arguments.IsValid());
+    EXPECT_EQ(arguments.GetMessageText(), "bob");
+    EXPECT_EQ(arguments.GetFormat(), "");
 }

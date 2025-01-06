@@ -15,9 +15,9 @@ public:
         const auto defaultTimeout = std::to_string(30);
         const auto defaultSleep = std::to_string(200);
 
-        AddArgument(ArgumentType::PARAMETER, ValueType::STRING, "", "message-text", defaultMessageText, "The Text to display", false, 0);
-        AddArgument(ArgumentType::OPTION, ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
-        AddArgument(ArgumentType::OPTION, ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
+        AddParameter(ValueType::STRING, 1, "message-text", defaultMessageText, "The Text to display", false);
+        AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
+        AddOption(ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
         AddSwitch("x", "debug", StringUtils::BoolToString(false), "Activate debug mode", false);
 
         SetArgumentValue("message-text", defaultMessageText);

@@ -105,6 +105,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Arguments1.h" />
+    <ClInclude Include="Arguments3.h" />
     <ClInclude Include="Commands1.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestHelper.h" />
