@@ -27,6 +27,9 @@ namespace DNX::Utils
         static string LTrim(const string& str, const string& prefix);
         static string RTrim(const string& str, const string& suffix);
 
+        static string LPad(const string& str, size_t min_length, const char prefix = ' ');
+        static string RPad(const string& str, size_t min_length, const char prefix = ' ');
+
         static string Before(const string& str, const string& find);
         static string After(const string& str, const string& find);
         static string BeforeLast(const string& str, const string& find);

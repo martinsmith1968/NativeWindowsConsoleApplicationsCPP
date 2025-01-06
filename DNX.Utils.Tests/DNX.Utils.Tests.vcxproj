@@ -108,6 +108,7 @@
     <ClInclude Include="TestItem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DateUtils_Tests.cpp" />
     <ClCompile Include="EnvironmentUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />
     <ClCompile Include="MapUtils_Tests.cpp" />

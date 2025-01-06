@@ -55,15 +55,14 @@ TEST(TEST_GROUP, Before_returns_as_expected) {
     EXPECT_EQ(StringUtils::Before("", "o"), "");
 }
 
+TEST(TEST_GROUP, LPad_returns_as_expected) {
+    EXPECT_EQ(StringUtils::LPad("9", 3, '0'), "009");
+    EXPECT_EQ(StringUtils::LPad("9", 3, ' '), "  9");
+    EXPECT_EQ(StringUtils::LPad("12345", 3, '0'), "12345");
+}
 
-/*
- *
-        [TestCase("This is some text", "some", ExpectedResult = "This is ")]
-        [TestCase("This is some text", "bob", ExpectedResult = null)]
-        [TestCase("This is some [[Red]]text[[/Red]]", "[[", ExpectedResult = "This is some ")]
-        [TestCase("This is some text", " ", ExpectedResult = "This")]
-        [TestCase("This is some text", "", ExpectedResult = null)]
-        [TestCase("This is some text", null, ExpectedResult = null)]
-        [TestCase(null, "o", ExpectedResult = null)]
- *
- */
+TEST(TEST_GROUP, RPad_returns_as_expected) {
+    EXPECT_EQ(StringUtils::RPad("9", 3, '0'), "900");
+    EXPECT_EQ(StringUtils::RPad("9", 3, ' '), "9  ");
+    EXPECT_EQ(StringUtils::RPad("12345", 3, '0'), "12345");
+}
