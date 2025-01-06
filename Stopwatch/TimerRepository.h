@@ -25,9 +25,11 @@ namespace Stopwatch
         [[nodiscard]] map<string, Timer> ReadAll() const;
         void SaveAll(const map<string, Timer>& timers);
 
-        bool Exists(const string& stopwatch_name) const;
-        Timer& GetByName(const string& stopwatch_name) const;
+        [[nodiscard]] bool Exists(const string& stopwatch_name) const;
+        [[nodiscard]] Timer GetByName(const string& stopwatch_name) const;
 
-        //void Save(const Timer& timer);
+        void Delete(const Timer& timer);
+        void Add(Timer& timer);
+        void Update(Timer& timer);
     };
 }

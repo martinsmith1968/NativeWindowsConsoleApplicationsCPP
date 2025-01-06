@@ -78,7 +78,7 @@ bool TimerRepository::Exists(const string& stopwatch_name) const
     return MapUtils::Exists(timers, stopwatch_name);
 }
 
-Timer& TimerRepository::GetByName(const string& stopwatch_name) const
+Timer TimerRepository::GetByName(const string& stopwatch_name) const
 {
     auto timers = ReadAll();
 
@@ -88,4 +88,40 @@ Timer& TimerRepository::GetByName(const string& stopwatch_name) const
     auto& timer = timers.at(stopwatch_name);
 
     return timer;
+}
+
+void TimerRepository::Delete(const Timer& timer)
+{
+    auto items = ReadAll();
+    if (!MapUtils::Exists(items, timer.GetName()))
+    {
+        throw exception("Timer not found");
+    }
+
+    items.erase(timer.GetName());
+    SaveAll(items);
+}
+
+void TimerRepository::Add(Timer& timer)
+{
+    auto items = ReadAll();
+    if (MapUtils::Exists(items, timer.GetName()))
+    {
+        throw exception("Timer already exists");
+    }
+
+    items.emplace(timer.GetName(), timer);
+    SaveAll(items);
+}
+
+void TimerRepository::Update(Timer& timer)
+{
+    auto items = ReadAll();
+    if (!MapUtils::Exists(items, timer.GetName()))
+    {
+        throw exception("Timer not found");
+    }
+    items.erase(timer.GetName());
+    items.emplace(timer.GetName(), timer);
+    SaveAll(items);
 }
