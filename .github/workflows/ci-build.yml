@@ -150,7 +150,7 @@ jobs:
         $filenames = @( "Common/Version.h" )
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
+            Write-Host "----------------------------------------------------------------------------------------------------"
             Write-Host "Handling: ${filename}"
 
             Write-Host ""
@@ -189,7 +189,7 @@ jobs:
         Write-Host ""
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
+            Write-Host "----------------------------------------------------------------------------------------------------"
             Write-Host "Handling: ${filename}"
 
             $content = Get-Content $filename -Raw
@@ -227,8 +227,10 @@ jobs:
         $filenames = Get-ChildItem -Path $folder -filter *.exe
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
-            Write-Host "Testing: ${filename}"
+            Write-Host ""
+            Write-Host "----------------------------------------------------------------------------------------------------"
+            Write-Host "-- Testing: ${filename}"
+            Write-Host "----------------------------------------------------------------------------------------------------"
 
             & $filename
         }
