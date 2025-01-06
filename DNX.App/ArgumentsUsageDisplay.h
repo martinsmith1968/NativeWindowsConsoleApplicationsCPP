@@ -17,7 +17,7 @@ namespace DNX::App
     public:
         static string ErrorLinePrefix;
 
-        static void ShowUsage(const Arguments& arguments, const AppDetails& appDetails);
+        static void ShowUsage(const Arguments& arguments, const AppDetails& appDetails, const string& command_name = "");
         static void ShowErrors(const Arguments& arguments, int blankLinesBefore = 0, int blankLinesAfter = 0);
     };
 }

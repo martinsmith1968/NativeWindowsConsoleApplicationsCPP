@@ -4,7 +4,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 env:
   PRIMARY_BRANCH_NAME: master
   APP_MAJOR_VERSION: 1
-  APP_MINOR_VERSION: 3
+  APP_MINOR_VERSION: 5
   PROJECT_NAME: NativeConsoleApps
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -150,7 +150,7 @@ jobs:
         $filenames = @( "Common/Version.h" )
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
+            Write-Host "----------------------------------------------------------------------------------------------------"
             Write-Host "Handling: ${filename}"
 
             Write-Host ""
@@ -189,7 +189,7 @@ jobs:
         Write-Host ""
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
+            Write-Host "----------------------------------------------------------------------------------------------------"
             Write-Host "Handling: ${filename}"
 
             $content = Get-Content $filename -Raw
@@ -227,8 +227,10 @@ jobs:
         $filenames = Get-ChildItem -Path $folder -filter *.exe
 
         foreach ($filename in $filenames) {
-            Write-Host "------------------------------------------------------------"
-            Write-Host "Testing: ${filename}"
+            Write-Host ""
+            Write-Host "----------------------------------------------------------------------------------------------------"
+            Write-Host "-- Testing: ${filename}"
+            Write-Host "----------------------------------------------------------------------------------------------------"
 
             & $filename
         }

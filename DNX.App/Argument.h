@@ -26,8 +26,10 @@ namespace DNX::App
         uint8_t _position;
         list<string> _valueList{};
 
+        static Argument _empty_argument;
+
     protected:
-        ArgumentTypeText ArgumentTypeTextHelper;
+        ArgumentTypeTextResolver ArgumentTypeTextHelper;
 
     public:
         [[nodiscard]] bool IsEmpty() const;
@@ -59,8 +61,7 @@ namespace DNX::App
             const list<string>& valueList = list<string>()
         );
 
-        static Argument _app_option;
-        static Argument& Empty() { return _app_option; }
+        static Argument& Empty() { return _empty_argument; }
 
         static bool CompareByPosition(const Argument& first, const Argument& second);
         static bool CompareByTypeAndPosition(const Argument& first, const Argument& second);

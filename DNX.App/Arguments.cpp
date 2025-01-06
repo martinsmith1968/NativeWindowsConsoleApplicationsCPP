@@ -1,26 +1,21 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
+#include "Argument.h"
 #include "Arguments.h"
-
 #include <complex>
 
+#include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
-#include "Argument.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppTooWideScope
 // ReSharper disable CppClangTidyClangDiagnosticImplicitIntConversion
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace DNX::App;
 using namespace DNX::Utils;
 
-Arguments::Arguments()
-{
-    AddSwitch(DebugShortName,                   DebugLongName,                   "false", DebugDescription,                     false, INT_MAX - 3);
-    AddSwitch(HelpShortName,                    HelpLongName,                    "false", HelpDescription,                      false, INT_MAX - 2);
-    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, "true",  useDefaultArgumentsFileDesc, false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName,   UseLocalArgumentsFileLongName,   "true",  useLocalArgumentsFileDesc,   false, INT_MAX);
-}
+Arguments Arguments::_empty_arguments = Arguments();
 
 //-----------------------------------------------------------------------------
 // Internal methods
@@ -44,14 +39,15 @@ void Arguments::AddArgumentComplete(
         throw exception("ShortName is required");
     if (longName.empty())
         throw exception("LongName is required");
+    if (!defaultValue.empty() && !valueList.empty())
+    {
+        if (!ListUtils::Exists(valueList, defaultValue))
+            throw exception("Default Value is not one of the constrained values");
+    }
 
-    auto existingOption = GetOptionByName(shortName);
-    if (!existingOption.IsEmpty())
-        throw exception((string("Option already exists: ") + shortName).c_str());
-
-    existingOption = GetOptionByName(longName);
-    if (!existingOption.IsEmpty())
-        throw exception((string("Option already exists: ") + longName).c_str());
+    const auto& existingArgument = GetArgumentByName(shortName);
+    if (!existingArgument.IsEmpty())
+        throw exception((string("Argument already exists: ") + shortName).c_str());
 
     uint8_t realPosition = static_cast<uint8_t>(position);
     string realShortName = shortName;
@@ -75,9 +71,9 @@ void Arguments::AddArgumentComplete(
         }
     }
 
-    const auto option = Argument(argumentType, valueType, realPosition, realShortName, longName, description, defaultValue, required, valueList);
+    const auto argument = Argument(argumentType, valueType, realPosition, realShortName, longName, description, defaultValue, required, valueList);
 
-    _arguments[option.GetLongName()] = option;
+    _arguments[argument.GetLongName()] = argument;
 }
 
 
@@ -164,7 +160,7 @@ void Arguments::AddError(const string& text)
     _errors.push_back(text);
 }
 
-Argument& Arguments::GetOptionByLongName(const string& longName)
+Argument& Arguments::GetArgumentByLongName(const string& longName)
 {
     const auto iter = _arguments.find(longName);
     if (iter == _arguments.end())
@@ -173,7 +169,7 @@ Argument& Arguments::GetOptionByLongName(const string& longName)
     return iter->second;
 }
 
-Argument& Arguments::GetOptionByShortName(const string& shortName)
+Argument& Arguments::GetArgumentByShortName(const string& shortName)
 {
     for (auto iter = _arguments.begin(); iter != _arguments.end(); ++iter)
     {
@@ -186,13 +182,13 @@ Argument& Arguments::GetOptionByShortName(const string& shortName)
     return Argument::Empty();
 }
 
-Argument& Arguments::GetOptionByName(const string& name)
+Argument& Arguments::GetArgumentByName(const string& name)
 {
-    auto& property = GetOptionByShortName(name);
+    auto& property = GetArgumentByShortName(name);
     if (!property.IsEmpty())
         return property;
 
-    return GetOptionByLongName(name);
+    return GetArgumentByLongName(name);
 }
 
 Argument& Arguments::GetParameterAtPosition(const int position)
@@ -224,35 +220,63 @@ list<Argument> Arguments::GetRequiredArguments() const
     return filtered;
 }
 
-string Arguments::GetOptionValue(const string& name)
+string Arguments::GetArgumentValue(const string& name)
 {
-    const auto& option = GetOptionByName(name);
-    if (option.IsEmpty())
-        throw exception((string("Unknown Option: ") + name).c_str());
+    const auto& argument = GetArgumentByName(name);
+    if (argument.IsEmpty())
+        throw exception((string("Unknown Argument: ") + name).c_str());
 
-    const auto iter = _values.find(option.GetLongName());
+    const auto iter = _values.find(argument.GetLongName());
     if (iter != _values.end())
         return iter->second;
 
-    return option.GetDefaultValue();
+    return argument.GetDefaultValue();
 }
 
-void Arguments::SetOptionValue(const string& name, const string& value)
+bool Arguments::GetSwitchValue(const string& name)
 {
-    const auto& option = GetOptionByName(name);
-    if (option.IsEmpty())
-        throw exception((string("Unknown Option: ") + name).c_str());
+    const auto& argument = GetArgumentByName(name);
+    if (argument.IsEmpty())
+        throw exception((string("Unknown Argument: ") + name).c_str());
+    if (argument.GetArgumentType() != ArgumentType::SWITCH)
+        throw exception((string("Argument is not a switch: ") + name).c_str());
 
-    _values[option.GetLongName()] = value;
+    const auto iter = _values.find(argument.GetLongName());
+    if (iter != _values.end())
+        return ValueConverter::ToBool(iter->second);
+
+    return ValueConverter::ToBool(argument.GetDefaultValue());
 }
 
-bool Arguments::HasOptionValue(const string& name)
+void Arguments::SetArgumentValue(const string& name, const string& value)
 {
-    const auto& option = GetOptionByName(name);
-    if (option.IsEmpty())
-        throw exception((string("Unknown Option: ") + name).c_str());
+    const auto& argument = GetArgumentByName(name);
+    if (argument.IsEmpty())
+        throw exception((string("Unknown Argument: ") + name).c_str());
 
-    return _values.find(option.GetLongName()) != _values.end();
+    auto actual_value = value;
+
+    const auto values = argument.GetValueList();
+    if (!values.empty())
+    {
+        if (!ListUtils::Exists(values, actual_value))
+        {
+            actual_value = ListUtils::Find(values, value, false);
+            if (actual_value.empty())
+                AddError(argument.GetLongName() + string(": Invalid value: ") + value);
+        }
+    }
+
+    _values[argument.GetLongName()] = actual_value;
+}
+
+bool Arguments::HasArgumentValue(const string& name)
+{
+    const auto& argument = GetArgumentByName(name);
+    if (argument.IsEmpty())
+        throw exception((string("Unknown Argument: ") + name).c_str());
+
+    return _values.find(argument.GetLongName()) != _values.end();
 }
 
 int Arguments::GetNextPosition() const
@@ -268,8 +292,29 @@ void Arguments::AdvancePosition()
 
 //-----------------------------------------------------------------------------
 // Public usage methods
+Arguments::Arguments()
+{
+    AddStandardArguments();
+    AddFileOverrideArguments();
+}
+
+void Arguments::AddStandardArguments()
+{
+    AddSwitch(HelpShortName, HelpLongName, StringUtils::BoolToString(false), HelpDescription, false, INT_MAX - 2);
+}
+void Arguments::AddFileOverrideArguments()
+{
+    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), useDefaultArgumentsFileDesc, false, INT_MAX - 1);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), useLocalArgumentsFileDesc  , false, INT_MAX);
+}
+
+bool Arguments::IsEmpty() const
+{
+    return _arguments.empty();
+}
 void Arguments::Reset()
 {
+    _arguments.clear();
     _last_position = 0;
     _values.clear();
     _errors.clear();
@@ -323,14 +368,9 @@ bool Arguments::IsValid() const
     return _errors.empty();
 }
 
-bool Arguments::IsDebug()
-{
-    return ValueConverter::ToBool(GetOptionValue(DebugLongName));
-}
-
 bool Arguments::IsHelp()
 {
-    const auto value = GetOptionValue(HelpLongName);
+    const auto value = GetArgumentValue(HelpLongName);
     return ValueConverter::IsBool(value)
         ? ValueConverter::ToBool(value)
         : false;
@@ -338,7 +378,7 @@ bool Arguments::IsHelp()
 
 bool Arguments::IsUsingDefaultArgumentsFile()
 {
-    const auto value = GetOptionValue(UseDefaultArgumentsFileLongName);
+    const auto value = GetArgumentValue(UseDefaultArgumentsFileLongName);
     return ValueConverter::IsBool(value)
         ? ValueConverter::ToBool(value)
         : false;

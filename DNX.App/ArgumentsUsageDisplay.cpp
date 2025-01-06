@@ -15,8 +15,14 @@ using namespace DNX::Utils;
 
 string ArgumentsUsageDisplay::ErrorLinePrefix = "ERROR";
 
-void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetails& appDetails)
+void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetails& appDetails, const string& command_name)
 {
+    cout << appDetails.GetHeaderLine() << std::endl;
+    if (!appDetails.Copyright.empty())
+    {
+        cout << appDetails.Copyright << std::endl;
+    }
+
     auto parameters = arguments.GetArgumentsByType(ArgumentType::PARAMETER);
     parameters.sort(Argument::CompareByPosition);
 
@@ -27,6 +33,13 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
     const auto hasOptions = !optionsAndSwitches.empty();
 
     string argumentText;
+    if (!command_name.empty())
+    {
+        argumentText
+            .append(" ")
+            .append(command_name);
+    }
+
     for (auto iter = parameters.begin(); iter != parameters.end(); ++iter)
     {
         argumentText
@@ -37,19 +50,9 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
 
     if (hasOptions)
     {
-        if (!argumentText.empty())
-        {
-            argumentText.append(" ");
-        }
-
-        argumentText.append("[OPTIONS]");
+        argumentText.append(" [OPTIONS]");
     }
 
-    cout << appDetails.GetHeaderLine() << std::endl;
-    if (!appDetails.Copyright.empty())
-    {
-        cout << appDetails.Copyright << std::endl;
-    }
     cout << std::endl;
     cout << "Usage:" << std::endl;
     cout << AppDetails::GetApplicationName() << argumentText << std::endl;
@@ -59,27 +62,27 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
         cout << std::endl;
         cout << "OPTIONS:" << std::endl;
 
-        list<tuple<Argument, string, string>> optionDescriptions;
+        list<tuple<Argument, string, string>> argumentDescriptions;
 
-        size_t maxOptionDescriptionLength = 0;
+        size_t maxArgumentDescriptionLength = 0;
         for (auto iter = optionsAndSwitches.begin(); iter != optionsAndSwitches.end(); ++iter)
         {
-            string optionDesc;
+            string argument_description;
             if (iter->GetArgumentType() == ArgumentType::PARAMETER)
             {
-                optionDesc = "[" + iter->GetLongName() + "]";
+                argument_description = "[" + iter->GetLongName() + "]";
             }
             else
             {
-                optionDesc = "-" + iter->GetShortName();
+                argument_description = "-" + iter->GetShortName();
                 if (iter->HasLongName())
                 {
-                    optionDesc += ", --" + iter->GetLongName();
+                    argument_description += ", --" + iter->GetLongName();
                 }
             }
-            optionDesc += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
+            argument_description += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
 
-            maxOptionDescriptionLength = std::max(optionDesc.length(), maxOptionDescriptionLength);
+            maxArgumentDescriptionLength = std::max(argument_description.length(), maxArgumentDescriptionLength);
 
             auto textDesc = iter->GetDescription();
 
@@ -120,15 +123,14 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
                 textDesc += ")";
             }
 
-            const auto optionAndDesc = tuple<Argument, string, string>(*iter, optionDesc, textDesc);
+            const auto optionAndDesc = tuple(*iter, argument_description, textDesc);
 
-            optionDescriptions.push_back(optionAndDesc);
+            argumentDescriptions.push_back(optionAndDesc);
         }
 
-        for (auto iter = optionDescriptions.begin(); iter != optionDescriptions.end(); ++iter)
+        const auto paddedWidth = maxArgumentDescriptionLength + 2;
+        for (auto iter = argumentDescriptions.begin(); iter != argumentDescriptions.end(); ++iter)
         {
-            auto paddedWidth = maxOptionDescriptionLength + 2;
-
             std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(paddedWidth)) << std::get<1>(*iter)
                 << std::get<2>(*iter)
                 << std::endl;

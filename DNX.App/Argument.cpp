@@ -6,7 +6,7 @@
 using namespace std;
 using namespace DNX::App;
 
-Argument Argument::_app_option = Argument();;
+Argument Argument::_empty_argument = Argument();
 
 bool Argument::IsEmpty() const
 {

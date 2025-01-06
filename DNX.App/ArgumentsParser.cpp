@@ -150,7 +150,7 @@ bool ArgumentsParser::HandleAsSwitch(Arguments& arguments, const ParserConfig& p
         switchValue = false;
     }
 
-    const auto& option = arguments.GetOptionByName(argumentName);
+    const auto& option = arguments.GetArgumentByName(argumentName);
     if (option.IsEmpty())
         return false;
 
@@ -159,14 +159,14 @@ bool ArgumentsParser::HandleAsSwitch(Arguments& arguments, const ParserConfig& p
         return false;
     }
 
-    arguments.SetOptionValue(option.GetLongName(), StringUtils::BoolToString(switchValue));
+    arguments.SetArgumentValue(option.GetLongName(), StringUtils::BoolToString(switchValue));
 
     return true;
 }
 
 bool ArgumentsParser::HandleAsOption(Arguments& arguments, const string& argumentName, const string& argumentValue)
 {
-    const auto& option = arguments.GetOptionByName(argumentName);
+    const auto& option = arguments.GetArgumentByName(argumentName);
     if (option.IsEmpty())
         return false;
 
@@ -175,7 +175,7 @@ bool ArgumentsParser::HandleAsOption(Arguments& arguments, const string& argumen
         return false;
     }
 
-    arguments.SetOptionValue(option.GetLongName(), argumentValue);
+    arguments.SetArgumentValue(option.GetLongName(), argumentValue);
 
     return true;
 }
@@ -186,7 +186,7 @@ bool ArgumentsParser::HandleAsParameter(Arguments& arguments, const int position
     if (option.IsEmpty())
         return false;
 
-    arguments.SetOptionValue(option.GetLongName(), argumentValue);
+    arguments.SetArgumentValue(option.GetLongName(), argumentValue);
 
     return true;
 }
@@ -197,7 +197,7 @@ void ArgumentsParser::ValidateRequired(Arguments& arguments)
 
     for (auto iter = requiredArguments.begin(); iter != requiredArguments.end(); ++iter)
     {
-        if (!arguments.HasOptionValue(iter->GetShortName()))
+        if (!arguments.HasArgumentValue(iter->GetShortName()))
         {
             arguments.AddError(iter->GetNameDescription() + " is required");
         }
@@ -210,13 +210,13 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
 
     for (auto iter = optionList.begin(); iter != optionList.end(); ++iter)
     {
-        const auto optionValue = arguments.GetOptionValue(iter->GetShortName());
+        const auto optionValue = arguments.GetArgumentValue(iter->GetShortName());
         if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
         {
-            if (!(iter->GetRequired() && optionValue.empty()))
-            {
-                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
-            }
+            if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
+                continue;
+
+            arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
         }
     }
 }
@@ -233,13 +233,16 @@ ArgumentsParser::ArgumentsParser(Arguments& arguments, const AppDetails& app_det
 
 void ArgumentsParser::Parse(const int argc, char* argv[]) const
 {
+    Parse(ListUtils::ToList(argc, argv, 1));
+}
+
+void ArgumentsParser::Parse(list<string> arguments) const
+{
     if (_parser_config.GetUseCustomArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, AppDetails::GetDefaultArgumentsFileName());
 
     if (_parser_config.GetUseLocalArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, AppDetails::GetLocalArgumentsFileName());
-
-    auto arguments = ListUtils::ToList(argc, argv, 1);
 
     ParseArguments(_arguments, arguments);
 
@@ -248,7 +251,6 @@ void ArgumentsParser::Parse(const int argc, char* argv[]) const
     ValidateValues(_arguments);
     _arguments.PostParseValidate();
 }
-
 
 //-----------------------------------------------------------------------------
 // Static Public methods

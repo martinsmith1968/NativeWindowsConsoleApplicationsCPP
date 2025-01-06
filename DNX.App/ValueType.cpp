@@ -3,7 +3,7 @@
 
 using namespace DNX::App;
 
-ValueTypeText::ValueTypeText()
+ValueTypeTextResolver::ValueTypeTextResolver()
 {
     SetText(ValueType::CHAR, "Char");
     SetText(ValueType::STRING, "Text");
