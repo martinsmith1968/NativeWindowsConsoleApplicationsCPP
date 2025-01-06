@@ -49,7 +49,12 @@ double Timer::GetCurrentElapsed() const
 
 double Timer::GetAccumulatedElapsed() const
 {
-    return GetTotalElapsed() + GetCurrentElapsed();
+    double elapsed_time = GetTotalElapsed();
+
+    if (m_State == TimerStateType::RUNNING)
+        elapsed_time += GetCurrentElapsed();
+
+    return elapsed_time;
 }
 
 tm Timer::GetStartDateTime() const

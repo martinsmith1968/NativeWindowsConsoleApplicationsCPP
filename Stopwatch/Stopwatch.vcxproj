@@ -164,16 +164,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AppInfo.h" />
+    <ClInclude Include="Commands\BaseCommand.h" />
+    <ClInclude Include="Commands\CommandType.h" />
+    <ClInclude Include="Commands\ElapsedCommand.h" />
+    <ClInclude Include="Commands\ListCommand.h" />
+    <ClInclude Include="Commands\StartCommand.h" />
+    <ClInclude Include="AppCommands.h" />
+    <ClInclude Include="Commands\StopCommand.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerRepository.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppArguments.h" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerRepository.cpp" />
-    <ClCompile Include="Stopwatch.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
