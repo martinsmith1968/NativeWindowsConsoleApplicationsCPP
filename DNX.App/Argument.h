@@ -27,7 +27,7 @@ namespace DNX::App
         list<string> _valueList{};
 
     protected:
-        ArgumentTypeText ArgumentTypeTextHelper;
+        ArgumentTypeTextResolver ArgumentTypeTextHelper;
 
     public:
         [[nodiscard]] bool IsEmpty() const;

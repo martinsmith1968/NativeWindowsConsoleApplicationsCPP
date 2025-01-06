@@ -22,11 +22,11 @@ namespace DNX::App
 
 
     //--------------------------------------------------------------------------
-    // Class: ArgumentTypeText
+    // Class: ArgumentTypeTextResolver
     //--------------------------------------------------------------------------
-    class ArgumentTypeText : public EnumTextResolver<ArgumentType>
+    class ArgumentTypeTextResolver : public EnumTextResolver<ArgumentType>
     {
     public:
-        ArgumentTypeText();
+        ArgumentTypeTextResolver();
     };
 }

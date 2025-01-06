@@ -26,13 +26,13 @@ namespace DNX::App
     };
 
     //--------------------------------------------------------------------------
-    // Class: ValueTypeText
+    // Class: ValueTypeTextResolver
     //--------------------------------------------------------------------------
-    class ValueTypeText : public EnumTextResolver<ValueType>
+    class ValueTypeTextResolver : public EnumTextResolver<ValueType>
     {
     public:
-        ValueTypeText();
+        ValueTypeTextResolver();
     };
 
-    static ValueTypeText ValueTypeTextConverter;
+    static ValueTypeTextResolver ValueTypeTextConverter;
 }

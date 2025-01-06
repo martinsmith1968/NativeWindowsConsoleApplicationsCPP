@@ -19,10 +19,10 @@ namespace Stopwatch
         PAUSED,
     };
 
-    class TimerStateTypeText : public EnumTextResolver<TimerStateType>
+    class TimerStateTypeTextResolver : public EnumTextResolver<TimerStateType>
     {
     public:
-        TimerStateTypeText()
+        TimerStateTypeTextResolver()
         {
             SetText(TimerStateType::RUNNING, "Running");
             SetText(TimerStateType::PAUSED, "Paused");

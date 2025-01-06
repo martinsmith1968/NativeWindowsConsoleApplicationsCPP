@@ -54,7 +54,7 @@ namespace DNX::App
         );
 
     protected:
-        ArgumentTypeText ArgumentTypeText;
+        ArgumentTypeTextResolver ArgumentTypeText;
 
         void AddStandardArguments();
         void AddFileOverrideArguments();
