@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "App.h"
+#include "../DNX.Utils/DateUtils.h"
 #include <iostream>
 #include <conio.h>
 #include <chrono>
@@ -21,7 +22,7 @@ void App::Execute(AppArguments& arguments)
 {
     cout << arguments.GetFormattedMessageText();
 
-    const auto start_time = time(nullptr);
+    const auto start_time = DateUtils::GetNow();
     const auto exit_time = start_time + arguments.GetTimeoutSeconds();
     const auto sleep_time = std::chrono::milliseconds(arguments.GetSleepMilliseconds());
 
@@ -34,7 +35,7 @@ void App::Execute(AppArguments& arguments)
         }
 
         std::this_thread::sleep_for(sleep_time);
-    } while (time(nullptr) < exit_time || arguments.GetTimeoutSeconds() == 0);
+    } while (DateUtils::GetNow() < exit_time || arguments.GetTimeoutSeconds() == 0);
 
     cout << endl;
 }

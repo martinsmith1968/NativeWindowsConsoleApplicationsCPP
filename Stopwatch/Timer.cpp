@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "../DNX.App/ValueConverter.h"
+#include "../DNX.Utils/DateUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
@@ -19,7 +20,7 @@ using namespace DNX::Utils;
 Timer Timer::m_empty_timer = Timer();
 
 Timer::Timer() :
-    m_Start(time(nullptr)),
+    m_Start(DateUtils::GetNow()),
     m_State(TimerStateType::PAUSED),
     m_TotalElapsed(0)
 {
@@ -28,7 +29,7 @@ Timer::Timer() :
 Timer::Timer(const string& name)
 {
     m_Name         = name;
-    m_Start        = time(nullptr);
+    m_Start        = DateUtils::GetNow();
     m_State        = TimerStateType::PAUSED;
     m_TotalElapsed = 0;
 }
@@ -52,7 +53,7 @@ double Timer::GetTotalElapsed() const
 
 double Timer::GetCurrentElapsed() const
 {
-    const auto elapsed = difftime(time(nullptr), m_Start);
+    const auto elapsed = difftime(DateUtils::GetNow(), m_Start);
 
     return elapsed;
 }
@@ -70,8 +71,8 @@ double Timer::GetAccumulatedElapsed() const
 tm Timer::GetStartDateTime() const
 {
     const auto start_time = GetStart();
-    const auto start_time_parts = gmtime(&start_time);
-    return *start_time_parts;
+    const auto start_time_parts = DateUtils::ToCalendarDateTime(start_time);
+    return start_time_parts;
 }
 
 void Timer::Start()
@@ -79,7 +80,7 @@ void Timer::Start()
     if (m_State == TimerStateType::ACTIVE)
         return;
 
-    m_Start = time(nullptr);
+    m_Start = DateUtils::GetNow();
     m_State = TimerStateType::ACTIVE;
 }
 void Timer::Stop()

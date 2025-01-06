@@ -15,6 +15,9 @@ namespace DNX::Utils
     class DateUtils
     {
     public:
-        static string FormatDate(::tm const* tm, const string& format);
+        static time_t GetNow();
+        static string FormatDate(tm const* tm, const string& format);
+        static tm ToCalendarDateTime(const time_t& time);
+        static time_t ToEpochDateTime(tm* epoch_time);
     };
 }

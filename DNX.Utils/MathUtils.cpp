@@ -1,7 +1,7 @@
 #include "stdafx.h"
+#include "DateUtils.h"
 #include "MathUtils.h"
 #include <cstdlib>
-#include <ctime>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCertMsc51Cpp
@@ -16,7 +16,12 @@ using namespace DNX::Utils;
 
 void MathUtils::ReseedRandomizer()
 {
-    srand(time(nullptr));
+    ReseedRandomizer(static_cast<int>(DateUtils::GetNow()));
+}
+
+void MathUtils::ReseedRandomizer(const int seed)
+{
+    srand(seed);
 }
 
 int MathUtils::GetRandomNumber(const int max_value, const bool inclusive)
