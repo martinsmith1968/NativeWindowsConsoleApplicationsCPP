@@ -7,7 +7,7 @@
 using namespace std;
 using namespace DNX::App;
 
-Command Command::_empty_command = Command();
+EmptyCommand Command::_empty_command = EmptyCommand();
 
 Command::Command(
     Arguments* arguments,

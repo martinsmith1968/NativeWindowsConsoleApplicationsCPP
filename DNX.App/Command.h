@@ -4,12 +4,15 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
 
 using namespace std;
 using namespace DNX::App;
 
 namespace DNX::App
 {
+    class EmptyCommand;
+
     //--------------------------------------------------------------------------
     // Class: Command
     //--------------------------------------------------------------------------
@@ -35,9 +38,18 @@ namespace DNX::App
             const string& description
         );
 
-        static Command _empty_command;
-        static Command& Empty() { return _empty_command; }
+        static EmptyCommand _empty_command;
+        static EmptyCommand& Empty() { return _empty_command; }
 
         virtual void Execute();
+    };
+
+    class EmptyCommand final : public Command
+    {
+    public:
+        EmptyCommand() = default;
+
+        void Execute() override
+        { }
     };
 }
