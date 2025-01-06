@@ -4,7 +4,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 env:
   PRIMARY_BRANCH_NAME: master
   APP_MAJOR_VERSION: 1
-  APP_MINOR_VERSION: 3
+  APP_MINOR_VERSION: 5
   PROJECT_NAME: NativeConsoleApps
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
