@@ -61,7 +61,7 @@ double Timer::GetAccumulatedElapsed() const
 {
     double elapsed_time = GetTotalElapsed();
 
-    if (m_State == TimerStateType::RUNNING)
+    if (m_State == TimerStateType::ACTIVE)
         elapsed_time += GetCurrentElapsed();
 
     return elapsed_time;
@@ -76,11 +76,11 @@ tm Timer::GetStartDateTime() const
 
 void Timer::Start()
 {
-    if (m_State == TimerStateType::RUNNING)
+    if (m_State == TimerStateType::ACTIVE)
         return;
 
     m_Start = time(nullptr);
-    m_State = TimerStateType::RUNNING;
+    m_State = TimerStateType::ACTIVE;
 }
 void Timer::Stop()
 {

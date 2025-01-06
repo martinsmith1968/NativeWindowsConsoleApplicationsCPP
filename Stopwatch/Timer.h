@@ -15,7 +15,7 @@ namespace Stopwatch
 {
     enum class TimerStateType : uint8_t
     {
-        RUNNING,
+        ACTIVE,
         PAUSED,
     };
 
@@ -24,7 +24,7 @@ namespace Stopwatch
     public:
         TimerStateTypeTextResolver()
         {
-            SetText(TimerStateType::RUNNING, "Running");
+            SetText(TimerStateType::ACTIVE, "Active");
             SetText(TimerStateType::PAUSED, "Paused");
         }
     };
