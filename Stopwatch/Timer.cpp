@@ -16,6 +16,15 @@ using namespace DNX::Utils;
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyConcurrencyMtUnsafe
 
+Timer Timer::m_empty_timer = Timer();
+
+Timer::Timer() :
+    m_Start(time(nullptr)),
+    m_State(TimerStateType::PAUSED),
+    m_TotalElapsed(0)
+{
+}
+
 Timer::Timer(const string& name)
 {
     m_Name         = name;
@@ -23,6 +32,7 @@ Timer::Timer(const string& name)
     m_State        = TimerStateType::PAUSED;
     m_TotalElapsed = 0;
 }
+
 string Timer::GetName() const
 {
     return m_Name;

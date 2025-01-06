@@ -3,6 +3,7 @@
 #include "TimerRepository.h"
 #include "Timer.h"
 #include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/MapUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
@@ -12,6 +13,7 @@ using namespace DNX::Utils;
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppMemberFunctionMayBeConst
+// ReSharper disable CppTooWideScopeInitStatement
 
 TimerRepository::TimerRepository()
 {
@@ -69,14 +71,21 @@ void TimerRepository::SaveAll(const map<string, Timer>& timers)
     FileUtils::WriteLines(m_fileName, lines);
 }
 
-//void TimerRepository::Save(const Timer& timer)
-//{
-//    const auto file_path = StringUtils::EnsureEndsWith(FileUtils::GetPath(m_fileName), PathUtils::PATH_SEPARATOR);
-//    if (!file_path.empty())
-//        PathUtils::CreateDirectory(file_path);
-//
-//    auto timers = ReadAll();
-//    timers.emplace(timer.GetName(), timer);
-//
-//    SaveAll(timers);
-//}
+bool TimerRepository::Exists(const string& stopwatch_name) const
+{
+    const auto timers = ReadAll();
+
+    return MapUtils::Exists(timers, stopwatch_name);
+}
+
+Timer& TimerRepository::GetByName(const string& stopwatch_name) const
+{
+    auto timers = ReadAll();
+
+    if (!MapUtils::Exists(timers, stopwatch_name))
+        return Timer::Empty();
+
+    auto& timer = timers.at(stopwatch_name);
+
+    return timer;
+}

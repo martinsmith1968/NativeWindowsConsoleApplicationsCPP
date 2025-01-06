@@ -36,8 +36,10 @@ namespace Stopwatch
         TimerStateType m_State;
         double m_TotalElapsed;
 
+        static Timer m_empty_timer;
+
     public:
-        Timer() = default;
+        Timer();
         explicit Timer(const string& name);
 
         [[nodiscard]] string GetName() const;
@@ -47,7 +49,7 @@ namespace Stopwatch
 
         [[nodiscard]] double GetCurrentElapsed() const;
         [[nodiscard]] double GetAccumulatedElapsed() const;
-        tm GetStartDateTime() const;
+        [[nodiscard]] tm GetStartDateTime() const;
 
         void Start();
         void Stop();
@@ -58,5 +60,7 @@ namespace Stopwatch
 
         [[nodiscard]] string ToDefinition() const;
         void FromDefinition(const string& definition);
+
+        static Timer& Empty() { return m_empty_timer; }
     };
 }
