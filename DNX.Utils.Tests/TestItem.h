@@ -2,9 +2,11 @@
 
 #include "pch.h"
 
-using namespace std;
-
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
+// ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable CppInconsistentNaming
+
+using namespace std;
 
 class TestItem
 {
