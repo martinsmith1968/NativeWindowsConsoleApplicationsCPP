@@ -9,6 +9,8 @@
 // ReSharper disable StringLiteralTypo
 // ReSharper disable CppClangTidyModernizeReturnBracedInitList
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace DNX::App;
@@ -36,24 +38,38 @@ namespace BannerText
 
     class AppArguments final : public Arguments
     {
+        const string ArgumentNameMessageText        = "message-text";
+        const string ArgumentNameHeaderLineChar     = "header-line-char";
+        const string ArgumentNameHeaderLineCount    = "header-line-count";
+        const string ArgumentNameFooterLineChar     = "footer-line-char";
+        const string ArgumentNameFooterLineCount    = "footer-line-count";
+        const string ArgumentNameTextLineChar       = "text-line-char";
+        const string ArgumentNameTitlePrefixCount   = "title-prefix-count";
+        const string ArgumentNameTitleSuffixCount   = "title-suffix-count";
+        const string ArgumentNameTitlePrefixGapSize = "title-prefix-gap-size";
+        const string ArgumentNameTitleSuffixGapSize = "title-suffix-gap-size";
+        const string ArgumentNameTextAlignment      = "text-alignment";
+        const string ArgumentNameMinTotalLength     = "min-total-length";
+        const string ArgumentNameMaxTotalLength     = "max-total-length";
+
         TextAlignmentTypeTextResolver TextAlignmentTypeTextConverter;
 
     public:
         AppArguments()
         {
-            AddParameter(ValueType::STRING, 1, "message-text", "", "The Text to display", true);
-            AddOption(ValueType::CHAR, "hlc", "header-line-char", "*", "The character to use for header lines", false);
-            AddOption(ValueType::INT, "hln", "header-line-count", "1", "The number of header lines to print", false);
-            AddOption(ValueType::CHAR, "flc", "footer-line-char", "*", "The character to use for footer lines", false);
-            AddOption(ValueType::INT, "fln", "footer-line-count", "1", "The number of footer lines to print", false);
-            AddOption(ValueType::CHAR, "tlc", "text-line-char", "*", "The character to use for text line prefix/suffix", false);
-            AddOption(ValueType::INT, "tpc", "title-prefix-count", "2", "Set Title Prefix Count", false);
-            AddOption(ValueType::INT, "tsc", "title-suffix-count", "2", "Set Title Suffix Count", false);
-            AddOption(ValueType::INT, "tpgs", "title-prefix-gap-size", "2", "Set Title Prefix Gap Size", false);
-            AddOption(ValueType::INT, "tsgs", "title-suffix-gap-size", "2", "Set Title Suffix Gap Size", false);
-            AddOption(ValueType::ENUM, "ta", "text-alignment", TextAlignmentTypeTextResolver().GetText(TextAlignmentType::LEFT), "Set Text Alignment", false, 0, TextAlignmentTypeTextConverter.GetAllText());
-            AddOption(ValueType::INT, "minl", "min-total-length", "0", "Set Minimum Total line length", false);
-            AddOption(ValueType::INT, "maxl", "max-total-length", "0", "Set Maximum Total line length", false);
+            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, "", "The Text to display", true);
+            AddOption(ValueType::CHAR, "hlc", ArgumentNameHeaderLineChar, "*", "The character to use for header lines", false);
+            AddOption(ValueType::INT, "hln", ArgumentNameHeaderLineCount, "1", "The number of header lines to print", false);
+            AddOption(ValueType::CHAR, "flc", ArgumentNameFooterLineChar, "*", "The character to use for footer lines", false);
+            AddOption(ValueType::INT, "fln", ArgumentNameFooterLineCount, "1", "The number of footer lines to print", false);
+            AddOption(ValueType::CHAR, "tlc", ArgumentNameTextLineChar, "*", "The character to use for text line prefix/suffix", false);
+            AddOption(ValueType::INT, "tpc", ArgumentNameTitlePrefixCount, "2", "Set Title Prefix Count", false);
+            AddOption(ValueType::INT, "tsc", ArgumentNameTitleSuffixCount, "2", "Set Title Suffix Count", false);
+            AddOption(ValueType::INT, "tpgs", ArgumentNameTitlePrefixGapSize, "2", "Set Title Prefix Gap Size", false);
+            AddOption(ValueType::INT, "tsgs", ArgumentNameTitleSuffixGapSize, "2", "Set Title Suffix Gap Size", false);
+            AddOption(ValueType::ENUM, "ta", ArgumentNameTextAlignment, TextAlignmentTypeTextConverter.GetText(TextAlignmentType::LEFT), "Set Text Alignment", false, 0, TextAlignmentTypeTextConverter.GetAllText());
+            AddOption(ValueType::INT, "minl", ArgumentNameMinTotalLength, "0", "Set Minimum Total line length", false);
+            AddOption(ValueType::INT, "maxl", ArgumentNameMaxTotalLength, "0", "Set Maximum Total line length", false);
         }
 
         void PostParseValidate() override
@@ -70,67 +86,67 @@ namespace BannerText
 
         string GetMessageText()
         {
-            return GetArgumentValue("message-text");
+            return GetArgumentValue(ArgumentNameMessageText);
         }
 
         char GetHeaderLineChar()
         {
-            return ValueConverter::ToChar(GetArgumentValue("hlc"));
+            return ValueConverter::ToChar(GetArgumentValue(ArgumentNameHeaderLineChar));
         }
 
         size_t GetHeaderLineCount()
         {
-            return ValueConverter::ToInt(GetArgumentValue("hln"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameHeaderLineCount));
         }
 
         char GetFooterLineChar()
         {
-            return ValueConverter::ToChar(GetArgumentValue("flc"));
+            return ValueConverter::ToChar(GetArgumentValue(ArgumentNameFooterLineChar));
         }
 
         size_t GetFooterLineCount()
         {
-            return ValueConverter::ToInt(GetArgumentValue("fln"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameFooterLineCount));
         }
 
         char GetTextLineChar()
         {
-            return ValueConverter::ToChar(GetArgumentValue("tlc"));
+            return ValueConverter::ToChar(GetArgumentValue(ArgumentNameTextLineChar));
         }
 
         size_t GetTitlePrefixCount()
         {
-            return ValueConverter::ToInt(GetArgumentValue("tpc"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameTitlePrefixCount));
         }
 
         size_t GetTitleSuffixCount()
         {
-            return ValueConverter::ToInt(GetArgumentValue("tsc"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameTitleSuffixCount));
         }
 
         size_t GetTitlePrefixGapSize()
         {
-            return ValueConverter::ToInt(GetArgumentValue("tpgs"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameTitlePrefixGapSize));
         }
 
         size_t GetTitleSuffixGapSize()
         {
-            return ValueConverter::ToInt(GetArgumentValue("tsgs"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameTitleSuffixGapSize));
         }
 
         TextAlignmentType GetTextAlignment()
         {
-            return TextAlignmentTypeTextConverter.GetValue(GetArgumentValue("ta"));
+            return TextAlignmentTypeTextConverter.GetValue(GetArgumentValue(ArgumentNameTextAlignment));
         }
 
         size_t GetMinimumTotalLength()
         {
-            return ValueConverter::ToInt(GetArgumentValue("minl"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameMinTotalLength));
         }
 
         size_t GetMaximumTotalLength()
         {
-            return ValueConverter::ToInt(GetArgumentValue("maxl"));
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameMaxTotalLength));
         }
 
         list<string> GetTextLines()
