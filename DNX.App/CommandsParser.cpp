@@ -30,7 +30,10 @@ Command& CommandsParser::Parse(int argc, char* argv[]) const
     auto& command_arguments = _commands.GetArguments();
     command_arguments.BuildFromCommands(commands);
 
-    const auto command_parser = ArgumentsParser(command_arguments, _app_details, _parser_config);
+    ParserConfig commands_parser_config = _parser_config;
+    commands_parser_config.SetIgnoreAdditionalArguments(true);
+
+    const auto command_parser = ArgumentsParser(command_arguments, _app_details, commands_parser_config);
     command_parser.Parse(argc, argv);
 
     const auto selected_command_name = command_arguments.GetCommandNameValue();

@@ -128,6 +128,11 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
         return true;
     }
 
+    if (!_parser_config.GetIgnoreAdditionalArguments())
+    {
+        arguments.AddError("Unknown or unexpected argument: " + argumentName);
+    }
+
     return false;
 }
 

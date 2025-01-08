@@ -17,11 +17,12 @@ namespace DNX::App
         static const string DefaultShortNamePrefix;
         static const string DefaultLongNamePrefix;
         static const string DefaultCustomArgumentsFilePrefix;
-        static constexpr bool DefaultUseGlobalArgumentsFile  = true;
-        static constexpr bool DefaultUseLocalArgumentsFile   = true;
-        static constexpr bool DefaultUseCustomArgumentsFiles = true;
-        static constexpr char DefaultSwitchOnSuffix          = '+';
-        static constexpr char DefaultSwitchOffSuffix         = '-';
+        static constexpr bool DefaultUseGlobalArgumentsFile    = true;
+        static constexpr bool DefaultUseLocalArgumentsFile     = true;
+        static constexpr bool DefaultUseCustomArgumentsFiles   = true;
+        static constexpr char DefaultSwitchOnSuffix            = '+';
+        static constexpr char DefaultSwitchOffSuffix           = '-';
+        static constexpr bool DefaultIgnoreAdditionalArguments = false;
 
         string _shortNamePrefix;
         string _longNamePrefix;
@@ -31,6 +32,7 @@ namespace DNX::App
         bool _useCustomArgumentsFile;
         char _switchOnSuffix;
         char _switchOffSuffix;
+        bool _ignoreAdditionalArguments;
 
     public:
         [[nodiscard]] const string& GetShortNamePrefix() const { return _shortNamePrefix; }
@@ -41,6 +43,9 @@ namespace DNX::App
         [[nodiscard]] bool GetUseCustomArgumentsFile() const { return _useCustomArgumentsFile; }
         [[nodiscard]] char GetSwitchOnSuffix() const { return _switchOnSuffix; }
         [[nodiscard]] char GetSwitchOffSuffix() const { return _switchOffSuffix; }
+        [[nodiscard]] bool GetIgnoreAdditionalArguments() const { return _ignoreAdditionalArguments; }
+
+        void SetIgnoreAdditionalArguments(const bool value) {_ignoreAdditionalArguments = value; }
 
         ParserConfig()
             : ParserConfig(
@@ -51,7 +56,8 @@ namespace DNX::App
                 DefaultUseLocalArgumentsFile,
                 DefaultUseCustomArgumentsFiles,
                 DefaultSwitchOnSuffix,
-                DefaultSwitchOffSuffix
+                DefaultSwitchOffSuffix,
+                DefaultIgnoreAdditionalArguments
             )
         {
         }
@@ -64,7 +70,8 @@ namespace DNX::App
             const bool useLocalArgumentsFile,
             const bool useCustomArgumentsFile,
             const char switchOnSuffix,
-            const char switchOffSuffix
+            const char switchOffSuffix,
+            const bool ignoreAdditionalArguments
         )
         {
             _shortNamePrefix           = shortNamePrefix;
@@ -75,6 +82,7 @@ namespace DNX::App
             _useCustomArgumentsFile    = useCustomArgumentsFile;
             _switchOnSuffix            = switchOnSuffix;
             _switchOffSuffix           = switchOffSuffix;
+            _ignoreAdditionalArguments = ignoreAdditionalArguments;
         }
     };
 }
