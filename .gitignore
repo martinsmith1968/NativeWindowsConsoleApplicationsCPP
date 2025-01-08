@@ -359,3 +359,5 @@ ASALocalRun/
 *.args.json
 
 *.bak
+
+*.testout

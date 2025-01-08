@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DAC083
 	ProjectSection(SolutionItems) = preProject
 		Common\AppInfo.h = Common\AppInfo.h
 		Common\BuildInfo.h = Common\BuildInfo.h
+		Common\GoogleTest_Utils.h = Common\GoogleTest_Utils.h
 		Common\Macros.h = Common\Macros.h
 		Common\Version.h = Common\Version.h
 	EndProjectSection
