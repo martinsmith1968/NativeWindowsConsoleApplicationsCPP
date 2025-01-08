@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <list>
 #include <regex>
 
@@ -12,28 +13,6 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
 
 using namespace std;
-
-#define TEST_STDOUT(target) TEST_STDOUT(target, , )
-
-#define TEST_STDOUT(target, before_act, after_act) \
-    using namespace DNX::GoogleTest::Utils; \
-    /* Arrange */\
-    string test_class_name           = ::testing::UnitTest::GetInstance()->current_test_info()->test_case_name(); \
-    string test_name                 = ::testing::UnitTest::GetInstance()->current_test_info()->name(); \
-    string directory_name            = "expected\\" + test_class_name + "\\"; \
-    string test_output_file_name     = directory_name + test_name + ".testout"; \
-    string expected_output_file_name = directory_name + test_name + ".expected"; \
-    \
-    /* Act */\
-    before_act; \
-    { \
-        auto redirect                = StdOutRedirect(test_output_file_name); \
-        target; \
-    } \
-    after_act; \
-    \
-    /* Assert */\
-    CompareFileContents(test_output_file_name, expected_output_file_name);
 
 namespace DNX::GoogleTest::Utils
 {
@@ -59,6 +38,17 @@ namespace DNX::GoogleTest::Utils
             std::cout.rdbuf(m_old_output); //reset to standard output again
         }
     };
+
+    static string GetFilePath(const string& file_name)
+    {
+        string file_path;
+        const size_t last_slash_idx = file_name.rfind('\\');
+        if (std::string::npos != last_slash_idx)
+        {
+            file_path = file_name.substr(0, last_slash_idx);
+        }
+        return file_path;
+    }
 
     static list<string> GetFileLines(const string& file_name)
     {
@@ -89,3 +79,27 @@ namespace DNX::GoogleTest::Utils
         EXPECT_EQ(test_output_lines, expected_output_lines) << " file contents should be comparable";
     }
 }
+
+#define TEST_STDOUT(target) TEST_STDOUT(target, , )
+
+#define TEST_STDOUT(target, before_act, after_act) \
+    using namespace DNX::GoogleTest::Utils; \
+    /* Arrange */\
+    string test_file_name            = ::testing::UnitTest::GetInstance()->current_test_info()->file(); \
+    string test_class_name           = ::testing::UnitTest::GetInstance()->current_test_info()->test_case_name(); \
+    string test_name                 = ::testing::UnitTest::GetInstance()->current_test_info()->name(); \
+    string test_file_root_path       = GetFilePath(test_file_name); \
+    string base_path_name            = test_file_root_path + "\\expected\\" + test_class_name + "\\"; \
+    string test_output_file_name     = base_path_name + test_name + ".testout"; \
+    string expected_output_file_name = base_path_name + test_name + ".expected"; \
+    \
+    /* Act */\
+    before_act; \
+    { \
+        auto stdout_redirect = StdOutRedirect(test_output_file_name); \
+        target; \
+    } \
+    after_act; \
+    \
+    /* Assert */\
+    CompareFileContents(test_output_file_name, expected_output_file_name);
