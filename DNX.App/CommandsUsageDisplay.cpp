@@ -13,7 +13,7 @@ using namespace DNX::Utils;
 
 string CommandsUsageDisplay::ErrorLinePrefix = "ERROR";
 
-void CommandsUsageDisplay::ShowUsage(const Commands& commands, const AppDetails& appDetails)
+void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfig& parser_config, const AppDetails& appDetails)
 {
     cout << appDetails.GetHeaderLine() << std::endl;
     if (!appDetails.Copyright.empty())
@@ -43,6 +43,30 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const AppDetails&
                 << command.GetDescription()
                 << std::endl;
         }
+    }
+
+    list<string> argument_file_lines;
+    if (parser_config.GetUseDefaultArgumentsFile())
+    {
+        const auto found = FileUtils::FileExists(AppDetails::GetDefaultArgumentsFileName());
+
+        argument_file_lines.push_back("Default App arguments can be specified in : " + AppDetails::GetDefaultArgumentsFileName() + (found ? " (exists)" : ""));
+    }
+    if (parser_config.GetUseLocalArgumentsFile())
+    {
+        if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
+        {
+            const auto found = FileUtils::FileExists(AppDetails::GetLocalArgumentsFileName());
+
+            argument_file_lines.push_back("Local App arguments can be specified in : " + AppDetails::GetLocalArgumentsFileName() + (found ? " (exists)" : ""));
+        }
+    }
+
+    if (!argument_file_lines.empty())
+    {
+        cout << endl;
+        for (const auto& line : argument_file_lines)
+            cout << line << endl;
     }
 }
 

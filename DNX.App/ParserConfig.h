@@ -17,7 +17,7 @@ namespace DNX::App
         static const string DefaultShortNamePrefix;
         static const string DefaultLongNamePrefix;
         static const string DefaultCustomArgumentsFilePrefix;
-        static constexpr bool DefaultUseGlobalArgumentsFile    = true;
+        static constexpr bool DefaultUseDefaultArgumentsFile   = true;
         static constexpr bool DefaultUseLocalArgumentsFile     = true;
         static constexpr bool DefaultUseCustomArgumentsFiles   = true;
         static constexpr char DefaultSwitchOnSuffix            = '+';
@@ -27,7 +27,7 @@ namespace DNX::App
         string _shortNamePrefix;
         string _longNamePrefix;
         string _customArgumentsFilePrefix;
-        bool _useGlobalArgumentsFile;
+        bool _useDefaultArgumentsFile;
         bool _useLocalArgumentsFile;
         bool _useCustomArgumentsFile;
         char _switchOnSuffix;
@@ -38,7 +38,7 @@ namespace DNX::App
         [[nodiscard]] const string& GetShortNamePrefix() const { return _shortNamePrefix; }
         [[nodiscard]] const string& GetLongNamePrefix() const { return _longNamePrefix; }
         [[nodiscard]] const string& GetCustomArgumentsFilePrefix() const { return _customArgumentsFilePrefix; }
-        [[nodiscard]] bool GetUseGlobalArgumentsFile() const { return _useGlobalArgumentsFile; }
+        [[nodiscard]] bool GetUseDefaultArgumentsFile() const { return _useDefaultArgumentsFile; }
         [[nodiscard]] bool GetUseLocalArgumentsFile() const { return _useLocalArgumentsFile; }
         [[nodiscard]] bool GetUseCustomArgumentsFile() const { return _useCustomArgumentsFile; }
         [[nodiscard]] char GetSwitchOnSuffix() const { return _switchOnSuffix; }
@@ -52,7 +52,7 @@ namespace DNX::App
                 DefaultShortNamePrefix,
                 DefaultLongNamePrefix,
                 DefaultCustomArgumentsFilePrefix,
-                DefaultUseGlobalArgumentsFile,
+                DefaultUseDefaultArgumentsFile,
                 DefaultUseLocalArgumentsFile,
                 DefaultUseCustomArgumentsFiles,
                 DefaultSwitchOnSuffix,
@@ -66,7 +66,7 @@ namespace DNX::App
             const string& shortNamePrefix,
             const string& longNamePrefix,
             const string& customArgumentsFilePrefix,
-            const bool useGlobalArgumentsFile,
+            const bool useDefaultArgumentsFile,
             const bool useLocalArgumentsFile,
             const bool useCustomArgumentsFile,
             const char switchOnSuffix,
@@ -77,7 +77,7 @@ namespace DNX::App
             _shortNamePrefix           = shortNamePrefix;
             _longNamePrefix            = longNamePrefix;
             _customArgumentsFilePrefix = customArgumentsFilePrefix;
-            _useGlobalArgumentsFile    = useGlobalArgumentsFile;
+            _useDefaultArgumentsFile   = useDefaultArgumentsFile;
             _useLocalArgumentsFile     = useLocalArgumentsFile;
             _useCustomArgumentsFile    = useCustomArgumentsFile;
             _switchOnSuffix            = switchOnSuffix;

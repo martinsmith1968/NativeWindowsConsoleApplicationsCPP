@@ -21,10 +21,6 @@ using namespace Stopwatch;
 
 //------------------------------------------------------------------------------
 // TODO:
-// - Remaining Commands
-//   - Become functional
-// - Custom display formats
-//   - Formatter classes with formatter factory
 // - Organise code structure
 // - Investigate Execute() method on Commands (base class ?)
 
@@ -34,32 +30,33 @@ int main(const int argc, char* argv[])
     try
     {
         const AppInfo appInfo;
+        const ParserConfig config;
 
         AppCommands commands;
-        auto& command = CommandsParser::ParseCommands(commands, argc, argv);
+        const auto& command = CommandsParser::ParseCommands(commands, argc, argv);
 
         if (command.IsEmpty())
         {
-            CommandsUsageDisplay::ShowUsage(commands, appInfo);
+            CommandsUsageDisplay::ShowUsage(commands, config, appInfo);
             return 1;
         }
 
         if (!commands.IsValid())
         {
-            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), appInfo);
+            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), config, appInfo);
             ArgumentsUsageDisplay::ShowErrors(command.GetArguments(), 1);
             return 2;
         }
 
         if (command.GetArguments().IsHelp())
         {
-            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), appInfo, command.GetName());
+            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), config, appInfo, command.GetName());
             return 3;
         }
 
         if (!command.GetArguments().IsValid())
         {
-            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), appInfo, command.GetName());
+            ArgumentsUsageDisplay::ShowUsage(command.GetArguments(), config, appInfo, command.GetName());
             ArgumentsUsageDisplay::ShowErrors(command.GetArguments(), 1);
             return 4;
         }

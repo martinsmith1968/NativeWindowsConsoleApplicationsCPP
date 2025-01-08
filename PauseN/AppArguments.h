@@ -9,67 +9,71 @@
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppTooWideScopeInitStatement
+// ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 
 using namespace DNX::Utils;
 
-//------------------------------------------------------------------------------
-// Arguments
-class AppArguments final : public Arguments
+namespace PauseN
 {
-public:
-    AppArguments()
+    //------------------------------------------------------------------------------
+    // Arguments
+    class AppArguments final : public Arguments
     {
+        const string ArgumentNameMessageText = "message-text";
+        const string ArgumentNameTimeout     = "timeout";
+        const string ArgumentNameSleep       = "sleep";
 
-        auto const defaultMessageText = "Press any key to continue (or wait {timeout} seconds) . . . ";
-        auto const defaultTimeout     = std::to_string(30);
-        auto const defaultSleep       = std::to_string(200);
-
-        AddParameter(ValueType::STRING, 1, "message-text", defaultMessageText, "The Text to display", false);
-        AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
-        AddOption(ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
-
-        SetArgumentValue("message-text", defaultMessageText);
-        SetArgumentValue("timeout", defaultTimeout);
-        SetArgumentValue("sleep", defaultSleep);
-    }
-
-    string GetMessageText()
-    {
-        return GetArgumentValue("message-text");
-    }
-
-    int GetTimeoutSeconds()
-    {
-        return ValueConverter::ToInt(GetArgumentValue("timeout"));
-    }
-
-    int GetSleepMilliseconds()
-    {
-        return ValueConverter::ToInt(GetArgumentValue("sleep"));
-    }
-
-    string GetFormattedMessageText()
-    {
-        auto replace_timeout = [](AppArguments& arguments, const string& text)
-            {
-                return StringUtils::ReplaceString(text, "{timeout}", std::to_string(arguments.GetTimeoutSeconds()));
-            };
-        auto replace_sleep= [](AppArguments& arguments, const string& text)
-            {
-                return StringUtils::ReplaceString(text, "{sleep}", std::to_string(arguments.GetSleepMilliseconds()));
-            };
-
-        return replace_sleep(*this, replace_timeout(*this, GetMessageText()));
-    }
-
-    void PostParseValidate() override
-    {
-        auto const timeout_time = std::chrono::seconds(GetTimeoutSeconds());
-        auto const sleep_time   = std::chrono::milliseconds(GetSleepMilliseconds());
-
-        if (sleep_time >= timeout_time)
+    public:
+        AppArguments()
         {
-            AddError("Sleep time must be less than Timeout");
+            auto const defaultMessageText = "Press any key to continue (or wait {" + ArgumentNameTimeout + "} seconds) . . . ";
+            auto const defaultTimeout     = std::to_string(30);
+            auto const defaultSleep       = std::to_string(200);
+
+            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, defaultMessageText, "The Text to display", false);
+            AddOption(ValueType::INT, "t", ArgumentNameTimeout, defaultTimeout, "The timeout to wait for in seconds", false);
+            AddOption(ValueType::INT, "s", ArgumentNameSleep, defaultSleep, "The period to sleep for between checks for in milliseconds", false);
         }
-    }
-};
+
+        string GetMessageText()
+        {
+            return GetArgumentValue(ArgumentNameMessageText);
+        }
+
+        int GetTimeoutSeconds()
+        {
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameTimeout));
+        }
+
+        int GetSleepMilliseconds()
+        {
+            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameSleep));
+        }
+
+        static string GetReplacementText(const string& text)
+        {
+            return StringUtils::EnsureStartsAndEndsWith(text, "{", "}");
+        }
+
+        string GetFormattedMessageText()
+        {
+            auto formatted_text = GetMessageText();
+
+            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
+            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
+
+            return formatted_text;
+        }
+
+        void PostParseValidate() override
+        {
+            auto const timeout_time = std::chrono::seconds(GetTimeoutSeconds());
+            auto const sleep_time   = std::chrono::milliseconds(GetSleepMilliseconds());
+
+            if (sleep_time >= timeout_time)
+            {
+                AddError("Sleep time must be less than Timeout");
+            }
+        }
+    };
+}
