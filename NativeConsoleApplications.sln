@@ -49,6 +49,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App.Tests", "DNX.App.Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stopwatch", "Stopwatch\Stopwatch.vcxproj", "{03EA8CE3-1A80-4B88-904E-9874DB82B1CF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4BD9D464-3DDB-40D3-BB71-ACC45C240D0A}"
+	ProjectSection(SolutionItems) = preProject
+		.docs\BannerText.md = .docs\BannerText.md
+		.docs\PauseN.md = .docs\PauseN.md
+		.docs\Stopwatch.md = .docs\Stopwatch.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -125,6 +132,7 @@ Global
 		{FE553727-0F98-409E-93E2-F8EBC5B2C6BE} = {8A2943F9-A3A0-45E8-B091-3B19F6A3E782}
 		{01774A04-F33B-40EC-B35C-203F0B8A96A8} = {8A2943F9-A3A0-45E8-B091-3B19F6A3E782}
 		{03EA8CE3-1A80-4B88-904E-9874DB82B1CF} = {50EC96D2-6E9C-4F27-A757-2A560FE087CF}
+		{4BD9D464-3DDB-40D3-BB71-ACC45C240D0A} = {BDB2C450-AD2C-4854-9D5B-F4BC08CDFA97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14CB252E-DEB4-45FE-BFB2-C8E87801F070}
