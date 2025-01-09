@@ -61,8 +61,8 @@ int main(const int argc, char* argv[])
             return 4;
         }
 
+        // TODO: command->Execute()
         commands.Execute(command);
-        //command.Execute();
 
         return 0;
     }
