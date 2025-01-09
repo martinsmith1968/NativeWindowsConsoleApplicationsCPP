@@ -22,7 +22,7 @@ namespace Stopwatch
         ElapsedArguments()
         {
             AddParameterStopwatchName();
-            AddSwitchVerboseOutput(true);
+            AddOptionElapsedTimeDisplayFormat();
         }
     };
 
@@ -33,8 +33,7 @@ namespace Stopwatch
     public:
         ElapsedCommand()
             : BaseCommand(&m_arguments, CommandType::ELAPSED, "Display the current elapsed time of an active Stopwatch", 30)
-        {
-        }
+        { }
 
         void Execute() override
         {
@@ -45,7 +44,8 @@ namespace Stopwatch
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
-            cout << GetElapsedTimeDisplay(timer, "Active") << endl;
+            const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+            cout << text << endl;
         }
     };
 }

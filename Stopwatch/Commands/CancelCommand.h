@@ -4,7 +4,6 @@
 #include "BaseCommand.h"
 #include <string>
 #include <iostream>
-#include <ostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -22,6 +21,7 @@ namespace Stopwatch
         CancelArguments()
         {
             AddParameterStopwatchName();
+            AddSwitchIgnoreInvalidState(false);
             AddSwitchVerboseOutput(false);
         }
     };
@@ -33,8 +33,7 @@ namespace Stopwatch
     public:
         CancelCommand()
             : BaseCommand(&m_arguments, CommandType::CANCEL, "Cancel an active Stopwatch", 25)
-        {
-        }
+        { }
 
         void Execute() override
         {
@@ -45,10 +44,16 @@ namespace Stopwatch
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
+            if (!timer.CanStop())
+            {
+                if (!m_arguments.GetIgnoreInvalidState())
+                    AbortInvalidState(timer, CommandType::CANCEL);
+            }
+
             timer.Stop();
 
-            if (m_arguments.GetVerbose())
-                cout << GetElapsedTimeDisplay(timer, "Cancelled") << endl;
+            if (m_arguments.GetVerboseOutput())
+                cout << GetTimerStatusDisplayText(timer, "cancelled") << endl;
 
             repository.Delete(timer);
         }

@@ -4,7 +4,6 @@
 #include "BaseCommand.h"
 #include <string>
 #include <iostream>
-#include <ostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -22,6 +21,9 @@ namespace Stopwatch
         ResumeArguments()
         {
             AddParameterStopwatchName();
+            AddSwitchShowElapsedTime(false);
+            AddOptionElapsedTimeDisplayFormat();
+            AddSwitchIgnoreInvalidState(false);
             AddSwitchVerboseOutput(true);
         }
     };
@@ -44,10 +46,22 @@ namespace Stopwatch
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
+            if (!timer.CanStart())
+            {
+                if (!m_arguments.GetIgnoreInvalidState())
+                    AbortInvalidState(timer, CommandType::RESUME);
+            }
+
             timer.Start();
 
-            if (m_arguments.GetVerbose())
-                cout << GetTimerDetailsDisplay(timer, "Resumed") << endl;
+            if (m_arguments.GetVerboseOutput())
+                cout << GetTimerStatusDisplayText(timer, "resumed") << endl;
+
+            if (m_arguments.GetShowElapsedTime())
+            {
+                const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                cout << text << endl;
+            }
 
             repository.Update(timer);
         }
