@@ -9,6 +9,7 @@
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 
 using namespace std;
 
@@ -27,6 +28,8 @@ namespace Stopwatch
 
     class StartCommand final : public BaseCommand
     {
+        const string START_TIME_DISPLAY_FORMAT = "%H:%M:%S";
+
         StartArguments m_arguments;
 
     public:
@@ -46,8 +49,8 @@ namespace Stopwatch
             timer = Timer(stopwatch_name);
             timer.Start();
 
-            if (m_arguments.GetVerbose())
-                cout << GetTimerDetailsDisplay(timer, "Started");
+            if (m_arguments.GetVerboseOutput())
+                cout << GetTimerStatusDisplayText(timer, "started at " + TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), START_TIME_DISPLAY_FORMAT)) << endl;
 
             repository.Add(timer);
         }

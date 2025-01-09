@@ -2,7 +2,6 @@
 
 #include "../stdafx.h"
 #include "BaseCommand.h"
-#include "../../DNX.Utils/StringUtils.h"
 #include <string>
 #include <iostream>
 #include <ostream>
@@ -23,7 +22,10 @@ namespace Stopwatch
         StopArguments()
         {
             AddParameterStopwatchName();
-            AddSwitchVerboseOutput(true);
+            AddSwitchShowElapsedTime(true);
+            AddOptionElapsedTimeDisplayFormat();
+            AddSwitchIgnoreInvalidState(false);
+            AddSwitchVerboseOutput(false);
         }
     };
 
@@ -34,8 +36,7 @@ namespace Stopwatch
     public:
         StopCommand()
             : BaseCommand(&m_arguments, CommandType::STOP, "Start an active Stopwatch", 20)
-        {
-        }
+        { }
 
         void Execute() override
         {
@@ -46,10 +47,22 @@ namespace Stopwatch
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
+            if (!timer.CanStop())
+            {
+                if (!m_arguments.GetIgnoreInvalidState())
+                    AbortInvalidState(timer, CommandType::STOP);
+            }
+
             timer.Stop();
 
-            if (m_arguments.GetVerbose())
-                cout << GetElapsedTimeDisplay(timer, "Stopped") << endl;
+            if (m_arguments.GetVerboseOutput())
+                cout << GetTimerStatusDisplayText(timer, "stopped");
+
+            if (m_arguments.GetShowElapsedTime())
+            {
+                const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                cout << text << endl;
+            }
 
             repository.Delete(timer);
         }

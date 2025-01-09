@@ -1,6 +1,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "CommandType.h"
+#include "../TimerDisplayBuilder.h"
 #include "../TimerRepository.h"
 #include "../../DNX.App/Arguments.h"
 #include "../../DNX.App/ValueType.h"
@@ -8,11 +9,10 @@
 #include <chrono>
 #include <string>
 
-#include "../../DNX.Utils/DateUtils.h"
-
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable StringLiteralTypo
 
 using namespace std;
 
@@ -25,13 +25,16 @@ namespace Stopwatch
     protected:
         const int APP_MAX = INT_MAX - 10;
 
-        const string ArgumentNameStopwatchName = "stopwatch-name";
-        const string ArgumentNameVerbose       = "verbose";
-        const string ArgumentNameFileName      = "filename";
+        const string ArgumentNameDataFileName             = "data-filename";
+        const string ArgumentNameStopwatchName            = "stopwatch-name";
+        const string ArgumentNameVerboseOutput            = "verbose-output";
+        const string ArgumentNameIgnoreInvalidState       = "ignore-invalid-state";
+        const string ArgumentNameShowElapsedTime          = "show-elapsed-time";
+        const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
 
         BaseArguments()
         {
-            AddOption(ValueType::STRING, "f", ArgumentNameFileName, TimerRepository::GetDefaultRepositoryFileName(), "The filename to store Stopwatch data in", false, APP_MAX);
+            AddOption(ValueType::STRING, "df", ArgumentNameDataFileName, TimerRepository::GetDefaultRepositoryFileName(), "The filename to store Stopwatch data in", false, APP_MAX);
         }
 
         void AddParameterStopwatchName()
@@ -40,14 +43,29 @@ namespace Stopwatch
         }
         void AddSwitchVerboseOutput(const bool default_value)
         {
-            AddSwitch("v", ArgumentNameVerbose, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, 0);
+            AddSwitch("v", ArgumentNameVerboseOutput, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, 0);
+        }
+        void AddSwitchIgnoreInvalidState(const bool default_value)
+        {
+            AddSwitch("i", ArgumentNameIgnoreInvalidState, StringUtils::BoolToString(default_value), "Ignore errors of Stopwatch being in invalid state for the action", false, 0);
+        }
+        void AddSwitchShowElapsedTime(const bool default_value)
+        {
+            AddSwitch("set", ArgumentNameShowElapsedTime, StringUtils::BoolToString(default_value), "Show the Stopwatch Elapsed Time", false, 0);
+        }
+        void AddOptionElapsedTimeDisplayFormat()
+        {
+            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, 0);
         }
 
     public:
-        string GetFileName() { return GetArgumentValue(ArgumentNameFileName); }
+        string GetFileName() { return GetArgumentValue(ArgumentNameDataFileName); }
 
         string GetStopwatchName() { return GetArgumentValue(ArgumentNameStopwatchName); }
-        bool GetVerbose() { return GetSwitchValue(ArgumentNameVerbose); }
+        bool GetVerboseOutput() { return GetSwitchValue(ArgumentNameVerboseOutput); }
+        bool GetIgnoreInvalidState() { return GetSwitchValue(ArgumentNameIgnoreInvalidState); }
+        bool GetShowElapsedTime() { return GetSwitchValue(ArgumentNameShowElapsedTime); }
+        string GetElapsedTimeDisplayFormat() { return GetArgumentValue(ArgumentNameElapsedTimeDisplayFormat); }
     };
 
     //------------------------------------------------------------------------------
@@ -81,95 +99,21 @@ namespace Stopwatch
             const string exception_text = "Stopwatch '" + stopwatch_name + "' already exists";
             throw exception(exception_text.c_str());
         }
-
-        static string GetElapsedTimeDisplay(const Timer& timer, const string& prefix)
+        static void AbortInvalidState(const Timer& timer, const CommandType command_type)
         {
-            string text = string(prefix)
-                .append(": ")
+            const string exception_text = string("Stopwatch: '")
                 .append(timer.GetName())
-                .append(" - Elapsed time: ")
-                .append(FormatForDisplay(timer.GetAccumulatedElapsed()));
-
-            return text;
-        }
-
-        static string GetTimerDetailsDisplay(const Timer& timer, const string& prefix)
-        {
-            const auto formatted_start_time = FormatForDisplay(timer.GetStartDateTime());
-
-            string text = string(prefix)
-                .append(": ")
-                .append(timer.GetName())
+                .append("' is not in the correct state to ")
+                .append(CommandTypeTextResolver().GetText(command_type))
                 .append(" - ")
-                .append(formatted_start_time);
+                .append(TimerStateTypeTextResolver().GetText(timer.GetState()));
 
-            return text;
+            throw exception(exception_text.c_str());
         }
 
-    public:
-        static string FormatForDisplay(const tm& tm)
+        static string GetTimerStatusDisplayText(const Timer& timer, const string& status)
         {
-            return DateUtils::FormatDate(&tm, "%Y-%m-%d %H:%M:%S");
-        }
-
-        static string FormatForDisplay(const double timespan)
-        {
-            auto remaining = timespan;
-
-            const auto days = static_cast<int>(floor(remaining / (60 * 60 * 24)));
-            if (days > 0)
-                remaining -= (days * (60 * 60 * 24));
-
-            const auto hours = static_cast<int>(floor(remaining / (60 * 60)));
-            if (hours > 0)
-                remaining -= (hours * (60 * 60));
-
-            const auto minutes = static_cast<int>(floor(remaining / 60));
-            if (minutes > 0)
-                remaining -= (minutes * 60);
-
-            const auto seconds = static_cast<int>(remaining);
-
-            string display;
-
-            if (days > 0)
-            {
-                if (!display.empty())
-                    display.append(", ");
-
-                display
-                    .append(to_string(days))
-                    .append(" days");
-            }
-
-            if (hours > 0)
-            {
-                if (!display.empty())
-                    display.append(", ");
-
-                display
-                    .append(to_string(hours))
-                    .append(" hours");
-            }
-
-            if (minutes > 0)
-            {
-                if (!display.empty())
-                    display.append(", ");
-
-                display
-                    .append(to_string(minutes))
-                    .append(" minutes");
-            }
-
-            if (!display.empty())
-                display.append(", ");
-
-            display
-                .append(to_string(seconds))
-                .append(" seconds");
-
-            return display;
+            return "Stopwatch: " + timer.GetName() + " " + status;
         }
 
     public:

@@ -14,6 +14,7 @@
 using namespace std;
 using namespace DNX::App;
 using namespace DNX::Utils;
+using namespace PauseN;
 
 //------------------------------------------------------------------------------
 // main
@@ -22,18 +23,19 @@ int main(const int argc, char* argv[])
     try
     {
         const AppInfo appInfo;
+        const ParserConfig config;
 
         AppArguments arguments;
         ArgumentsParser::ParseArguments(arguments, argc, argv);
 
         if (arguments.IsHelp())
         {
-            ArgumentsUsageDisplay::ShowUsage(arguments, appInfo);
+            ArgumentsUsageDisplay::ShowUsage(arguments, config, appInfo);
             return 1;
         }
         if (!arguments.IsValid())
         {
-            ArgumentsUsageDisplay::ShowUsage(arguments, appInfo);
+            ArgumentsUsageDisplay::ShowUsage(arguments, config, appInfo);
             ArgumentsUsageDisplay::ShowErrors(arguments, 1);
             return 2;
         }

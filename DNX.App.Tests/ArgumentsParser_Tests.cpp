@@ -220,3 +220,22 @@ TEST(TEST_GROUP, IsValid_arguments_with_non_required_string_option_returns_succe
     EXPECT_EQ(arguments.GetMessageText(), "bob");
     EXPECT_EQ(arguments.GetFormat(), "");
 }
+
+TEST(TEST_GROUP, IsValid_more_parameters_supplied_than_are_expected_returns_successfully)
+{
+    constexpr auto argc = 3;
+    char* argv[argc] = {
+        "",
+        "bob",
+        "dave",
+    };
+
+    Arguments3 arguments;
+
+    // Act
+    ArgumentsParser::ParseArguments(arguments, argc, argv);
+    TestHelper::ShowErrors(arguments);
+
+    // Assert
+    EXPECT_FALSE(arguments.IsValid());
+}

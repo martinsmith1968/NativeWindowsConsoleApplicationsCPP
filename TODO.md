@@ -2,15 +2,17 @@
 
 ## Fixes
 
-### BannerText
-
-- `minl` not parsing correctly
+- None
 
 ## Enhancements
 
+- [ ] Support arrays of arguments (multiple instances of a single Parameter)
+- [ ] Support arguments files at all levels in Help
+- [ ] Add Help text for adding a file of arguments
+
 ### General
 
-- Introduce some TextTests
+- [ ] Introduce some TextTests
   - https://texttest.sourceforge.net/index.php?page=documentation_4_0&n=course_material#Exercise2
   - https://texttest.sourceforge.net/index.php?page=documentation_4_0&n=course_material
-- Invoke via CI
+- [ ] Invoke via CI

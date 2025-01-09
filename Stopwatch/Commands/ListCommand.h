@@ -2,6 +2,7 @@
 
 #include "../stdafx.h"
 #include "BaseCommand.h"
+#include "../DNX.Utils/DateUtils.h"
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -48,7 +49,6 @@ namespace Stopwatch
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);
-            AddSwitchVerboseOutput(false);
         }
 
         void PostParseValidate() override
@@ -95,13 +95,7 @@ namespace Stopwatch
             ss << left
                 << setw(static_cast<streamsize>(m_max_name_width))
                 << timer.GetName()
-                << " Started: "
-                << BaseCommand::FormatForDisplay(timer.GetStartDateTime())
-                << " ("
-                << TimerStateTypeTextResolver().GetText(timer.GetState())
-                << ")"
-                << " Elapsed: "
-                << BaseCommand::FormatForDisplay(timer.GetAccumulatedElapsed())
+                << TimerDisplayBuilder::GetFormattedText(timer, ": {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -117,11 +111,11 @@ namespace Stopwatch
 
             ss << timer.GetName()
                 << ","
-                << BaseCommand::FormatForDisplay(timer.GetStartDateTime())
+                << TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), TimerDisplayBuilder::DefaultStartTimeTextFormat)
                 << ","
                 << TimerStateTypeTextResolver().GetText(timer.GetState())
                 << ","
-                << timer.GetAccumulatedElapsed()
+                << TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), "{days}:{hours}:{minutes}:{seconds}")
                 ;
 
             return ss.str();
@@ -138,27 +132,9 @@ namespace Stopwatch
             m_custom_format_string = arguments.GetCustomFormatText();
         }
 
-        static string ApplyValuesToFormat(const string& custom_format, const Timer& timer)
-        {
-            auto start_datetime = timer.GetStartDateTime();
-
-            auto text = custom_format;
-            text = StringUtils::ReplaceString(text, "#NAME#", timer.GetName());
-            text = StringUtils::ReplaceString(text, "#STATE#", TimerStateTypeTextResolver().GetText(timer.GetState()));
-            text = StringUtils::ReplaceString(text, "#ACCUMULATED_ELAPSED#", to_string(timer.GetAccumulatedElapsed()));
-            text = StringUtils::ReplaceString(text, "#TOTAL_ELAPSED#", to_string(timer.GetTotalElapsed()));
-            text = StringUtils::ReplaceString(text, "#CURRENT_ELAPSED#", to_string(timer.GetCurrentElapsed()));
-            text = StringUtils::ReplaceString(text, "#ELAPSED_TEXT#", BaseCommand::FormatForDisplay(timer.GetAccumulatedElapsed()));
-            text = DateUtils::FormatDate(&start_datetime, text);
-
-            return text;
-        }
-
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
         {
-            auto text = ApplyValuesToFormat(m_custom_format_string, timer);
-
-            return text;
+            return TimerDisplayBuilder::GetFormattedText(timer, m_custom_format_string);
         }
     };
 
@@ -188,8 +164,7 @@ namespace Stopwatch
     public:
         ListCommand()
             : BaseCommand(&m_arguments, CommandType::LIST, "List all active Stopwatches", 10)
-        {
-        }
+        { }
 
         void Execute() override
         {

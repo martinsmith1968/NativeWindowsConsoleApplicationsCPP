@@ -7,20 +7,23 @@
 #include <iostream>
 #include <ostream>
 
+#include "ParserConfig.h"
+
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
 
+using namespace std;
 using namespace DNX::App;
 using namespace DNX::Utils;
 
 string ArgumentsUsageDisplay::ErrorLinePrefix = "ERROR";
 
-void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetails& appDetails, const string& command_name)
+void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserConfig& parser_config, const AppDetails& appDetails, const string& command_name)
 {
-    cout << appDetails.GetHeaderLine() << std::endl;
+    cout << appDetails.GetHeaderLine() << endl;
     if (!appDetails.Copyright.empty())
     {
-        cout << appDetails.Copyright << std::endl;
+        cout << appDetails.Copyright << endl;
     }
 
     auto parameters = arguments.GetArgumentsByType(ArgumentType::PARAMETER);
@@ -53,14 +56,14 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
         argumentText.append(" [OPTIONS]");
     }
 
-    cout << std::endl;
-    cout << "Usage:" << std::endl;
-    cout << AppDetails::GetApplicationName() << argumentText << std::endl;
+    cout << endl;
+    cout << "Usage:" << endl;
+    cout << AppDetails::GetApplicationName() << argumentText << endl;
 
     if (hasOptions)
     {
-        cout << std::endl;
-        cout << "OPTIONS:" << std::endl;
+        cout << endl;
+        cout << "OPTIONS:" << endl;
 
         list<tuple<Argument, string, string>> argumentDescriptions;
 
@@ -82,7 +85,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
             }
             argument_description += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
 
-            maxArgumentDescriptionLength = std::max(argument_description.length(), maxArgumentDescriptionLength);
+            maxArgumentDescriptionLength = max(argument_description.length(), maxArgumentDescriptionLength);
 
             auto textDesc = iter->GetDescription();
 
@@ -131,30 +134,34 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const AppDetai
         const auto paddedWidth = maxArgumentDescriptionLength + 2;
         for (auto iter = argumentDescriptions.begin(); iter != argumentDescriptions.end(); ++iter)
         {
-            std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(paddedWidth)) << std::get<1>(*iter)
-                << std::get<2>(*iter)
-                << std::endl;
+            cout << left << setfill(' ') << setw(static_cast<streamsize>(paddedWidth)) << get<1>(*iter)
+                << get<2>(*iter)
+                << endl;
         }
     }
 
     list<string> argument_file_lines;
-    if (FileUtils::FileExists(AppDetails::GetDefaultArgumentsFileName()))
+    if (parser_config.GetUseDefaultArgumentsFile())
     {
-        argument_file_lines.push_back("Default arguments file: " + AppDetails::GetDefaultArgumentsFileName());
+        const auto found = FileUtils::FileExists(AppDetails::GetDefaultArgumentsFileName());
+
+        argument_file_lines.push_back("Default App arguments can be specified in : " + AppDetails::GetDefaultArgumentsFileName() + (found ? " (exists)" : ""));
     }
-    if (FileUtils::FileExists(AppDetails::GetLocalArgumentsFileName()))
+    if (parser_config.GetUseLocalArgumentsFile())
     {
         if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
         {
-            argument_file_lines.push_back("Local arguments file: " + AppDetails::GetLocalArgumentsFileName());
+            const auto found = FileUtils::FileExists(AppDetails::GetLocalArgumentsFileName());
+
+            argument_file_lines.push_back("Local App arguments can be specified in : " + AppDetails::GetLocalArgumentsFileName() + (found ? " (exists)" : ""));
         }
     }
 
     if (!argument_file_lines.empty())
     {
-        cout << std::endl;
+        cout << endl;
         for (const auto& line : argument_file_lines)
-            cout << line << std::endl;
+            cout << line << endl;
     }
 }
 

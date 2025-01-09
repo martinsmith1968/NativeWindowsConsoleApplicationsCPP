@@ -3,6 +3,8 @@
 #include "pch.h"
 #include "../DNX.App/Arguments.h"
 
+// ReSharper disable CppInconsistentNaming
+
 class Arguments3 final : public Arguments
 {
 public:
