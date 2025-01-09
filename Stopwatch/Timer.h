@@ -15,8 +15,8 @@ namespace Stopwatch
 {
     enum class TimerStateType : uint8_t
     {
-        ACTIVE,
-        PAUSED,
+        RUNNING,
+        STOPPED,
     };
 
     class TimerStateTypeTextResolver : public EnumTextResolver<TimerStateType>
@@ -24,8 +24,8 @@ namespace Stopwatch
     public:
         TimerStateTypeTextResolver()
         {
-            SetText(TimerStateType::ACTIVE, "Active");
-            SetText(TimerStateType::PAUSED, "Paused");
+            SetText(TimerStateType::RUNNING, "Running");
+            SetText(TimerStateType::STOPPED, "Stopped");
         }
     };
 
@@ -50,6 +50,9 @@ namespace Stopwatch
         [[nodiscard]] double GetCurrentElapsed() const;
         [[nodiscard]] double GetAccumulatedElapsed() const;
         [[nodiscard]] tm GetStartDateTime() const;
+
+        bool CanStart() const;
+        bool CanStop() const;
 
         void Start();
         void Stop();

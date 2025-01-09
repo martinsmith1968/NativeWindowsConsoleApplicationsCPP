@@ -21,7 +21,7 @@ Timer Timer::m_empty_timer = Timer();
 
 Timer::Timer() :
     m_Start(DateUtils::GetNow()),
-    m_State(TimerStateType::PAUSED),
+    m_State(TimerStateType::STOPPED),
     m_TotalElapsed(0)
 {
 }
@@ -30,7 +30,7 @@ Timer::Timer(const string& name)
 {
     m_Name         = name;
     m_Start        = DateUtils::GetNow();
-    m_State        = TimerStateType::PAUSED;
+    m_State        = TimerStateType::STOPPED;
     m_TotalElapsed = 0;
 }
 
@@ -62,7 +62,7 @@ double Timer::GetAccumulatedElapsed() const
 {
     double elapsed_time = GetTotalElapsed();
 
-    if (m_State == TimerStateType::ACTIVE)
+    if (m_State == TimerStateType::RUNNING)
         elapsed_time += GetCurrentElapsed();
 
     return elapsed_time;
@@ -75,21 +75,30 @@ tm Timer::GetStartDateTime() const
     return start_time_parts;
 }
 
+bool Timer::CanStart() const
+{
+    return (m_State == TimerStateType::STOPPED);
+}
+bool Timer::CanStop() const
+{
+    return (m_State == TimerStateType::RUNNING);
+}
+
 void Timer::Start()
 {
-    if (m_State == TimerStateType::ACTIVE)
+    if (!CanStart())
         return;
 
     m_Start = DateUtils::GetNow();
-    m_State = TimerStateType::ACTIVE;
+    m_State = TimerStateType::RUNNING;
 }
 void Timer::Stop()
 {
-    if (m_State == TimerStateType::PAUSED)
+    if (!CanStop())
         return;
 
     m_TotalElapsed += GetCurrentElapsed();
-    m_State         = TimerStateType::PAUSED;
+    m_State         = TimerStateType::STOPPED;
 }
 
 bool Timer::IsEmpty() const
