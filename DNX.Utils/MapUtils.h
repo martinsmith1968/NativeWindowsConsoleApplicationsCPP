@@ -1,5 +1,6 @@
 #pragma once
 
+#include <list>
 #include <map>
 
 // ReSharper disable CppInconsistentNaming
@@ -22,22 +23,22 @@ namespace DNX::Utils
             return map.find(key) != map.end();
         }
 
-        //template<class T, class V>
-        //static list<T> GetKeys(const map<T, V>& map)
-        //{
-        //    list<T> items;
-        //    for (auto kvp : map)
-        //        items.emplace_back(kvp.first);
-        //    return items;
-        //}
-        //
-        //template<class T, class V>
-        //static list<V> GetValues(const map<T, V>& map)
-        //{
-        //    list<V> items;
-        //    for (auto kvp : map)
-        //        items.emplace_back(kvp.second);
-        //    return items;
-        //}
+        template<class T, class V>
+        static list<T> GetKeys(const map<T, V>& map)
+        {
+            list<T> items;
+            for (auto kvp : map)
+                items.emplace_back(kvp.first);
+            return items;
+        }
+
+        template<class T, class V>
+        static list<V> GetValues(const map<T, V>& map)
+        {
+            list<V> items;
+            for (auto kvp : map)
+                items.emplace_back(kvp.second);
+            return items;
+        }
     };
 }
