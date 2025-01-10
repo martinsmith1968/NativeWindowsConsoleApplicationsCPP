@@ -21,7 +21,7 @@ Timer Timer::m_empty_timer = Timer();
 
 Timer::Timer() :
     m_Start(DateUtils::GetNow()),
-    m_State(TimerStateType::STOPPED),
+    m_State(TimerStateType::INACTIVE),
     m_TotalElapsed(0)
 {
 }
@@ -30,8 +30,13 @@ Timer::Timer(const string& name)
 {
     m_Name         = name;
     m_Start        = DateUtils::GetNow();
-    m_State        = TimerStateType::STOPPED;
+    m_State        = TimerStateType::INACTIVE;
     m_TotalElapsed = 0;
+}
+
+bool Timer::CompareByStartTime(const Timer& first, const Timer& second)
+{
+    return first.GetStart() < second.GetStart();
 }
 
 string Timer::GetName() const
@@ -62,7 +67,7 @@ double Timer::GetAccumulatedElapsed() const
 {
     double elapsed_time = GetTotalElapsed();
 
-    if (m_State == TimerStateType::RUNNING)
+    if (m_State == TimerStateType::ACTIVE)
         elapsed_time += GetCurrentElapsed();
 
     return elapsed_time;
@@ -77,11 +82,12 @@ tm Timer::GetStartDateTime() const
 
 bool Timer::CanStart() const
 {
-    return (m_State == TimerStateType::STOPPED);
+    return (m_State == TimerStateType::INACTIVE);
 }
 bool Timer::CanStop() const
 {
-    return (m_State == TimerStateType::RUNNING);
+    return (m_State == TimerStateType::ACTIVE)
+        || (m_State == TimerStateType::INACTIVE);
 }
 
 void Timer::Start()
@@ -90,15 +96,23 @@ void Timer::Start()
         return;
 
     m_Start = DateUtils::GetNow();
-    m_State = TimerStateType::RUNNING;
+    m_State = TimerStateType::ACTIVE;
 }
+
+void Timer::Pause()
+{
+    Stop();
+    m_State = TimerStateType::INACTIVE;
+}
+
 void Timer::Stop()
 {
     if (!CanStop())
         return;
 
-    m_TotalElapsed += GetCurrentElapsed();
-    m_State         = TimerStateType::STOPPED;
+    if (m_State == TimerStateType::ACTIVE)
+        m_TotalElapsed += GetCurrentElapsed();
+    m_State = TimerStateType::INACTIVE;
 }
 
 bool Timer::IsEmpty() const
