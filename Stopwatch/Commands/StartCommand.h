@@ -40,7 +40,7 @@ namespace Stopwatch
         void Execute() override
         {
             const auto stopwatch_name = m_arguments.GetStopwatchName();
-            auto repository = TimerRepository(m_arguments.GetFileName());
+            auto repository = TimerRepository(m_arguments.GetDataFileName());
 
             auto timer = repository.GetByName(stopwatch_name);
             if (!timer.IsEmpty())

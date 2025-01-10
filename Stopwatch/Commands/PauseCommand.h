@@ -9,6 +9,7 @@
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 
@@ -21,10 +22,11 @@ namespace Stopwatch
         PauseArguments()
         {
             AddParameterStopwatchName();
+            AddOptionAdditionalText();
             AddSwitchShowElapsedTime(true);
             AddOptionElapsedTimeDisplayFormat();
             AddSwitchIgnoreInvalidState(false);
-            AddSwitchVerboseOutput(true);
+            AddSwitchVerboseOutput(false);
         }
     };
 
@@ -40,7 +42,7 @@ namespace Stopwatch
         void Execute() override
         {
             const auto stopwatch_name = m_arguments.GetStopwatchName();
-            auto repository = TimerRepository(m_arguments.GetFileName());
+            auto repository = TimerRepository(m_arguments.GetDataFileName());
 
             auto timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
@@ -52,14 +54,17 @@ namespace Stopwatch
                     AbortInvalidState(timer, CommandType::STOP);
             }
 
-            timer.Stop();
+            timer.Pause();
 
             if (m_arguments.GetVerboseOutput())
                 cout << GetTimerStatusDisplayText(timer, "paused") << endl;
 
             if (m_arguments.GetShowElapsedTime())
             {
-                const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                const string additional_text = m_arguments.GetArgumentAdditionalText();
+                if (!additional_text.empty())
+                    text = text.append(" - ").append(additional_text);
                 cout << text << endl;
             }
 

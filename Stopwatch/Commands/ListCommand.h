@@ -2,12 +2,13 @@
 
 #include "../stdafx.h"
 #include "BaseCommand.h"
-#include "../DNX.Utils/DateUtils.h"
 #include <string>
 #include <iomanip>
 #include <sstream>
 #include <iostream>
 #include <ostream>
+
+#include "../../DNX.Utils/MapUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -49,6 +50,7 @@ namespace Stopwatch
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);
+            AddSwitchVerboseOutput(false);
         }
 
         void PostParseValidate() override
@@ -77,16 +79,19 @@ namespace Stopwatch
 
     class DisplayOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
-        size_t m_max_name_width = 0;
+        size_t m_max_name_width  = 0;
+        size_t m_max_state_width = 0;
 
     public:
         void Reset(ListArguments& arguments) override
         {
-            m_max_name_width = 0;
+            m_max_name_width  = 0;
+            m_max_state_width = 0;
         }
         void PreProcess(const Timer& timer) override
         {
-            m_max_name_width = max(m_max_name_width, timer.GetName().length());
+            m_max_name_width  = max(m_max_name_width, timer.GetName().length());
+            m_max_state_width = max(m_max_state_width, TimerStateTypeTextResolver().GetText(timer.GetState()).length());
         }
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
         {
@@ -95,7 +100,11 @@ namespace Stopwatch
             ss << left
                 << setw(static_cast<streamsize>(m_max_name_width))
                 << timer.GetName()
-                << TimerDisplayBuilder::GetFormattedText(timer, ": {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
+                << ": "
+                << setw(static_cast<streamsize>(m_max_state_width))
+                << TimerStateTypeTextResolver().GetText(timer.GetState())
+                << " - "
+                << TimerDisplayBuilder::GetFormattedText(timer, TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -127,7 +136,7 @@ namespace Stopwatch
         string m_custom_format_string;
 
     public:
-        void Reset(ListArguments& arguments)
+        void Reset(ListArguments& arguments) override
         {
             m_custom_format_string = arguments.GetCustomFormatText();
         }
@@ -168,20 +177,31 @@ namespace Stopwatch
 
         void Execute() override
         {
-            const auto repository = TimerRepository(m_arguments.GetFileName());
+            const auto repository = TimerRepository(m_arguments.GetDataFileName());
 
-            const auto timers = repository.ReadAll();
+            const auto all_timers = repository.ReadAll();
+            auto timers = MapUtils::GetValues(all_timers);
+            timers.sort(Timer::CompareByStartTime);
 
             const auto builder = OutputFormatFactory().GetOutputFormatBuilder(m_arguments.GetOutputFormatType());
 
             builder->Reset(m_arguments);
 
-            for (const auto& [key, value] : timers)
-                builder->PreProcess(value);
+            for (const auto& timer : timers)
+                builder->PreProcess(timer);
 
-            for (const auto& [key, value] : timers)
+            for (const auto& timer : timers)
             {
-                cout << builder->GetOutputText(value) << endl;
+                cout << builder->GetOutputText(timer) << endl;
+            }
+            if (!timers.empty())
+                cout << endl;
+            cout << "Found: " << timers.size() << " stopwatches" << endl;
+
+            if (m_arguments.GetVerboseOutput())
+            {
+                cout << endl;
+                cout << "Data File : " << m_arguments.GetDataFileName() << endl;
             }
         }
     };
