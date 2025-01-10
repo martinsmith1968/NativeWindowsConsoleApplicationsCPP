@@ -23,10 +23,10 @@ void App::Execute(AppArguments& arguments)
         }
     }
 
-    auto text_lines = arguments.GetTextLines();
-    for (auto iter = text_lines.begin(); iter != text_lines.end(); ++iter)
+    const auto text_lines = arguments.GetTextLines();
+    for (auto& line: text_lines)
     {
-        cout << *iter << endl;
+        cout << line << endl;
     }
 
     const auto footer_line_count = arguments.GetFooterLineCount();
@@ -34,7 +34,7 @@ void App::Execute(AppArguments& arguments)
     {
         const auto footer_line = arguments.GetFooterLine();
 
-        for (auto i = 0; i < static_cast<int>(arguments.GetFooterLineCount()); ++i)
+        for (auto i = 0; i < static_cast<int>(footer_line_count); ++i)
         {
             cout << footer_line << endl;
         }

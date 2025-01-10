@@ -31,12 +31,6 @@ list<Command> Commands::GetCommands() const
         commands.emplace_back(command);
     }
 
-    commands.sort([](const Command& first, const Command& second)
-        {
-            return first.GetSequence() < second.GetSequence();
-        }
-    );
-
     return commands;
 }
 

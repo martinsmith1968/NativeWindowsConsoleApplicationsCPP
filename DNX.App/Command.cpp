@@ -35,6 +35,11 @@ Command::Command()
     m_sequence    = 0;
 }
 
+bool Command::CompareBySequence(const Command& first, const Command& second)
+{
+    return first.GetSequence() < second.GetSequence();
+}
+
 bool Command::IsEmpty() const
 {
     return m_name.empty();

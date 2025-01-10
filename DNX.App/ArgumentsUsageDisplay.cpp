@@ -8,6 +8,7 @@
 #include <ostream>
 
 #include "ParserConfig.h"
+#include "../DNX.Utils/ListUtils.h"
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
@@ -63,79 +64,28 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
     if (hasOptions)
     {
         cout << endl;
-        cout << "OPTIONS:" << endl;
+        cout << "Options:" << endl;
 
-        list<tuple<Argument, string, string>> argumentDescriptions;
+        list<tuple<string, string>> argument_details;
 
-        size_t maxArgumentDescriptionLength = 0;
-        for (auto iter = optionsAndSwitches.begin(); iter != optionsAndSwitches.end(); ++iter)
+        size_t max_argument_details_length = 0;
+        for (auto& argument : optionsAndSwitches)
         {
-            string argument_description;
-            if (iter->GetArgumentType() == ArgumentType::PARAMETER)
-            {
-                argument_description = "[" + iter->GetLongName() + "]";
-            }
-            else
-            {
-                argument_description = "-" + iter->GetShortName();
-                if (iter->HasLongName())
-                {
-                    argument_description += ", --" + iter->GetLongName();
-                }
-            }
-            argument_description += " " + ValueTypeTextConverter.GetText(iter->GetValueType());
+            auto details = GetArgumentDetails(argument, parser_config);
+            auto description = GetArgumentDescription(argument);
 
-            maxArgumentDescriptionLength = max(argument_description.length(), maxArgumentDescriptionLength);
+            max_argument_details_length = max(details.length(), max_argument_details_length);
 
-            auto textDesc = iter->GetDescription();
+            const auto argument_detail = tuple(details, description);
 
-            list<string> textDescParts;
-
-            if (iter->GetRequired())
-            {
-                textDescParts.emplace_back("Required");
-            }
-            if (!iter->GetDefaultValue().empty())
-            {
-                textDescParts.push_back("Default:" + iter->GetDefaultValue());
-            }
-            if (!iter->GetValueList().empty())
-            {
-                const auto valueListText = StringUtils::JoinText(iter->GetValueList(), ", ");
-
-                textDescParts.push_back("Values: " + valueListText);
-            }
-
-            if (!textDescParts.empty())
-            {
-                textDesc += " (";
-
-                auto index = 0;
-                for (auto textPart = textDescParts.begin(); textPart != textDescParts.end(); ++textPart)
-                {
-                    if (index > 0)
-                    {
-                        textDesc += ", ";
-                    }
-
-                    textDesc += *textPart;
-
-                    ++index;
-                }
-
-                textDesc += ")";
-            }
-
-            const auto optionAndDesc = tuple(*iter, argument_description, textDesc);
-
-            argumentDescriptions.push_back(optionAndDesc);
+            argument_details.push_back(argument_detail);
         }
 
-        const auto paddedWidth = maxArgumentDescriptionLength + 2;
-        for (auto iter = argumentDescriptions.begin(); iter != argumentDescriptions.end(); ++iter)
+        const auto padded_details_width = max_argument_details_length + 2;
+        for (auto& tup : argument_details)
         {
-            cout << left << setfill(' ') << setw(static_cast<streamsize>(paddedWidth)) << get<1>(*iter)
-                << get<2>(*iter)
+            cout << left << setfill(' ') << setw(static_cast<streamsize>(padded_details_width)) << get<0>(tup)
+                << get<1>(tup)
                 << endl;
         }
     }
@@ -165,14 +115,67 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
     }
 }
 
+string ArgumentsUsageDisplay::GetArgumentDetails(const Argument& argument, const ParserConfig& parser_config)
+{
+    string details;
+
+    if (argument.GetArgumentType() == ArgumentType::PARAMETER)
+    {
+        details = "[" + argument.GetLongName() + "]";
+    }
+    else
+    {
+        details = parser_config.GetShortNamePrefix() + argument.GetShortName();
+        if (argument.HasLongName())
+        {
+            details += ", " + parser_config.GetLongNamePrefix() + argument.GetLongName();
+        }
+    }
+
+    details += " " + ValueTypeTextConverter.GetText(argument.GetValueType());
+
+    return details;
+}
+
+string ArgumentsUsageDisplay::GetArgumentDescription(const Argument& argument)
+{
+    auto description = argument.GetDescription();
+
+    list<string> parts;
+
+    if (argument.GetRequired())
+    {
+        parts.emplace_back("Required");
+    }
+    if (!argument.GetDefaultValue().empty())
+    {
+        parts.push_back("Default:" + argument.GetDefaultValue());
+    }
+    if (!argument.GetValueList().empty())
+    {
+        const auto valueListText = StringUtils::JoinText(argument.GetValueList(), ", ");
+
+        parts.push_back("Values: " + valueListText);
+    }
+
+    if (!parts.empty())
+    {
+        description += " ("
+            + StringUtils::JoinText(parts, ", ")
+            + ")";
+    }
+
+    return description;
+}
+
 void ArgumentsUsageDisplay::ShowErrors(const Arguments& arguments, const int blankLinesBefore, const int blankLinesAfter)
 {
     ConsoleUtils::ShowBlankLines(blankLinesBefore);
 
-    auto errors = arguments.GetErrors();
-    for (auto iter = errors.begin(); iter != errors.end(); ++iter)
+    const auto errors = arguments.GetErrors();
+    for (auto& error : errors)
     {
-        cout << ErrorLinePrefix << ": " << *iter << endl;
+        cout << ErrorLinePrefix << ": " << error << endl;
     }
 
     ConsoleUtils::ShowBlankLines(blankLinesAfter);

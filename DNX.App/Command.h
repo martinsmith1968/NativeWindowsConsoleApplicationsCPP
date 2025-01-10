@@ -27,6 +27,8 @@ namespace DNX::App
         Command();
         virtual ~Command() = default;
 
+        static bool CompareBySequence(const Command& first, const Command& second);
+
         [[nodiscard]] bool IsEmpty() const;
 
         [[nodiscard]] Arguments& GetArguments() const;

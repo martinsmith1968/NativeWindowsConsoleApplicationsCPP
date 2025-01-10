@@ -25,19 +25,22 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
     cout << "Usage:" << std::endl;
     cout << AppDetails::GetApplicationName() << " [command-name] { [command-arguments] }" << std::endl;
 
-    size_t max_argument_name_length = 0;
-    for (Command& command : commands.GetCommands())
+    auto command_list = commands.GetCommands();
+    command_list.sort(Command::CompareBySequence);
+    if (!command_list.empty())
     {
-        max_argument_name_length = std::max(command.GetName().length(), max_argument_name_length);
-    }
+        size_t max_argument_name_length = 0;
 
-    if (!commands.GetCommands().empty())
-    {
+        for (Command& command : command_list)
+        {
+            max_argument_name_length = std::max(command.GetName().length(), max_argument_name_length);
+        }
+
         cout << std::endl;
         cout << "Commands:" << std::endl;
         cout << std::endl;
         const auto argument_name_width = max_argument_name_length + 4;
-        for (Command& command : commands.GetCommands())
+        for (Command& command : command_list)
         {
             std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(argument_name_width)) << command.GetName()
                 << command.GetDescription()
