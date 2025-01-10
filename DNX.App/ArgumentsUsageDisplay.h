@@ -15,6 +15,9 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class ArgumentsUsageDisplay
     {
+        static string GetArgumentDetails(const Argument& argument, const ParserConfig& parser_config);
+        static string GetArgumentDescription(const Argument& argument);
+
     public:
         static string ErrorLinePrefix;
 

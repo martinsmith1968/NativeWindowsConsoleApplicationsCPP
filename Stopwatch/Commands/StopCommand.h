@@ -24,7 +24,6 @@ namespace Stopwatch
             AddParameterStopwatchName();
             AddSwitchShowElapsedTime(true);
             AddOptionElapsedTimeDisplayFormat();
-            AddSwitchIgnoreInvalidState(false);
             AddSwitchVerboseOutput(false);
         }
     };
@@ -41,22 +40,16 @@ namespace Stopwatch
         void Execute() override
         {
             const auto stopwatch_name = m_arguments.GetStopwatchName();
-            auto repository = TimerRepository(m_arguments.GetFileName());
+            auto repository = TimerRepository(m_arguments.GetDataFileName());
 
             auto timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
-            if (!timer.CanStop())
-            {
-                if (!m_arguments.GetIgnoreInvalidState())
-                    AbortInvalidState(timer, CommandType::STOP);
-            }
-
             timer.Stop();
 
             if (m_arguments.GetVerboseOutput())
-                cout << GetTimerStatusDisplayText(timer, "stopped");
+                cout << GetTimerStatusDisplayText(timer, "stopped") << endl;
 
             if (m_arguments.GetShowElapsedTime())
             {

@@ -10,6 +10,7 @@
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 
@@ -17,11 +18,11 @@ namespace Stopwatch
 {
     class ElapsedArguments final : public BaseArguments
     {
-
     public:
         ElapsedArguments()
         {
             AddParameterStopwatchName();
+            AddOptionAdditionalText();
             AddOptionElapsedTimeDisplayFormat();
         }
     };
@@ -38,13 +39,16 @@ namespace Stopwatch
         void Execute() override
         {
             const auto stopwatch_name = m_arguments.GetStopwatchName();
-            const auto repository = TimerRepository(m_arguments.GetFileName());
+            const auto repository = TimerRepository(m_arguments.GetDataFileName());
 
             const auto& timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
-            const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+            string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+            const string additional_text = m_arguments.GetArgumentAdditionalText();
+            if (!additional_text.empty())
+                text = text.append(" - ").append(additional_text);
             cout << text << endl;
         }
     };

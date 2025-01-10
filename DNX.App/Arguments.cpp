@@ -162,11 +162,11 @@ void Arguments::AddError(const string& text)
 
 Argument& Arguments::GetArgumentByLongName(const string& longName)
 {
-    const auto iter = _arguments.find(longName);
-    if (iter == _arguments.end())
+    const auto found = _arguments.find(longName);
+    if (found == _arguments.end())
         return Argument::Empty();
 
-    return iter->second;
+    return found->second;
 }
 
 Argument& Arguments::GetArgumentByShortName(const string& shortName)
@@ -226,9 +226,9 @@ string Arguments::GetArgumentValue(const string& name)
     if (argument.IsEmpty())
         throw exception((string("Unknown Argument: ") + name).c_str());
 
-    const auto iter = _values.find(argument.GetLongName());
-    if (iter != _values.end())
-        return iter->second;
+    const auto found = _values.find(argument.GetLongName());
+    if (found != _values.end())
+        return found->second;
 
     return argument.GetDefaultValue();
 }
@@ -241,9 +241,9 @@ bool Arguments::GetSwitchValue(const string& name)
     if (argument.GetArgumentType() != ArgumentType::SWITCH)
         throw exception((string("Argument is not a switch: ") + name).c_str());
 
-    const auto iter = _values.find(argument.GetLongName());
-    if (iter != _values.end())
-        return ValueConverter::ToBool(iter->second);
+    const auto found = _values.find(argument.GetLongName());
+    if (found != _values.end())
+        return ValueConverter::ToBool(found->second);
 
     return ValueConverter::ToBool(argument.GetDefaultValue());
 }

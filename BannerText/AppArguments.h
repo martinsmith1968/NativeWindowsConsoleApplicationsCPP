@@ -151,12 +151,12 @@ namespace BannerText
 
         list<string> GetTextLines()
         {
-            auto textLines = GetTextLinesToOutput();
+            const auto textLines = GetTextLinesToOutput();
 
             list<string> lines;
-            for (auto iter = textLines.begin(); iter != textLines.end(); ++iter)
+            for (auto& line : textLines)
             {
-                lines.push_back(GetFormattedTextLine(*iter));
+                lines.push_back(GetFormattedTextLine(line));
             }
 
             return lines;

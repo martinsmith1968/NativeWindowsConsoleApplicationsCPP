@@ -1,5 +1,7 @@
 # PauseN
 
+## Overview
+
 Windows has a built in command called `Pause` which when executed displays a message on the console and waits until the current user presses a key.
 
 ```text
@@ -15,6 +17,9 @@ Press any key to continue (or wait 30 seconds) . . .
 ```
 
 Both the `message-text` and the `timeout-seconds` to wait can be configured (as well as other things).
+
+## Full Help Text
+
 The full help text looks something like this :
 
 ```text

@@ -1,6 +1,49 @@
 # BannerText
 
+## Overview
 
+Show a text message in the console, surrounded with lines to appear as a banner.
+
+E.g
+```cmd
+BannerText "Hello World"
+```
+
+```text
+*******************
+**  Hello World  **
+*******************
+```
+
+There are options to control almost all aspects of the output
+
+E.g. Fix the output to 80 characters
+
+```cmd
+BannerText "Hello World" -minl 80
+```
+
+```text
+********************************************************************************
+**  Hello World                                                               **
+********************************************************************************
+```
+
+And you can align the text output too
+
+E.g. Fix the output to 80 characters
+
+```cmd
+BannerText "Hello World" -minl 80 -ta Center
+```
+
+```text
+********************************************************************************
+**                                Hello World                                 **
+********************************************************************************
+```
+
+## Full Help Text
 
 
 ```text

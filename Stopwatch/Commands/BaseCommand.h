@@ -31,6 +31,7 @@ namespace Stopwatch
         const string ArgumentNameIgnoreInvalidState       = "ignore-invalid-state";
         const string ArgumentNameShowElapsedTime          = "show-elapsed-time";
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
+        const string ArgumentNameAdditionalText           = "additional-text";
 
         BaseArguments()
         {
@@ -41,31 +42,37 @@ namespace Stopwatch
         {
             AddParameter(ValueType::STRING, 1, ArgumentNameStopwatchName, "", "The name of the Stopwatch", true);
         }
+        void AddOptionAdditionalText()
+        {
+            AddOption(ValueType::STRING, "at", ArgumentNameAdditionalText, "", "Additional text for the output", false, APP_MAX - 5);
+        }
         void AddSwitchVerboseOutput(const bool default_value)
         {
-            AddSwitch("v", ArgumentNameVerboseOutput, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, 0);
+            AddSwitch("v", ArgumentNameVerboseOutput, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, APP_MAX - 10);
         }
         void AddSwitchIgnoreInvalidState(const bool default_value)
         {
-            AddSwitch("i", ArgumentNameIgnoreInvalidState, StringUtils::BoolToString(default_value), "Ignore errors of Stopwatch being in invalid state for the action", false, 0);
+            AddSwitch("i", ArgumentNameIgnoreInvalidState, StringUtils::BoolToString(default_value), "Ignore errors of Stopwatch being in invalid state for the action", false, APP_MAX - 20);
         }
         void AddSwitchShowElapsedTime(const bool default_value)
         {
-            AddSwitch("set", ArgumentNameShowElapsedTime, StringUtils::BoolToString(default_value), "Show the Stopwatch Elapsed Time", false, 0);
+            AddSwitch("set", ArgumentNameShowElapsedTime, StringUtils::BoolToString(default_value), "Show the Stopwatch Elapsed Time", false, APP_MAX - 35);
         }
         void AddOptionElapsedTimeDisplayFormat()
         {
-            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, 0);
+            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
         }
 
     public:
-        string GetFileName() { return GetArgumentValue(ArgumentNameDataFileName); }
+        string GetDataFileName() { return GetArgumentValue(ArgumentNameDataFileName); }
 
         string GetStopwatchName() { return GetArgumentValue(ArgumentNameStopwatchName); }
         bool GetVerboseOutput() { return GetSwitchValue(ArgumentNameVerboseOutput); }
         bool GetIgnoreInvalidState() { return GetSwitchValue(ArgumentNameIgnoreInvalidState); }
         bool GetShowElapsedTime() { return GetSwitchValue(ArgumentNameShowElapsedTime); }
         string GetElapsedTimeDisplayFormat() { return GetArgumentValue(ArgumentNameElapsedTimeDisplayFormat); }
+        string GetArgumentAdditionalText() { return GetArgumentValue(ArgumentNameAdditionalText); }
+
     };
 
     //------------------------------------------------------------------------------
@@ -113,7 +120,7 @@ namespace Stopwatch
 
         static string GetTimerStatusDisplayText(const Timer& timer, const string& status)
         {
-            return "Stopwatch: " + timer.GetName() + " " + status;
+            return timer.GetName() + " " + status;
         }
 
     public:
