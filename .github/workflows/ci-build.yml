@@ -5,7 +5,7 @@ env:
   PRIMARY_BRANCH_NAME: master
   APP_MAJOR_VERSION: 1
   APP_MINOR_VERSION: 7
-  PROJECT_NAME: NativeWindowsConsoleApplications
+  PROJECT_NAME: NativeWindowsConsoleApplicationsCPP
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
   BRANCH_PREFIX_RELEASE_CANDIDATE: rc/
@@ -218,7 +218,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build (${{ env.BUILD_CONFIG }})
-      run: msbuild NativeConsoleApplications.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+      run: msbuild ${{ env.PROJECT_NAME }}.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
     - name: Run Tests
       run: |
