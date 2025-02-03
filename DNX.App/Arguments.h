@@ -39,6 +39,7 @@ namespace DNX::App
         int _last_position = 0;
         map<string, Argument> _arguments{};
         map<string, string> _values{};
+        list<string> _notes{};
         list<string> _errors{};
 
         void AddArgumentComplete(
@@ -59,6 +60,8 @@ namespace DNX::App
         void AddStandardArguments();
         void AddFileOverrideArguments();
         void virtual PostParseValidate();
+
+        void AddNote(const string& note);
 
         void AddArgument(
             ArgumentType argumentType,
@@ -137,6 +140,7 @@ namespace DNX::App
         [[nodiscard]] list<Argument> GetArgumentsByTypes(const list<ArgumentType>& ArgumentTypes) const;
 
         [[nodiscard]] list<string> GetErrors() const;
+        [[nodiscard]] list<string> GetNotes() const;
         [[nodiscard]] bool IsValid() const;
         bool IsHelp();
         bool IsUsingDefaultArgumentsFile();

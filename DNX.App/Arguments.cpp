@@ -76,6 +76,10 @@ void Arguments::AddArgumentComplete(
     _arguments[argument.GetLongName()] = argument;
 }
 
+void Arguments::AddNote(const string& note)
+{
+    _notes.push_back(note);
+}
 
 void Arguments::AddArgument(
     const ArgumentType argumentType,
@@ -361,6 +365,11 @@ list<Argument> Arguments::GetArgumentsByTypes(const list<ArgumentType>& Argument
 list<string> Arguments::GetErrors() const
 {
     return _errors;
+}
+
+list<string> Arguments::GetNotes() const
+{
+    return _notes;
 }
 
 bool Arguments::IsValid() const
