@@ -106,12 +106,22 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
             argument_file_lines.push_back("Local App arguments can be specified in : " + AppDetails::GetLocalArgumentsFileName() + (found ? " (exists)" : ""));
         }
     }
-
     if (!argument_file_lines.empty())
     {
         cout << endl;
         for (const auto& line : argument_file_lines)
             cout << line << endl;
+    }
+
+    if (!arguments.GetNotes().empty())
+    {
+        cout << endl;
+        cout << "Notes:" << endl;
+
+        for (const auto note: arguments.GetNotes())
+        {
+            cout << note << endl;
+        }
     }
 }
 
