@@ -96,7 +96,7 @@ namespace ShowDateTime
         {
             const auto quarter = GetQuarter(datetime->tm_mon);
 
-            auto format = GetConvertedFormatForBuiltIn();
+            const auto format = GetConvertedFormatForBuiltIn();
 
             char buffer[256];
             const auto size = strftime(buffer, sizeof(buffer), format.c_str(), datetime);
