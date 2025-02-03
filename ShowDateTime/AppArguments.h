@@ -51,11 +51,11 @@ namespace ShowDateTime
             AddNote("  https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings");
             AddNote("  https://cplusplus.com/reference/ctime/strftime/");
             AddNote("As well as:");
-            AddNote("  jjj - Same as %j");
-            AddNote("  qq  - Month Quarter (left padded with 0 to 2 digits");
-            AddNote("  q   - Month Quarter");
-            AddNote("  M   - Month number (1 - 12)");
-            AddNote("  d   - Day number (1 - 31)");
+            AddNote("  {jjj} - Same as %j");
+            AddNote("  {qq}  - Month Quarter (left padded with 0 to 2 digits");
+            AddNote("  {q}   - Month Quarter");
+            AddNote("  {M}   - Month number (1 - 12)");
+            AddNote("  {d}   - Day number (1 - 31)");
         }
 
         string GetFormat()
@@ -76,7 +76,7 @@ namespace ShowDateTime
 
             text = StringUtils::ReplaceString(text, "yyyy", "%Y");
             text = StringUtils::ReplaceString(text, "yy", "%y");
-            text = StringUtils::ReplaceString(text, "jjj", "%j");
+            text = StringUtils::ReplaceString(text, "{jjj}", "%j");
             text = StringUtils::ReplaceString(text, "dddd", "%A");
             text = StringUtils::ReplaceString(text, "ddd", "%a");
             text = StringUtils::ReplaceString(text, "dd", "%d");
@@ -98,17 +98,17 @@ namespace ShowDateTime
 
             auto format = GetConvertedFormatForBuiltIn();
 
-            format = StringUtils::ReplaceString(format, "qq", StringUtils::LPad(std::to_string(quarter), 2, '0'));
-            format = StringUtils::ReplaceString(format, "q", std::to_string(quarter));
-            format = StringUtils::ReplaceString(format, "M", std::to_string(datetime->tm_mon));
-            format = StringUtils::ReplaceString(format, "d", std::to_string(datetime->tm_mday));
-            format = StringUtils::ReplaceString(format, "H", std::to_string(datetime->tm_hour));
-            format = StringUtils::ReplaceString(format, "h", std::to_string(datetime->tm_hour > 11 ? datetime->tm_hour - 12 : datetime->tm_hour));
-
             char buffer[256];
             const auto size = strftime(buffer, sizeof(buffer), format.c_str(), datetime);
 
             auto text = string(buffer, size);
+
+            text = StringUtils::ReplaceString(text, "{qq}", StringUtils::LPad(std::to_string(quarter), 2, '0'));
+            text = StringUtils::ReplaceString(text, "{q}", std::to_string(quarter));
+            text = StringUtils::ReplaceString(text, "{M}", std::to_string(datetime->tm_mon));
+            text = StringUtils::ReplaceString(text, "{d}", std::to_string(datetime->tm_mday));
+            text = StringUtils::ReplaceString(text, "{H}", std::to_string(datetime->tm_hour));
+            text = StringUtils::ReplaceString(text, "{h}", std::to_string(datetime->tm_hour > 11 ? datetime->tm_hour - 12 : datetime->tm_hour));
 
             return text;
         }

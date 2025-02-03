@@ -18,14 +18,16 @@ using namespace ShowDateTime;
 void App::Execute(AppArguments& arguments)
 {
     const auto now = DateUtils::GetNow();
-    auto datetime = localtime(&now);
+
+    tm datetime;
+     auto err = localtime_s(&datetime, &now);
 
     if (arguments.GetTimeType() == TimeType::UTC)
     {
-        datetime = gmtime(&now);
+        err = gmtime_s(&datetime, &now);
     }
 
-    const auto output = arguments.GetFormattedDateTime(datetime);
+    const auto output = arguments.GetFormattedDateTime(&datetime);
 
     cout << output << endl;
 }
