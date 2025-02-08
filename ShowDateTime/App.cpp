@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "App.h"
-#include "../DNX.Utils/DateUtils.h"
+#include <chrono>
 #include <iostream>
 #include <regex>
 
 using namespace std;
+using namespace std::chrono;
 using namespace ShowDateTime;
 
 // ReSharper disable CppTooWideScope
@@ -17,17 +18,9 @@ using namespace ShowDateTime;
 // Execute
 void App::Execute(AppArguments& arguments)
 {
-    const auto now = DateUtils::GetNow();
+    const auto now = system_clock::now();
 
-    tm datetime;
-     auto err = localtime_s(&datetime, &now);
-
-    if (arguments.GetTimeType() == TimeType::UTC)
-    {
-        err = gmtime_s(&datetime, &now);
-    }
-
-    const auto output = arguments.GetFormattedDateTime(&datetime);
+    const auto output = arguments.GetFormattedDateTime(now);
 
     cout << output << endl;
 }
