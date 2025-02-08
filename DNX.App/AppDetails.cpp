@@ -63,14 +63,14 @@ string AppDetails::GetLocalArgumentsFileName()
     return PathUtils::Combine(PathUtils::GetCurrentDirectory(), GetArgumentsFileNameOnly());
 }
 
-string AppDetails::GetDefaultCommandArgumentsFileName(const Command& command)
+string AppDetails::GetDefaultCommandArgumentsFileName(const string& command_name)
 {
-    const auto fileName = GetArgumentsFileNameOnly() + "." + command.GetName();
+    const auto fileName = GetArgumentsFileNameOnly() + "." + command_name;
     return PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
 }
 
-string AppDetails::GetLocalCommandArgumentsFileName(const Command& command)
+string AppDetails::GetLocalCommandArgumentsFileName(const string& command_name)
 {
-    const auto fileName = GetArgumentsFileNameOnly() + "." + command.GetName();
+    const auto fileName = GetArgumentsFileNameOnly() + "." + command_name;
     return PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
 }

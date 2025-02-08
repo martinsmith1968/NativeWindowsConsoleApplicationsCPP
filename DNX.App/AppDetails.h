@@ -37,7 +37,7 @@ namespace DNX::App
         static string GetArgumentsFileNameOnly();
         static string GetDefaultArgumentsFileName();
         static string GetLocalArgumentsFileName();
-        static string GetDefaultCommandArgumentsFileName(const Command& command);
-        static string GetLocalCommandArgumentsFileName(const Command& command);
+        static string GetDefaultCommandArgumentsFileName(const string& command_name);
+        static string GetLocalCommandArgumentsFileName(const string& command_name);
     };
 }
