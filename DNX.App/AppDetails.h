@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include <string>
 
+#include "Command.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
@@ -35,5 +37,7 @@ namespace DNX::App
         static string GetArgumentsFileNameOnly();
         static string GetDefaultArgumentsFileName();
         static string GetLocalArgumentsFileName();
+        static string GetDefaultCommandArgumentsFileName(const Command& command);
+        static string GetLocalCommandArgumentsFileName(const Command& command);
     };
 }
