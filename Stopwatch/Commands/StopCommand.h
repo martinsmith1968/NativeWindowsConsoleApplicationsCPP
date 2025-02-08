@@ -23,7 +23,7 @@ namespace Stopwatch
         {
             AddParameterStopwatchName();
             AddSwitchShowElapsedTime(true);
-            AddOptionElapsedTimeDisplayFormat();
+            AddOptionElapsedTimeAlternativeDisplayFormat();
             AddSwitchVerboseOutput(false);
         }
     };
@@ -53,7 +53,7 @@ namespace Stopwatch
 
             if (m_arguments.GetShowElapsedTime())
             {
-                const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                const auto text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat(), "stopped");
                 cout << text << endl;
             }
 

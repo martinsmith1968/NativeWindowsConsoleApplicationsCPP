@@ -24,7 +24,7 @@ namespace Stopwatch
             AddParameterStopwatchName();
             AddOptionAdditionalText();
             AddSwitchShowElapsedTime(true);
-            AddOptionElapsedTimeDisplayFormat();
+            AddOptionElapsedTimeAlternativeDisplayFormat();
             AddSwitchIgnoreInvalidState(false);
             AddSwitchVerboseOutput(false);
         }
@@ -61,7 +61,7 @@ namespace Stopwatch
 
             if (m_arguments.GetShowElapsedTime())
             {
-                string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
+                string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat(), "paused");
                 const string additional_text = m_arguments.GetArgumentAdditionalText();
                 if (!additional_text.empty())
                     text = text.append(" - ").append(additional_text);
