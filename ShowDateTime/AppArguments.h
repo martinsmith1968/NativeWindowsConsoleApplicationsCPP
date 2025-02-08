@@ -9,6 +9,7 @@
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppTooWideScopeInitStatement
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
+// ReSharper disable CppDeclaratorNeverUsed
 
 using namespace std;
 using namespace std::chrono;
@@ -79,16 +80,17 @@ namespace ShowDateTime
 
         string GetFormattedDateTime(const time_point<system_clock>& datetime)
         {
-            const auto datetime_t = chrono::system_clock::to_time_t(datetime);
-            const auto datetime_tm = localtime(&datetime_t);
+            const auto datetime_t = system_clock::to_time_t(datetime);
+            tm datetime_tm;
+            auto err = localtime_s(&datetime_tm, &datetime_t);
 
-            const auto quarter = GetQuarter(datetime_tm->tm_mon);
+            const auto quarter = GetQuarter(datetime_tm.tm_mon);
             const auto milliseconds = GetMilliseconds(datetime);
 
             const auto format = GetFormat();
 
             char buffer[256];
-            const auto size = strftime(buffer, sizeof(buffer), format.c_str(), datetime_tm);
+            const auto size = strftime(buffer, sizeof(buffer), format.c_str(), &datetime_tm);
 
             auto text = string(buffer, size);
 
@@ -96,10 +98,10 @@ namespace ShowDateTime
             text = StringUtils::ReplaceString(text, "{f}", std::to_string(milliseconds));
             text = StringUtils::ReplaceString(text, "{qq}", StringUtils::LPad(std::to_string(quarter), 2, '0'));
             text = StringUtils::ReplaceString(text, "{q}", std::to_string(quarter));
-            text = StringUtils::ReplaceString(text, "{M}", std::to_string(datetime_tm->tm_mon + 1));
-            text = StringUtils::ReplaceString(text, "{d}", std::to_string(datetime_tm->tm_mday));
-            text = StringUtils::ReplaceString(text, "{H}", std::to_string(datetime_tm->tm_hour));
-            text = StringUtils::ReplaceString(text, "{h}", std::to_string(datetime_tm->tm_hour > 11 ? datetime_tm->tm_hour - 12 : datetime_tm->tm_hour));
+            text = StringUtils::ReplaceString(text, "{M}", std::to_string(datetime_tm.tm_mon + 1));
+            text = StringUtils::ReplaceString(text, "{d}", std::to_string(datetime_tm.tm_mday));
+            text = StringUtils::ReplaceString(text, "{H}", std::to_string(datetime_tm.tm_hour));
+            text = StringUtils::ReplaceString(text, "{h}", std::to_string(datetime_tm.tm_hour > 11 ? datetime_tm.tm_hour - 12 : datetime_tm.tm_hour));
 
             return text;
         }
