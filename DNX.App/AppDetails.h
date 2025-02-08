@@ -2,8 +2,6 @@
 #include "stdafx.h"
 #include <string>
 
-#include "Command.h"
-
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
