@@ -13,7 +13,7 @@ using namespace DNX::App;
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
 
 #define COMPANY_DATA_FOLDER_NAME    "DNXSolutions"
-#define VER_COMPANY_NAME            "DNX Solutions Ltd"
+#define VER_COMPANY_NAME            "Martin Smith"
 #define VER_COPYRIGHT_STR           "Copyright © 2018-" TO_STR(COPYRIGHT_YEAR) " " VER_COMPANY_NAME
 
 #define VER_FILE_VERSION            VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION, VERSION_BUILD, VERSION_MODIFIER
