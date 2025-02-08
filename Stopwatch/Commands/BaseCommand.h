@@ -62,6 +62,10 @@ namespace Stopwatch
         {
             AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
         }
+        void AddOptionElapsedTimeAlternativeDisplayFormat()
+        {
+            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
+        }
 
     public:
         string GetDataFileName() { return GetArgumentValue(ArgumentNameDataFileName); }
