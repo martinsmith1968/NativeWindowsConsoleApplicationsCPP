@@ -122,5 +122,15 @@ namespace ShowDateTime
 
             return (month / 3) + 1;
         }
+
+        static int GetMilliseconds(const time_point<system_clock> datetime)
+        {
+            const auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(datetime);
+            const auto fraction = datetime - seconds;
+
+            const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(fraction);
+
+            return static_cast<int>(milliseconds.count());
+        }
     };
 }
