@@ -167,6 +167,7 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="CommandsParser.h" />
     <ClInclude Include="CommandsUsageDisplay.h" />
+    <ClInclude Include="ParserContext.h" />
     <ClInclude Include="SwitchValue.h" />
     <ClInclude Include="ArgumentsUsageDisplay.h" />
     <ClInclude Include="ParserConfig.h" />

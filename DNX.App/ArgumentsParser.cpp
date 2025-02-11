@@ -229,10 +229,12 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
 
 //-----------------------------------------------------------------------------
 // Public usage methods
-ArgumentsParser::ArgumentsParser(Arguments& arguments, const AppDetails& app_details, const ParserConfig& parser_config)
+ArgumentsParser::ArgumentsParser(Arguments& arguments, const AppDetails& app_details, const ParserConfig& parser_config, const ParserContext& parser_context)
     : _arguments(arguments),
+    _app_details(app_details),
     _parser_config(parser_config),
-    _app_details(app_details)
+    _parser_context(parser_context)
+
 {
 }
 
@@ -244,10 +246,10 @@ void ArgumentsParser::Parse(const int argc, char* argv[]) const
 void ArgumentsParser::Parse(list<string> arguments) const
 {
     if (_parser_config.GetUseCustomArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
-        ParseArgumentsFile(_arguments, AppDetails::GetDefaultArgumentsFileName());
+        ParseArgumentsFile(_arguments, _parser_context.GetDefaultOptionsFileName());
 
     if (_parser_config.GetUseLocalArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
-        ParseArgumentsFile(_arguments, AppDetails::GetLocalArgumentsFileName());
+        ParseArgumentsFile(_arguments, _parser_context.GetLocalOptionsFileName());
 
     ParseArguments(_arguments, arguments);
 
@@ -259,8 +261,8 @@ void ArgumentsParser::Parse(list<string> arguments) const
 
 //-----------------------------------------------------------------------------
 // Static Public methods
-void ArgumentsParser::ParseArguments(Arguments& arguments, const int argc, char* argv[], const AppDetails& app_details, const ParserConfig& config)
+void ArgumentsParser::ParseArguments(Arguments& arguments, const int argc, char* argv[], const AppDetails& app_details, const ParserConfig& parser_config, const ParserContext& parser_context)
 {
-    const auto parser = ArgumentsParser(arguments, app_details, config);
+    const auto parser = ArgumentsParser(arguments, app_details, parser_config, parser_context);
     parser.Parse(argc, argv);
 }

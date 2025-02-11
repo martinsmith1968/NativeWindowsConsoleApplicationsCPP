@@ -5,6 +5,8 @@
 #include "../DNX.Utils/PathUtils.h"
 #include <sstream>
 
+#include "../DNX.Utils/StringUtils.h"
+
 // ReSharper disable CppInconsistentNaming
 
 using namespace std;
@@ -53,6 +55,14 @@ string AppDetails::GetArgumentsFileNameOnly()
     return FileUtils::ChangeFileExtension(executableName, _arguments_file_extension);
 }
 
+string AppDetails::GetArgumentsFileNameOnly(const string& file_name_suffix)
+{
+    const auto executableName = ProcessUtils::GetExecutableFileNameOnly();
+
+    return FileUtils::ChangeFileExtension(executableName, file_name_suffix + "." + _arguments_file_extension);
+
+}
+
 string AppDetails::GetDefaultArgumentsFileName()
 {
     return PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), GetArgumentsFileNameOnly());
@@ -65,12 +75,12 @@ string AppDetails::GetLocalArgumentsFileName()
 
 string AppDetails::GetDefaultCommandArgumentsFileName(const string& command_name)
 {
-    const auto fileName = GetArgumentsFileNameOnly() + "." + command_name;
+    const auto fileName = GetArgumentsFileNameOnly(StringUtils::ToLower(command_name));
     return PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
 }
 
 string AppDetails::GetLocalCommandArgumentsFileName(const string& command_name)
 {
-    const auto fileName = GetArgumentsFileNameOnly() + "." + command_name;
+    const auto fileName = GetArgumentsFileNameOnly(StringUtils::ToLower(command_name));
     return PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
 }

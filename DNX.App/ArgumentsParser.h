@@ -5,6 +5,8 @@
 #include "ParserConfig.h"
 #include <string>
 
+#include "ParserContext.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -19,8 +21,9 @@ namespace DNX::App
     class ArgumentsParser
     {
         Arguments& _arguments;
-        const ParserConfig _parser_config;
         const AppDetails _app_details;
+        const ParserConfig _parser_config;
+        const ParserContext _parser_context;
 
         static string SanitizeText(const string& text);
         static list<string> ConvertLinesToRawArguments(const list<string>& lines);
@@ -37,10 +40,10 @@ namespace DNX::App
         static void ValidateValues(Arguments& arguments);
 
     public:
-        explicit ArgumentsParser(Arguments& arguments, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
+        explicit ArgumentsParser(Arguments& arguments, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig(), const ParserContext& parser_context = ParserContext());
         void Parse(int argc, char* argv[]) const;
         void Parse(list<string> arguments) const;
 
-        static void ParseArguments(Arguments& arguments, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
+        static void ParseArguments(Arguments& arguments, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig(), const ParserContext& parser_context = ParserContext());
     };
 }

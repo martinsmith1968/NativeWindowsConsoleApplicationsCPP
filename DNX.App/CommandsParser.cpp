@@ -45,7 +45,8 @@ Command& CommandsParser::Parse(int argc, char* argv[]) const
 
         // Filter remaining arguments on to be parsed
         const auto refined_arguments = RefineCommandArguments(ListUtils::ToList(argc, argv, 1), selected_command.GetName());
-        const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config);
+        const auto parser_context = ParserContext(selected_command.GetName());
+        const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config, parser_context);
         arguments_parser.Parse(refined_arguments);
 
         return selected_command;
