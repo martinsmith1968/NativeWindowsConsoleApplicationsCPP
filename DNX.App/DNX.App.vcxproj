@@ -186,6 +186,7 @@
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="CommandsParser.cpp" />
     <ClCompile Include="CommandsUsageDisplay.cpp" />
+    <ClCompile Include="ParserContext.cpp" />
     <ClCompile Include="SwitchValue.cpp" />
     <ClCompile Include="ArgumentsUsageDisplay.cpp" />
     <ClCompile Include="ParserConfig.cpp" />

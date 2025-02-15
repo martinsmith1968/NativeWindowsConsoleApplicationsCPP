@@ -18,6 +18,8 @@ namespace DNX::App
     class ParserContext {
         string _command_name;
 
+        static ParserContext _empty_context;
+
     public:
         ParserContext()
             : ParserContext("")
@@ -29,23 +31,30 @@ namespace DNX::App
             _command_name = command_name;
         }
 
+        void SetCommandName(const string& command_name)
+        {
+            _command_name = command_name;
+        }
+
         [[nodiscard]] const string& GetCommandName() const
         {
             return _command_name;
         }
 
-        string GetDefaultOptionsFileName() const
+        string GetDefaultArgumentsFileName() const
         {
             if (_command_name.empty())
                 return AppDetails::GetDefaultArgumentsFileName();
             return AppDetails::GetDefaultCommandArgumentsFileName(_command_name);
         }
 
-        string GetLocalOptionsFileName() const
+        string GetLocalArgumentsFileName() const
         {
             if (_command_name.empty())
                 return AppDetails::GetLocalArgumentsFileName();
             return AppDetails::GetLocalCommandArgumentsFileName(_command_name);
         }
+
+        static ParserContext& Empty() { return _empty_context; }
     };
 }
