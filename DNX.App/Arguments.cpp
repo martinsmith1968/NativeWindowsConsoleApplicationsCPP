@@ -297,6 +297,12 @@ void Arguments::AdvancePosition()
 //-----------------------------------------------------------------------------
 // Public usage methods
 Arguments::Arguments()
+    : Arguments(ParserContext::Empty())
+{
+}
+
+Arguments::Arguments(const ParserContext& parser_context)
+    : _parser_context(parser_context)
 {
     AddStandardArguments();
     AddFileOverrideArguments();
@@ -308,8 +314,8 @@ void Arguments::AddStandardArguments()
 }
 void Arguments::AddFileOverrideArguments()
 {
-    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), useDefaultArgumentsFileDesc, false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), useLocalArgumentsFileDesc  , false, INT_MAX);
+    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), GetUseDefaultArgumentsFileDesc(), false, INT_MAX - 1);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), GetUseLocalArgumentsFileDesc()  , false, INT_MAX);
 }
 
 bool Arguments::IsEmpty() const
