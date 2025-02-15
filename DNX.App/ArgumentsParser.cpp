@@ -246,10 +246,10 @@ void ArgumentsParser::Parse(const int argc, char* argv[]) const
 void ArgumentsParser::Parse(list<string> arguments) const
 {
     if (_parser_config.GetUseCustomArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
-        ParseArgumentsFile(_arguments, _parser_context.GetDefaultOptionsFileName());
+        ParseArgumentsFile(_arguments, _parser_context.GetDefaultArgumentsFileName());
 
     if (_parser_config.GetUseLocalArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
-        ParseArgumentsFile(_arguments, _parser_context.GetLocalOptionsFileName());
+        ParseArgumentsFile(_arguments, _parser_context.GetLocalArgumentsFileName());
 
     ParseArguments(_arguments, arguments);
 
