@@ -33,7 +33,8 @@ namespace Stopwatch
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
         const string ArgumentNameAdditionalText           = "additional-text";
 
-        BaseArguments()
+        explicit BaseArguments(const ParserContext& parser_context)
+            : Arguments(parser_context)
         {
             AddOption(ValueType::STRING, "df", ArgumentNameDataFileName, TimerRepository::GetDefaultRepositoryFileName(), "The filename to store Stopwatch data in", false, APP_MAX);
         }

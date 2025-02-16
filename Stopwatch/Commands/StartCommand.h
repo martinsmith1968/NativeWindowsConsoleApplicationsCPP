@@ -21,6 +21,7 @@ namespace Stopwatch
 
     public:
         StartArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::START))))
         {
             AddParameterStopwatchName();
             AddSwitchVerboseOutput(true);
@@ -29,6 +30,8 @@ namespace Stopwatch
 
         bool GetForce() { return GetSwitchValue(ArgumentNameForce); }
     };
+
+    //------------------------------------------------------------------------------
 
     class StartCommand final : public BaseCommand
     {

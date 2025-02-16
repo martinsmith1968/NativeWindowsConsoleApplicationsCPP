@@ -20,6 +20,7 @@ namespace Stopwatch
 
     public:
         ResumeArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::RESUME))))
         {
             AddParameterStopwatchName();
             AddOptionAdditionalText();
@@ -29,6 +30,8 @@ namespace Stopwatch
             AddSwitchVerboseOutput(true);
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class ResumeCommand final : public BaseCommand
     {

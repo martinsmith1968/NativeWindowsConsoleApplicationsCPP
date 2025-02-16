@@ -16,14 +16,16 @@ namespace Stopwatch
 {
     class CancelArguments final : public BaseArguments
     {
-
     public:
         CancelArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL))))
         {
             AddParameterStopwatchName();
             AddSwitchVerboseOutput(false);
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class CancelCommand final : public BaseCommand
     {
