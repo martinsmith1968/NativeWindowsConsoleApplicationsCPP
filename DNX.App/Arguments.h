@@ -35,13 +35,13 @@ namespace DNX::App
         const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
         const string HelpDescription             = "Show Help screen";
-        string GetUseDefaultArgumentsFileDesc() const
+        [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const
         {
             return "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
         }
-        string GetUseLocalArgumentsFileDesc() const
+        [[nodiscard]] string GetUseLocalArgumentsFileDesc() const
         {
-            return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetLocalArgumentsFileName()) + ")";
+            return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
         }
 
         int _last_position = 0;
