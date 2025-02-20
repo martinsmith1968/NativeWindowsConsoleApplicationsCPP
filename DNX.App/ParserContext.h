@@ -34,14 +34,14 @@ namespace DNX::App
             return _command_name;
         }
 
-        string GetDefaultOptionsFileName() const
+        string GetDefaultArgumentsFileName() const
         {
             if (_command_name.empty())
                 return AppDetails::GetDefaultArgumentsFileName();
             return AppDetails::GetDefaultCommandArgumentsFileName(_command_name);
         }
 
-        string GetLocalOptionsFileName() const
+        string GetLocalArgumentsFileName() const
         {
             if (_command_name.empty())
                 return AppDetails::GetLocalArgumentsFileName();

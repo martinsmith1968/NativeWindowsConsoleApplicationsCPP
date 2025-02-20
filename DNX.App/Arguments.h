@@ -1,13 +1,14 @@
 #pragma once
 #include "stdafx.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "AppDetails.h"
 #include "ArgumentType.h"
 #include "Argument.h"
+#include "ParserContext.h"
 #include "ValueConverter.h"
 #include <list>
 #include <map>
 #include <string>
+
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
@@ -33,8 +34,14 @@ namespace DNX::App
         const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
         const string HelpDescription             = "Show Help screen";
-        const string useDefaultArgumentsFileDesc = "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
-        const string useLocalArgumentsFileDesc   = "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
+        string GetUseDefaultArgumentsFileDesc()
+        {
+            return "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
+        }
+        string GetUseLocalArgumentsFileDesc()
+        {
+            return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
+        }
 
         int _last_position = 0;
         map<string, Argument> _arguments{};
@@ -127,7 +134,6 @@ namespace DNX::App
     public:
         Arguments();
         virtual ~Arguments() = default;
-        //void CopyFrom(const Arguments& other);
 
         [[nodiscard]] bool IsEmpty() const;
         void Reset();
