@@ -183,6 +183,7 @@
     <ClCompile Include="Argument.cpp" />
     <ClCompile Include="Arguments.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CommandArguments.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="CommandsParser.cpp" />
     <ClCompile Include="CommandsUsageDisplay.cpp" />

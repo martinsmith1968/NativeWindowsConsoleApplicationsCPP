@@ -4,6 +4,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeReturnBracedInitList
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace DNX::App;

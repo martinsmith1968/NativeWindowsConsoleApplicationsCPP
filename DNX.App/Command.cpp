@@ -61,6 +61,11 @@ int Command::GetSequence() const
     return m_sequence;
 }
 
+EmptyCommand& Command::Empty()
+{
+    return _empty_command;
+}
+
 void Command::Execute()
 {
 }

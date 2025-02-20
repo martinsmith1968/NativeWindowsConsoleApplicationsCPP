@@ -2,8 +2,6 @@
 #include "stdafx.h"
 #include <string>
 
-#include "AppDetails.h"
-
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -21,40 +19,13 @@ namespace DNX::App
         static ParserContext _empty_context;
 
     public:
-        ParserContext()
-            : ParserContext("")
-        {
-        }
+        ParserContext();
+        explicit ParserContext(const string& command_name);
 
-        explicit ParserContext(const string& command_name)
-        {
-            _command_name = command_name;
-        }
+        [[nodiscard]] const string& GetCommandName() const;
+        string GetDefaultArgumentsFileName() const;
+        string GetLocalArgumentsFileName() const;
 
-        void SetCommandName(const string& command_name)
-        {
-            _command_name = command_name;
-        }
-
-        [[nodiscard]] const string& GetCommandName() const
-        {
-            return _command_name;
-        }
-
-        string GetDefaultArgumentsFileName() const
-        {
-            if (_command_name.empty())
-                return AppDetails::GetDefaultArgumentsFileName();
-            return AppDetails::GetDefaultCommandArgumentsFileName(_command_name);
-        }
-
-        string GetLocalArgumentsFileName() const
-        {
-            if (_command_name.empty())
-                return AppDetails::GetLocalArgumentsFileName();
-            return AppDetails::GetLocalCommandArgumentsFileName(_command_name);
-        }
-
-        static ParserContext& Empty() { return _empty_context; }
+        static ParserContext& Empty();
     };
 }

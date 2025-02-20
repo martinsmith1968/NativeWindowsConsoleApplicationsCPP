@@ -56,7 +56,7 @@ TEST(TEST_GROUP, GetEnvironmentVariableNames_returns_some_values)
 TEST(TEST_GROUP, GetEnvironmentVariableValue_returns_a_value)
 {
     auto names = EnvironmentUtils::GetEnvironmentVariableNames();
-    const auto index = MathUtils::GetRandomNumber(0, names.size(), false);
+    const auto index = MathUtils::GetRandomNumber(0, static_cast<int>(names.size()), false);
 
     const auto name = ListUtils::GetAt(names, index);
 
