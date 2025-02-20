@@ -1,9 +1,9 @@
 #pragma once
 #include "stdafx.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "AppDetails.h"
 #include "ArgumentType.h"
 #include "Argument.h"
+#include "ParserContext.h"
 #include "ValueConverter.h"
 #include <list>
 #include <map>
