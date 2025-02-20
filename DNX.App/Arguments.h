@@ -41,6 +41,7 @@ namespace DNX::App
         }
         [[nodiscard]] string GetUseLocalArgumentsFileDesc() const
         {
+            // TODO: This should called GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
             return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
         }
 
