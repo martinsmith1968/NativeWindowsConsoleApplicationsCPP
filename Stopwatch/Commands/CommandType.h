@@ -1,5 +1,8 @@
 #pragma once
+
 #include "../stdafx.h"
+#include "../../DNX.Utils/EnumUtils.h"
+#include <cstdint>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -9,6 +12,7 @@
 
 using namespace std;
 using namespace DNX::Utils;
+using namespace DNX::Utils::EnumUtils;
 
 namespace Stopwatch
 {

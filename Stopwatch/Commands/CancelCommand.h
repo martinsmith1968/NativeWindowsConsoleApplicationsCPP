@@ -4,6 +4,7 @@
 #include "BaseCommand.h"
 #include <string>
 #include <iostream>
+#include "../../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
