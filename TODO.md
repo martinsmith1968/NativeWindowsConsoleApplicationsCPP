@@ -6,7 +6,7 @@
 
 ### General
 
-- [ ] Introduce some app output tests (Abandoned TextTest)
+- [X] Introduce some app output tests (Abandoned TextTest)
 - [ ] Invoke via CI
 
 ## Enhancements
