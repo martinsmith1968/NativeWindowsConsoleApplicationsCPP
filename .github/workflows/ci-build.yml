@@ -4,7 +4,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 env:
   PRIMARY_BRANCH_NAME: master
   APP_MAJOR_VERSION: 1
-  APP_MINOR_VERSION: 9
+  APP_MINOR_VERSION: 10
   PROJECT_NAME: NativeWindowsConsoleApplicationsCPP
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
