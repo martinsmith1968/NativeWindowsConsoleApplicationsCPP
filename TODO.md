@@ -15,7 +15,7 @@
 - [ ] Separate some classes only in header files into header and implementation
 - [X] Support arguments files at all levels in Help
 - [X] Support default argument files per command ([appname].[commandname].options)
-- [ ] Add Help text for adding a file of arguments
+- [X] Add Help text for adding a file of arguments
 
 ### Enhancements - Stopwatch
 

@@ -42,6 +42,7 @@ These include :
 - [ShowDateTime](.docs/ShowDateTime.md)
 - [Stopwatch](.docs/Stopwatch.md)
 
-## Future
+## Additional Docs
 
-[To Do](TODO.md)
+- [Guides](Guides.md)
+- [Future To Do](TODO.md)
