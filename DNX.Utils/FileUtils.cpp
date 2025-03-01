@@ -75,6 +75,20 @@ bool FileUtils::FileExists(const string& fileName)
     return ACCESS(fileName.c_str(), 0) == 0;
 }
 
+bool FileUtils::Create(const string& fileName)
+{
+    auto file = ofstream { fileName };
+
+    return FileExists(fileName);
+}
+
+bool FileUtils::Delete(const string& fileName)
+{
+    remove(fileName.c_str());
+
+    return !FileExists(fileName);
+}
+
 list<string> FileUtils::ReadLines(const string& fileName)
 {
     list<string> lines;
