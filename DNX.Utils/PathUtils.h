@@ -25,6 +25,9 @@ namespace DNX::Utils
         static bool CreateDirectory(const string& path);
         static bool DeleteDirectory(const string& path, bool recurse_sub_directories = false, bool remove_files = false);
 
+        static string GetTempPath();
+        static string GetTempFileName(const string& prefix, const string& extension = "tmp");
+
         static string GetUserHomeDirectory();
         static string GetUserDataDirectory();
     };
