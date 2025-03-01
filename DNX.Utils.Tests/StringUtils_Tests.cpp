@@ -66,3 +66,16 @@ TEST(TEST_GROUP, RPad_returns_as_expected) {
     EXPECT_EQ(StringUtils::RPad("9", 3, ' '), "9  ");
     EXPECT_EQ(StringUtils::RPad("12345", 3, '0'), "12345");
 }
+
+TEST(TEST_GROUP, CountOccurrences_char_returns_as_expected) {
+    EXPECT_EQ(StringUtils::CountOccurrences("a1b2a3b4a5b6a7b8", 'a'), 4);
+    EXPECT_EQ(StringUtils::CountOccurrences("a1b2a3b4a5b6a7b8", 'b'), 4);
+    EXPECT_EQ(StringUtils::CountOccurrences("a1b2a3b4a5b6a7b8", '8'), 1);
+    EXPECT_EQ(StringUtils::CountOccurrences("a1b2a3b4a5b6a7b8", ' '), 0);
+}
+
+TEST(TEST_GROUP, CountOccurrences_substr_returns_as_expected) {
+    EXPECT_EQ(StringUtils::CountOccurrences("aaa:bbb:ccc:ddd", ":"), 3);
+    EXPECT_EQ(StringUtils::CountOccurrences("aaa:bbb:ccc:ddd", "aa"), 2);
+    EXPECT_EQ(StringUtils::CountOccurrences("aaa:bbb:ccc:ddd", "aaa"), 1);
+}

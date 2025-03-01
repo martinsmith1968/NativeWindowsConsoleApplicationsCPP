@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "../DNX.App/Arguments.h"
 #include "../DNX.App/ArgumentsParser.h"
+#include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/PathUtils.h"
 #include "Arguments1.h"
 #include "Arguments2.h"
 #include "Arguments3.h"
@@ -110,6 +112,33 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_argume
     EXPECT_EQ(5, arguments.GetTimeoutSeconds());
     EXPECT_EQ(500, arguments.GetSleepMilliseconds());
     EXPECT_EQ(true, arguments.IsDebug());
+}
+
+TEST(TEST_GROUP, ParseArguments_parse_a_file_of_arguments_correctly)
+{
+    const auto fileName = PathUtils::GetTempFileName("args");
+
+    const string quote = "\"";
+    const auto message_text = "Some text";
+    constexpr auto timeout = 600;
+
+    auto lines = list<string>();
+    lines.emplace_back(quote + message_text + quote);
+    lines.emplace_back("-t " + to_string(timeout));
+    FileUtils::WriteLines(fileName, lines);
+
+    auto args = list<string>();
+    args.emplace_back("@" + fileName);
+
+    Arguments1 arguments;
+
+    // Act
+    ArgumentsParser::ParseArguments(arguments, args);
+    TestHelper::ShowErrors(arguments);
+
+    // Assert
+    EXPECT_EQ(arguments.GetMessageText(), message_text);
+    EXPECT_EQ(arguments.GetTimeoutSeconds(), timeout);
 }
 
 TEST(TEST_GROUP, IsValid_arguments_without_any_required_arguments_returns_successfully)
