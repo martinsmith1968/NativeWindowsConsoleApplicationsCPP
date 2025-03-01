@@ -6,6 +6,7 @@
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyMiscUseAnonymousNamespace
 // ReSharper disable CppClangTidyMiscUseInternalLinkage
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace DNX::Utils;
@@ -308,6 +309,33 @@ bool StringUtils::ContainsAny(const string& str, const char* characters)
     }
 
     return false;
+}
+
+int StringUtils::CountOccurrences(const string& str, const char search)
+{
+    auto count = 0;
+
+    for (auto i = 0; i < static_cast<int>(str.size()); ++i)
+    {
+        if (str[i] == search)
+            ++count;
+    }
+
+    return count;
+}
+int StringUtils::CountOccurrences(const string& str, const string& search)
+{
+    auto count = 0;
+
+    for (auto i = 0; i < static_cast<int>(str.size()); ++i)
+    {
+        const string source = str.substr(i, search.size());
+
+        if (source == search)
+            ++count;
+    }
+
+    return count;
 }
 
 string StringUtils::RemoveAny(const string& str, const string& characters)

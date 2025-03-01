@@ -60,6 +60,9 @@ namespace DNX::Utils
         static bool ContainsAny(const string& str, const string& characters);
         static bool ContainsAny(const string& str, const char* characters);
 
+        static int CountOccurrences(const string& str, const char search);
+        static int CountOccurrences(const string& str, const string& search);
+
         static string RemoveAny(const string& str, const string& characters);
         static string RemoveAny(const string& str, const char* characters);
 

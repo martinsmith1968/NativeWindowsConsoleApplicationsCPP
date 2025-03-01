@@ -11,6 +11,7 @@
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppClangTidyBugproneNarrowingConversions
 // ReSharper disable CppClangTidyModernizePassByValue
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace DNX::App;
@@ -32,15 +33,24 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
 {
     list<string> raw_arguments;
 
+    const string quote = "\"";
+
     for (auto& line : lines)
     {
         string parts = StringUtils::Trim(line);
 
-        auto argument_name = SanitizeText(StringUtils::Before(parts, " "));
-        auto argument_value = SanitizeText(StringUtils::After(parts, " "));
+        if (StringUtils::StartsAndEndsWith(parts, quote) && StringUtils::CountOccurrences(parts, quote[0]) == 2)
+        {
+            raw_arguments.push_back(StringUtils::RemoveStartsAndEndsWith(parts, quote));
+        }
+        else
+        {
+            auto argument_name = SanitizeText(StringUtils::Before(parts, " "));
+            auto argument_value = SanitizeText(StringUtils::After(parts, " "));
 
-        raw_arguments.push_back(argument_name);
-        raw_arguments.push_back(argument_value);
+            raw_arguments.push_back(argument_name);
+            raw_arguments.push_back(argument_value);
+        }
     }
 
     return raw_arguments;
@@ -57,7 +67,7 @@ void ArgumentsParser::ParseArgumentsFile(Arguments& arguments, const string& fil
     }
 }
 
-void ArgumentsParser::ParseArguments(Arguments& arguments, list<string>& argumentsText) const
+void ArgumentsParser::ParseArgumentsList(Arguments& arguments, list<string>& argumentsText) const
 {
     for (auto i = 0; i < static_cast<int>(argumentsText.size()); ++i)
     {
@@ -85,7 +95,7 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
             const auto lines = FileUtils::ReadLines(fileName);
             auto argumentsText = ConvertLinesToRawArguments(lines);
 
-            ParseArguments(arguments, argumentsText);
+            ParseArgumentsList(arguments, argumentsText);
 
             return true;
         }
@@ -251,7 +261,7 @@ void ArgumentsParser::Parse(list<string> arguments) const
     if (_parser_config.GetUseLocalArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, _parser_context.GetLocalArgumentsFileName());
 
-    ParseArguments(_arguments, arguments);
+    ParseArgumentsList(_arguments, arguments);
 
     // Validate
     ValidateRequired(_arguments);
@@ -265,4 +275,10 @@ void ArgumentsParser::ParseArguments(Arguments& arguments, const int argc, char*
 {
     const auto parser = ArgumentsParser(arguments, app_details, parser_config, parser_context);
     parser.Parse(argc, argv);
+}
+
+void ArgumentsParser::ParseArguments(Arguments& arguments, const list<string>& args, const AppDetails& app_details, const ParserConfig& parser_config, const ParserContext& parser_context)
+{
+    const auto parser = ArgumentsParser(arguments, app_details, parser_config, parser_context);
+    parser.Parse(args);
 }

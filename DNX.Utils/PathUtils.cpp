@@ -1,5 +1,7 @@
 #include "stdafx.h"
+#include "DateUtils.h"
 #include "PathUtils.h"
+#include "ProcessUtils.h"
 #include "StringUtils.h"
 #include <direct.h>
 #include <string>
@@ -8,6 +10,7 @@
 #include <sys/stat.h>
 
 #include "EnvironmentUtils.h"
+#include "FileUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -102,6 +105,56 @@ bool PathUtils::DeleteDirectory(const string& path, bool recurse_sub_directories
 
     _mkdir(part.c_str());
     return true;
+}
+string PathUtils::GetTempPath()
+{
+    string path = EnvironmentUtils::GetEnvironmentVariableValue("TEMP");
+    if (StringUtils::Trim(path).empty())
+    {
+        path = EnvironmentUtils::GetEnvironmentVariableValue("TMP");
+    }
+    if (StringUtils::Trim(path).empty())
+    {
+        path = Combine(GetUserHomeDirectory(), "Temp");
+    }
+
+    if (!path.empty())
+    {
+        if (!DirectoryExists(path))
+        {
+            CreateDirectory(path);
+        }
+    }
+
+    return path;
+}
+
+string PathUtils::GetTempFileName(const string& prefix, const string& extension)
+{
+    const auto now = DateUtils::ToCalendarDateTime(DateUtils::GetNow());
+
+    const auto filePath = GetTempPath();
+
+    const auto filePrefix = StringUtils::Trim(prefix).empty()
+                          ? ProcessUtils::GetExecutableFileNameOnly()
+                          : prefix;
+
+    string fileName;
+    auto adjuster = 0;
+    do
+    {
+        auto fileId = to_string(now.tm_hour) + to_string(now.tm_min) + to_string(now.tm_sec)
+            + (adjuster++ > 0
+                ? to_string(adjuster)
+                : "");
+
+        fileName = Combine(filePath, filePrefix + fileId + "." + extension);
+    }
+    while (FileUtils::FileExists(fileName));
+
+    FileUtils::Create(fileName);
+
+    return fileName;
 }
 
 string PathUtils::GetUserHomeDirectory()
