@@ -8,7 +8,7 @@ with default values.
 E.g. On Windows, `BannerText` will :
 - Check for a file called `BannerText.options` in the same folder the `.exe` runs from and loads values from there if found
 - Check for a file called `BannerText.options` in the Users `Home` folder and loads values from there if found, overwriting any values it has already
-- Check for a file called `Bannertext.options` in the current folder and loads values from there if found, overwriting any values it has already
+- Check for a file called `BannerText.options` in the current folder and loads values from there if found, overwriting any values it has already
 - Read arguments supplied on the command line and loads values from there
   - >NOTE: Command line arguments also support adding a file of parameters via an argument on the format '@{filename}'
 
