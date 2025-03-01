@@ -14,6 +14,7 @@ namespace DNX::Utils
     class EnvironmentUtils
     {
     public:
+        static string GetNewLine();
         static list<string> GetEnvironmentVariablesData();
         static map<string, string> GetEnvironmentVariables();
         static list<string> GetEnvironmentVariableNames();
