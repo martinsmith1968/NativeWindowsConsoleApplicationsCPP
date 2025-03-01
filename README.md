@@ -21,12 +21,13 @@ These include :
   extensions and learning the command line tooling is a better option for learning.
 - Command Line Parsing, with individual Command support
   - _I rolled my own (rather crude one) for the C++ version as there are features I required which other libraries did not provide.
-  This is not something I would likely repeat for understanding a new language_.
+  This is not something I would likely repeat for porting to a different language_.
 - Modules
   - Separating common code to be consumed across different executable outputs, and (optionally) packaging for wider sonsumption.
 - Lite Framework
   - Generally this is not an idea I'm in favour of ('Organisations' having their own Framework layer on top of the language) but for this it made
-  spinning up a new application simple and allowed focusing mainly on the implementation logic.
+  spinning up a new application simple and allowed focusing mainly on the implementation logic. The downside being that there are limited docs and
+  so trying to revisit at a point in future will likely be tough.
 - Compiling to a single self-contained executable
 - Unit Testing
 - Automated bulids and release publishing (currenly via GitHub actions)
@@ -36,11 +37,7 @@ These include :
 
 ## Applications
 
-- [PauseN](.docs/PauseN.md)
 - [BannerText](.docs/BannerText.md)
+- [PauseN](.docs/PauseN.md)
+- [ShowDateTime](.docs/ShowDateTime.md)
 - [Stopwatch](.docs/Stopwatch.md)
-
-## History
-
-To do
-
