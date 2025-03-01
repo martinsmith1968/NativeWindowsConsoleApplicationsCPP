@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "ArgumentsUsageDisplay.h"
+
+#include <execution>
+
 #include "../DNX.Utils/ConsoleUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -93,17 +96,21 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
     list<string> argument_file_lines;
     if (parser_config.GetUseDefaultArgumentsFile())
     {
-        const auto found = FileUtils::FileExists(AppDetails::GetDefaultArgumentsFileName());
+        const auto file_name = arguments.GetParserContext().GetDefaultArgumentsFileName();
 
-        argument_file_lines.push_back("Default App arguments can be specified in : " + AppDetails::GetDefaultArgumentsFileName() + (found ? " (exists)" : ""));
+        const auto found = FileUtils::FileExists(file_name);
+
+        argument_file_lines.push_back("Default App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
     }
     if (parser_config.GetUseLocalArgumentsFile())
     {
-        if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
+        if (arguments.GetParserContext().GetDefaultArgumentsFileName() != arguments.GetParserContext().GetLocalArgumentsFileName())
         {
-            const auto found = FileUtils::FileExists(AppDetails::GetLocalArgumentsFileName());
+            const auto file_name = arguments.GetParserContext().GetLocalArgumentsFileName();
 
-            argument_file_lines.push_back("Local App arguments can be specified in : " + AppDetails::GetLocalArgumentsFileName() + (found ? " (exists)" : ""));
+            const auto found = FileUtils::FileExists(file_name);
+
+            argument_file_lines.push_back("Local App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
         }
     }
     if (!argument_file_lines.empty())
@@ -118,7 +125,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
         cout << endl;
         cout << "Notes:" << endl;
 
-        for (const auto note: arguments.GetNotes())
+        for (const auto& note: arguments.GetNotes())
         {
             cout << note << endl;
         }

@@ -20,6 +20,7 @@ namespace Stopwatch
 
     public:
         StopArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::STOP))))
         {
             AddParameterStopwatchName();
             AddSwitchShowElapsedTime(true);
@@ -27,6 +28,8 @@ namespace Stopwatch
             AddSwitchVerboseOutput(false);
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class StopCommand final : public BaseCommand
     {

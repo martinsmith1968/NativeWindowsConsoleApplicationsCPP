@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CommandsUsageDisplay.h"
 #include "../DNX.Utils/ConsoleUtils.h"
+#include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 #include <iostream>
 #include <iomanip>
@@ -51,17 +52,21 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
     list<string> argument_file_lines;
     if (parser_config.GetUseDefaultArgumentsFile())
     {
-        const auto found = FileUtils::FileExists(AppDetails::GetDefaultArgumentsFileName());
+        const auto file_name = AppDetails::GetDefaultArgumentsFileName();
 
-        argument_file_lines.push_back("Default App arguments can be specified in : " + AppDetails::GetDefaultArgumentsFileName() + (found ? " (exists)" : ""));
+        const auto found = FileUtils::FileExists(file_name);
+
+        argument_file_lines.push_back("Default App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
     }
     if (parser_config.GetUseLocalArgumentsFile())
     {
         if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
         {
-            const auto found = FileUtils::FileExists(AppDetails::GetLocalArgumentsFileName());
+            const auto file_name = AppDetails::GetDefaultArgumentsFileName();
 
-            argument_file_lines.push_back("Local App arguments can be specified in : " + AppDetails::GetLocalArgumentsFileName() + (found ? " (exists)" : ""));
+            const auto found = FileUtils::FileExists(file_name);
+
+            argument_file_lines.push_back("Local App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
         }
     }
 

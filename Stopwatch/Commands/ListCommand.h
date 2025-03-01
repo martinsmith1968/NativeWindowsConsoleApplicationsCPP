@@ -29,6 +29,8 @@ namespace Stopwatch
         CUSTOM
     };
 
+    //------------------------------------------------------------------------------
+
     class OutputFormatTypeTextResolver : public EnumTextResolver<OutputFormatType>
     {
     public:
@@ -40,6 +42,8 @@ namespace Stopwatch
         }
     };
 
+    //------------------------------------------------------------------------------
+
     class ListArguments final : public BaseArguments
     {
         const string ArgumentNameOutputFormat     = "output-format";
@@ -47,6 +51,7 @@ namespace Stopwatch
 
     public:
         ListArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST))))
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);
@@ -68,6 +73,8 @@ namespace Stopwatch
         string GetCustomFormatText() { return GetArgumentValue(ArgumentNameCustomFormatText); }
     };
 
+    //------------------------------------------------------------------------------
+
     class BaseOutputFormatBuilder
     {
     public:
@@ -76,6 +83,8 @@ namespace Stopwatch
         virtual void PreProcess(const Timer& timer) {}
         [[nodiscard]] virtual string GetOutputText(const Timer& timer) const = 0;
     };
+
+    //------------------------------------------------------------------------------
 
     class DisplayOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
@@ -111,6 +120,8 @@ namespace Stopwatch
         }
     };
 
+    //------------------------------------------------------------------------------
+
     class CSVOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
     public:
@@ -131,6 +142,8 @@ namespace Stopwatch
         }
     };
 
+    //------------------------------------------------------------------------------
+
     class CustomOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
         string m_custom_format_string;
@@ -146,6 +159,8 @@ namespace Stopwatch
             return TimerDisplayBuilder::GetFormattedText(timer, m_custom_format_string);
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class OutputFormatFactory
     {
@@ -165,6 +180,8 @@ namespace Stopwatch
             }
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class ListCommand final : public BaseCommand
     {

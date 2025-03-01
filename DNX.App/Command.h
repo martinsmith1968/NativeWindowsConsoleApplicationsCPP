@@ -44,7 +44,7 @@ namespace DNX::App
         );
 
         static EmptyCommand _empty_command;
-        static EmptyCommand& Empty() { return _empty_command; }
+        static EmptyCommand& Empty();
 
         virtual void Execute();
     };

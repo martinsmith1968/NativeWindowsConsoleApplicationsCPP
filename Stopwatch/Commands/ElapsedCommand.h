@@ -20,12 +20,15 @@ namespace Stopwatch
     {
     public:
         ElapsedArguments()
+            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::ELAPSED))))
         {
             AddParameterStopwatchName();
             AddOptionAdditionalText();
             AddOptionElapsedTimeDisplayFormat();
         }
     };
+
+    //------------------------------------------------------------------------------
 
     class ElapsedCommand final : public BaseCommand
     {

@@ -53,7 +53,7 @@ namespace DNX::Utils
         template<class T>
         static T& GetRandom(list<T>& list)
         {
-            const auto index = MathUtils::GetRandomNumber(0, list.size(), false);
+            const auto index = MathUtils::GetRandomNumber(0, static_cast<int>(list.size()), false);
 
             T& result = GetAt(list, index);
 

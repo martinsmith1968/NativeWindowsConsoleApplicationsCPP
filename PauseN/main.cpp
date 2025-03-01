@@ -40,7 +40,7 @@ int main(const int argc, char* argv[])
             return 2;
         }
 
-        PauseN::App::Execute(arguments);
+        App::Execute(arguments);
 
         return 0;
     }

@@ -16,6 +16,12 @@
     <Filter Include="Header Files\Commands">
       <UniqueIdentifier>{980654fa-ba16-4fa7-a387-6ab43ed1a2ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Commands\Header Files">
+      <UniqueIdentifier>{0ed712ac-96f8-4bde-ad4a-2879620737ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands\Source Files">
+      <UniqueIdentifier>{62e7cad2-6032-4d3c-bc27-db205b9cf1ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="TimerDisplayBuilder.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\BaseCommand.cpp">
+      <Filter>Header Files\Commands\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,41 +59,41 @@
     <ClInclude Include="TimerRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\BaseCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\ListCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\StartCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="AppCommands.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\PauseCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\CommandType.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\ElapsedCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\StopCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\ResumeCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\CancelCommand.h">
-      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="TimerDisplayBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ElapsedTime.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\BaseCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CancelCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\CommandType.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ElapsedCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ListCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\PauseCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ResumeCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\StartCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\StopCommand.h">
+      <Filter>Header Files\Commands\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

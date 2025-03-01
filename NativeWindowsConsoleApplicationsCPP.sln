@@ -53,6 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4BD9D464-3
 	ProjectSection(SolutionItems) = preProject
 		.docs\BannerText.md = .docs\BannerText.md
 		.docs\PauseN.md = .docs\PauseN.md
+		.docs\ShowDateTime.md = .docs\ShowDateTime.md
 		.docs\Stopwatch.md = .docs\Stopwatch.md
 	EndProjectSection
 EndProject

@@ -1,9 +1,8 @@
 #pragma once
 #include "stdafx.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "AppDetails.h"
 #include "ArgumentType.h"
 #include "Argument.h"
+#include "ParserContext.h"
 #include "ValueConverter.h"
 #include <list>
 #include <map>
@@ -33,14 +32,16 @@ namespace DNX::App
         const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
         const string HelpDescription             = "Show Help screen";
-        const string useDefaultArgumentsFileDesc = "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
-        const string useLocalArgumentsFileDesc   = "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(AppDetails::GetDefaultArgumentsFileName()) + ")";
+        [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const;
+        [[nodiscard]] string GetUseLocalArgumentsFileDesc() const;
 
         int _last_position = 0;
         map<string, Argument> _arguments{};
         map<string, string> _values{};
         list<string> _notes{};
         list<string> _errors{};
+
+        const ParserContext& _parser_context;
 
         void AddArgumentComplete(
             ArgumentType argumentType,
@@ -126,16 +127,17 @@ namespace DNX::App
 
     public:
         Arguments();
+        explicit Arguments(const ParserContext& parser_context);
         virtual ~Arguments() = default;
-        //void CopyFrom(const Arguments& other);
 
         [[nodiscard]] bool IsEmpty() const;
         void Reset();
 
         static Arguments _empty_arguments;
-        static Arguments& Empty() { return _empty_arguments; }
+        static Arguments& Empty();
 
         [[nodiscard]] list<Argument> GetArguments() const;
+        ParserContext& GetParserContext() const { return const_cast<ParserContext&>(_parser_context); }
         [[nodiscard]] list<Argument> GetArgumentsByType(ArgumentType ArgumentType) const;
         [[nodiscard]] list<Argument> GetArgumentsByTypes(const list<ArgumentType>& ArgumentTypes) const;
 

@@ -167,6 +167,7 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="CommandsParser.h" />
     <ClInclude Include="CommandsUsageDisplay.h" />
+    <ClInclude Include="ParserContext.h" />
     <ClInclude Include="SwitchValue.h" />
     <ClInclude Include="ArgumentsUsageDisplay.h" />
     <ClInclude Include="ParserConfig.h" />
@@ -182,9 +183,11 @@
     <ClCompile Include="Argument.cpp" />
     <ClCompile Include="Arguments.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CommandArguments.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="CommandsParser.cpp" />
     <ClCompile Include="CommandsUsageDisplay.cpp" />
+    <ClCompile Include="ParserContext.cpp" />
     <ClCompile Include="SwitchValue.cpp" />
     <ClCompile Include="ArgumentsUsageDisplay.cpp" />
     <ClCompile Include="ParserConfig.cpp" />

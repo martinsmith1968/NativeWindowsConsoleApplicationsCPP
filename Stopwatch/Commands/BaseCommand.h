@@ -1,11 +1,10 @@
 #pragma once
 #include "../stdafx.h"
 #include "CommandType.h"
+#include "../../DNX.App/Arguments.h"
+#include "../../DNX.App/Command.h"
 #include "../TimerDisplayBuilder.h"
 #include "../TimerRepository.h"
-#include "../../DNX.App/Arguments.h"
-#include "../../DNX.App/ValueType.h"
-#include "../../DNX.Utils/StringUtils.h"
 #include <chrono>
 #include <string>
 
@@ -13,6 +12,11 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable StringLiteralTypo
+
+namespace DNX::App
+{
+    class Command;
+}
 
 using namespace std;
 
@@ -33,49 +37,25 @@ namespace Stopwatch
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
         const string ArgumentNameAdditionalText           = "additional-text";
 
-        BaseArguments()
-        {
-            AddOption(ValueType::STRING, "df", ArgumentNameDataFileName, TimerRepository::GetDefaultRepositoryFileName(), "The filename to store Stopwatch data in", false, APP_MAX);
-        }
+        explicit BaseArguments(const ParserContext& parser_context);
 
-        void AddParameterStopwatchName()
-        {
-            AddParameter(ValueType::STRING, 1, ArgumentNameStopwatchName, "", "The name of the Stopwatch", true);
-        }
-        void AddOptionAdditionalText()
-        {
-            AddOption(ValueType::STRING, "at", ArgumentNameAdditionalText, "", "Additional text for the output", false, APP_MAX - 5);
-        }
-        void AddSwitchVerboseOutput(const bool default_value)
-        {
-            AddSwitch("v", ArgumentNameVerboseOutput, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, APP_MAX - 10);
-        }
-        void AddSwitchIgnoreInvalidState(const bool default_value)
-        {
-            AddSwitch("i", ArgumentNameIgnoreInvalidState, StringUtils::BoolToString(default_value), "Ignore errors of Stopwatch being in invalid state for the action", false, APP_MAX - 20);
-        }
-        void AddSwitchShowElapsedTime(const bool default_value)
-        {
-            AddSwitch("set", ArgumentNameShowElapsedTime, StringUtils::BoolToString(default_value), "Show the Stopwatch Elapsed Time", false, APP_MAX - 35);
-        }
-        void AddOptionElapsedTimeDisplayFormat()
-        {
-            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
-        }
-        void AddOptionElapsedTimeAlternativeDisplayFormat()
-        {
-            AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
-        }
+        void AddParameterStopwatchName();
+        void AddOptionAdditionalText();
+        void AddSwitchVerboseOutput(bool default_value);
+        void AddSwitchIgnoreInvalidState(bool default_value);
+        void AddSwitchShowElapsedTime(bool default_value);
+        void AddOptionElapsedTimeDisplayFormat();
+        void AddOptionElapsedTimeAlternativeDisplayFormat();
 
     public:
-        string GetDataFileName() { return GetArgumentValue(ArgumentNameDataFileName); }
+        string GetDataFileName();
 
-        string GetStopwatchName() { return GetArgumentValue(ArgumentNameStopwatchName); }
-        bool GetVerboseOutput() { return GetSwitchValue(ArgumentNameVerboseOutput); }
-        bool GetIgnoreInvalidState() { return GetSwitchValue(ArgumentNameIgnoreInvalidState); }
-        bool GetShowElapsedTime() { return GetSwitchValue(ArgumentNameShowElapsedTime); }
-        string GetElapsedTimeDisplayFormat() { return GetArgumentValue(ArgumentNameElapsedTimeDisplayFormat); }
-        string GetArgumentAdditionalText() { return GetArgumentValue(ArgumentNameAdditionalText); }
+        string GetStopwatchName();
+        bool GetVerboseOutput();
+        bool GetIgnoreInvalidState();
+        bool GetShowElapsedTime();
+        string GetElapsedTimeDisplayFormat();
+        string GetArgumentAdditionalText();
 
     };
 

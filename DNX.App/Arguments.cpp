@@ -3,6 +3,7 @@
 #include "Arguments.h"
 #include <complex>
 
+#include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
@@ -19,6 +20,16 @@ Arguments Arguments::_empty_arguments = Arguments();
 
 //-----------------------------------------------------------------------------
 // Internal methods
+string Arguments::GetUseDefaultArgumentsFileDesc() const
+{
+    return "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
+}
+string Arguments::GetUseLocalArgumentsFileDesc() const
+{
+    // TODO: This should called GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
+    return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
+}
+
 void Arguments::PostParseValidate()
 {
 }
@@ -297,6 +308,12 @@ void Arguments::AdvancePosition()
 //-----------------------------------------------------------------------------
 // Public usage methods
 Arguments::Arguments()
+    : Arguments(ParserContext::Empty())
+{
+}
+
+Arguments::Arguments(const ParserContext& parser_context)
+    : _parser_context(parser_context)
 {
     AddStandardArguments();
     AddFileOverrideArguments();
@@ -308,8 +325,8 @@ void Arguments::AddStandardArguments()
 }
 void Arguments::AddFileOverrideArguments()
 {
-    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), useDefaultArgumentsFileDesc, false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), useLocalArgumentsFileDesc  , false, INT_MAX);
+    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), GetUseDefaultArgumentsFileDesc(), false, INT_MAX - 1);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), GetUseLocalArgumentsFileDesc()  , false, INT_MAX);
 }
 
 bool Arguments::IsEmpty() const
@@ -322,6 +339,11 @@ void Arguments::Reset()
     _last_position = 0;
     _values.clear();
     _errors.clear();
+}
+
+Arguments& Arguments::Empty()
+{
+    return _empty_arguments;
 }
 
 list<Argument> Arguments::GetArguments() const

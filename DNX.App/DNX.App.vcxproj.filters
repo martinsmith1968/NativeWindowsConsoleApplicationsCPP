@@ -66,6 +66,9 @@
     <ClInclude Include="CommandArguments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ParserContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -111,6 +114,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CommandsParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandArguments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -55,7 +55,7 @@ namespace ShowDateTime
             AddOption(ValueType::STRING, "f", ArgumentNameFormat, defaultFormat, "The format to use to display the datetime value", false);
             AddOption(ValueType::ENUM, "t", ArgumentNameTimeType, TimeTypeTextConverter.GetText(TimeType::LOCAL), "The time value to use", false, 0, TimeTypeTextConverter.GetAllText());
 
-            AddNote("This uses 'strftime' internally, so see the following for date formats:");
+            AddNote("This uses 'strftime' internally, so see the following for supported date formats:");
             AddNote("  https://cplusplus.com/reference/ctime/strftime/");
             AddNote("As well as:");
             AddNote("  {fff} - Milliseconds - always 3 digits");
