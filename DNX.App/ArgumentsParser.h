@@ -29,7 +29,7 @@ namespace DNX::App
         static list<string> ConvertLinesToRawArguments(const list<string>& lines);
 
         void ParseArgumentsFile(Arguments& arguments, const string& fileName) const;
-        void ParseArguments(Arguments& arguments, list<string>& argumentsText) const;
+        void ParseArgumentsList(Arguments& arguments, list<string>& argumentsText) const;
         bool ParseArgument(Arguments& arguments, const string& argumentName, const string& argumentValue, bool& argumentValueConsumed) const;
 
         static bool HandleAsSwitch(Arguments& arguments, const ParserConfig& parser_config, const string& argumentName);
@@ -45,5 +45,6 @@ namespace DNX::App
         void Parse(list<string> arguments) const;
 
         static void ParseArguments(Arguments& arguments, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig(), const ParserContext& parser_context = ParserContext());
+        static void ParseArguments(Arguments& arguments, const list<string>& args, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig(), const ParserContext& parser_context = ParserContext());
     };
 }

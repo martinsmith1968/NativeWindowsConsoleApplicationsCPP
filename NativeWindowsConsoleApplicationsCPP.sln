@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PauseN", "PauseN\PauseN.vcxproj", "{6B8D2D37-BD9D-43B2-B716-956423A05CA0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{38B555AD-D4AB-4186-A178-789947E6D37D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci-build.yml = .github\workflows\ci-build.yml
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BannerText", "BannerText\BannerText.vcxproj", "{2968B888-FF0A-47FE-B31B-51564700EAFF}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils", "DNX.Utils\DNX.Utils.vcxproj", "{BD755021-F792-4B24-91F6-4352A88EF567}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{65675F2E-56BB-4F8E-8A14-6113FD6ACC7B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App", "DNX.App\DNX.App.vcxproj", "{BD49F55E-7151-4702-92BF-4BD6138496E6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{50EC96D2-6E9C-4F27-A757-2A560FE087CF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{46824718-46F9-4928-9719-03351D5373FB}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{BDB2C450-AD2C-4854-9D5B-F4BC08CDFA97}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,14 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{BDB2C450
 		TODO.md = TODO.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{46824718-46F9-4928-9719-03351D5373FB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4BD9D464-3DDB-40D3-BB71-ACC45C240D0A}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{38B555AD-D4AB-4186-A178-789947E6D37D}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\ci-build.yml = .github\workflows\ci-build.yml
+		.docs\BannerText.md = .docs\BannerText.md
+		.docs\PauseN.md = .docs\PauseN.md
+		.docs\ShowDateTime.md = .docs\ShowDateTime.md
+		.docs\Stopwatch.md = .docs\Stopwatch.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DAC083BB-2D6B-433B-B819-9826085AE3AB}"
@@ -41,23 +37,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DAC083
 		Common\Version.h = Common\Version.h
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8A2943F9-A3A0-45E8-B091-3B19F6A3E782}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{65675F2E-56BB-4F8E-8A14-6113FD6ACC7B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils.Tests", "DNX.Utils.Tests\DNX.Utils.Tests.vcxproj", "{FE553727-0F98-409E-93E2-F8EBC5B2C6BE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App", "DNX.App\DNX.App.vcxproj", "{BD49F55E-7151-4702-92BF-4BD6138496E6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App.Tests", "DNX.App.Tests\DNX.App.Tests.vcxproj", "{01774A04-F33B-40EC-B35C-203F0B8A96A8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils", "DNX.Utils\DNX.Utils.vcxproj", "{BD755021-F792-4B24-91F6-4352A88EF567}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{50EC96D2-6E9C-4F27-A757-2A560FE087CF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PauseN", "PauseN\PauseN.vcxproj", "{6B8D2D37-BD9D-43B2-B716-956423A05CA0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BannerText", "BannerText\BannerText.vcxproj", "{2968B888-FF0A-47FE-B31B-51564700EAFF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stopwatch", "Stopwatch\Stopwatch.vcxproj", "{03EA8CE3-1A80-4B88-904E-9874DB82B1CF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4BD9D464-3DDB-40D3-BB71-ACC45C240D0A}"
-	ProjectSection(SolutionItems) = preProject
-		.docs\BannerText.md = .docs\BannerText.md
-		.docs\PauseN.md = .docs\PauseN.md
-		.docs\ShowDateTime.md = .docs\ShowDateTime.md
-		.docs\Stopwatch.md = .docs\Stopwatch.md
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShowDateTime", "ShowDateTime\ShowDateTime.vcxproj", "{20DA0D5E-D6BF-4689-9859-F9A1C9B166DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8A2943F9-A3A0-45E8-B091-3B19F6A3E782}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.App.Tests", "DNX.App.Tests\DNX.App.Tests.vcxproj", "{01774A04-F33B-40EC-B35C-203F0B8A96A8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils.Tests", "DNX.Utils.Tests\DNX.Utils.Tests.vcxproj", "{FE553727-0F98-409E-93E2-F8EBC5B2C6BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
