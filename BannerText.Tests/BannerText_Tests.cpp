@@ -20,6 +20,7 @@ using namespace DNX::Utils;
 TEST(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 {
     const auto expectedResultsFileName = string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
+    EXPECT_TRUE(FileUtils::FileExists(expectedResultsFileName));
 
     EXPECT_EQ(TestHelper::ExecuteApp("bob"), TestHelper::GetExpectedOutput(expectedResultsFileName));
 }
@@ -27,6 +28,7 @@ TEST(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 TEST(TEST_GROUP, Execute_with_text_and_min_length_produces_expected_output)
 {
     const auto expectedResultsFileName = string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
+    EXPECT_TRUE(FileUtils::FileExists(expectedResultsFileName));
 
     EXPECT_EQ(TestHelper::ExecuteApp("bob|-minl 80"), TestHelper::GetExpectedOutput(expectedResultsFileName));
 }
