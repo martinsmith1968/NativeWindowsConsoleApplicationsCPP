@@ -10,6 +10,11 @@
 
 using namespace DNX::Utils;
 
+string EnvironmentUtils::GetNewLine()
+{
+    return "\r\n";
+}
+
 list<string> EnvironmentUtils::GetEnvironmentVariablesData()
 {
     char** env = *__p__environ();
