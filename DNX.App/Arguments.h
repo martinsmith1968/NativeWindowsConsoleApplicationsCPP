@@ -38,6 +38,7 @@ namespace DNX::App
         int _last_position = 0;
         map<string, Argument> _arguments{};
         map<string, string> _values{};
+        map<string, list<string>> _multipleValues{};
         list<string> _notes{};
         list<string> _errors{};
 
@@ -52,7 +53,8 @@ namespace DNX::App
             const string& description,
             bool required,
             int position,
-            const list<string>& valueList
+            const list<string>& valueList,
+            bool allowMultiple
         );
 
     protected:
@@ -73,7 +75,8 @@ namespace DNX::App
             const string& description = "",
             bool required = false,
             int position = 0,
-            const list<string>& valueList = list<string>()
+            const list<string>& valueList = list<string>(),
+            bool allowMultiple = false
         );
 
         void AddParameter(
@@ -83,7 +86,8 @@ namespace DNX::App
             const string& defaultValue = "",
             const string& description = "",
             bool required = true,
-            const list<string>& valueList = list<string>()
+            const list<string>& valueList = list<string>(),
+            bool allowMultiple = false
         );
         void AddOption(
             const ValueType valueType,
@@ -114,6 +118,7 @@ namespace DNX::App
         [[nodiscard]] list<Argument> GetRequiredArguments() const;
 
         string GetArgumentValue(const string& name);
+        list<string> GetArgumentValues(const string& name);
         bool GetSwitchValue(const string& name);
         void SetArgumentValue(const string& name, const string& value);
         bool HasArgumentValue(const string& name);
@@ -132,6 +137,7 @@ namespace DNX::App
 
         [[nodiscard]] bool IsEmpty() const;
         void Reset();
+        void Verify();
 
         static Arguments _empty_arguments;
         static Arguments& Empty();

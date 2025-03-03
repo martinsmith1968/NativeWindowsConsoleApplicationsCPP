@@ -43,7 +43,8 @@ void Arguments::AddArgumentComplete(
     const string& description,
     const bool required,
     const int position,
-    const list<string>& valueList
+    const list<string>& valueList,
+    const bool allowMultiple
 )
 {
     if (shortName.empty() && argumentType != ArgumentType::PARAMETER)
@@ -82,7 +83,7 @@ void Arguments::AddArgumentComplete(
         }
     }
 
-    const auto argument = Argument(argumentType, valueType, realPosition, realShortName, longName, description, defaultValue, required, valueList);
+    const auto argument = Argument(argumentType, valueType, realPosition, realShortName, longName, description, defaultValue, required, valueList, allowMultiple);
 
     _arguments[argument.GetLongName()] = argument;
 }
@@ -101,10 +102,11 @@ void Arguments::AddArgument(
     const string& description,
     const bool required,
     const int position,
-    const list<string>& valueList
+    const list<string>& valueList,
+    const bool allowMultiple
 )
 {
-    AddArgumentComplete(argumentType, valueType, shortName, longName, defaultValue, description, required, position, valueList);
+    AddArgumentComplete(argumentType, valueType, shortName, longName, defaultValue, description, required, position, valueList, allowMultiple);
 }
 
 void Arguments::AddParameter(
@@ -114,7 +116,8 @@ void Arguments::AddParameter(
     const string& defaultValue,
     const string& description,
     const bool required,
-    const list<string>& valueList
+    const list<string>& valueList,
+    const bool allowMultiple
 )
 {
     int realPosition = position;
@@ -124,7 +127,7 @@ void Arguments::AddParameter(
         realPosition = static_cast<int>(GetArgumentsByTypes(types).size() + 1);
     }
 
-    AddArgument(ArgumentType::PARAMETER, valueType, "", longName, defaultValue, description, required, realPosition, valueList);
+    AddArgument(ArgumentType::PARAMETER, valueType, "", longName, defaultValue, description, required, realPosition, valueList, allowMultiple);
 }
 
 void Arguments::AddOption(
@@ -145,7 +148,7 @@ void Arguments::AddOption(
         realPosition = static_cast<int>(GetArgumentsByTypes(types).size() + 1);
     }
 
-    AddArgument(ArgumentType::OPTION, valueType, shortName, longName, defaultValue, description, required, realPosition, valueList);
+    AddArgument(ArgumentType::OPTION, valueType, shortName, longName, defaultValue, description, required, realPosition, valueList, false);
 }
 
 void Arguments::AddSwitch(
@@ -208,13 +211,22 @@ Argument& Arguments::GetArgumentByName(const string& name)
 
 Argument& Arguments::GetParameterAtPosition(const int position)
 {
+    Argument* multipleParameter = nullptr;
     for (auto iter = _arguments.begin(); iter != _arguments.end(); ++iter)
     {
-        if (iter->second.GetArgumentType() == ArgumentType::PARAMETER && iter->second.GetPosition() == position)
+        if (iter->second.GetArgumentType() == ArgumentType::PARAMETER)
         {
-            return iter->second;
+            if (iter->second.GetPosition() == position)
+            {
+                return iter->second;
+            }
+            if (iter->second.GetAllowMultiple())
+                multipleParameter = &iter->second;
         }
     }
+
+    if (multipleParameter)
+        return *multipleParameter;
 
     return Argument::Empty();
 }
@@ -246,6 +258,19 @@ string Arguments::GetArgumentValue(const string& name)
         return found->second;
 
     return argument.GetDefaultValue();
+}
+
+list<string> Arguments::GetArgumentValues(const string& name)
+{
+    const auto& argument = GetArgumentByName(name);
+    if (argument.IsEmpty())
+        throw exception((string("Unknown Argument: ") + name).c_str());
+
+    const auto found = _multipleValues.find(argument.GetLongName());
+    if (found != _multipleValues.end())
+        return found->second;
+
+    return list<string>();
 }
 
 bool Arguments::GetSwitchValue(const string& name)
@@ -282,7 +307,14 @@ void Arguments::SetArgumentValue(const string& name, const string& value)
         }
     }
 
-    _values[argument.GetLongName()] = actual_value;
+    if (argument.GetAllowMultiple())
+    {
+        if (_multipleValues.find(argument.GetLongName()) == _multipleValues.end())
+            _multipleValues[argument.GetLongName()] = list<string>();
+        _multipleValues[argument.GetLongName()].emplace_back(actual_value);
+    }
+    else
+        _values[argument.GetLongName()] = actual_value;
 }
 
 bool Arguments::HasArgumentValue(const string& name)
@@ -291,7 +323,10 @@ bool Arguments::HasArgumentValue(const string& name)
     if (argument.IsEmpty())
         throw exception((string("Unknown Argument: ") + name).c_str());
 
-    return _values.find(argument.GetLongName()) != _values.end();
+    return argument.GetAllowMultiple()
+        ? _multipleValues.find(argument.GetLongName()) != _multipleValues.end()
+            && !_multipleValues[argument.GetLongName()].empty()
+        : _values.find(argument.GetLongName()) != _values.end();
 }
 
 int Arguments::GetNextPosition() const
@@ -338,7 +373,39 @@ void Arguments::Reset()
     _arguments.clear();
     _last_position = 0;
     _values.clear();
+    _multipleValues.clear();
     _errors.clear();
+}
+
+void Arguments::Verify()
+{
+    auto hasMultipleParameter = false;
+    auto multipleParameterIndex = 0;
+
+    auto index = 0;
+    auto parameter_index = 0;
+    for (auto [argument_name, argument] : _arguments)
+    {
+        ++index;
+        if (argument.GetArgumentType() == ArgumentType::PARAMETER)
+        {
+            if (argument.GetAllowMultiple())
+            {
+                ++parameter_index;
+                multipleParameterIndex = parameter_index;
+                if (hasMultipleParameter)
+                    _errors.push_back(argument_name + " cannot be defined to allow multiple arguments");
+                else
+                    hasMultipleParameter = true;
+            }
+        }
+    }
+
+    if (hasMultipleParameter)
+    {
+        if (multipleParameterIndex != parameter_index)
+            _errors.push_back("The parameter supporting multiple values must be the last parameter");
+    }
 }
 
 Arguments& Arguments::Empty()

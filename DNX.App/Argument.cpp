@@ -48,6 +48,10 @@ list<string> Argument::GetValueList() const
 {
     return _valueList;
 }
+bool Argument::GetAllowMultiple() const
+{
+    return _allowMultiple;
+}
 
 bool Argument::HasLongName() const
 {
@@ -74,7 +78,8 @@ Argument::Argument() :
     _argumentType(ArgumentType::PARAMETER),
     _valueType(ValueType::STRING),
     _required(false),
-    _position(0)
+    _position(0),
+    _allowMultiple(false)
 {
 }
 
@@ -87,17 +92,19 @@ Argument::Argument(
     const string& description,
     const string& defaultValue,
     const bool required,
-    const list<string>& valueList
+    const list<string>& valueList,
+    const bool allowMultiple
 )
 {
-    _argumentType = argumentType;
-    _valueType    = valueType;
-    _shortName    = shortName;
-    _longName     = longName;
-    _description  = description;
-    _defaultValue = defaultValue;
-    _required     = required;
-    _position     = position;
+    _argumentType  = argumentType;
+    _valueType     = valueType;
+    _shortName     = shortName;
+    _longName      = longName;
+    _description   = description;
+    _defaultValue  = defaultValue;
+    _required      = required;
+    _position      = position;
+    _allowMultiple = allowMultiple;
 
     if (!valueList.empty())
     {
