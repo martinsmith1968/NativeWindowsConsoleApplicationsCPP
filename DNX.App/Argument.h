@@ -25,6 +25,7 @@ namespace DNX::App
         bool _required;
         uint8_t _position;
         list<string> _valueList{};
+        bool _allowMultiple;
 
         static Argument _empty_argument;
 
@@ -43,6 +44,7 @@ namespace DNX::App
         [[nodiscard]] bool GetRequired() const;
         [[nodiscard]] uint8_t GetPosition() const;
         [[nodiscard]] list<string> GetValueList() const;
+        [[nodiscard]] bool GetAllowMultiple() const;
 
         [[nodiscard]] bool HasLongName() const;
         [[nodiscard]] string GetNameDescription() const;
@@ -58,7 +60,8 @@ namespace DNX::App
             const string& description = "",
             const string& defaultValue = "",
             bool required = false,
-            const list<string>& valueList = list<string>()
+            const list<string>& valueList = list<string>(),
+            bool allowMultiple = false
         );
 
         static Argument& Empty() { return _empty_argument; }

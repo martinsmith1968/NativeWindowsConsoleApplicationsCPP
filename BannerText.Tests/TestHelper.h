@@ -8,7 +8,6 @@ using namespace std;
 class TestHelper
 {
 public:
-    static string ExecuteApp(const string& argumentsText, const char separator = '|');
-    static string GetExpectedOutput(const string& fileName);
-    static bool CompareFiles(const string& fileName1, const string& fileName2);
+    static string ExecuteApp(const string& argumentsText, const char separator = '|', bool showGeneratedOutput = true);
+    static string GetExpectedOutput(const string& fileName, const bool showExpectedOutput = true);
 };

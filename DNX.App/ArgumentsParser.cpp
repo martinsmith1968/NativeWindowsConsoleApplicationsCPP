@@ -225,13 +225,26 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
 
     for (auto iter = optionList.begin(); iter != optionList.end(); ++iter)
     {
-        const auto optionValue = arguments.GetArgumentValue(iter->GetShortName());
-        if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
+        list<string> values;
+        if (iter->GetAllowMultiple())
         {
-            if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
-                continue;
+            for (auto multipleValue : arguments.GetArgumentValues(iter->GetShortName()))
+                values.push_back(multipleValue);
+        }
+        else
+        {
+            values.push_back(arguments.GetArgumentValue(iter->GetShortName()));
+        }
 
-            arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
+        for (auto optionValue : values)
+        {
+            if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
+            {
+                if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
+                    continue;
+
+                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
+            }
         }
     }
 }
@@ -255,6 +268,10 @@ void ArgumentsParser::Parse(const int argc, char* argv[]) const
 
 void ArgumentsParser::Parse(list<string> arguments) const
 {
+    _arguments.Verify();
+    if (!_arguments.IsValid())
+        return;
+
     if (_parser_config.GetUseCustomArgumentsFile() && _arguments.IsUsingDefaultArgumentsFile())
         ParseArgumentsFile(_arguments, _parser_context.GetDefaultArgumentsFileName());
 

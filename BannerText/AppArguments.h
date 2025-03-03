@@ -57,7 +57,7 @@ namespace BannerText
     public:
         AppArguments()
         {
-            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, "", "The Text to display", true);
+            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, "", "The Text to display", true, list<string>(), true);
             AddOption(ValueType::CHAR, "hlc", ArgumentNameHeaderLineChar, "*", "The character to use for header lines", false);
             AddOption(ValueType::INT, "hln", ArgumentNameHeaderLineCount, "1", "The number of header lines to print", false);
             AddOption(ValueType::CHAR, "flc", ArgumentNameFooterLineChar, "*", "The character to use for footer lines", false);
@@ -84,9 +84,14 @@ namespace BannerText
             }
         }
 
-        string GetMessageText()
+        list<string> GetMessageTexts()
         {
-            return GetArgumentValue(ArgumentNameMessageText);
+            return GetArgumentValues(ArgumentNameMessageText);
+        }
+
+        int GetMessageTextsCount()
+        {
+            return static_cast<int>(GetMessageTexts().size());
         }
 
         char GetHeaderLineChar()
@@ -141,7 +146,21 @@ namespace BannerText
 
         size_t GetMinimumTotalLength()
         {
-            return ValueConverter::ToInt(GetArgumentValue(ArgumentNameMinTotalLength));
+            const int requestedMinimumLength = ValueConverter::ToInt(GetArgumentValue(ArgumentNameMinTotalLength));
+
+            int forcedMinimumLength = 0;
+            if (GetMessageTextsCount() > 1)
+            {
+                for (auto text : GetMessageTexts())
+                {
+                    forcedMinimumLength = max(forcedMinimumLength, static_cast<int>(text.size()));
+                }
+            }
+
+            if (forcedMinimumLength > 0)
+                return max(forcedMinimumLength, requestedMinimumLength);
+
+            return requestedMinimumLength;
         }
 
         size_t GetMaximumTotalLength()
@@ -206,8 +225,14 @@ namespace BannerText
     protected:
         size_t GetLineLength()
         {
-            auto lineLength = GetMessageText().length()
-                + (GetTitlePrefixCount() + GetTitlePrefixGapSize())
+            size_t lineLength = 0;
+            for (auto text : GetMessageTexts())
+            {
+                lineLength = std::max(lineLength, text.length());
+            }
+
+            lineLength +=
+                (GetTitlePrefixCount() + GetTitlePrefixGapSize())
                 + (GetTitleSuffixCount() + GetTitleSuffixGapSize());
 
             if (GetMinimumTotalLength() > 0)
@@ -236,18 +261,22 @@ namespace BannerText
 
             const auto lineLength = GetTextPrintableLineLength();
 
-            auto remainingText = GetMessageText();
-            while (!remainingText.empty())
+            const auto message_texts = GetMessageTexts();
+            for (const auto message_text : message_texts)
             {
-                if (remainingText.length() > lineLength)
+                auto remainingText = message_text;
+                while (!remainingText.empty())
                 {
-                    lines.push_back(remainingText.substr(0, lineLength));
-                    remainingText = remainingText.substr(lineLength, string::npos);
-                }
-                else
-                {
-                    lines.push_back(remainingText);
-                    remainingText.clear();
+                    if (remainingText.length() > lineLength)
+                    {
+                        lines.push_back(remainingText.substr(0, lineLength));
+                        remainingText = remainingText.substr(lineLength, string::npos);
+                    }
+                    else
+                    {
+                        lines.push_back(remainingText);
+                        remainingText.clear();
+                    }
                 }
             }
 

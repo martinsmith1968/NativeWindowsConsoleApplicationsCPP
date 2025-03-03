@@ -32,6 +32,9 @@
     <Text Include="ExpectedOutput\Execute_with_text_and_min_length_produces_expected_output.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
+    <Text Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestHelper.h">

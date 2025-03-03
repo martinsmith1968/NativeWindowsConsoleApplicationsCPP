@@ -12,7 +12,7 @@ using namespace DNX::Utils;
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
-string TestHelper::ExecuteApp(const string& argumentsText, const char separator)
+string TestHelper::ExecuteApp(const string& argumentsText, const char separator, const bool showGeneratedOutput)
 {
     const auto quote = "\"";
 
@@ -33,24 +33,33 @@ string TestHelper::ExecuteApp(const string& argumentsText, const char separator)
         lines += buf;
     _pclose(output);
 
-    return StringUtils::RemoveEndsWith(StringUtils::ReplaceString(lines, "\n", EnvironmentUtils::GetNewLine()), EnvironmentUtils::GetNewLine());
+    auto generated_output = StringUtils::RemoveEndsWith(StringUtils::ReplaceString(lines, "\n", EnvironmentUtils::GetNewLine()), EnvironmentUtils::GetNewLine());
+
+    if (showGeneratedOutput)
+    {
+        cout << "Generated Output:" << endl;
+        cout << generated_output << endl;
+        cout << generated_output.size() << " characters" << endl;
+    }
+
+    return generated_output;
 }
 
-string TestHelper::GetExpectedOutput(const string& fileName)
+string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
 {
-    const auto fullFileName = PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), "ExpectedOutput"), fileName);
+    const auto fullFileName = PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
+    if (!FileUtils::FileExists(fullFileName))
+        throw exception(("File not found: " + fullFileName).c_str());
 
     cout << "Reading: " << fullFileName << endl;
-    return StringUtils::RemoveEndsWith(StringUtils::JoinText(FileUtils::ReadLines(fullFileName), EnvironmentUtils::GetNewLine()), EnvironmentUtils::GetNewLine());
-}
+    auto expected_output = StringUtils::RemoveEndsWith(StringUtils::JoinText(FileUtils::ReadLines(fullFileName), EnvironmentUtils::GetNewLine()), EnvironmentUtils::GetNewLine());
 
-bool TestHelper::CompareFiles(const string& fileName1, const string& fileName2)
-{
-    cout << "Comparing: " << fileName1 << " and " << fileName2 << endl;
+    if (showExpectedOutput)
+    {
+        cout << "Expected Output:" << endl;
+        cout << expected_output << endl;
+        cout << expected_output.size() << " characters" << endl;
+    }
 
-    const auto content1 = FileUtils::ReadLines(fileName1);
-    const auto content2 = FileUtils::ReadLines(fileName2);
-
-    return content1.size() == content2.size()
-        && content1 == content2;
+    return expected_output;
 }
