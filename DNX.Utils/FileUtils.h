@@ -27,5 +27,8 @@ namespace DNX::Utils
 
         static list<string> ReadLines(const string& fileName);
         static void WriteLines(const string& fileName, const list<string>& lines);
+
+        static bool CompareTextFiles(const string& fileName1, const string& fileName2);
+        static bool CompareBinaryFiles(const string& fileName1, const string& fileName2);
     };
 }
