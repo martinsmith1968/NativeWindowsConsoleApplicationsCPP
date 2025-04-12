@@ -40,7 +40,8 @@ namespace Stopwatch
     public:
         PauseCommand()
             : BaseCommand(&m_arguments, CommandType::PAUSE, "Pause an active Stopwatch", 40)
-        { }
+        {
+        }
 
         void Execute() override
         {

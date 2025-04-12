@@ -25,7 +25,7 @@ namespace Stopwatch
         TimerStateTypeTextResolver()
         {
             SetText(TimerStateType::ACTIVE, "Active");
-            SetText(TimerStateType::INACTIVE,  "Inactive");
+            SetText(TimerStateType::INACTIVE, "Inactive");
         }
     };
 

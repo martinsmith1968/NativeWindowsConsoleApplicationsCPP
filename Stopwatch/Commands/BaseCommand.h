@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../stdafx.h"
 #include "CommandType.h"
 #include "../../DNX.App/Arguments.h"
@@ -29,13 +30,13 @@ namespace Stopwatch
     protected:
         const int APP_MAX = INT_MAX - 10;
 
-        const string ArgumentNameDataFileName             = "data-filename";
-        const string ArgumentNameStopwatchName            = "stopwatch-name";
-        const string ArgumentNameVerboseOutput            = "verbose-output";
-        const string ArgumentNameIgnoreInvalidState       = "ignore-invalid-state";
-        const string ArgumentNameShowElapsedTime          = "show-elapsed-time";
+        const string ArgumentNameDataFileName = "data-filename";
+        const string ArgumentNameStopwatchName = "stopwatch-name";
+        const string ArgumentNameVerboseOutput = "verbose-output";
+        const string ArgumentNameIgnoreInvalidState = "ignore-invalid-state";
+        const string ArgumentNameShowElapsedTime = "show-elapsed-time";
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
-        const string ArgumentNameAdditionalText           = "additional-text";
+        const string ArgumentNameAdditionalText = "additional-text";
 
         explicit BaseArguments(const ParserContext& parser_context);
 

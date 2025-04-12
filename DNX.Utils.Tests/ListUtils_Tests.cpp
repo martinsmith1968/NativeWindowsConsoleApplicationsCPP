@@ -144,7 +144,7 @@ TEST(TEST_GROUP, GetRandom_returns_different_items)
 
     constexpr int repetitions = 100;
 
-    for (int attempt=0; attempt < repetitions; ++attempt)
+    for (int attempt = 0; attempt < repetitions; ++attempt)
     {
         // Act
         string& instance = ListUtils::GetRandom<string>(items);
