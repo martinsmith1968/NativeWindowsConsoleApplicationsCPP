@@ -2,10 +2,9 @@
 #include "CommandArguments.h"
 #include "CommandsParser.h"
 #include "ArgumentsParser.h"
-#include <string>
-
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <string>
 
 // ReSharper disable CppClangTidyModernizePassByValue
 // ReSharper disable CppInconsistentNaming

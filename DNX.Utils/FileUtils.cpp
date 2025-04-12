@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "FileUtils.h"
-#include <fstream>
-#include <io.h>
-
 #include "PathUtils.h"
 #include "StringUtils.h"
+#include <fstream>
+#include <io.h>
 
 #define ACCESS    _access_s
 

@@ -1,17 +1,13 @@
 #include "stdafx.h"
 #include "ArgumentsUsageDisplay.h"
-
-#include <execution>
-
+#include "ParserConfig.h"
 #include "../DNX.Utils/ConsoleUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <execution>
 #include <iomanip>
 #include <iostream>
 #include <ostream>
-
-#include "ParserConfig.h"
-#include "../DNX.Utils/ListUtils.h"
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "DateUtils.h"
+#include "EnvironmentUtils.h"
+#include "FileUtils.h"
 #include "PathUtils.h"
 #include "ProcessUtils.h"
 #include "StringUtils.h"
@@ -9,8 +11,6 @@
 #include <filesystem>
 #include <sys/stat.h>
 
-#include "EnvironmentUtils.h"
-#include "FileUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "ArgumentType.h"
 #include "Argument.h"
@@ -23,15 +24,15 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Arguments
     {
-        const string HelpShortName                    = "?";
+        const string HelpShortName = "?";
         const string UseDefaultArgumentsFileShortName = "@";
-        const string UseLocalArgumentsFileShortName   = "$";
+        const string UseLocalArgumentsFileShortName = "$";
 
-        const string HelpLongName                    = "help";
+        const string HelpLongName = "help";
         const string UseDefaultArgumentsFileLongName = "use-default-arguments-file";
-        const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
+        const string UseLocalArgumentsFileLongName = "use-local-arguments-file";
 
-        const string HelpDescription             = "Show Help screen";
+        const string HelpDescription = "Show Help screen";
         [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const;
         [[nodiscard]] string GetUseLocalArgumentsFileDesc() const;
 

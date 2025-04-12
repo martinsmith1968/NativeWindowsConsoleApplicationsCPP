@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Argument.h"
 #include "Arguments.h"
-#include <complex>
-
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <complex>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppTooWideScope

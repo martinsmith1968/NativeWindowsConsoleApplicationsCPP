@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "Arguments.h"
 #include "Command.h"
@@ -19,6 +20,6 @@ namespace DNX::App
         CommandArguments() = default;
 
         void BuildFromCommands(list<Command> commands);
-                string GetCommandNameValue();
+        string GetCommandNameValue();
     };
 }

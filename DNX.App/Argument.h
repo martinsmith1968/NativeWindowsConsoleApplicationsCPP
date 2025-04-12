@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include "stdafx.h"
 #include "ArgumentType.h"
 #include "ValueType.h"

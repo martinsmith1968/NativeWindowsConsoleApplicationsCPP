@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "Arguments.h"
 
@@ -55,6 +56,7 @@ namespace DNX::App
         EmptyCommand() = default;
 
         void Execute() override
-        { }
+        {
+        }
     };
 }

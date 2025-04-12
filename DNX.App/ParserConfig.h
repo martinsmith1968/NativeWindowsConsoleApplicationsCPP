@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include <string>
 
@@ -17,11 +18,11 @@ namespace DNX::App
         static const string DefaultShortNamePrefix;
         static const string DefaultLongNamePrefix;
         static const string DefaultCustomArgumentsFilePrefix;
-        static constexpr bool DefaultUseDefaultArgumentsFile   = true;
-        static constexpr bool DefaultUseLocalArgumentsFile     = true;
-        static constexpr bool DefaultUseCustomArgumentsFiles   = true;
-        static constexpr char DefaultSwitchOnSuffix            = '+';
-        static constexpr char DefaultSwitchOffSuffix           = '-';
+        static constexpr bool DefaultUseDefaultArgumentsFile = true;
+        static constexpr bool DefaultUseLocalArgumentsFile = true;
+        static constexpr bool DefaultUseCustomArgumentsFiles = true;
+        static constexpr char DefaultSwitchOnSuffix = '+';
+        static constexpr char DefaultSwitchOffSuffix = '-';
         static constexpr bool DefaultIgnoreAdditionalArguments = false;
 
         string _shortNamePrefix;
@@ -45,7 +46,7 @@ namespace DNX::App
         [[nodiscard]] char GetSwitchOffSuffix() const { return _switchOffSuffix; }
         [[nodiscard]] bool GetIgnoreAdditionalArguments() const { return _ignoreAdditionalArguments; }
 
-        void SetIgnoreAdditionalArguments(const bool value) {_ignoreAdditionalArguments = value; }
+        void SetIgnoreAdditionalArguments(const bool value) { _ignoreAdditionalArguments = value; }
 
         ParserConfig();
 

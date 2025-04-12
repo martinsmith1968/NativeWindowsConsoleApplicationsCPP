@@ -2,7 +2,6 @@
 #include "CommandsUsageDisplay.h"
 #include "../DNX.Utils/ConsoleUtils.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/StringUtils.h"
 #include <iostream>
 #include <iomanip>
 
