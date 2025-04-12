@@ -77,7 +77,7 @@ bool FileUtils::FileExists(const string& fileName)
 
 bool FileUtils::Create(const string& fileName)
 {
-    auto file = ofstream { fileName };
+    auto file = ofstream{ fileName };
 
     return FileExists(fileName);
 }

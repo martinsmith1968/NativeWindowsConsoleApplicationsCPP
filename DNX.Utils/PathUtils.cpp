@@ -136,8 +136,8 @@ string PathUtils::GetTempFileName(const string& prefix, const string& extension)
     const auto filePath = GetTempPath();
 
     const auto filePrefix = StringUtils::Trim(prefix).empty()
-                          ? ProcessUtils::GetExecutableFileNameOnly()
-                          : prefix;
+        ? ProcessUtils::GetExecutableFileNameOnly()
+        : prefix;
 
     string fileName;
     auto adjuster = 0;
@@ -149,8 +149,7 @@ string PathUtils::GetTempFileName(const string& prefix, const string& extension)
                 : "");
 
         fileName = Combine(filePath, filePrefix + fileId + "." + extension);
-    }
-    while (FileUtils::FileExists(fileName));
+    } while (FileUtils::FileExists(fileName));
 
     FileUtils::Create(fileName);
 

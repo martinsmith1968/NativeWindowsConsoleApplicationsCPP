@@ -29,7 +29,7 @@ int MathUtils::GetRandomNumber(const int max_value, const bool inclusive)
     return GetRandomNumber(0, max_value, inclusive);
 }
 
-int MathUtils::GetRandomNumber(const int min_value, const int max_value,const bool inclusive)
+int MathUtils::GetRandomNumber(const int min_value, const int max_value, const bool inclusive)
 {
     const auto adjustment = inclusive ? 1 : 0;
 
