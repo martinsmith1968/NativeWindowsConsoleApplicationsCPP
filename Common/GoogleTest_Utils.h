@@ -80,9 +80,9 @@ namespace DNX::GoogleTest::Utils
     }
 }
 
-#define TEST_STDOUT(target) TEST_STDOUT(target, , )
+#define TEST_STDOUT(target) TEST_STDOUT_SETUP_TEARDOWN(target, , )
 
-#define TEST_STDOUT(target, before_act, after_act) \
+#define TEST_STDOUT_SETUP_TEARDOWN(target, before_act, after_act) \
     using namespace DNX::GoogleTest::Utils; \
     /* Arrange */\
     string test_file_name            = ::testing::UnitTest::GetInstance()->current_test_info()->file(); \
