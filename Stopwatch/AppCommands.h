@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "../DNX.App/Commands.h"
 #include "Commands/CancelCommand.h"

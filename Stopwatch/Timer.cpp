@@ -1,13 +1,12 @@
 #include "stdafx.h"
 #include "Timer.h"
-#include <chrono>
-#include <ctime>
-#include <sstream>
-
 #include "../DNX.App/ValueConverter.h"
 #include "../DNX.Utils/DateUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <chrono>
+#include <ctime>
+#include <sstream>
 
 using namespace std;
 using namespace Stopwatch;
@@ -28,9 +27,9 @@ Timer::Timer() :
 
 Timer::Timer(const string& name)
 {
-    m_Name         = name;
-    m_Start        = DateUtils::GetNow();
-    m_State        = TimerStateType::INACTIVE;
+    m_Name = name;
+    m_Start = DateUtils::GetNow();
+    m_State = TimerStateType::INACTIVE;
     m_TotalElapsed = 0;
 }
 
@@ -144,8 +143,8 @@ void Timer::FromDefinition(const string& definition)
 {
     auto parts = StringUtils::SplitText(definition, '|');
 
-    m_Name         = ListUtils::GetAt(parts, 0);
-    m_Start        = static_cast<time_t>(ValueConverter::ToLong(ListUtils::GetAt(parts, 1)));
-    m_State        = static_cast<TimerStateType>(ValueConverter::ToInt(ListUtils::GetAt(parts, 2)));
+    m_Name = ListUtils::GetAt(parts, 0);
+    m_Start = static_cast<time_t>(ValueConverter::ToLong(ListUtils::GetAt(parts, 1)));
+    m_State = static_cast<TimerStateType>(ValueConverter::ToInt(ListUtils::GetAt(parts, 2)));
     m_TotalElapsed = ValueConverter::ToLong(ListUtils::GetAt(parts, 3));
 }

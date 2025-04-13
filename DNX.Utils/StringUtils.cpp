@@ -282,7 +282,7 @@ bool StringUtils::ContainsOnly(const string& str, const char* characters)
     if (str.empty() || strlen(characters) == 0)
         return false;
 
-    for (size_t x=0; x < strlen(characters); ++x)
+    for (size_t x = 0; x < strlen(characters); ++x)
     {
         auto pos = str.find(characters[x]);
         if (pos == string::npos)

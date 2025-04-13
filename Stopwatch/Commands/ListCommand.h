@@ -46,7 +46,7 @@ namespace Stopwatch
 
     class ListArguments final : public BaseArguments
     {
-        const string ArgumentNameOutputFormat     = "output-format";
+        const string ArgumentNameOutputFormat = "output-format";
         const string ArgumentNameCustomFormatText = "custom-format-text";
 
     public:
@@ -88,18 +88,18 @@ namespace Stopwatch
 
     class DisplayOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
-        size_t m_max_name_width  = 0;
+        size_t m_max_name_width = 0;
         size_t m_max_state_width = 0;
 
     public:
         void Reset(ListArguments& arguments) override
         {
-            m_max_name_width  = 0;
+            m_max_name_width = 0;
             m_max_state_width = 0;
         }
         void PreProcess(const Timer& timer) override
         {
-            m_max_name_width  = max(m_max_name_width, timer.GetName().length());
+            m_max_name_width = max(m_max_name_width, timer.GetName().length());
             m_max_state_width = max(m_max_state_width, TimerStateTypeTextResolver().GetText(timer.GetState()).length());
         }
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
@@ -190,7 +190,8 @@ namespace Stopwatch
     public:
         ListCommand()
             : BaseCommand(&m_arguments, CommandType::LIST, "List all active Stopwatches", 10)
-        { }
+        {
+        }
 
         void Execute() override
         {

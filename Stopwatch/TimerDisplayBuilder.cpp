@@ -12,7 +12,7 @@ using namespace DNX::Utils;
 using namespace Stopwatch;
 
 const string TimerDisplayBuilder::DefaultElapsedTimeTextFormat = "{days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
-const string TimerDisplayBuilder::DefaultStartTimeTextFormat   = "%Y-%m-%d %H:%M:%S";
+const string TimerDisplayBuilder::DefaultStartTimeTextFormat = "%Y-%m-%d %H:%M:%S";
 
 string TimerDisplayBuilder::GetFormattedText(const Timer& timer, const string& format, const string& action)
 {

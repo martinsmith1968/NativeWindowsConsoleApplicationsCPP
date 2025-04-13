@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Argument.h"
 #include "Arguments.h"
-#include <complex>
-
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <complex>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppTooWideScope
@@ -270,7 +269,7 @@ list<string> Arguments::GetArgumentValues(const string& name)
     if (found != _multipleValues.end())
         return found->second;
 
-    return list<string>();
+    return {};
 }
 
 bool Arguments::GetSwitchValue(const string& name)
@@ -384,7 +383,7 @@ void Arguments::Verify()
 
     auto index = 0;
     auto parameter_index = 0;
-    for (auto [argument_name, argument] : _arguments)
+    for (const auto& [argument_name, argument] : _arguments)
     {
         ++index;
         if (argument.GetArgumentType() == ArgumentType::PARAMETER)
@@ -404,7 +403,7 @@ void Arguments::Verify()
     if (hasMultipleParameter)
     {
         if (multipleParameterIndex != parameter_index)
-            _errors.push_back("The parameter supporting multiple values must be the last parameter");
+            _errors.emplace_back("The parameter supporting multiple values must be the last parameter");
     }
 }
 

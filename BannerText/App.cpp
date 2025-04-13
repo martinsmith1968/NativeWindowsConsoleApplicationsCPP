@@ -24,7 +24,7 @@ void App::Execute(AppArguments& arguments)
     }
 
     const auto text_lines = arguments.GetTextLines();
-    for (auto& line: text_lines)
+    for (auto& line : text_lines)
     {
         cout << line << endl;
     }

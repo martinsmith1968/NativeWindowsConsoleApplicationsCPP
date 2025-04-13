@@ -34,7 +34,7 @@ map<string, string> EnvironmentUtils::GetEnvironmentVariables()
 
     for (const auto& environment_variable : GetEnvironmentVariablesData())
     {
-        const auto name  = StringUtils::Before(environment_variable, "=");
+        const auto name = StringUtils::Before(environment_variable, "=");
         const auto value = StringUtils::After(environment_variable, "=");
 
         environment_variables[name] = value;

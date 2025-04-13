@@ -3,9 +3,8 @@
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
-#include <sstream>
-
 #include "../DNX.Utils/StringUtils.h"
+#include <sstream>
 
 // ReSharper disable CppInconsistentNaming
 

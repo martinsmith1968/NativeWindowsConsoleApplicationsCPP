@@ -2,9 +2,9 @@
 
 #include "../stdafx.h"
 #include "BaseCommand.h"
+#include "../../DNX.Utils/StringUtils.h"
 #include <string>
 #include <iostream>
-#include "../../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -35,7 +35,8 @@ namespace Stopwatch
     public:
         CancelCommand()
             : BaseCommand(&m_arguments, CommandType::CANCEL, "Cancel an active Stopwatch", 25)
-        { }
+        {
+        }
 
         void Execute() override
         {

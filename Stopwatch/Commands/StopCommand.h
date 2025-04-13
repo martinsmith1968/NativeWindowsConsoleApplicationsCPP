@@ -38,7 +38,8 @@ namespace Stopwatch
     public:
         StopCommand()
             : BaseCommand(&m_arguments, CommandType::STOP, "Start an active Stopwatch", 20)
-        { }
+        {
+        }
 
         void Execute() override
         {

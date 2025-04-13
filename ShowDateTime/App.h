@@ -1,4 +1,5 @@
 #pragma once
+
 #include "AppArguments.h"
 
 // ReSharper disable CppInconsistentNaming

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/Arguments.h"
@@ -42,7 +43,7 @@ namespace ShowDateTime
     // Arguments
     class AppArguments final : public Arguments
     {
-        const string ArgumentNameFormat   = "format";
+        const string ArgumentNameFormat = "format";
         const string ArgumentNameTimeType = "type";
 
         TimeTypeTextResolver TimeTypeTextConverter;

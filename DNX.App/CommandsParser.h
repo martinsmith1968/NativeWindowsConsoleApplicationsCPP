@@ -1,4 +1,5 @@
 #pragma once
+
 #include "AppDetails.h"
 #include "CommandArguments.h"
 #include "Commands.h"

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h"
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/ValueConverter.h"
@@ -20,15 +21,15 @@ namespace PauseN
     class AppArguments final : public Arguments
     {
         const string ArgumentNameMessageText = "message-text";
-        const string ArgumentNameTimeout     = "timeout";
-        const string ArgumentNameSleep       = "sleep";
+        const string ArgumentNameTimeout = "timeout";
+        const string ArgumentNameSleep = "sleep";
 
     public:
         AppArguments()
         {
             auto const defaultMessageText = "Press any key to continue (or wait {" + ArgumentNameTimeout + "} seconds) . . . ";
-            auto const defaultTimeout     = std::to_string(30);
-            auto const defaultSleep       = std::to_string(200);
+            auto const defaultTimeout = std::to_string(30);
+            auto const defaultSleep = std::to_string(200);
 
             AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, defaultMessageText, "The Text to display", false);
             AddOption(ValueType::INT, "t", ArgumentNameTimeout, defaultTimeout, "The timeout to wait for in seconds", false);
@@ -68,7 +69,7 @@ namespace PauseN
         void PostParseValidate() override
         {
             auto const timeout_time = std::chrono::seconds(GetTimeoutSeconds());
-            auto const sleep_time   = std::chrono::milliseconds(GetSleepMilliseconds());
+            auto const sleep_time = std::chrono::milliseconds(GetSleepMilliseconds());
 
             if (sleep_time >= timeout_time)
             {

@@ -21,8 +21,8 @@ namespace Stopwatch
     public:
         explicit ElapsedTime(int days, int hours, int minutes, int seconds)
         {
-            m_days    = days;
-            m_hours   = hours;
+            m_days = days;
+            m_hours = hours;
             m_minutes = minutes;
             m_seconds = seconds;
         }

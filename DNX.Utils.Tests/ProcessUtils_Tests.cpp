@@ -1,28 +1,35 @@
 #include "pch.h"
-#include <codecvt>
-#include <locale>
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <codecvt>
+#include <locale>
+#include <Windows.h>
 
 using namespace std;
 using namespace DNX::Utils;
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppInconsistentNaming
+// ReSharper disable CppClangTidyMiscUseAnonymousNamespace
+// ReSharper disable CppClangTidyClangDiagnosticDeprecatedDeclarations
+// ReSharper disable CppDeprecatedEntity
 
 #define TEST_GROUP ProcessUtils
 
 // Source : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-std::wstring s2ws(const std::string& str)
+[[maybe_unused]]
+static std::wstring s2ws(const std::string& str)
 {
-    using convert_typeX = std::codecvt_utf8<wchar_t>;
-    std::wstring_convert<convert_typeX, wchar_t> converterX;
+    typedef std::codecvt_utf8<wchar_t> convert_typeX;
+    std::wstring_convert<convert_typeX> converterX;
 
     return converterX.from_bytes(str);
 }
-std::string ws2s(const std::wstring& wstr)
+[[maybe_unused]]
+static std::string ws2s(const std::wstring& wstr)
 {
-    using convert_typeX = codecvt_utf8<wchar_t>;
-    wstring_convert<convert_typeX, wchar_t> converterX;
+    typedef codecvt_utf8<wchar_t> convert_typeX;
+    wstring_convert<convert_typeX> converterX;
 
     return converterX.to_bytes(wstr);
 }

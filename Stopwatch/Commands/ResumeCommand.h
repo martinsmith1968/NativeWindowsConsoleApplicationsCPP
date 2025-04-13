@@ -40,7 +40,8 @@ namespace Stopwatch
     public:
         ResumeCommand()
             : BaseCommand(&m_arguments, CommandType::RESUME, "Resume a paused Stopwatch", 40)
-        { }
+        {
+        }
 
         void Execute() override
         {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 

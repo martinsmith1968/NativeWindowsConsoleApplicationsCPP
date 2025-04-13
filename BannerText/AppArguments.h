@@ -1,9 +1,10 @@
 #pragma once
+
 #include "stdafx.h"
-#include <algorithm>
-#include <string>
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/Arguments.h"
+#include <algorithm>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
@@ -38,19 +39,19 @@ namespace BannerText
 
     class AppArguments final : public Arguments
     {
-        const string ArgumentNameMessageText        = "message-text";
-        const string ArgumentNameHeaderLineChar     = "header-line-char";
-        const string ArgumentNameHeaderLineCount    = "header-line-count";
-        const string ArgumentNameFooterLineChar     = "footer-line-char";
-        const string ArgumentNameFooterLineCount    = "footer-line-count";
-        const string ArgumentNameTextLineChar       = "text-line-char";
-        const string ArgumentNameTitlePrefixCount   = "title-prefix-count";
-        const string ArgumentNameTitleSuffixCount   = "title-suffix-count";
+        const string ArgumentNameMessageText = "message-text";
+        const string ArgumentNameHeaderLineChar = "header-line-char";
+        const string ArgumentNameHeaderLineCount = "header-line-count";
+        const string ArgumentNameFooterLineChar = "footer-line-char";
+        const string ArgumentNameFooterLineCount = "footer-line-count";
+        const string ArgumentNameTextLineChar = "text-line-char";
+        const string ArgumentNameTitlePrefixCount = "title-prefix-count";
+        const string ArgumentNameTitleSuffixCount = "title-suffix-count";
         const string ArgumentNameTitlePrefixGapSize = "title-prefix-gap-size";
         const string ArgumentNameTitleSuffixGapSize = "title-suffix-gap-size";
-        const string ArgumentNameTextAlignment      = "text-alignment";
-        const string ArgumentNameMinTotalLength     = "min-total-length";
-        const string ArgumentNameMaxTotalLength     = "max-total-length";
+        const string ArgumentNameTextAlignment = "text-alignment";
+        const string ArgumentNameMinTotalLength = "min-total-length";
+        const string ArgumentNameMaxTotalLength = "max-total-length";
 
         TextAlignmentTypeTextResolver TextAlignmentTypeTextConverter;
 
