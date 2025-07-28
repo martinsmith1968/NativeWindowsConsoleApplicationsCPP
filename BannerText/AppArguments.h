@@ -152,7 +152,7 @@ namespace BannerText
             int forcedMinimumLength = 0;
             if (GetMessageTextsCount() > 1)
             {
-                for (auto text : GetMessageTexts())
+                for (const auto& text : GetMessageTexts())
                 {
                     forcedMinimumLength = max(forcedMinimumLength, static_cast<int>(text.size()));
                 }
@@ -227,7 +227,7 @@ namespace BannerText
         size_t GetLineLength()
         {
             size_t lineLength = 0;
-            for (auto text : GetMessageTexts())
+            for (const auto& text : GetMessageTexts())
             {
                 lineLength = std::max(lineLength, text.length());
             }
@@ -263,7 +263,7 @@ namespace BannerText
             const auto lineLength = GetTextPrintableLineLength();
 
             const auto message_texts = GetMessageTexts();
-            for (const auto message_text : message_texts)
+            for (const auto& message_text : message_texts)
             {
                 auto remainingText = message_text;
                 while (!remainingText.empty())
