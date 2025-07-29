@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "App.h"
 #include "../DNX.Utils/ConsoleUtils.h"
+#include "../DNX.Utils/EnvironmentUtils.h"
 #include <chrono>
 #include <iostream>
 #include <regex>
@@ -35,6 +36,10 @@ list<string> GetLines(const string& text)
 
 //------------------------------------------------------------------------------
 // Execute
+/// <summary>
+/// Executes the specified arguments.
+/// </summary>
+/// <param name="arguments">The arguments.</param>
 void App::Execute(AppArguments& arguments)
 {
     const auto message_text      = arguments.GetMessageText();
@@ -122,27 +127,45 @@ void App::Execute(AppArguments& arguments)
     }
 
 
-    auto lines = GetLines(output_stream.str());
-    const auto max_line_length = std::max_element(lines.begin(),
-        lines.end(),
+    auto output_lines = GetLines(output_stream.str());
+    const auto max_line_length = std::max_element(output_lines.begin(),
+        output_lines.end(),
         [](const string& a, const string& b) { return a.length() < b.length(); }
-    )->length();
+        )->length();
 
-    // TODO: Handle output width properly
-
-    switch (textAlignmentType)
+    auto left_pad = 0;
+    if (outputWidth > 0)
     {
-        case TextAlignmentType::CENTER:
-            // TODO: Adjust lines for Alignment
-            break;
-        case TextAlignmentType::RIGHT:
-            // TODO: Adjust lines for Alignment
-            break;
-        case TextAlignmentType::LEFT:
-            break;
-        default:
-            break;
+        switch (textAlignmentType)
+        {
+            case TextAlignmentType::CENTER:
+                left_pad = (outputWidth - max_line_length) / 2;
+                break;
+            case TextAlignmentType::RIGHT:
+                left_pad = outputWidth - max_line_length;
+                break;
+            case TextAlignmentType::LEFT:
+                break;
+            default:
+                break;
+        }
     }
 
-    cout << output_stream.str();
+    list<string> formatted_lines;
+    for (auto output_line : output_lines)
+    {
+        if (left_pad == 0)
+        {
+            formatted_lines.emplace_back(output_line);
+            continue;
+        }
+
+        const auto formatted_line = StringUtils::Repeat(" ", left_pad) + output_line;
+        formatted_lines.emplace_back(formatted_line);
+    }
+
+    for (auto formated_line : formatted_lines)
+    {
+        cout << formated_line << EnvironmentUtils::GetNewLine();
+    }
 }
