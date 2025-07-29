@@ -245,6 +245,37 @@ list<string> StringUtils::SplitText(const string& str, const char splitChar, con
     return list;
 }
 
+list<string> StringUtils::SplitText(const string& str, const string& splitText, const string& trimText)
+{
+    list<string> list;
+
+    auto text = str;
+
+    while (!text.empty())
+    {
+        const auto index = text.find(splitText);
+        auto line = (index == string::npos)
+            ? text
+            : text.substr(0, index);
+
+        if (!trimText.empty())
+        {
+            for (const char trimChar : trimText)
+            {
+                line = Trim(line, trimChar);
+            }
+        }
+
+        list.emplace_back(line);
+
+        text = (index == string::npos || index + splitText.length() >= text.length())
+            ? ""
+            : text.substr(index + splitText.length(), string::npos);
+    }
+
+    return list;
+}
+
 string StringUtils::JoinText(const list<string>& list, const string& delimiter)
 {
     ostringstream ss;

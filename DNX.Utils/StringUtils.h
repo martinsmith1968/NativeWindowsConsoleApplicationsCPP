@@ -51,6 +51,7 @@ namespace DNX::Utils
         static string BoolToString(const bool value, const string& trueValue = "true", const string& falseValue = "false");
 
         static list<string> SplitText(const string& str, const char splitChar = ',', const char trimChar = NULL);
+        static list<string> SplitText(const string& str, const string& splitText = ",", const string& trimText = "");
         static string JoinText(const list<string>& list, const string& delimiter);
 
         static bool Contains(const string& str, const string& search);
