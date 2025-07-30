@@ -10,6 +10,7 @@
     <ClCompile Include="ProcessUtils_Tests.cpp" />
     <ClCompile Include="StringUtils_Tests.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ConsoleUtils_Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
