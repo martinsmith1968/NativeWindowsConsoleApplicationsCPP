@@ -19,7 +19,8 @@ using namespace DNX::Utils;
 // ReSharper disable CppClangTidyConcurrencyMtUnsafe
 // ReSharper disable CppClangTidyClangDiagnosticCoveredSwitchDefault
 
-list<string> GetLines(const string& text)
+//------------------------------------------------------------------------------
+list<string> App::GetLines(const string& text)
 {
     list<string> lines;
     stringstream ss(text);
@@ -35,11 +36,6 @@ list<string> GetLines(const string& text)
 }
 
 //------------------------------------------------------------------------------
-// Execute
-/// <summary>
-/// Executes the specified arguments.
-/// </summary>
-/// <param name="arguments">The arguments.</param>
 void App::Execute(AppArguments& arguments)
 {
     const auto message_text      = arguments.GetMessageText();
@@ -128,10 +124,12 @@ void App::Execute(AppArguments& arguments)
 
 
     auto output_lines = GetLines(output_stream.str());
-    const auto max_line_length = std::max_element(output_lines.begin(),
-        output_lines.end(),
-        [](const string& a, const string& b) { return a.length() < b.length(); }
-        )->length();
+    const auto max_line_length = static_cast<int>(
+        std::max_element(output_lines.begin(),
+            output_lines.end(),
+            [](const string& a, const string& b) { return a.length() < b.length(); }
+        )->length()
+        );
 
     auto left_pad = 0;
     if (outputWidth > 0)
@@ -152,7 +150,7 @@ void App::Execute(AppArguments& arguments)
     }
 
     list<string> formatted_lines;
-    for (auto output_line : output_lines)
+    for (const auto& output_line : output_lines)
     {
         if (left_pad == 0)
         {
@@ -164,8 +162,8 @@ void App::Execute(AppArguments& arguments)
         formatted_lines.emplace_back(formatted_line);
     }
 
-    for (auto formated_line : formatted_lines)
+    for (const auto& formatted_line : formatted_lines)
     {
-        cout << formated_line << EnvironmentUtils::GetNewLine();
+        cout << formatted_line << EnvironmentUtils::GetNewLine();
     }
 }

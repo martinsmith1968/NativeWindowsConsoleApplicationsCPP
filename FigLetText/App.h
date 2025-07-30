@@ -8,7 +8,9 @@ namespace FigLetText
 {
     class App
     {
+        static list<string> GetLines(const string& text);
+
     public:
-        static void Execute(AppArguments& arguments);  // NOLINT(misc-use-anonymous-namespace)
+        static void Execute(AppArguments& arguments);
     };
 }
