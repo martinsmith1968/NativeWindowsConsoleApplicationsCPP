@@ -163,7 +163,6 @@ string StringUtils::BetweenInner(const string& str, const string& first, const s
     return Before(AfterLast(str, first), second);
 }
 
-
 string StringUtils::ReplaceString(string subject, const string& search, const string& replace)
 {
     size_t pos = 0;
@@ -354,6 +353,7 @@ int StringUtils::CountOccurrences(const string& str, const char search)
 
     return count;
 }
+
 int StringUtils::CountOccurrences(const string& str, const string& search)
 {
     auto count = 0;
