@@ -129,7 +129,7 @@ namespace FigLetText
     public:
         AppArguments()
         {
-            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, "", "The Text to display", true, list<string>(), false);
+            AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, "", "The Text(s) to display", true, list<string>(), true);
             AddOption(ValueType::ENUM, "n", ArgumentNameFontType, FontTypeTextConverter.GetText(FontType::STANDARD), "The font to use", false, 0, FontTypeTextConverter.GetAllText());
             AddOption(ValueType::ENUM, "f", ArgumentNameFramingType, FramingTypeTextConverter.GetText(FramingType::NONE), "The text framing outline to use", false, 0, FramingTypeTextConverter.GetAllText());
             AddOption(ValueType::ENUM, "s", ArgumentNameSpacingType, SpacingTypeTextConverter.GetText(SpacingType::SMUSHED), "The character spacing to use", false, 0, SpacingTypeTextConverter.GetAllText());
@@ -137,9 +137,9 @@ namespace FigLetText
             AddOption(ValueType::INT, "w", ArgumentNameOutputWidth, "0", "Specify a fixed output width (for alignment)", false);
         }
 
-        string GetMessageText()
+        list<string> GetMessageTexts()
         {
-            return GetArgumentValue(ArgumentNameMessageText);
+            return GetArgumentValues(ArgumentNameMessageText);
         }
 
         FontType GetFontType()
