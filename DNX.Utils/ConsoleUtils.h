@@ -13,5 +13,6 @@ namespace DNX::Utils
     {
     public:
         static void ShowBlankLines(const int count);
+        static int GetConsoleWidth();
     };
 }

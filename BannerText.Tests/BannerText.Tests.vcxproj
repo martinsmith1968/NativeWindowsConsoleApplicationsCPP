@@ -22,7 +22,7 @@
     <ProjectGuid>{7E7105E3-41E2-4D3A-8374-E7EFAB5ACA3E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DNXAppTests</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>

@@ -50,6 +50,8 @@ namespace DNX::Utils
         }
 
         static string Find(const list<string>& list, const string& value, bool case_sensitive = true);
+        static int GetMinLength(const list<string>& list);
+    	static int GetMaxLength(const list<string>& list);
 
         template<class T>
         static T& GetRandom(list<T>& list)

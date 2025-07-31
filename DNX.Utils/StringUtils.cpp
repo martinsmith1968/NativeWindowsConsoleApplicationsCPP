@@ -163,7 +163,6 @@ string StringUtils::BetweenInner(const string& str, const string& first, const s
     return Before(AfterLast(str, first), second);
 }
 
-
 string StringUtils::ReplaceString(string subject, const string& search, const string& replace)
 {
     size_t pos = 0;
@@ -233,12 +232,83 @@ list<string> StringUtils::SplitText(const string& str, const char splitChar, con
 
         if (trimChar != NULL)
         {
-            piece = Trim(piece, trimChar);
+            piece = RTrim(piece, trimChar);
         }
+        piece = RTrim(piece, splitChar);
 
         if (!piece.empty())
         {
             list.push_back(piece);
+        }
+    }
+
+    return list;
+}
+
+list<string> StringUtils::SplitText(const string& str, const string& splitText, const string& trimText)
+{
+    list<string> list;
+
+    auto text = str;
+
+    while (!text.empty())
+    {
+        const auto index = text.find(splitText);
+        auto piece = (index == string::npos)
+            ? text
+            : text.substr(0, index);
+
+        if (!trimText.empty())
+        {
+            for (const char trimChar : trimText)
+            {
+                piece = RTrim(piece, trimChar);
+            }
+        }
+
+        list.emplace_back(piece);
+
+        text = (index == string::npos || index + splitText.length() >= text.length())
+            ? ""
+            : text.substr(index + splitText.length(), string::npos);
+    }
+
+    return list;
+}
+
+list<string> StringUtils::SplitTextByAny(const string& str, const string& splitText, const string& trimText, bool ignoreMultipleSplitChars)
+{
+    list<string> list;
+
+    auto text = str;
+
+    while (!text.empty())
+    {
+        const auto index = text.find_first_of(splitText);
+        auto piece = (index == string::npos)
+            ? text
+            : text.substr(0, index);
+
+        if (!trimText.empty())
+        {
+            for (const char trimChar : trimText)
+            {
+                piece = RTrim(piece, trimChar);
+            }
+        }
+
+        list.emplace_back(piece);
+
+        text = (index == string::npos || index + 1 >= text.length())
+            ? ""
+            : text.substr(index + 1, string::npos);
+
+        if (ignoreMultipleSplitChars)
+        {
+            for (const char trimChar : splitText)
+            {
+                text = LTrim(text, trimChar);
+            }
         }
     }
 
@@ -323,6 +393,7 @@ int StringUtils::CountOccurrences(const string& str, const char search)
 
     return count;
 }
+
 int StringUtils::CountOccurrences(const string& str, const string& search)
 {
     auto count = 0;
