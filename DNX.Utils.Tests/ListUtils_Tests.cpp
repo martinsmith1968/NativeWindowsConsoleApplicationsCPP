@@ -161,3 +161,71 @@ TEST(TEST_GROUP, GetRandom_returns_different_items)
     for (const auto& [key, value] : found)
         cout << key << " = " << value << endl;
 }
+
+TEST(TEST_GROUP, GetMinLength_returns_corect_value_from_a_list_of_string)
+{
+    // Arrange
+    MathUtils::ReseedRandomizer();
+
+    auto items = list<string>();
+    items.emplace_back("A");
+    items.emplace_back("AB");
+    items.emplace_back("ABC");
+    items.emplace_back("");
+    items.emplace_back("ABCD");
+    items.emplace_back("ABCDE");
+
+    // Act
+    const auto result = ListUtils::GetMinLength(items);
+
+    // Assert
+    EXPECT_EQ(0, result);
+}
+
+TEST(TEST_GROUP, GetMinLength_returns_corect_value_from_an_empty_list_of_strings)
+{
+    // Arrange
+    MathUtils::ReseedRandomizer();
+
+    const auto items = list<string>();
+
+    // Act
+    const auto result = ListUtils::GetMinLength(items);
+
+    // Assert
+    EXPECT_EQ(0, result);
+}
+
+TEST(TEST_GROUP, GetMaxLength_returns_corect_value_from_a_items)
+{
+    // Arrange
+    MathUtils::ReseedRandomizer();
+
+    auto items = list<string>();
+    items.emplace_back("A");
+    items.emplace_back("AB");
+    items.emplace_back("ABC");
+    items.emplace_back("");
+    items.emplace_back("ABCD");
+    items.emplace_back("ABCDE");
+
+    // Act
+	const auto result = ListUtils::GetMaxLength(items);
+
+    // Assert
+    EXPECT_EQ(5, result);
+}
+
+TEST(TEST_GROUP, GetMaxLength_returns_corect_value_from_an_empty_list_of_strings)
+{
+    // Arrange
+    MathUtils::ReseedRandomizer();
+
+    const auto items = list<string>();
+
+    // Act
+    const auto result = ListUtils::GetMaxLength(items);
+
+    // Assert
+    EXPECT_EQ(0, result);
+}
