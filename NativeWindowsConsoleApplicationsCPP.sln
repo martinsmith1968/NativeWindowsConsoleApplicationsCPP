@@ -62,7 +62,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DNX.Utils.Tests", "DNX.Util
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BannerText.Tests", "BannerText.Tests\BannerText.Tests.vcxproj", "{7E7105E3-41E2-4D3A-8374-E7EFAB5ACA3E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FigLetText", "E:\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\FigLetText\FigLetText.vcxproj", "{6D7F8ED1-D9A7-4B60-9DE4-624C0FBA236C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FigLetText", "FigLetText\FigLetText.vcxproj", "{6D7F8ED1-D9A7-4B60-9DE4-624C0FBA236C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
