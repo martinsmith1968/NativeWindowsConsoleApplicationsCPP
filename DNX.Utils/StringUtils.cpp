@@ -232,8 +232,9 @@ list<string> StringUtils::SplitText(const string& str, const char splitChar, con
 
         if (trimChar != NULL)
         {
-            piece = Trim(piece, trimChar);
+            piece = RTrim(piece, trimChar);
         }
+        piece = RTrim(piece, splitChar);
 
         if (!piece.empty())
         {
@@ -253,7 +254,7 @@ list<string> StringUtils::SplitText(const string& str, const string& splitText, 
     while (!text.empty())
     {
         const auto index = text.find(splitText);
-        auto line = (index == string::npos)
+        auto piece = (index == string::npos)
             ? text
             : text.substr(0, index);
 
@@ -261,15 +262,54 @@ list<string> StringUtils::SplitText(const string& str, const string& splitText, 
         {
             for (const char trimChar : trimText)
             {
-                line = Trim(line, trimChar);
+                piece = RTrim(piece, trimChar);
             }
         }
 
-        list.emplace_back(line);
+        list.emplace_back(piece);
 
         text = (index == string::npos || index + splitText.length() >= text.length())
             ? ""
             : text.substr(index + splitText.length(), string::npos);
+    }
+
+    return list;
+}
+
+list<string> StringUtils::SplitTextByAny(const string& str, const string& splitText, const string& trimText, bool ignoreMultipleSplitChars)
+{
+    list<string> list;
+
+    auto text = str;
+
+    while (!text.empty())
+    {
+        const auto index = text.find_first_of(splitText);
+        auto piece = (index == string::npos)
+            ? text
+            : text.substr(0, index);
+
+        if (!trimText.empty())
+        {
+            for (const char trimChar : trimText)
+            {
+                piece = RTrim(piece, trimChar);
+            }
+        }
+
+        list.emplace_back(piece);
+
+        text = (index == string::npos || index + 1 >= text.length())
+            ? ""
+            : text.substr(index + 1, string::npos);
+
+        if (ignoreMultipleSplitChars)
+        {
+            for (const char trimChar : splitText)
+            {
+                text = LTrim(text, trimChar);
+            }
+        }
     }
 
     return list;

@@ -52,7 +52,9 @@ namespace DNX::Utils
 
         static list<string> SplitText(const string& str, const char splitChar = ',', const char trimChar = NULL);
         static list<string> SplitText(const string& str, const string& splitText = ",", const string& trimText = "");
-        static string JoinText(const list<string>& list, const string& delimiter);
+        static list<string> SplitTextByAny(const string& str, const string& splitText = ",", const string& trimText = "", bool ignoreMultipleSplitChars = false);
+
+    	static string JoinText(const list<string>& list, const string& delimiter);
 
         static bool Contains(const string& str, const string& search);
 
