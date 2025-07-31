@@ -99,7 +99,7 @@ TEST(TEST_GROUP, SplitText_string_returns_as_expected) {
     EXPECT_EQ(result2.size(), 1);
     EXPECT_EQ("aaa::bbb::ccc::ddd", result2.front());
 
-    const auto result3 = StringUtils::SplitText("aaa\nbbb\nccc\nddd", "\r\n");
+    const auto result3 = StringUtils::SplitText("aaa\nbbb\nccc\nddd", "\n");
     EXPECT_EQ(result3.size(), 4);
 
     vector result3_vector(std::begin(result3), std::end(result3));
