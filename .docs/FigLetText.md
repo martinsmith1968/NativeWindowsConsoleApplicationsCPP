@@ -11,6 +11,8 @@ FigLetText has a few enhancements over the original `FigLet` application, such a
 - Text Alignment in the console window
 - Text Framing with single or double line border
 
+Uses a third party embedded library for the text generation : [ebertolazzi/embedFiglet](https://github.com/ebertolazzi/embedFiglet)
+
 ### Related Links and History
 
 - [Wikipedia](https://en.wikipedia.org/wiki/FIGlet)
@@ -54,7 +56,7 @@ The full help text looks something like this :
 
 ```text
 FigLetText v1.12.0.0-dev - Generate Text in FigLet format
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 FigLetText [message-text] [OPTIONS]

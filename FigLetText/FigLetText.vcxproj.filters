@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="embedFiglet-1.0">
+    <Filter Include="figlet-1.0">
       <UniqueIdentifier>{450b97e3-ea45-438e-8ac4-337700855d22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -30,8 +30,8 @@
     <ClInclude Include="App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Figlet.hh">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClInclude Include="figlet-1.0\Figlet.hh">
+      <Filter>figlet-1.0</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -47,35 +47,35 @@
     <ClCompile Include="App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_banner.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_banner.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_big.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_big.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_doom.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_doom.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_larry3d.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_larry3d.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_mini.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_mini.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_script.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_script.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_small.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_small.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_standard.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_standard.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
-    <ClCompile Include="Figlet_Font_straight.cc">
-      <Filter>embedFiglet-1.0</Filter>
+    <ClCompile Include="figlet-1.0\Figlet_Font_straight.cc">
+      <Filter>figlet-1.0</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

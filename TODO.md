@@ -21,3 +21,10 @@
 ### Enhancements - Stopwatch
 
 - [ ] Introduce `SortOrder` parameter to `List` command
+
+### Enhabcements - FigLetText
+
+- [ ] More embedded fonts. See :
+  - https://github.com/drewnoakes/figgle
+  - [link text](https://github.com/WenceyWang/FIGlet.Net)
+- [ ] Support external Font files

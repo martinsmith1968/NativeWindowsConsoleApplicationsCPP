@@ -165,23 +165,23 @@
   <ItemGroup>
     <ClInclude Include="AppInfo.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Figlet.hh" />
+    <ClInclude Include="figlet-1.0\Figlet.hh" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AppArguments.h" />
-    <ClCompile Include="Figlet.cc" />
-    <ClCompile Include="Figlet_Font_banner.cc" />
-    <ClCompile Include="Figlet_Font_big.cc" />
-    <ClCompile Include="Figlet_Font_doom.cc" />
-    <ClCompile Include="Figlet_Font_larry3d.cc" />
-    <ClCompile Include="Figlet_Font_mini.cc" />
-    <ClCompile Include="Figlet_Font_script.cc" />
-    <ClCompile Include="Figlet_Font_small.cc" />
-    <ClCompile Include="Figlet_Font_standard.cc" />
-    <ClCompile Include="Figlet_Font_straight.cc" />
+    <ClCompile Include="figlet-1.0\Figlet.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_banner.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_big.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_doom.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_larry3d.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_mini.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_script.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_small.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_standard.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_straight.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
