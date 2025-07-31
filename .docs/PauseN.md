@@ -23,17 +23,20 @@ Both the `message-text` and the `timeout-seconds` to wait can be configured (as 
 The full help text looks something like this :
 
 ```text
-PauseN v1.5.0.0-dev - Pause with a timeout
-Copyright ® 2018-2025 DNX Solutions Ltd
+PauseN v1.12.0.0-dev - Pause with a timeout
+Copyright Â© 2018-2025 Martin Smith
 
 Usage:
 PauseN [message-text] [OPTIONS]
 
-OPTIONS:
+Options:
 [message-text] Text                   The Text to display (Default:Press any key to continue (or wait {timeout} seconds) . . . )
 -t, --timeout Integer                 The timeout to wait for in seconds (Default:30)
--s, --sleep Integer                   The timeout to sleep for between checks for in milliseconds (Default:200)
+-s, --sleep Integer                   The period to sleep for between checks for in milliseconds (Default:200)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (PauseN.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
+
+Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\PauseN.options
+Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\PauseN.options
 ```

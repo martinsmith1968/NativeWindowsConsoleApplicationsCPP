@@ -38,8 +38,8 @@ So I came up with ShowDateTime, which allows you to control the format of the ou
 The full help text looks something like this :
 
 ```txt
-ShowDateTime v1.9.0.0-dev - Show current date and time formatted
-Copyright ® 2018-2025 DNX Solutions Ltd
+ShowDateTime v1.12.0.0-dev - Show current date and time formatted
+Copyright © 2018-2025 Martin Smith
 
 Usage:
 ShowDateTime [OPTIONS]
@@ -51,8 +51,8 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (ShowDateTime.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
 
-Default App arguments can be specified in : c:\utils-new\msbin\ShowDateTime.options
-Local App arguments can be specified in : C:\Users\marti\ShowDateTime.options
+Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\ShowDateTime.options
+Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\ShowDateTime.options
 
 Notes:
 This uses 'strftime' internally, so see the following for supported date formats:

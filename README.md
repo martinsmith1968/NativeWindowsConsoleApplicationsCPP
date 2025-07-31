@@ -38,6 +38,7 @@ These include :
 ## Applications
 
 - [BannerText](.docs/BannerText.md)
+- [FigLetText](.docs/FigLetText.md)
 - [PauseN](.docs/PauseN.md)
 - [ShowDateTime](.docs/ShowDateTime.md)
 - [Stopwatch](.docs/Stopwatch.md)

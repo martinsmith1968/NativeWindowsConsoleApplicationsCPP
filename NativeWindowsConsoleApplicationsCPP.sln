@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{46824718
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{BDB2C450-AD2C-4854-9D5B-F4BC08CDFA97}"
 	ProjectSection(SolutionItems) = preProject
+		Guides.md = Guides.md
 		LICENSE = LICENSE
 		README.md = README.md
 		TODO.md = TODO.md
@@ -23,7 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4BD9D464-3DDB-40D3-BB71-ACC45C240D0A}"
 	ProjectSection(SolutionItems) = preProject
 		.docs\BannerText.md = .docs\BannerText.md
-		Guides.md = Guides.md
+		.docs\FigLetText.md = .docs\FigLetText.md
 		.docs\PauseN.md = .docs\PauseN.md
 		.docs\ShowDateTime.md = .docs\ShowDateTime.md
 		.docs\Stopwatch.md = .docs\Stopwatch.md

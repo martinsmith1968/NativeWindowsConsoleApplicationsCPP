@@ -47,13 +47,13 @@ BannerText "Hello World" -minl 80 -ta Center
 
 
 ```text
-BannerText v1.5.0.0-dev - Generate and display a Text Banner in the console
-Copyright ® 2018-2025 DNX Solutions Ltd
+BannerText v1.12.0.0-dev - Generate and display a Text Banner in the console
+Copyright Â© 2018-2025 Martin Smith
 
 Usage:
 BannerText [message-text] [OPTIONS]
 
-OPTIONS:
+Options:
 [message-text] Text                     The Text to display (Required)
 -hlc, --header-line-char Char           The character to use for header lines (Default:*)
 -hln, --header-line-count Integer       The number of header lines to print (Default:1)
@@ -70,4 +70,7 @@ OPTIONS:
 -?, --help +/-                          Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-    Use Default Arguments File (BannerText.options) (Default:true)
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
+
+Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\BannerText.options
+Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\BannerText.options
 ```
