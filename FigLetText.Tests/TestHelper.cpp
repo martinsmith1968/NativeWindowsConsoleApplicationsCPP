@@ -6,15 +6,13 @@
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
-#include <pstream.h>
-
 using namespace std;
 using namespace DNX::Utils;
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
-string TestHelper::peraExecuteApp(const string& argumentsText, const char separator, const bool showGeneratedOutput)
+string TestHelper::ExecuteApp(const string& argumentsText, const char separator, const bool showGeneratedOutput)
 {
     const auto quote = "\"";
 
@@ -23,19 +21,16 @@ string TestHelper::peraExecuteApp(const string& argumentsText, const char separa
     if (!FileUtils::FileExists(targetExecutable))
         targetExecutable = PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Release"), "FigLetText.exe");
 
-    const auto commandLine = quote + targetExecutable + quote + " " + StringUtils::JoinText(arguments, " ");
+    auto output_filename = PathUtils::GetTempFileName("FigLetText", "txt");
+
+    const auto commandLine = quote + targetExecutable + quote + " " + StringUtils::JoinText(arguments, " ") + " >" + output_filename;
     cout << "Executing: " << commandLine << endl;
 
-    constexpr int BUFFER_SIZE = 1234;
-    char buf[BUFFER_SIZE];
+    system(commandLine.c_str());
 
-    string lines;
-    //FILE* output = _popen(commandLine.c_str(), "r");
-    //while (fgets(buf, sizeof(buf), output))
-    //    lines += buf;
-    //_pclose(output);
+    auto lines = FileUtils::ReadLines(output_filename);
 
-    auto generated_output = StringUtils::RemoveEndsWith(StringUtils::ReplaceString(lines, "\n", EnvironmentUtils::GetNewLine()), EnvironmentUtils::GetNewLine());
+    auto generated_output = StringUtils::JoinText(lines, EnvironmentUtils::GetNewLine());
 
     if (showGeneratedOutput)
     {
