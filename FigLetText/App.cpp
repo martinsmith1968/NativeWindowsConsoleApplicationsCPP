@@ -150,8 +150,10 @@ list<string> App::FormatLinesWithPadding(const list<string>& lines, const int le
 {
 	auto formatted_lines = list<string>();
 
-	for (const auto& line : lines)
+	for (auto line : lines)
 	{
+		line = StringUtils::RTrim(line, ' ');
+
 		if (left_pad == 0)
 		{
 			formatted_lines.emplace_back(line);
@@ -166,11 +168,12 @@ list<string> App::FormatLinesWithPadding(const list<string>& lines, const int le
 }
 
 //------------------------------------------------------------------------------
-void App::FormatAndOutputMessage(const string& message_text,
-                            const FontType fontType,
-                            const FramingType framingType,
-                            const SpacingType spacingType,
-                            const TextAlignmentType textAlignmentType,
+void App::FormatAndOutputMessage(
+	const string& message_text,
+    const FontType fontType,
+    const FramingType framingType,
+    const SpacingType spacingType,
+    const TextAlignmentType textAlignmentType,
 	const int outputWidth
 )
 {
@@ -188,7 +191,7 @@ void App::FormatAndOutputMessage(const string& message_text,
 
     for (const auto& formatted_line : formatted_lines)
     {
-        cout << formatted_line << EnvironmentUtils::GetNewLine();
+		cout << formatted_line << endl;
     }
 }
 

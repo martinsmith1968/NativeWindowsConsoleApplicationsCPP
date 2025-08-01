@@ -13,6 +13,10 @@ FigLetText has a few enhancements over the original `FigLet` application, such a
 
 Uses a third party embedded library for the text generation : [ebertolazzi/embedFiglet](https://github.com/ebertolazzi/embedFiglet)
 
+Other libraries are available, E.g. :
+
+- github.com/srilakshmikanthanp/libfiglet
+
 ### Related Links and History
 
 - [Wikipedia](https://en.wikipedia.org/wiki/FIGlet)
@@ -21,7 +25,7 @@ Uses a third party embedded library for the text generation : [ebertolazzi/embed
 ## Examples
 
 ```cmd
-FigLetText "Hello World"
+> FigLetText "Hello World"
 ```
 
 ```text
@@ -30,10 +34,11 @@ FigLetText "Hello World"
 | |_| |/ _ \| | |/ _ \   \ \ /\ / // _ \| '__| |/ _` |
 |  _  |  __/| | | (_) |   \ V  V /| (_) | |  | | (_| |
 |_| |_|\___||_|_|\___/     \_/\_/  \___/|_|  |_|\__,_|
+
 ```
 
 ```cmd
-FigLetText Hello World
+> FigLetText Hello World
 ```
 
 ```text
@@ -48,7 +53,18 @@ __        __          _     _
  \ \ /\ / // _ \| '__| |/ _` |
   \ V  V /| (_) | |  | | (_| |
    \_/\_/  \___/|_|  |_|\__,_|
+
 ```
+
+## Font Files
+
+FigLet fonts can be found defined as `.flf` files, throughtout the internet. A couple of example stores :
+
+- https://github.com/xero/figlet-fonts
+- http://www.figlet.org/examples.html
+- https://github.com/hIMEI29A/FigletFonts
+
+The spec can be found here : http://jave.de/figlet/figfont.html:
 
 ## Full Help Text
 

@@ -44,10 +44,13 @@ string StringUtils::Trim(const string& str, const char removeChar)
 
 string StringUtils::LTrim(const string& str, const char removeChar)
 {
-    const auto first = str.find_first_not_of(removeChar);
+    auto first = str.find_first_not_of(removeChar);
     if (first == string::npos)
     {
-        return str;
+        if (str.find_first_of(removeChar) == string::npos)
+            return "";
+        else
+            first = str.length();
     }
 
     return str.substr(first, string::npos);
@@ -55,10 +58,13 @@ string StringUtils::LTrim(const string& str, const char removeChar)
 
 string StringUtils::RTrim(const string& str, const char removeChar)
 {
-    const auto last = str.find_last_not_of(removeChar);
+    auto last = str.find_last_not_of(removeChar);
     if (last == string::npos)
     {
-        return str;
+        if (str.find_last_of(removeChar) == string::npos)
+            return str;
+        else
+            last = -1;
     }
 
     return str.substr(0, last + 1);

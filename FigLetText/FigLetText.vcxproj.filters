@@ -77,6 +77,42 @@
     <ClCompile Include="figlet-1.0\Figlet_Font_straight.cc">
       <Filter>figlet-1.0</Filter>
     </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_ANSIRegular.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_ASCII3D.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Crawford2.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cyberlarge.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybermedium.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybersmall.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Epic.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Graffiti.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_RedPhoenix.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_StarWars.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesRegular.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
+    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesSmushed.cc">
+      <Filter>figlet-1.0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AppInfo.rc">

@@ -1,0 +1,29 @@
+@ECHO OFF
+
+SETLOCAL EnableDelayedExpansion
+
+SET SCRIPTPATH=%~dp0
+SET SCRIPTNAME=%~n0
+SET SCRIPTFULLFILENAME=%~dpnx0
+
+SET EXEDIR=..\..\external\embedFiglet\embedFiglet-1.0\scripts
+SET OUTPUTDIR=..\figlet-1.0
+SET OUTPUT_PREFIX=Figlet_Additional_
+SET OUTPUT_EXTENSION=cc
+
+IF EXIST "%OUTPUTDIR%\%OUTPUT_PREFIX%*" DEL "%OUTPUTDIR%\%OUTPUT_PREFIX%*"
+
+PUSHD "%SCRIPTPATH%"
+
+FOR %%F IN (*.flf) DO CALL :GENERATE_CPP_HEADER %%F
+
+POPD
+
+GOTO :EOF
+
+
+:GENERATE_CPP_HEADER
+ECHO.Generating: %~dpnx1
+ruby %EXEDIR%\FigletFontConvert.rb "%~dpnx1" > "%OUTPUTDIR%\%OUTPUT_PREFIX%%~n1.%OUTPUT_EXTENSION%"
+
+GOTO :EOF

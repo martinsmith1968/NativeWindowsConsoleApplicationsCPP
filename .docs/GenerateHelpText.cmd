@@ -22,6 +22,8 @@ CALL :GENERATEHELPTEXT StopWatch elapsed
 CALL :GENERATEHELPTEXT StopWatch pause
 CALL :GENERATEHELPTEXT StopWatch resume
 
+CALL :GENERATEOUTPUTTEXT "FigletText-standard" FigLetText "Hello World" -n standard
+
 POPD
 
 GOTO :EOF
@@ -34,5 +36,14 @@ IF NOT "%~2" == "" SET OUTPUTFILENAME=%~1-%~2.txt
 
 ECHO.Generating: %~1 %~2
 %EXEDIR%\%~1 %~2 --help > "%OUTPUTDIR%\%OUTPUTFILENAME%"
+
+GOTO :EOF
+
+
+:GENERATEOUTPUTTEXT
+SET OUTPUTFILENAME=%~1.txt
+
+ECHO.Generating: %~2 %~3 %~4 %~5 %~6 %~7 %~8
+%EXEDIR%\%~2 %~3 %~4 %~5 %~6 %~7 %~8 > "%OUTPUTDIR%\%OUTPUTFILENAME%"
 
 GOTO :EOF

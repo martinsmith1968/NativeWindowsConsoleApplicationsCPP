@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="FigLetText_Tests.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TestHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="TestHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_default_font_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_big_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_banner_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_doom_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_larry3d_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_mini_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_script_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_small_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_standard_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_straight_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ExpectedOutput">
+      <UniqueIdentifier>{0518a1fa-8716-4dfc-ab8f-95e777f22e86}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -34,7 +34,8 @@ namespace FigLetText
         SCRIPT,
         SMALL,
         STANDARD,
-        STRAIGHT
+        STRAIGHT,
+        EPIC
     };
 
     enum class FramingType : uint8_t
