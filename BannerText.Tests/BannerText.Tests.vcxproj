@@ -108,7 +108,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TestHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BannerText_Tests.cpp" />
@@ -118,7 +117,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -129,6 +127,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DNX.App\DNX.App.vcxproj">
       <Project>{bd49f55e-7151-4702-92bf-4bd6138496e6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DNX.Tests.Common\DNX.Tests.Common.vcxproj">
+      <Project>{1632dedb-e753-48bd-b6a4-7c42f0e51c06}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DNX.Utils\DNX.Utils.vcxproj">
       <Project>{bd755021-f792-4b24-91f6-4352a88ef567}</Project>

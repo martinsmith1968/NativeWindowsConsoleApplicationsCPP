@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TestHelper.h"
-#include "../DNX.Utils/EnvironmentUtils.h"
+
+#include <complex>
+
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -8,6 +10,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace DNX::Utils;
 using namespace DNX::Tests::Common;
 
 // ReSharper disable CppInconsistentNaming
@@ -15,52 +18,65 @@ using namespace DNX::Tests::Common;
 
 string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
 {
-    const auto quote = "\"";
+    static const auto quote = "\"";
 
-    const auto arguments = Utils::StringUtils::SplitText(argumentsText, argumentsSeparator);
-    auto targetExecutable = Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Debug"), executableFileName);
-    if (!Utils::FileUtils::FileExists(targetExecutable))
-        targetExecutable = Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::Combine(Utils::PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Release"), executableFileName);
+    const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
+    auto targetExecutable = PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Debug"), executableFileName);
+    if (!FileUtils::FileExists(targetExecutable))
+        targetExecutable = PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Release"), executableFileName);
 
-    const auto commandLine = quote + targetExecutable + quote + " " + Utils::StringUtils::JoinText(arguments, " ");
-    cout << "Executing: " << commandLine << endl;
+    stringstream commandLine;
+    commandLine << quote << targetExecutable << quote;
+    for (const auto& argument : arguments)
+    {
+        commandLine << " ";
+
+        if (StringUtils::Contains(argument, " "))
+        {
+            commandLine << quote << argument << quote;
+        }
+        else
+        {
+            commandLine << argument;
+        }
+    }
+
+    cout << "Executing: " << commandLine.str() << endl;
 
     constexpr int BUFFER_SIZE = 1234;
     char buf[BUFFER_SIZE];
 
-    string lines;
-    FILE* output = _popen(commandLine.c_str(), "r");
-    while (fgets(buf, sizeof(buf), output))
-        lines += buf;
-    _pclose(output);
-
-    auto generated_output = Utils::StringUtils::RemoveEndsWith(Utils::StringUtils::ReplaceString(lines, "\n", Utils::EnvironmentUtils::GetNewLine()), Utils::EnvironmentUtils::GetNewLine());
+    string output_text;
+    FILE* output_stream = _popen(commandLine.str().c_str(), "r");
+    while (fgets(buf, sizeof(buf), output_stream))
+        output_text += buf;
+    _pclose(output_stream);
 
     if (showGeneratedOutput)
     {
         cout << "Generated Output:" << endl;
-        cout << generated_output << endl;
-        cout << generated_output.size() << " characters" << endl;
+        cout << output_text << endl;
+        cout << output_text.size() << " characters" << endl;
     }
 
-    return generated_output;
+    return output_text;
 }
 
 string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
 {
-    const auto fullFileName = Utils::PathUtils::Combine(Utils::PathUtils::GetCurrentDirectory(), fileName);
-    if (!Utils::FileUtils::FileExists(fullFileName))
+    const auto fullFileName = PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
+    if (!FileUtils::FileExists(fullFileName))
         throw exception(("File not found: " + fullFileName).c_str());
 
     cout << "Reading: " << fullFileName << endl;
-    auto expected_output = Utils::StringUtils::RemoveEndsWith(Utils::StringUtils::JoinText(Utils::FileUtils::ReadLines(fullFileName), Utils::EnvironmentUtils::GetNewLine()), Utils::EnvironmentUtils::GetNewLine());
+    auto file_text = FileUtils::ReadText(fullFileName);
 
     if (showExpectedOutput)
     {
         cout << "Expected Output:" << endl;
-        cout << expected_output << endl;
-        cout << expected_output.size() << " characters" << endl;
+        cout << file_text << endl;
+        cout << file_text.size() << " characters" << endl;
     }
 
-    return expected_output;
+    return file_text;
 }
