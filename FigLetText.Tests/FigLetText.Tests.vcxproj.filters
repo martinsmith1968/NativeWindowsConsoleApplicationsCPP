@@ -3,11 +3,9 @@
   <ItemGroup>
     <ClCompile Include="FigLetText_Tests.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="TestHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TestHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
