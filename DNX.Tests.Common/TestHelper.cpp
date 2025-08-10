@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "TestHelper.h"
-
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
+#include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
 #include <complex>
@@ -15,25 +15,46 @@ using namespace DNX::Tests::Common;
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
-string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName)
+const string TestHelper::SingleQuote = "'";
+const string TestHelper::DoubleQuote = "\"";
+
+list<string> TestHelper::GetBuildPlatforms()
 {
-    const string configurations[] =
+    static const list<string> platforms =
+    {
+        "x64"
+    };
+
+    return platforms;
+}
+
+list<string> TestHelper::GetBuildConfigurations()
+{
+    static const list<string> configurations =
     {
         "Debug" ,
         "Release"
     };
 
-    cout << "Searching for file: " << fileName << endl;
-    for (const auto& configuration : configurations)
-    {
-        auto directory = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", top_level_name, "x64", configuration);
-        cout << "Checking directory: " << directory << endl;
+    return configurations;
+}
 
-        auto targetFileName = PathUtils::Combine(directory, fileName);
-        if (FileUtils::FileExists(targetFileName))
+string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName)
+{
+    cout << "Searching for file: " << fileName << endl;
+    for (const auto& platform : GetBuildPlatforms())
+    {
+        for (const auto& configuration : GetBuildConfigurations())
         {
-            cout << "Found file: " << targetFileName << endl;
-            return directory;
+            auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), "..", top_level_name, platform, configuration);
+            cout << "Checking directory: " << directory << endl;
+
+            auto targetFileName = PathUtils::Combine(directory, fileName);
+            if (FileUtils::FileExists(targetFileName))
+            {
+                cout << "Found file: " << targetFileName << endl;
+                return directory;
+            }
         }
     }
 
@@ -45,11 +66,29 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 {
     static const auto quote = "\"";
 
-    const auto target_directory = GetOutputDirectoryWithFileName("Output", executableFileName);
-    if (target_directory.empty())
-        throw exception(("Output directory not found for file: " + executableFileName).c_str());
+    auto targetExecutable = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), executableFileName);
+    if (!FileUtils::FileExists(targetExecutable))
+    {
+        for (const auto& platform : GetBuildPlatforms())
+        {
+            for (const auto& configuration : GetBuildConfigurations())
+            {
+                auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), "..", "..", "..", "Output", platform, configuration);
+                cout << "DEBUG: Checking directory: " << directory << endl;
 
-    const auto targetExecutable = PathUtils::Combine(target_directory, executableFileName);
+                auto targetFileName = PathUtils::Combine(directory, executableFileName);
+                if (FileUtils::FileExists(targetFileName))
+                {
+                    cout << "DEBUG: Found file: " << targetFileName << endl;
+                    targetExecutable = targetFileName;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (!FileUtils::FileExists(targetExecutable))
+        throw exception(("File not found: " + targetExecutable).c_str());
 
     const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
 
@@ -92,11 +131,20 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 
 string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
 {
-    const auto target_directory = GetOutputDirectoryWithFileName("Output.Tests", fileName);
-    if (target_directory.empty())
-        throw exception(("Output directory not found for file: " + fileName).c_str());
+    auto fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
+    if (!FileUtils::FileExists(fullFileName))
+    {
+        auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), FileUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
+        cout << "DEBUG: Checking directory: " << directory << endl;
 
-    const auto fullFileName = PathUtils::Combine(target_directory, fileName);
+        auto targetFileName = PathUtils::Combine(directory, fileName);
+        if (FileUtils::FileExists(targetFileName))
+        {
+            cout << "DEBUG: Found file: " << targetFileName << endl;
+            fullFileName = targetFileName;
+        }
+    }
+
     if (!FileUtils::FileExists(fullFileName))
         throw exception(("File not found: " + fullFileName).c_str());
 
