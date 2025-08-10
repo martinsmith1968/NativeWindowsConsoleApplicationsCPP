@@ -16,14 +16,41 @@ using namespace DNX::Tests::Common;
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
+string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName)
+{
+    const string configurations[] =
+    {
+        "Debug" ,
+        "Release"
+    };
+
+    for (auto i = 0; i < std::size(configurations); ++i)
+    {
+        auto configuration = configurations[i];
+
+        auto directory = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", top_level_name, "x64", configuration);
+
+        auto targetFileName = PathUtils::Combine(directory, fileName);
+        if (FileUtils::FileExists(targetFileName))
+        {
+            return directory;
+        }
+    }
+
+    return "";
+}
+
 string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
 {
     static const auto quote = "\"";
 
+    const auto target_directory = GetOutputDirectoryWithFileName("Output", executableFileName);
+    if (target_directory.empty())
+        throw exception(("Output directory not found for file: " + executableFileName).c_str());
+
+    const auto targetExecutable = PathUtils::Combine(target_directory, executableFileName);
+
     const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
-    auto targetExecutable = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", "Output", "x64", "Debug", executableFileName);
-    if (!FileUtils::FileExists(targetExecutable))
-        targetExecutable = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", "Output", "x64", "Release", executableFileName);
 
     stringstream commandLine;
     commandLine << quote << targetExecutable << quote;
@@ -64,7 +91,11 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 
 string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
 {
-    const auto fullFileName = PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
+    const auto target_directory = GetOutputDirectoryWithFileName("Output.Tests", fileName);
+    if (target_directory.empty())
+        throw exception(("Output directory not found for file: " + fileName).c_str());
+
+    const auto fullFileName = PathUtils::Combine(target_directory, fileName);
     if (!FileUtils::FileExists(fullFileName))
         throw exception(("File not found: " + fullFileName).c_str());
 
