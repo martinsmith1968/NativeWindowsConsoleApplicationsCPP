@@ -222,9 +222,6 @@ jobs:
     - name: Build (${{ env.BUILD_CONFIG }})
       run: msbuild ${{ env.PROJECT_NAME }}.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
-    - name: Debug Test Files
-      run: gci *.txt -Recurse -File | Select FullName
-
     - name: Run Tests
       run: |
         $folder = ".\Output.Tests\${{ env.BUILD_PLATFORM }}\${{ env.BUILD_CONFIG }}\"
@@ -312,10 +309,6 @@ jobs:
       uses: mikepenz/release-changelog-builder-action@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Debug output files
-      run: |
-        find . -name *.zip
 
     - name: Create Release
       uses: ncipollo/release-action@v1
