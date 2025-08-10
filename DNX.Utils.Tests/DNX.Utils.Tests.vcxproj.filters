@@ -11,6 +11,8 @@
     <ClCompile Include="StringUtils_Tests.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="ConsoleUtils_Tests.cpp" />
+    <ClCompile Include="FileUtils_Tests.cpp" />
+    <ClCompile Include="CryptoUtils_Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

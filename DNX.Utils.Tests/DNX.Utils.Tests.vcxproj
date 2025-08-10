@@ -109,8 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleUtils_Tests.cpp" />
+    <ClCompile Include="CryptoUtils_Tests.cpp" />
     <ClCompile Include="DateUtils_Tests.cpp" />
     <ClCompile Include="EnvironmentUtils_Tests.cpp" />
+    <ClCompile Include="FileUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />
     <ClCompile Include="MapUtils_Tests.cpp" />
     <ClCompile Include="MathUtils_Tests.cpp" />
