@@ -245,6 +245,7 @@ jobs:
         Copy-Item "README.md" "Output\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}"
 
     - name: Compress Artifact
+      id: compress
       uses: OctopusDeploy/create-zip-package-action@v3
       with:
         package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
@@ -261,6 +262,9 @@ jobs:
         name: build_output
         path: Output\\*.zip
         if-no-files-found: error
+
+    outputs:
+      artifact_name: ${{ steps.compress.package_filename }}
 
 
   ##########################################################
