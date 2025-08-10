@@ -51,6 +51,16 @@ string PathUtils::Combine(const string& path1, const string& path2, const string
     return Combine(Combine(path1, path2, path3), path4);
 }
 
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5)
+{
+    return Combine(Combine(path1, path2, path3, path4), path5);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5), path6);
+}
+
 string PathUtils::GetCurrentDirectory()
 {
     char cwd[_MAX_PATH];

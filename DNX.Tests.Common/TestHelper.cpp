@@ -21,9 +21,9 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
     static const auto quote = "\"";
 
     const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
-    auto targetExecutable = PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Debug"), executableFileName);
+    auto targetExecutable = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", "Output", "x64", "Debug", executableFileName);
     if (!FileUtils::FileExists(targetExecutable))
-        targetExecutable = PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::Combine(PathUtils::GetCurrentDirectory(), ".."), "Output"), "x64"), "Release"), executableFileName);
+        targetExecutable = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", "Output", "x64", "Release", executableFileName);
 
     stringstream commandLine;
     commandLine << quote << targetExecutable << quote;
