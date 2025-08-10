@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "TestHelper.h"
 
-#include <complex>
-
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
+#include <complex>
 #include <iostream>
 
 using namespace std;
@@ -24,19 +23,21 @@ string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, 
         "Release"
     };
 
-    for (auto i = 0; i < std::size(configurations); ++i)
+    cout << "Searching for file: " << fileName << endl;
+    for (const auto& configuration : configurations)
     {
-        auto configuration = configurations[i];
-
         auto directory = PathUtils::Combine(PathUtils::GetCurrentDirectory(), "..", top_level_name, "x64", configuration);
+        cout << "Checking directory: " << directory << endl;
 
         auto targetFileName = PathUtils::Combine(directory, fileName);
         if (FileUtils::FileExists(targetFileName))
         {
+            cout << "Found file: " << targetFileName << endl;
             return directory;
         }
     }
 
+    cout << "ERROR: File not found: " << fileName << endl;
     return "";
 }
 
