@@ -2,6 +2,7 @@
 #include "FileUtils.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
+#include <sstream>
 #include <fstream>
 #include <io.h>
 
@@ -21,7 +22,6 @@ string FileUtils::GetPath(const string& filePath)
 {
     return StringUtils::BeforeLast(filePath, PathUtils::PATH_SEPARATOR);
 }
-
 
 string FileUtils::GetFileNameOnly(const string& filePath)
 {
@@ -81,11 +81,12 @@ bool FileUtils::Create(const string& fileName)
     return FileExists(fileName);
 }
 
-bool FileUtils::Delete(const string& fileName)
+bool FileUtils::Delete(const string& fileName, const bool ignoreResultCode)
 {
-    remove(fileName.c_str());
+    // See also : https://en.cppreference.com/w/cpp/io/c/remove.html
+    const auto result = remove(fileName.c_str());
 
-    return !FileExists(fileName);
+    return (ignoreResultCode || result == 0) && !FileExists(fileName);
 }
 
 list<string> FileUtils::ReadLines(const string& fileName)
@@ -118,6 +119,23 @@ list<string> FileUtils::ReadLines(const string& fileName)
     return lines;
 }
 
+string FileUtils::ReadText(const string& fileName)
+{
+    std::stringstream text;
+
+    if (FileExists(fileName))
+    {
+        if (ifstream in(fileName); in)
+        {
+            text << in.rdbuf();
+
+            in.close();
+        }
+    }
+
+    return text.str();
+}
+
 void FileUtils::WriteLines(const string& fileName, const list<string>& lines)
 {
     if (ofstream out(fileName); out)
@@ -128,6 +146,18 @@ void FileUtils::WriteLines(const string& fileName, const list<string>& lines)
             {
                 out << line << endl;
             }
+            out.close();
+        }
+    }
+}
+
+void FileUtils::WriteText(const string& fileName, const string& text)
+{
+    if (ofstream out(fileName); out)
+    {
+        if (out.is_open())
+        {
+            out << text;
             out.close();
         }
     }

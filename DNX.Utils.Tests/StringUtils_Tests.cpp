@@ -12,6 +12,8 @@ TEST(TEST_GROUP, RTrim_single_character_removes_found_target_returns_as_expected
     EXPECT_EQ(StringUtils::RTrim("...text...", ' '), "...text...");
     EXPECT_EQ(StringUtils::RTrim(". .text. .", '.'), ". .text. ");
     EXPECT_EQ(StringUtils::RTrim(". .text. .", ' '), ". .text. .");
+    EXPECT_EQ(StringUtils::RTrim("..........", '.'), "");
+    EXPECT_EQ(StringUtils::RTrim("          ", ' '), "");
 }
 
 TEST(TEST_GROUP, LTrim_single_character_removes_found_target_returns_as_expected) {
@@ -19,6 +21,7 @@ TEST(TEST_GROUP, LTrim_single_character_removes_found_target_returns_as_expected
     EXPECT_EQ(StringUtils::LTrim("...text...", ' '), "...text...");
     EXPECT_EQ(StringUtils::LTrim(". .text. .", '.'), " .text. .");
     EXPECT_EQ(StringUtils::LTrim(". .text. .", ' '), ". .text. .");
+    EXPECT_EQ(StringUtils::LTrim("..........", '.'), "");
 }
 
 TEST(TEST_GROUP, Trim_single_character_removes_found_target_returns_as_expected) {
@@ -26,6 +29,7 @@ TEST(TEST_GROUP, Trim_single_character_removes_found_target_returns_as_expected)
     EXPECT_EQ(StringUtils::Trim("...text...", ' '), "...text...");
     EXPECT_EQ(StringUtils::Trim(". .text. .", '.'), " .text. ");
     EXPECT_EQ(StringUtils::Trim(". .text. .", ' '), ". .text. .");
+    EXPECT_EQ(StringUtils::Trim("..........", '.'), "");
 }
 
 TEST(TEST_GROUP, RTrim_text_removes_found_target_returns_as_expected) {
@@ -34,6 +38,28 @@ TEST(TEST_GROUP, RTrim_text_removes_found_target_returns_as_expected) {
     EXPECT_EQ(StringUtils::RTrim("...text...", " "), "...text...");
     EXPECT_EQ(StringUtils::RTrim(". .text. .", ". "), ". .text. .");
     EXPECT_EQ(StringUtils::RTrim(". .text. .", " ."), ". .text.");
+    EXPECT_EQ(StringUtils::RTrim("..........", "."), "");
+    EXPECT_EQ(StringUtils::RTrim("#.#.#text#.#.#", ".#"), "#.#.#text#");
+	EXPECT_EQ(StringUtils::RTrim("          ",  " "), "");
+}
+
+TEST(TEST_GROUP, LTrim_text_removes_found_target_returns_as_expected) {
+    EXPECT_EQ(StringUtils::LTrim("...text...", "."), "text...");
+    EXPECT_EQ(StringUtils::LTrim("#{text}#", "#{"), "text}#");
+    EXPECT_EQ(StringUtils::LTrim("...text...", " "), "...text...");
+    EXPECT_EQ(StringUtils::LTrim(". .text. .", " ."), ". .text. .");
+    EXPECT_EQ(StringUtils::LTrim(". .text. .", ". "), ".text. .");
+    EXPECT_EQ(StringUtils::Trim("#.#.#text#.#.#", "#."), "#text#.#.#");
+	EXPECT_EQ(StringUtils::LTrim("..........", "."), "");
+}
+
+TEST(TEST_GROUP, Trim_text_removes_found_target_returns_as_expected) {
+    EXPECT_EQ(StringUtils::Trim("...text...", "."), "text");
+    EXPECT_EQ(StringUtils::Trim("...text...", " "), "...text...");
+    EXPECT_EQ(StringUtils::Trim(". .text. .", "."), " .text. ");
+    EXPECT_EQ(StringUtils::Trim(". .text. .", " "), ". .text. .");
+    EXPECT_EQ(StringUtils::Trim("#.#.#text#.#.#", "#."), "#text#.#.#");
+    EXPECT_EQ(StringUtils::Trim("..........","."), "");
 }
 
 TEST(TEST_GROUP, After_returns_as_expected) {

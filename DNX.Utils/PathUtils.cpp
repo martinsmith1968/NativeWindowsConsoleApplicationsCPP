@@ -23,22 +23,11 @@ using namespace DNX::Utils;
 //--------------------------------------------------------------------------
 
 const string PathUtils::DRIVE_SEPARATOR = ":";
-const string PathUtils::PATH_SEPARATOR = "\\";
+const string PathUtils::PATH_SEPARATOR  = "\\";
 
-string PathUtils::GetCurrentDirectory()
-{
-    char cwd[_MAX_PATH];
-    _getcwd(cwd, _MAX_PATH);
-
-    return cwd;
-}
-
-string PathUtils::ChangeDirectory(const string& path)
-{
-    _chdir(path.c_str());
-
-    return GetCurrentDirectory();
-}
+const string PathUtils::RELATIVE_DIRECTORY_CURRENT = ".";
+const string PathUtils::RELATIVE_DIRECTORY_PARENT  = "..";
+const string PathUtils::RELATIVE_DIRECTORY_ROOT    = "\\";
 
 string PathUtils::Combine(const string& path1, const string& path2)
 {
@@ -56,6 +45,57 @@ string PathUtils::Combine(const string& path1, const string& path2)
     return path;
 }
 
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3)
+{
+    return Combine(Combine(path1, path2), path3);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4)
+{
+    return Combine(Combine(path1, path2, path3), path4);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5)
+{
+    return Combine(Combine(path1, path2, path3, path4), path5);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5), path6);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5, path6), path7);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7, const string& path8)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5, path6, path7), path8);
+}
+
+string PathUtils::GetAbsolutePath(const string& path)
+{
+    // TODO: implement this properly
+    return path;
+}
+
+string PathUtils::GetCurrentDirectory()
+{
+    char cwd[_MAX_PATH];
+    _getcwd(cwd, _MAX_PATH);
+
+    return cwd;
+}
+
+string PathUtils::ChangeDirectory(const string& path)
+{
+    _chdir(path.c_str());
+
+    return GetCurrentDirectory();
+}
+
 bool PathUtils::DirectoryExists(const string& path)
 {
     struct stat info;
@@ -68,17 +108,21 @@ bool PathUtils::DirectoryExists(const string& path)
 
 bool PathUtils::CreateDirectory(const string& path)
 {
-    const auto part = StringUtils::BeforeLast(path, PATH_SEPARATOR);
-    if (part.empty() || StringUtils::EndsWith(part, DRIVE_SEPARATOR))
-        return true;
-
-    if (!CreateDirectory(part))
+    if (StringUtils::Trim(path).empty())
         return false;
 
-    if (DirectoryExists(part))
+    if (DirectoryExists(path))
         return true;
 
-    _mkdir(part.c_str());
+    const auto parent = StringUtils::BeforeLast(StringUtils::RemoveEndsWith(path, PATH_SEPARATOR), PATH_SEPARATOR);
+    if (parent.empty() || StringUtils::EndsWith(parent, DRIVE_SEPARATOR))
+        return true;
+
+    if (!CreateDirectory(parent))
+        return false;
+
+    _mkdir(path.c_str());
+
     return true;
 }
 
@@ -92,18 +136,18 @@ bool PathUtils::DeleteDirectory(const string& path, bool recurse_sub_directories
     for (const auto& entry : std::filesystem::directory_iterator(path))
         std::cout << entry.path() << std::endl;
 
-
     const auto part = StringUtils::BeforeLast(path, PATH_SEPARATOR);
     if (part.empty() || StringUtils::EndsWith(part, DRIVE_SEPARATOR))
         return true;
 
-    if (!CreateDirectory(part))
-        return false;
+    //if (!CreateDirectory(part))
+    //    return false;
+    //
+    //if (DirectoryExists(part))
+    //    return true;
+    //
+    //_mkdir(part.c_str());
 
-    if (DirectoryExists(part))
-        return true;
-
-    _mkdir(part.c_str());
     return true;
 }
 string PathUtils::GetTempPath()

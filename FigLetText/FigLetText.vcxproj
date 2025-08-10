@@ -165,23 +165,35 @@
   <ItemGroup>
     <ClInclude Include="AppInfo.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Figlet.hh" />
+    <ClInclude Include="figlet-1.0\Figlet.hh" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AppArguments.h" />
-    <ClCompile Include="Figlet.cc" />
-    <ClCompile Include="Figlet_Font_banner.cc" />
-    <ClCompile Include="Figlet_Font_big.cc" />
-    <ClCompile Include="Figlet_Font_doom.cc" />
-    <ClCompile Include="Figlet_Font_larry3d.cc" />
-    <ClCompile Include="Figlet_Font_mini.cc" />
-    <ClCompile Include="Figlet_Font_script.cc" />
-    <ClCompile Include="Figlet_Font_small.cc" />
-    <ClCompile Include="Figlet_Font_standard.cc" />
-    <ClCompile Include="Figlet_Font_straight.cc" />
+    <ClCompile Include="figlet-1.0\Figlet.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_ANSIRegular.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_ASCII3D.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Crawford2.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cyberlarge.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybermedium.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybersmall.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Epic.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_Graffiti.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_RedPhoenix.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_StarWars.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesRegular.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesSmushed.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_banner.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_big.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_doom.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_larry3d.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_mini.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_script.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_small.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_standard.cc" />
+    <ClCompile Include="figlet-1.0\Figlet_Font_straight.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

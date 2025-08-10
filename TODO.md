@@ -14,9 +14,17 @@
 - [X] Support arrays of arguments (multiple instances of a single Parameter)
 - [ ] Separate some classes only in header files into header and implementation
 - [X] Support arguments files at all levels in Help
-- [X] Support default argument files per command ([appname].[commandname].options)
+- [ ] (Optionally) Support default argument files per command ([appname].[commandname].options)
+- [ ] (Optionally) Support default argument files per command in Help text
 - [X] Add Help text for adding a file of arguments
 
 ### Enhancements - Stopwatch
 
 - [ ] Introduce `SortOrder` parameter to `List` command
+
+### Enhabcements - FigLetText
+
+- [ ] More embedded fonts. See :
+  - https://github.com/drewnoakes/figgle
+  - [link text](https://github.com/WenceyWang/FIGlet.Net)
+- [ ] Support external Font files
