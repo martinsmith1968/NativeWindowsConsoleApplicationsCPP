@@ -16,10 +16,10 @@ using namespace DNX::Utils;
 //--------------------------------------------------------------------------
 
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-wstring StringUtils::ToWideString(string& str)
+wstring StringUtils::ToWideString(const string& str)
 {
     std::wstring wstr(str.length(), 0);
-    std::transform(str.begin(), str.end(), str.begin(), [](const char c) {
+    std::transform(str.begin(), str.end(), wstr.begin(), [](const char c) {
         return static_cast<wchar_t>(c);
         });
 
@@ -27,7 +27,7 @@ wstring StringUtils::ToWideString(string& str)
 }
 
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-string StringUtils::ToString(wstring& wstr)
+string StringUtils::ToString(const wstring& wstr)
 {
     std::string str(wstr.length(), 0);
     std::transform(wstr.begin(), wstr.end(), str.begin(), [](const wchar_t c) {
@@ -255,7 +255,7 @@ list<string> StringUtils::SplitText(const string& str, const string& splitText, 
 {
     list<string> list;
 
-    auto text = str;
+    string text = str;
 
     while (!text.empty())
     {
@@ -286,7 +286,7 @@ list<string> StringUtils::SplitTextByAny(const string& str, const string& splitT
 {
     list<string> list;
 
-    auto text = str;
+    string text = str;
 
     while (!text.empty())
     {
