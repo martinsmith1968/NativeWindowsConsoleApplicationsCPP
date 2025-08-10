@@ -325,4 +325,4 @@ jobs:
         draft: ${{ needs.setup.outputs.release_is_draft }}
         prerelease: ${{ needs.setup.outputs.release_is_prerelease }}
         removeArtifacts: true
-        artifacts: Output\\*.zip
+        artifacts: '${{ needs.build-windows.outputs.artifact_name }}'
