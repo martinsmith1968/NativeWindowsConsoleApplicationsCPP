@@ -4,7 +4,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 env:
   PRIMARY_BRANCH_NAME: master
   APP_MAJOR_VERSION: 1
-  APP_MINOR_VERSION: 12
+  APP_MINOR_VERSION: 13
   PROJECT_NAME: NativeWindowsConsoleApplicationsCPP
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -72,9 +72,12 @@ jobs:
       run: |
         should_tag=false
 
-        if $is_primary_branch
+        if $is_primary_branch;
         then
-            should_tag=true
+            if ! $is_pull_request_build;
+            then
+                should_tag=true
+            fi
         fi
 
         echo "should_tag=${should_tag}" >> $GITHUB_ENV
