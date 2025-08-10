@@ -134,7 +134,7 @@ int App::CalculateLeftPadding(const TextAlignmentType textAlignmentType, const i
 			left_pad = (outputWidth - max_line_length) / 2;
 			break;
 		case TextAlignmentType::RIGHT:
-			left_pad = outputWidth - max_line_length - (EnvironmentUtils::GetNewLine().length() - 1);
+			left_pad = outputWidth - max_line_length - static_cast<int>(EnvironmentUtils::GetNewLine().length() - 1);
 			break;
 		case TextAlignmentType::LEFT:
 			break;
