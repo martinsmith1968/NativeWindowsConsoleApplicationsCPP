@@ -11,9 +11,9 @@ using namespace DNX::Utils;
 
 TEST(TEST_GROUP, GetRandomNumber_generates_inconsistent_values)
 {
-    constexpr int TEST_ITERATIONS = 1000;
+    constexpr int TEST_ITERATIONS = 10000;
 
-    auto min_value = 0;
+    auto min_value = 32767;
     auto max_value = 0;
 
     for (auto i=0; i < TEST_ITERATIONS; ++i)
@@ -31,12 +31,12 @@ TEST(TEST_GROUP, GetRandomNumber_generates_inconsistent_values)
 
 TEST(TEST_GROUP, GetRandomNumber_min_max_generates_inconsistent_values_within_range)
 {
-    constexpr int TEST_ITERATIONS = 1000;
-    constexpr int MIN_RANGE = 10;
-    constexpr int MAX_RANGE = 100;
+    constexpr int TEST_ITERATIONS = 10000;
+    constexpr int MIN_RANGE = 100;
+    constexpr int MAX_RANGE = 500;
 
-    auto min_value = 0;
-    auto max_value = 0;
+    auto min_value = MAX_RANGE;
+    auto max_value = MIN_RANGE;
 
     for (auto i = 0; i < TEST_ITERATIONS; ++i)
     {
