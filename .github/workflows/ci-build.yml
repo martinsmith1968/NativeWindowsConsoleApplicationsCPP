@@ -321,4 +321,4 @@ jobs:
         draft: ${{ needs.setup.outputs.release_is_draft }}
         prerelease: ${{ needs.setup.outputs.release_is_prerelease }}
         removeArtifacts: true
-        artifacts: '**/*.zip'
+        artifacts: Output\\*.zip
