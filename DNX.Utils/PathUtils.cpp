@@ -23,7 +23,11 @@ using namespace DNX::Utils;
 //--------------------------------------------------------------------------
 
 const string PathUtils::DRIVE_SEPARATOR = ":";
-const string PathUtils::PATH_SEPARATOR = "\\";
+const string PathUtils::PATH_SEPARATOR  = "\\";
+
+const string PathUtils::RELATIVE_DIRECTORY_CURRENT = ".";
+const string PathUtils::RELATIVE_DIRECTORY_PARENT  = "..";
+const string PathUtils::RELATIVE_DIRECTORY_ROOT    = "\\";
 
 string PathUtils::Combine(const string& path1, const string& path2)
 {
@@ -59,6 +63,22 @@ string PathUtils::Combine(const string& path1, const string& path2, const string
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6)
 {
     return Combine(Combine(path1, path2, path3, path4, path5), path6);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5, path6), path7);
+}
+
+string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7, const string& path8)
+{
+    return Combine(Combine(path1, path2, path3, path4, path5, path6, path7), path8);
+}
+
+string PathUtils::GetAbsolutePath(const string& path)
+{
+    // TODO: implement this properly
+    return path;
 }
 
 string PathUtils::GetCurrentDirectory()
