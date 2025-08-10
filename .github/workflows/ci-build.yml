@@ -222,9 +222,6 @@ jobs:
     - name: Build (${{ env.BUILD_CONFIG }})
       run: msbuild ${{ env.PROJECT_NAME }}.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
-    - name: Debug Test Files
-      run: gci *.txt -Recurse -File | Select FullName
-
     - name: Run Tests
       run: |
         $folder = ".\Output.Tests\${{ env.BUILD_PLATFORM }}\${{ env.BUILD_CONFIG }}\"
@@ -245,6 +242,7 @@ jobs:
         Copy-Item "README.md" "Output\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}"
 
     - name: Compress Artifact
+      id: compress
       uses: OctopusDeploy/create-zip-package-action@v3
       with:
         package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
@@ -321,4 +319,4 @@ jobs:
         draft: ${{ needs.setup.outputs.release_is_draft }}
         prerelease: ${{ needs.setup.outputs.release_is_prerelease }}
         removeArtifacts: true
-        artifacts: '**/*.zip'
+        artifacts: '**/${{ env.PROJECT_NAME }}*.zip'
