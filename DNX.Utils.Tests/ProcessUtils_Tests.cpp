@@ -16,31 +16,13 @@ using namespace DNX::Utils;
 
 #define TEST_GROUP ProcessUtils
 
-// Source : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-[[maybe_unused]]
-static std::wstring s2ws(const std::string& str)
-{
-    typedef std::codecvt_utf8<wchar_t> convert_typeX;
-    std::wstring_convert<convert_typeX> converterX;
-
-    return converterX.from_bytes(str);
-}
-[[maybe_unused]]
-static std::string ws2s(const std::wstring& wstr)
-{
-    typedef codecvt_utf8<wchar_t> convert_typeX;
-    wstring_convert<convert_typeX> converterX;
-
-    return converterX.to_bytes(wstr);
-}
-
 TEST(TEST_GROUP, GetExecutableFileNameWide_returns_something)
 {
     // Act
     const auto result = ProcessUtils::GetExecutableFileNameWide();
 
     // Assert
-    cout << "GetExecutableFileNameWide: " << ws2s(result) << endl;
+    cout << "GetExecutableFileNameWide: " << result.c_str() << endl;
     EXPECT_NE(result.size(), 0);
 }
 
