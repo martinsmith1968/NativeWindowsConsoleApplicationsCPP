@@ -263,9 +263,6 @@ jobs:
         path: Output\\*.zip
         if-no-files-found: error
 
-    outputs:
-      artifact_name: ${{ steps.compress.package_filename }}
-
 
   ##########################################################
   ## Tag in git
@@ -316,6 +313,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Debug output files
+      run: |
+        find . -name *.zip
+
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
@@ -325,4 +326,4 @@ jobs:
         draft: ${{ needs.setup.outputs.release_is_draft }}
         prerelease: ${{ needs.setup.outputs.release_is_prerelease }}
         removeArtifacts: true
-        artifacts: '${{ needs.build-windows.outputs.artifact_name }}'
+        artifacts: '**/${{ env.PROJECT_NAME }}*.zip'
