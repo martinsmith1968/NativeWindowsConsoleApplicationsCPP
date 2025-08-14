@@ -5,7 +5,7 @@
 #include <regex>
 
 using namespace std;
-using namespace std::chrono;
+using namespace chrono;
 using namespace ShowDateTime;
 
 // ReSharper disable CppTooWideScope

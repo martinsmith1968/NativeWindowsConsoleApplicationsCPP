@@ -13,7 +13,7 @@
 // ReSharper disable CppDeclaratorNeverUsed
 
 using namespace std;
-using namespace std::chrono;
+using namespace chrono;
 using namespace DNX::Utils;
 
 // Sources:
@@ -95,14 +95,14 @@ namespace ShowDateTime
 
             auto text = string(buffer, size);
 
-            text = StringUtils::ReplaceString(text, "{fff}", StringUtils::LPad(std::to_string(milliseconds), 3, '0'));
-            text = StringUtils::ReplaceString(text, "{f}", std::to_string(milliseconds));
-            text = StringUtils::ReplaceString(text, "{qq}", StringUtils::LPad(std::to_string(quarter), 2, '0'));
-            text = StringUtils::ReplaceString(text, "{q}", std::to_string(quarter));
-            text = StringUtils::ReplaceString(text, "{M}", std::to_string(datetime_tm.tm_mon + 1));
-            text = StringUtils::ReplaceString(text, "{d}", std::to_string(datetime_tm.tm_mday));
-            text = StringUtils::ReplaceString(text, "{H}", std::to_string(datetime_tm.tm_hour));
-            text = StringUtils::ReplaceString(text, "{h}", std::to_string(datetime_tm.tm_hour > 11 ? datetime_tm.tm_hour - 12 : datetime_tm.tm_hour));
+            text = StringUtils::ReplaceString(text, "{fff}", StringUtils::LPad(to_string(milliseconds), 3, '0'));
+            text = StringUtils::ReplaceString(text, "{f}", to_string(milliseconds));
+            text = StringUtils::ReplaceString(text, "{qq}", StringUtils::LPad(to_string(quarter), 2, '0'));
+            text = StringUtils::ReplaceString(text, "{q}", to_string(quarter));
+            text = StringUtils::ReplaceString(text, "{M}", to_string(datetime_tm.tm_mon + 1));
+            text = StringUtils::ReplaceString(text, "{d}", to_string(datetime_tm.tm_mday));
+            text = StringUtils::ReplaceString(text, "{H}", to_string(datetime_tm.tm_hour));
+            text = StringUtils::ReplaceString(text, "{h}", to_string(datetime_tm.tm_hour > 11 ? datetime_tm.tm_hour - 12 : datetime_tm.tm_hour));
 
             return text;
         }
@@ -119,10 +119,10 @@ namespace ShowDateTime
 
         static int GetMilliseconds(const time_point<system_clock> datetime)
         {
-            const auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(datetime);
+            const auto seconds = chrono::time_point_cast<chrono::seconds>(datetime);
             const auto fraction = datetime - seconds;
 
-            const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(fraction);
+            const auto milliseconds = chrono::duration_cast<chrono::milliseconds>(fraction);
 
             return static_cast<int>(milliseconds.count());
         }

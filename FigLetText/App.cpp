@@ -9,7 +9,7 @@
 #include <sstream>
 
 using namespace std;
-using namespace std::chrono;
+using namespace chrono;
 using namespace FigLetText;
 using namespace DNX::Utils;
 
@@ -100,7 +100,7 @@ void App::ApplySpacingType(Figlet::Banner* figlet_writer, const SpacingType spac
 //------------------------------------------------------------------------------
 list<string> App::GenerateUsingFramingType(Figlet::Banner* figlet_writer, const FramingType framingType, const string& message_text)
 {
-    std::ostringstream output_stream;
+    ostringstream output_stream;
 
 	switch (framingType)
 	{

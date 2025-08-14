@@ -12,8 +12,8 @@ public:
     Arguments1()
     {
         const auto defaultMessageText = "Press any key to continue (or wait {timeout} seconds) . . . ";
-        const auto defaultTimeout = std::to_string(30);
-        const auto defaultSleep = std::to_string(200);
+        const auto defaultTimeout = to_string(30);
+        const auto defaultSleep = to_string(200);
 
         AddParameter(ValueType::STRING, 1, "message-text", defaultMessageText, "The Text to display", false);
         AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);

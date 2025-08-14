@@ -440,7 +440,7 @@ list<Argument> Arguments::GetArgumentsByTypes(const list<ArgumentType>& Argument
 
     for (auto iter = _arguments.begin(); iter != _arguments.end(); ++iter)
     {
-        const auto found = std::find(std::begin(ArgumentTypes), std::end(ArgumentTypes), iter->second.GetArgumentType()) != std::end(ArgumentTypes);
+        const auto found = find(begin(ArgumentTypes), end(ArgumentTypes), iter->second.GetArgumentType()) != end(ArgumentTypes);
         if (found)
         {
             filtered.push_back(iter->second);

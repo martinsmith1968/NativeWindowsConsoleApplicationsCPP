@@ -28,8 +28,8 @@ namespace PauseN
         AppArguments()
         {
             auto const defaultMessageText = "Press any key to continue (or wait {" + ArgumentNameTimeout + "} seconds) . . . ";
-            auto const defaultTimeout = std::to_string(30);
-            auto const defaultSleep = std::to_string(200);
+            auto const defaultTimeout = to_string(30);
+            auto const defaultSleep = to_string(200);
 
             AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, defaultMessageText, "The Text to display", false);
             AddOption(ValueType::INT, "t", ArgumentNameTimeout, defaultTimeout, "The timeout to wait for in seconds", false);
@@ -60,16 +60,16 @@ namespace PauseN
         {
             auto formatted_text = GetMessageText();
 
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
+            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameTimeout), to_string(GetTimeoutSeconds()));
+            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameSleep), to_string(GetSleepMilliseconds()));
 
             return formatted_text;
         }
 
         void PostParseValidate() override
         {
-            auto const timeout_time = std::chrono::seconds(GetTimeoutSeconds());
-            auto const sleep_time = std::chrono::milliseconds(GetSleepMilliseconds());
+            auto const timeout_time = chrono::seconds(GetTimeoutSeconds());
+            auto const sleep_time = chrono::milliseconds(GetSleepMilliseconds());
 
             if (sleep_time >= timeout_time)
             {

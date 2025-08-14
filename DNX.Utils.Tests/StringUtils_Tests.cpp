@@ -116,7 +116,7 @@ TEST(TEST_GROUP, SplitText_string_returns_as_expected) {
     const auto result1 = StringUtils::SplitText("aaa::bbb::ccc::ddd", "::");
     EXPECT_EQ(result1.size(), 4);
 
-    vector<string> result1_vector(std::begin(result1), std::end(result1));
+    vector<string> result1_vector(begin(result1), end(result1));
     EXPECT_EQ("aaa", result1_vector[0]);
     EXPECT_EQ("bbb", result1_vector[1]);
     EXPECT_EQ("ccc", result1_vector[2]);

@@ -23,7 +23,7 @@ void App::Execute(AppArguments& arguments)
 
     const auto start_time = DateUtils::GetNow();
     const auto exit_time = start_time + arguments.GetTimeoutSeconds();
-    const auto sleep_time = std::chrono::milliseconds(arguments.GetSleepMilliseconds());
+    const auto sleep_time = chrono::milliseconds(arguments.GetSleepMilliseconds());
 
     do
     {
@@ -33,7 +33,7 @@ void App::Execute(AppArguments& arguments)
             break;
         }
 
-        std::this_thread::sleep_for(sleep_time);
+        this_thread::sleep_for(sleep_time);
     } while (DateUtils::GetNow() < exit_time || arguments.GetTimeoutSeconds() == 0);
 
     cout << endl;

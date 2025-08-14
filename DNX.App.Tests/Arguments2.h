@@ -8,8 +8,8 @@ class Arguments2 final : public Arguments
 public:
     Arguments2()
     {
-        auto const defaultTimeout = std::to_string(30);
-        auto const defaultSleep = std::to_string(200);
+        auto const defaultTimeout = to_string(30);
+        auto const defaultSleep = to_string(200);
 
         AddParameter(ValueType::STRING, 1, "message-text", "", "The Text to display", true);
         AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);

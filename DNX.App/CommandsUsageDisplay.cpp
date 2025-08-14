@@ -15,15 +15,15 @@ string CommandsUsageDisplay::ErrorLinePrefix = "ERROR";
 
 void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfig& parser_config, const AppDetails& appDetails)
 {
-    cout << appDetails.GetHeaderLine() << std::endl;
+    cout << appDetails.GetHeaderLine() << endl;
     if (!appDetails.Copyright.empty())
     {
-        cout << appDetails.Copyright << std::endl;
+        cout << appDetails.Copyright << endl;
     }
 
-    cout << std::endl;
-    cout << "Usage:" << std::endl;
-    cout << AppDetails::GetApplicationName() << " [command-name] { [command-arguments] }" << std::endl;
+    cout << endl;
+    cout << "Usage:" << endl;
+    cout << AppDetails::GetApplicationName() << " [command-name] { [command-arguments] }" << endl;
 
     auto command_list = commands.GetCommands();
     command_list.sort(Command::CompareBySequence);
@@ -33,18 +33,18 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
 
         for (Command& command : command_list)
         {
-            max_argument_name_length = std::max(command.GetName().length(), max_argument_name_length);
+            max_argument_name_length = max(command.GetName().length(), max_argument_name_length);
         }
 
-        cout << std::endl;
-        cout << "Commands:" << std::endl;
-        cout << std::endl;
+        cout << endl;
+        cout << "Commands:" << endl;
+        cout << endl;
         const auto argument_name_width = max_argument_name_length + 4;
         for (Command& command : command_list)
         {
-            std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(argument_name_width)) << command.GetName()
+            cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_name_width)) << command.GetName()
                 << command.GetDescription()
-                << std::endl;
+                << endl;
         }
     }
 

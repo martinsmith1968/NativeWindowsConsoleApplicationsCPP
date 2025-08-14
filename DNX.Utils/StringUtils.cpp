@@ -18,8 +18,8 @@ using namespace DNX::Utils;
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 wstring StringUtils::ToWideString(const string& str)
 {
-    std::wstring wstr(str.length(), 0);
-    std::transform(str.begin(), str.end(), wstr.begin(), [](const char c) {
+    wstring wstr(str.length(), 0);
+    transform(str.begin(), str.end(), wstr.begin(), [](const char c) {
         return static_cast<wchar_t>(c);
         });
 
@@ -29,8 +29,8 @@ wstring StringUtils::ToWideString(const string& str)
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 string StringUtils::ToString(const wstring& wstr)
 {
-    std::string str(wstr.length(), 0);
-    std::transform(wstr.begin(), wstr.end(), str.begin(), [](const wchar_t c) {
+    string str(wstr.length(), 0);
+    transform(wstr.begin(), wstr.end(), str.begin(), [](const wchar_t c) {
         return static_cast<char>(c);
         });
 
@@ -185,7 +185,7 @@ string StringUtils::ReplaceString(string subject, const string& search, const st
 string StringUtils::Repeat(const string& subject, const int count)
 {
     // Source : https://stackoverflow.com/questions/166630/how-can-i-repeat-a-string-a-variable-number-of-times-in-c
-    std::ostringstream os;
+    ostringstream os;
     for (int i = 0; i < count; i++)
         os << subject;
     return os.str();
@@ -420,7 +420,7 @@ string StringUtils::RemoveAny(const string& str, const string& characters)
     if (str.empty() || characters.empty())
         return str;
 
-    std::ostringstream result;
+    ostringstream result;
 
     for (const auto ch : str)
     {
@@ -443,7 +443,7 @@ string StringUtils::RemoveAnyExcept(const string& str, const string& characters)
     if (str.empty() || characters.empty())
         return str;
 
-    std::ostringstream result;
+    ostringstream result;
 
     for (const auto ch : str)
     {
