@@ -158,8 +158,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CharUtils.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="CryptoUtils.h" />
+    <ClInclude Include="DateTime.h" />
     <ClInclude Include="DateUtils.h" />
     <ClInclude Include="DirectoryUtils.h" />
     <ClInclude Include="EnumUtils.h" />
@@ -176,8 +178,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AggregateException.h" />
+    <ClCompile Include="CharUtils.cpp" />
     <ClCompile Include="ConsoleUtils.cpp" />
     <ClCompile Include="CryptoUtils.cpp" />
+    <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="DateUtils.cpp" />
     <ClCompile Include="DirectoryUtils.cpp" />
     <ClCompile Include="EnvironmentUtils.cpp" />

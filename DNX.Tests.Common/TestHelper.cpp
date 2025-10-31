@@ -50,7 +50,7 @@ string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, 
             cout << "Checking directory: " << directory << endl;
 
             auto targetFileName = PathUtils::Combine(directory, fileName);
-            if (FileUtils::FileExists(targetFileName))
+            if (FileUtils::Exists(targetFileName))
             {
                 cout << "Found file: " << targetFileName << endl;
                 return directory;
@@ -67,7 +67,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
     static const auto quote = "\"";
 
     auto targetExecutable = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), executableFileName);
-    if (!FileUtils::FileExists(targetExecutable))
+    if (!FileUtils::Exists(targetExecutable))
     {
         for (const auto& platform : GetBuildPlatforms())
         {
@@ -77,7 +77,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
                 cout << "DEBUG: Checking directory: " << directory << endl;
 
                 auto targetFileName = PathUtils::Combine(directory, executableFileName);
-                if (FileUtils::FileExists(targetFileName))
+                if (FileUtils::Exists(targetFileName))
                 {
                     cout << "DEBUG: Found file: " << targetFileName << endl;
                     targetExecutable = targetFileName;
@@ -87,7 +87,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
         }
     }
 
-    if (!FileUtils::FileExists(targetExecutable))
+    if (!FileUtils::Exists(targetExecutable))
         throw exception(("File not found: " + targetExecutable).c_str());
 
     const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
@@ -132,24 +132,24 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
 {
     auto fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
-    if (!FileUtils::FileExists(fullFileName))
+    if (!FileUtils::Exists(fullFileName))
     {
-        auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), FileUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
+        auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), PathUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
         cout << "DEBUG: Checking directory: " << directory << endl;
 
         auto targetFileName = PathUtils::Combine(directory, fileName);
-        if (FileUtils::FileExists(targetFileName))
+        if (FileUtils::Exists(targetFileName))
         {
             cout << "DEBUG: Found file: " << targetFileName << endl;
             fullFileName = targetFileName;
         }
     }
 
-    if (!FileUtils::FileExists(fullFileName))
+    if (!FileUtils::Exists(fullFileName))
         throw exception(("File not found: " + fullFileName).c_str());
 
     cout << "Reading: " << fullFileName << endl;
-    auto file_text = FileUtils::ReadText(fullFileName);
+    auto file_text = FileUtils::ReadAllText(fullFileName);
 
     if (showExpectedOutput)
     {

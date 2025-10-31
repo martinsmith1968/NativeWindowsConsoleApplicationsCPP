@@ -58,7 +58,7 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
 
 void ArgumentsParser::ParseArgumentsFile(Arguments& arguments, const string& fileName) const
 {
-    if (FileUtils::FileExists(fileName))
+    if (FileUtils::Exists(fileName))
     {
         const auto arg = _parser_config.GetCustomArgumentsFilePrefix() + fileName;
 
@@ -92,7 +92,7 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
 
         try
         {
-            const auto lines = FileUtils::ReadLines(fileName);
+            const auto lines = FileUtils::ReadAllLines(fileName);
             auto argumentsText = ConvertLinesToRawArguments(lines);
 
             ParseArgumentsList(arguments, argumentsText);
@@ -228,7 +228,7 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
         list<string> values;
         if (iter->GetAllowMultiple())
         {
-            for (auto multipleValue : arguments.GetArgumentValues(iter->GetShortName()))
+            for (auto& multipleValue : arguments.GetArgumentValues(iter->GetShortName()))
                 values.push_back(multipleValue);
         }
         else
@@ -236,7 +236,7 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
             values.push_back(arguments.GetArgumentValue(iter->GetShortName()));
         }
 
-        for (auto optionValue : values)
+        for (auto& optionValue : values)
         {
             if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
             {

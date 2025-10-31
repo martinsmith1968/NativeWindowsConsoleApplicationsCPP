@@ -2,6 +2,7 @@
 
 #include "../DNX.Utils/CryptoUtils.h"
 #include "../DNX.Utils/DateUtils.h"
+#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -28,7 +29,7 @@ public:
 TEST(TEST_GROUP, GetCurrentDirectory_returns_something)
 {
     // Act
-    const auto result = PathUtils::GetCurrentDirectory();
+    const auto result = DirectoryUtils::GetCurrentDirectory();
     cout << "GetCurrentDirectory: " << result << endl;
 
     // Assert
@@ -37,18 +38,18 @@ TEST(TEST_GROUP, GetCurrentDirectory_returns_something)
 
 TEST(TEST_GROUP, ChangeDirectory_has_an_effect)
 {
-    const auto original_directory = PathUtils::GetCurrentDirectory();
+    const auto original_directory = DirectoryUtils::GetCurrentDirectory();
     const auto target_directory = PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName());
 
-    PathUtils::CreateDirectory(target_directory);
+    DirectoryUtils::Create(target_directory);
 
     // Act
-    const auto result = PathUtils::ChangeDirectory(target_directory);
+    const auto result = DirectoryUtils::SetCurrentDirectory(target_directory);
     cout << "ChangeDirectory: " << result << endl;
 
     // Assert
     EXPECT_EQ(result, target_directory);
-    EXPECT_EQ(PathUtils::GetCurrentDirectory(), target_directory);
+    EXPECT_EQ(DirectoryUtils::GetCurrentDirectory(), target_directory);
 }
 
 TEST(TEST_GROUP, Combine_returns_appropriate_combined_value)
@@ -63,17 +64,17 @@ TEST(TEST_GROUP, Combine_returns_appropriate_combined_value)
 
 TEST(TEST_GROUP, DirectoryExists_returns_appropriate_value)
 {
-    EXPECT_EQ(PathUtils::DirectoryExists(""), false);
-    EXPECT_EQ(PathUtils::DirectoryExists(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), false);
-    EXPECT_EQ(PathUtils::DirectoryExists(PathUtils::GetCurrentDirectory()), true);
+    EXPECT_EQ(DirectoryUtils::Exists(""), false);
+    EXPECT_EQ(DirectoryUtils::Exists(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), false);
+    EXPECT_EQ(DirectoryUtils::Exists(DirectoryUtils::GetCurrentDirectory()), true);
 }
 
 TEST(TEST_GROUP, CreateDirectory_can_respond_correctly)
 {
-    EXPECT_EQ(PathUtils::CreateDirectory(""), false);
-    EXPECT_EQ(PathUtils::CreateDirectory("   "), false);
-    EXPECT_EQ(PathUtils::CreateDirectory(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), true);
-    EXPECT_EQ(PathUtils::CreateDirectory(PathUtils::GetCurrentDirectory()), true);
+    EXPECT_EQ(DirectoryUtils::Create(""), false);
+    EXPECT_EQ(DirectoryUtils::Create("   "), false);
+    EXPECT_EQ(DirectoryUtils::Create(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), true);
+    EXPECT_EQ(DirectoryUtils::Create(DirectoryUtils::GetCurrentDirectory()), true);
 }
 
 
@@ -101,6 +102,6 @@ TEST(TEST_GROUP, GetTempFileName_returns_something)
 
     // Assert
     EXPECT_NE(result, "");
-    EXPECT_TRUE(StringUtils::StartsWith(FileUtils::GetFileNameOnly(result), "test"));
-    EXPECT_TRUE(FileUtils::FileExists(result));
+    EXPECT_TRUE(StringUtils::StartsWith(PathUtils::GetFileNameOnly(result), "test"));
+    EXPECT_TRUE(FileUtils::Exists(result));
 }

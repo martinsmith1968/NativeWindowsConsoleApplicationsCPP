@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
 using namespace std;
@@ -23,9 +24,9 @@ public:
 TEST(TEST_GROUP, GetPath_returns_an_appropriate_value)
 {
     // Act
-    const auto result1 = FileUtils::GetPath(TestData::GetFile1FullName());
+    const auto result1 = PathUtils::GetDriveAndPath(TestData::GetFile1FullName());
     cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetPath(TestData::GetFile2FullName());
+    const auto result2 = PathUtils::GetDriveAndPath(TestData::GetFile2FullName());
     cout << "Result2: " << result2 << endl;
 
     // Assert
@@ -36,9 +37,9 @@ TEST(TEST_GROUP, GetPath_returns_an_appropriate_value)
 TEST(TEST_GROUP, GetFileNameOnly_returns_an_appropriate_value)
 {
     // Act
-    const auto result1 = FileUtils::GetFileNameOnly(TestData::GetFile1FullName());
+    const auto result1 = PathUtils::GetFileNameOnly(TestData::GetFile1FullName());
     cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetFileNameOnly(TestData::GetFile2FullName());
+    const auto result2 = PathUtils::GetFileNameOnly(TestData::GetFile2FullName());
     cout << "Result2: " << result2 << endl;
 
     // Assert
@@ -49,9 +50,9 @@ TEST(TEST_GROUP, GetFileNameOnly_returns_an_appropriate_value)
 TEST(TEST_GROUP, GetFileNameAndExtension_returns_an_appropriate_value)
 {
     // Act
-    const auto result1 = FileUtils::GetFileNameAndExtension(TestData::GetFile1FullName());
+    const auto result1 = PathUtils::GetFileNameAndExtension(TestData::GetFile1FullName());
     cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetFileNameAndExtension(TestData::GetFile2FullName());
+    const auto result2 = PathUtils::GetFileNameAndExtension(TestData::GetFile2FullName());
     cout << "Result2: " << result2 << endl;
 
     // Assert
@@ -62,9 +63,9 @@ TEST(TEST_GROUP, GetFileNameAndExtension_returns_an_appropriate_value)
 TEST(TEST_GROUP, ChangeFileExtension_returns_an_appropriate_value)
 {
     // Act
-    const auto result1 = FileUtils::ChangeFileExtension(TestData::GetFile1FullName(), "bob");
+    const auto result1 = PathUtils::ChangeFileExtension(TestData::GetFile1FullName(), "bob");
     cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::ChangeFileExtension(TestData::GetFile2FullName(), ".dave");
+    const auto result2 = PathUtils::ChangeFileExtension(TestData::GetFile2FullName(), ".dave");
     cout << "Result2: " << result2 << endl;
 
     // Assert

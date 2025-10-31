@@ -53,7 +53,7 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
     {
         const auto file_name = AppDetails::GetDefaultArgumentsFileName();
 
-        const auto found = FileUtils::FileExists(file_name);
+        const auto found = FileUtils::Exists(file_name);
 
         argument_file_lines.push_back("Default App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
     }
@@ -63,7 +63,7 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
         {
             const auto file_name = AppDetails::GetDefaultArgumentsFileName();
 
-            const auto found = FileUtils::FileExists(file_name);
+            const auto found = FileUtils::Exists(file_name);
 
             argument_file_lines.push_back("Local App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
         }

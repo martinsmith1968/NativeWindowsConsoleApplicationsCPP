@@ -94,7 +94,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
     {
         const auto file_name = arguments.GetParserContext().GetDefaultArgumentsFileName();
 
-        const auto found = FileUtils::FileExists(file_name);
+        const auto found = FileUtils::Exists(file_name);
 
         argument_file_lines.push_back("Default App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
     }
@@ -104,7 +104,7 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
         {
             const auto file_name = arguments.GetParserContext().GetLocalArgumentsFileName();
 
-            const auto found = FileUtils::FileExists(file_name);
+            const auto found = FileUtils::Exists(file_name);
 
             argument_file_lines.push_back("Local App arguments can be specified in : " + file_name + (found ? " (exists)" : ""));
         }
