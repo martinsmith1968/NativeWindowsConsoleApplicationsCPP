@@ -47,9 +47,18 @@ namespace DNX::Utils
         explicit DateTime(time_t time);
         explicit DateTime(tm time);
 
+        bool operator==(const DateTime& other) const
+        {
+            return GetTimePoint() == other.GetTimePoint();
+        }
+
         static DateTime Now();
 
+        static DateTime Parse(const string& text);
+        static DateTime Parse(const string& text, const string& format);
+
         static int GetDaysInMonth(int month);
+        static bool IsLeapYear(int year);
 
         string ToString() const;
         string ToString(const string& format) const;
@@ -59,6 +68,7 @@ namespace DNX::Utils
         [[nodiscard]] DateTime GetDate() const;
 
         [[nodiscard]] bool IsDateOnly() const;
+        [[nodiscard]] bool IsLeapYear() const;
 
         [[nodiscard]] int GetYear() const;
         [[nodiscard]] int GetQuarter() const;

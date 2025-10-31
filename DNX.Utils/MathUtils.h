@@ -19,5 +19,7 @@ namespace DNX::Utils
         static void ReseedRandomizer(int seed);
         static int GetRandomNumber(int max_value, bool inclusive = false);
         static int GetRandomNumber(int min_value, int max_value, bool inclusive = false);
+        static int Clamp(int value, int min_value, int max_value);
+        static int ClampModulo(int value, int min_value, int max_value);
     };
 }

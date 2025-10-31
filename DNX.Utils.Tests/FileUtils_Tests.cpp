@@ -30,8 +30,8 @@ TEST(TEST_GROUP, GetPath_returns_an_appropriate_value)
     cout << "Result2: " << result2 << endl;
 
     // Assert
-    EXPECT_EQ(result1, "C:\\test");
-    EXPECT_EQ(result2, "C:\\a\\b\\c\\d");
+    EXPECT_EQ(result1, "C:\\test\\");
+    EXPECT_EQ(result2, "C:\\a\\b\\c\\d\\");
 }
 
 TEST(TEST_GROUP, GetFileNameOnly_returns_an_appropriate_value)

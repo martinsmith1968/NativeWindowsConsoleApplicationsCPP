@@ -103,7 +103,7 @@ bool PathUtils::IsFile(const string& filePath)
     }
 
     const auto parts = GetPathParts(filePath);
-    const auto& fileName = *parts.end();
+    const auto& fileName = parts.back();
 
     return StringUtils::Contains(fileName, EXTENSION_SEPARATOR);
 }
@@ -119,7 +119,7 @@ bool PathUtils::IsDirectory(const string& filePath)
     }
 
     const auto parts = GetPathParts(filePath);
-    const auto& fileName = *parts.end();
+    const auto& fileName = parts.back();
 
     return !StringUtils::Contains(fileName, EXTENSION_SEPARATOR);
 }
@@ -192,8 +192,7 @@ string PathUtils::GetDriveAndPath(const string& filePath)
     }
 
     const auto parts = GetPathParts(filePath);
-
-    const auto& fileName = *parts.end();
+    const auto& fileName = parts.back();
 
     return StringUtils::RemoveEndsWith(filePath, fileName);
 }

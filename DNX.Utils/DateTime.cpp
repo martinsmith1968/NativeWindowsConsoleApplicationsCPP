@@ -6,12 +6,15 @@
 #include <sstream>
 #include <ctime>
 #include <iomanip>
+#include <regex>
 
 #include "MathUtils.h"
+#include "StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCertMsc51Cpp
 // ReSharper disable CppClangTidyClangDiagnosticShorten64To32
+// ReSharper disable CppClangTidyPerformanceAvoidEndl
 
 using namespace std;
 using namespace DNX::Utils;
@@ -30,7 +33,7 @@ using namespace DNX::Utils;
 
 const int DateTime::m_month_days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-const string DateTime::Formats::Default  = "%a, %b %e %T %Y";   // Sun, Aug 11 1968
+const string DateTime::Formats::Default  = "%a, %b %e %T %Y";   // Sun, Aug 11 12:34:56 1968
 const string DateTime::Formats::Sortable = "%F %T%z";
 const string DateTime::Formats::ISO      = "%FT%T%z";
 
@@ -112,11 +115,67 @@ DateTime DateTime::Now()
     return { chrono::system_clock::now() };
 }
 
+DateTime DateTime::Parse(const string& text)
+{
+    return Parse(text, Formats::ISO);
+}
+
+DateTime DateTime::Parse(const string& text, const string& format)
+{
+    // TODO: Note: C++20 has std::chrono::from_stream that would make this easier
+    //istringstream in{ text };
+    //chrono::system_clock::time_point tp;
+    // in >> parse("%F %T", tp);
+
+    try
+    {
+        static const auto regex_expr = std::regex("(\\d{4})-(\\d{2})-(\\d{2})");
+        smatch matches;
+
+        if (!regex_match(text, matches, regex_expr) || matches.size() != 4)
+            throw runtime_error("Date value not recognized: " + text);
+
+        return { stoi(matches[1].str()), stoi(matches[2].str()), stoi(matches[3].str()) };
+    }
+    catch (const exception& ex)
+    {
+        throw runtime_error(
+            StringUtils::ReplaceString("Failed to parse date time (#WHAT#)", "#WHAT#", ex.what())
+        );
+    }
+
+    return Now();
+}
+
 int DateTime::GetDaysInMonth(int month)
 {
-    month = MathUtils::ClampCycle(month, 1, 12);
+    month = MathUtils::ClampModulo(month, 1, 12);
 
     return m_month_days[month - 1];
+}
+
+/// <summary>
+/// Determines whether [is leap year] [the specified year].
+/// </summary>
+/// <param name="year">The year.</param>
+/// <returns>
+///   <c>true</c> if [is leap year] [the specified year]; otherwise, <c>false</c>.
+/// </returns>
+/// <remarks>
+/// See : https://www.programiz.com/cpp-programming/examples/leap-year
+/// </remarks>
+bool DateTime::IsLeapYear(const int year)
+{
+    if (year % 400 == 0)
+        return true;
+
+    if (year % 100 == 0)
+        return false;
+
+    if (year % 4 == 0)
+        return true;
+
+    return false;
 }
 
 string DateTime::ToString() const
@@ -173,6 +232,11 @@ bool DateTime::IsDateOnly() const
         && (GetSeconds() == 0)
         && (GetMilliseconds() == 0)
         ;
+}
+
+bool DateTime::IsLeapYear() const
+{
+    return IsLeapYear(GetYear());
 }
 
 int DateTime::GetYear() const
@@ -251,9 +315,16 @@ DateTime& DateTime::AddMonths(const int months)
                 ? GetMonth()
                 : GetMonth() - 1;
 
-            const auto adjust_days = GetDaysInMonth(month);
+            auto adjust_days = GetDaysInMonth(month);
+            if (month == 2 && IsLeapYear(GetYear()))
+            {
+                ++adjust_days;
+            }
 
-            AddDays(adjust_days * multiplier);
+            const auto days_to_add = adjust_days * multiplier;
+
+            cout << "Adjusting month: " << month << " by " << days_to_add << " days." << endl;
+            AddDays(days_to_add);
         }
     }
 
@@ -269,7 +340,14 @@ DateTime& DateTime::AddDays(const int days)
 DateTime& DateTime::AddHours(const int hours)
 {
     if (hours != 0)
-        m_time_point += chrono::hours(hours);
+    {
+        const auto adjustment = chrono::hours(abs(hours));
+
+        if (hours > 0)
+            m_time_point += adjustment;
+        else
+            m_time_point -= adjustment;
+    }
     return *this;
 }
 

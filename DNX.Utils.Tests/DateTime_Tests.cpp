@@ -18,6 +18,12 @@ using namespace DNX::Utils;
 #define SHOW_DATETIME(var) ShowDateTime(var, #var)
 
 //--------------------------------------------------------------------------------
+// See Also:
+// - https://www.sandordargo.com/blog/2019/04/24/parameterized-testing-with-gtest
+// - https://blog.andreiavram.ro/gtest-parameterized-tests-json/
+
+
+//--------------------------------------------------------------------------------
 // Helper Methods
 static void ShowDateTime(const DateTime& dateTime, string name = "")
 {
@@ -88,56 +94,9 @@ static std::chrono::system_clock::duration get_duration_since_midnight()
     return now - midnight;
 }
 
-//--------------------------------------------------------------------------------
-// Test Fixtures
-class DateTimeDateOnlyConstructorFixture :public ::testing::TestWithParam<std::tuple<int, int, int>>
-{
-public:
-    DateTime FixtureDateTime;
-    int Year;
-    int Month;
-    int Day;
-
-    void SetUp() override
-    {
-        Year = std::get<0>(GetParam());
-        Month = std::get<1>(GetParam());
-        Day = std::get<2>(GetParam());
-
-        FixtureDateTime = DateTime(Year, Month, Day);
-        SHOW_DATETIME(FixtureDateTime);
-    }
-};
-
-class DateTimeDateAndTimeConstructorFixture :public ::testing::TestWithParam<std::tuple<int, int, int, int, int, int, int>>
-{
-public:
-    DateTime FixtureDateTime;
-    int Year;
-    int Month;
-    int Day;
-    int Hour;
-    int Minute;
-    int Second;
-    int Millisecond;
-
-    void SetUp() override
-    {
-        Year = std::get<0>(GetParam());
-        Month = std::get<1>(GetParam());
-        Day = std::get<2>(GetParam());
-        Hour = std::get<3>(GetParam());
-        Minute = std::get<4>(GetParam());
-        Second = std::get<5>(GetParam());
-        Millisecond = std::get<6>(GetParam());
-
-        FixtureDateTime = DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond);
-        SHOW_DATETIME(FixtureDateTime);
-    }
-};
 
 //--------------------------------------------------------------------------------
-// Tests
+// Static Tests
 TEST(TEST_GROUP, Milliseconds_test)
 {
     for (auto x = 0; x < 10; ++x)
@@ -185,9 +144,275 @@ TEST(TEST_GROUP, Static_constructor_Now_returns_differing_values)
     EXPECT_NE(result1.GetSeconds(), result2.GetSeconds());
     EXPECT_NE(result1.GetSeconds(), result3.GetSeconds());
     EXPECT_NE(result2.GetSeconds(), result3.GetSeconds());
-    //EXPECT_NE(result1.GetMilliseconds(), result2.GetMilliseconds());
+    EXPECT_NE(result1.GetMilliseconds(), result2.GetMilliseconds());
 }
 
+TEST(TEST_GROUP, Static_GetDaysInMonth_returns_appropriate_values)
+{
+    // Assert
+    int month = 0;
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 28);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 30);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 30);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 30);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 30);
+    EXPECT_EQ(DateTime::GetDaysInMonth(++month), 31);
+
+    EXPECT_EQ(DateTime::GetDaysInMonth(0), DateTime::GetDaysInMonth(12));
+    EXPECT_EQ(DateTime::GetDaysInMonth(13), DateTime::GetDaysInMonth(1));
+}
+
+//--------------------------------------------------------------------------------
+// Test Fixtures
+
+/// <summary>
+///
+/// </summary>
+class DateTimeConstructorFixture
+    : public ::testing::Test
+{
+public:
+    DateTime FixtureDateTime;
+
+    void SetUp() override = 0;
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyParseFixture
+    : public DateTimeConstructorFixture
+    , public ::testing::WithParamInterface<std::tuple<string, int, int, int>>
+{
+public:
+    string InputText;
+    int Year;
+    int Month;
+    int Day;
+
+    void SetUp() override
+    {
+        InputText = std::get<0>(GetParam());
+        Year      = std::get<1>(GetParam());
+        Month     = std::get<2>(GetParam());
+        Day       = std::get<3>(GetParam());
+
+        FixtureDateTime = DateTime::Parse(InputText);
+        SHOW_DATETIME(FixtureDateTime);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyConstructorFixture
+    : public DateTimeConstructorFixture
+    , public ::testing::WithParamInterface<std::tuple<int, int, int>>
+{
+public:
+    int Year;
+    int Month;
+    int Day;
+
+    void SetUp() override
+    {
+        Year  = std::get<0>(GetParam());
+        Month = std::get<1>(GetParam());
+        Day   = std::get<2>(GetParam());
+
+        FixtureDateTime = DateTime(Year, Month, Day);
+        SHOW_DATETIME(FixtureDateTime);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateAndTimeConstructorFixture
+    : public DateTimeConstructorFixture
+    , public ::testing::WithParamInterface<std::tuple<int, int, int, int, int, int, int>>
+{
+public:
+    int Year;
+    int Month;
+    int Day;
+    int Hour;
+    int Minute;
+    int Second;
+    int Millisecond;
+
+    void SetUp() override
+    {
+        Year        = std::get<0>(GetParam());
+        Month       = std::get<1>(GetParam());
+        Day         = std::get<2>(GetParam());
+        Hour        = std::get<3>(GetParam());
+        Minute      = std::get<4>(GetParam());
+        Second      = std::get<5>(GetParam());
+        Millisecond = std::get<6>(GetParam());
+
+        FixtureDateTime = DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond);
+        SHOW_DATETIME(FixtureDateTime);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyFormatFixture
+    : public DateTimeConstructorFixture
+    , public ::testing::WithParamInterface<std::tuple<int, int, int, string, string>>
+{
+public:
+    int Year;
+    int Month;
+    int Day;
+    string Format;
+    string ExpectedOutput;
+
+    void SetUp() override
+    {
+        Year           = std::get<0>(GetParam());
+        Month          = std::get<1>(GetParam());
+        Day            = std::get<2>(GetParam());
+        Format         = std::get<3>(GetParam());
+        ExpectedOutput = std::get<4>(GetParam());
+
+        FixtureDateTime = DateTime(Year, Month, Day);
+        SHOW_DATETIME(FixtureDateTime);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeAdjustmentFixture
+    : public DateTimeConstructorFixture
+    , public ::testing::WithParamInterface<std::tuple<string, int, string>>
+{
+public:
+    int IncrementValue;
+    DateTime ExpectedDateTime;
+
+    void SetUp() override
+    {
+        IncrementValue = std::get<1>(GetParam());
+
+        FixtureDateTime = DateTime::Parse(std::get<0>(GetParam()));
+        SHOW_DATETIME(FixtureDateTime);
+
+        Increment();
+        SHOW_DATETIME(FixtureDateTime, "Adjusted");
+
+        ExpectedDateTime = DateTime::Parse(std::get<2>(GetParam()));
+        SHOW_DATETIME(ExpectedDateTime);
+    }
+
+    virtual void Increment() = 0;
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddYearsFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddYears(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddMonthsFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddMonths(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddDaysFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddDays(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddHoursFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddHours(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddMinutesFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddMinutes(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddSecondsFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddSeconds(IncrementValue);
+    }
+};
+
+/// <summary>
+///
+/// </summary>
+class DateTimeDateOnlyAddMillisecondsFixture
+    : public DateTimeAdjustmentFixture
+{
+public:
+    void Increment() override
+    {
+        FixtureDateTime.AddMilliseconds(IncrementValue);
+    }
+};
+
+
+//--------------------------------------------------------------------------------
+// Parameterized Tests
+
+//------------------------------------------------------------
 TEST_P(DateTimeDateOnlyConstructorFixture, CheckDateConstructor)
 {
     ASSERT_EQ(Year, FixtureDateTime.GetYear());
@@ -206,6 +431,7 @@ INSTANTIATE_TEST_CASE_P(
     ::testing::Values(
           std::make_tuple(DateTime::Base_Year, 1, 1)
         , std::make_tuple(DateTime::Epoch_Year, 1, 1)
+        , std::make_tuple(1969, 12, 31)
         , std::make_tuple(2025, 10, 28)
         , std::make_tuple(2001, 1,  1)
         , std::make_tuple(2010, 5,  14)
@@ -216,6 +442,36 @@ INSTANTIATE_TEST_CASE_P(
     )
 );
 
+TEST_P(DateTimeDateOnlyParseFixture, CheckParseDate)
+{
+    ASSERT_EQ(Year, FixtureDateTime.GetYear());
+    ASSERT_EQ(Month, FixtureDateTime.GetMonth());
+    ASSERT_EQ(Day, FixtureDateTime.GetDay());
+    ASSERT_EQ(0, FixtureDateTime.GetHour());
+    ASSERT_EQ(0, FixtureDateTime.GetMinute());
+    ASSERT_EQ(0, FixtureDateTime.GetSeconds());
+    ASSERT_EQ(0, FixtureDateTime.GetMilliseconds());
+    ASSERT_TRUE(FixtureDateTime.IsDateOnly());
+}
+
+INSTANTIATE_TEST_CASE_P(
+    DateTimeConstructorTests,
+    DateTimeDateOnlyParseFixture,
+    ::testing::Values(
+        std::make_tuple(to_string(DateTime::Base_Year) + "-01-01", DateTime::Base_Year, 1, 1)
+        , std::make_tuple(to_string(DateTime::Epoch_Year) + "-01-01", DateTime::Epoch_Year, 1, 1)
+        , std::make_tuple("1969-12-31", 1969, 12, 31)
+        , std::make_tuple("2025-10-28", 2025, 10, 28)
+        , std::make_tuple("2001-01-01", 2001, 1, 1)
+        , std::make_tuple("2010-05-14", 2010, 5, 14)
+        , std::make_tuple("1996-12-31", 1996, 12, 31)
+        , std::make_tuple("1950-11-22", 1950, 11, 22)
+        , std::make_tuple("2000-02-29", 2000, 2, 29)
+        , std::make_tuple("1968-01-11", 1968, 8, 11)
+    )
+);
+
+//------------------------------------------------------------
 TEST_P(DateTimeDateAndTimeConstructorFixture, CheckDateConstructor)
 {
     ASSERT_EQ(Year, FixtureDateTime.GetYear());
@@ -232,7 +488,7 @@ INSTANTIATE_TEST_CASE_P(
     DateTimeConstructorTests,
     DateTimeDateAndTimeConstructorFixture,
     ::testing::Values(
-        std::make_tuple(DateTime::Base_Year, 1, 1, 2, 3, 4, 567)
+          std::make_tuple(DateTime::Base_Year, 1, 1, 2, 3, 4, 567)
         , std::make_tuple(DateTime::Epoch_Year, 1, 1, 12, 00, 00, 000)
         , std::make_tuple(2025, 10, 28, 17, 45, 03, 123)
         , std::make_tuple(2001, 1, 1, 3, 00, 01, 000)
@@ -243,3 +499,68 @@ INSTANTIATE_TEST_CASE_P(
         , std::make_tuple(1968, 8, 11, 11, 30, 05, 654)
     )
 );
+
+//------------------------------------------------------------
+TEST_P(DateTimeDateOnlyFormatFixture, CheckFormattedDate)
+{
+    ASSERT_EQ(FixtureDateTime.ToString(Format), ExpectedOutput);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    DateTimeConstructorTests,
+    DateTimeDateOnlyFormatFixture,
+    ::testing::Values(
+          std::make_tuple(DateTime::Base_Year, 1, 1, DateTime::Formats::Date_Default, "Thu, Jan  1 " + to_string(DateTime::Base_Year))
+        , std::make_tuple(DateTime::Epoch_Year, 1, 1, DateTime::Formats::Date_Default, "Thu, Jan  1 " + to_string(DateTime::Epoch_Year))
+    )
+);
+
+//------------------------------------------------------------
+TEST_P(DateTimeDateOnlyAddYearsFixture, AddYearsToDate)
+{
+    ASSERT_EQ(ExpectedDateTime, FixtureDateTime);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    DateTimeManipulationTests,
+    DateTimeDateOnlyAddYearsFixture,
+    ::testing::Values(
+          std::make_tuple("2025-01-01", 10, "2035-01-01")
+        , std::make_tuple("2025-01-01", -10, "2015-01-01")
+    )
+);
+
+//------------------------------------------------------------
+TEST_P(DateTimeDateOnlyAddMonthsFixture, AddMonthsToDate)
+{
+    ASSERT_EQ(ExpectedDateTime, FixtureDateTime);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    DateTimeManipulationTests,
+    DateTimeDateOnlyAddMonthsFixture,
+    ::testing::Values(
+          std::make_tuple("2025-01-01",  10, "2025-11-01")
+        , std::make_tuple("2025-01-01", -10, "2024-03-01")
+        , std::make_tuple("2025-01-01",  20, "2026-09-01")
+        , std::make_tuple("2025-01-01", -20, "2023-05-01")
+    )
+);
+
+//------------------------------------------------------------
+//TEST_P(DateTimeDateOnlyAddYearsFixture, AddDaysToDate)
+//{
+//    ASSERT_EQ(FixtureDateTime.GetYear(), Year + AddValue);
+//    ASSERT_EQ(FixtureDateTime.GetMonth(), Month);
+//    ASSERT_EQ(FixtureDateTime.GetDay(), Day);
+//}
+//
+//INSTANTIATE_TEST_CASE_P(
+//    DateTimeManipulationTests,
+//    DateTimeDateOnlyAddDaysFixture,
+//    ::testing::Values(
+//        std::make_tuple(DateTime::Base_Year, 1, 1, 10)
+//        , std::make_tuple(DateTime::Epoch_Year, 1, 1, 20)
+//        , std::make_tuple(2023, 10, 28, 5)
+//    )
+//);
