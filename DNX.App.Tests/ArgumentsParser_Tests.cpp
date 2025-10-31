@@ -22,11 +22,11 @@ using namespace DNX::App;
 
 TEST(TEST_GROUP, ParseArguments_single_positional_arguments_assigns_correctly)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "bob",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("bob"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -41,14 +41,14 @@ TEST(TEST_GROUP, ParseArguments_single_positional_arguments_assigns_correctly)
 
 TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option_after_and_switch_assigns_correctly)
 {
-    constexpr auto argc = 5;
-    char* argv[argc] = {
-        "",
-        "bob",
-        "-t",
-        "5",
-        "-x",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("bob"),
+        const_cast<char*>("-t"),
+        const_cast<char*>("5"),
+        const_cast<char*>("-x"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -65,14 +65,14 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
 
 TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option_before_and_switch_assigns_correctly)
 {
-    constexpr auto argc = 5;
-    char* argv[argc] = {
-        "",
-        "-t",
-        "5",
-        "bob",
-        "-x",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("-t"),
+        const_cast<char*>("5"),
+        const_cast<char*>("bob"),
+        const_cast<char*>("-x"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -89,16 +89,16 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
 
 TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_arguments_before_and_after_and_switch_assigns_correctly)
 {
-    constexpr auto argc = 7;
-    char* argv[argc] = {
-        "",
-        "-t",
-        "5",
-        "bob",
-        "-x",
-        "-s",
-        "500",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("-t"),
+        const_cast<char*>("5"),
+        const_cast<char*>("bob"),
+        const_cast<char*>("-x"),
+        const_cast<char*>("-s"),
+        const_cast<char*>("500"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -143,10 +143,10 @@ TEST(TEST_GROUP, ParseArguments_parse_a_file_of_arguments_correctly)
 
 TEST(TEST_GROUP, IsValid_arguments_without_any_required_arguments_returns_successfully)
 {
-    constexpr auto argc = 1;
-    char* argv[argc] = {
-        "",
+    char* argv[] = {
+        const_cast<char*>(""),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -160,10 +160,10 @@ TEST(TEST_GROUP, IsValid_arguments_without_any_required_arguments_returns_succes
 
 TEST(TEST_GROUP, IsValid_arguments_with_required_arguments_returns_successfully)
 {
-    constexpr auto argc = 1;
-    char* argv[argc] = {
-        "",
+    char* argv[] = {
+        const_cast<char*>(""),
     };
+    constexpr auto argc = size(argv);
 
     Arguments2 arguments;
 
@@ -177,11 +177,11 @@ TEST(TEST_GROUP, IsValid_arguments_with_required_arguments_returns_successfully)
 
 TEST(TEST_GROUP, IsValid_arguments_with_option_shortname_without_value_returns_successfully)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "-t",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("-t"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -195,11 +195,11 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_shortname_without_value_returns_s
 
 TEST(TEST_GROUP, IsValid_arguments_with_option_longname_without_value_returns_successfully)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "--timeout",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("--timeout"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -213,12 +213,12 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_longname_without_value_returns_su
 
 TEST(TEST_GROUP, IsValid_arguments_with_option_longname_with_invalid_value_returns_successfully)
 {
-    constexpr auto argc = 3;
-    char* argv[argc] = {
-        "",
-        "--timeout",
-        "abc",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("--timeout"),
+        const_cast<char*>("abc"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments1 arguments;
 
@@ -232,11 +232,11 @@ TEST(TEST_GROUP, IsValid_arguments_with_option_longname_with_invalid_value_retur
 
 TEST(TEST_GROUP, IsValid_arguments_with_non_required_string_option_returns_successfully)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "bob",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("bob"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments3 arguments;
 
@@ -252,12 +252,12 @@ TEST(TEST_GROUP, IsValid_arguments_with_non_required_string_option_returns_succe
 
 TEST(TEST_GROUP, IsValid_more_parameters_supplied_than_are_expected_returns_successfully)
 {
-    constexpr auto argc = 3;
-    char* argv[argc] = {
-        "",
-        "bob",
-        "dave",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("bob"),
+        const_cast<char*>("dave"),
     };
+    constexpr auto argc = size(argv);
 
     Arguments3 arguments;
 

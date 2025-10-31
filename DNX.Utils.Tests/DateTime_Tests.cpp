@@ -16,6 +16,7 @@ using namespace DNX::Utils;
 #define TEST_GROUP DateTime
 
 #define SHOW_DATETIME(var) ShowDateTime(var, #var)
+#define SHOW_DATETIME_NAMED(var, name) ShowDateTime(var, name)
 
 //--------------------------------------------------------------------------------
 // See Also:
@@ -81,15 +82,17 @@ static void VerifyDateTime(const DateTime& dateTime)
 
 static std::chrono::system_clock::duration get_duration_since_midnight()
 {
-    auto now = std::chrono::system_clock::now();
+    const auto now = std::chrono::system_clock::now();
 
-    time_t tnow = std::chrono::system_clock::to_time_t(now);
-    tm* date = std::localtime(&tnow);
-    date->tm_hour = 0;
-    date->tm_min = 0;
-    date->tm_sec = 0;
+    const time_t time_t = std::chrono::system_clock::to_time_t(now);
+    tm date;
 
-    auto midnight = std::chrono::system_clock::from_time_t(std::mktime(date));
+    const auto error = localtime_s(&date, &time_t);
+    date.tm_hour = 0;
+    date.tm_min = 0;
+    date.tm_sec = 0;
+
+    const auto midnight = std::chrono::system_clock::from_time_t(std::mktime(&date));
 
     return now - midnight;
 }
@@ -192,9 +195,9 @@ class DateTimeDateOnlyParseFixture
 {
 public:
     string InputText;
-    int Year;
-    int Month;
-    int Day;
+    int Year  = 0;
+    int Month = 0;
+    int Day   = 0;
 
     void SetUp() override
     {
@@ -216,9 +219,9 @@ class DateTimeDateOnlyConstructorFixture
     , public ::testing::WithParamInterface<std::tuple<int, int, int>>
 {
 public:
-    int Year;
-    int Month;
-    int Day;
+    int Year  = 0;
+    int Month = 0;
+    int Day   = 0;
 
     void SetUp() override
     {
@@ -239,13 +242,13 @@ class DateTimeDateAndTimeConstructorFixture
     , public ::testing::WithParamInterface<std::tuple<int, int, int, int, int, int, int>>
 {
 public:
-    int Year;
-    int Month;
-    int Day;
-    int Hour;
-    int Minute;
-    int Second;
-    int Millisecond;
+    int Year        = 0;
+    int Month       = 0;
+    int Day         = 0;
+    int Hour        = 0;
+    int Minute      = 0;
+    int Second      = 0;
+    int Millisecond = 0;
 
     void SetUp() override
     {
@@ -270,9 +273,9 @@ class DateTimeDateOnlyFormatFixture
     , public ::testing::WithParamInterface<std::tuple<int, int, int, string, string>>
 {
 public:
-    int Year;
-    int Month;
-    int Day;
+    int Year  = 0;
+    int Month = 0;
+    int Day   = 0;
     string Format;
     string ExpectedOutput;
 
@@ -297,7 +300,7 @@ class DateTimeAdjustmentFixture
     , public ::testing::WithParamInterface<std::tuple<string, int, string>>
 {
 public:
-    int IncrementValue;
+    int IncrementValue = 0;
     DateTime ExpectedDateTime;
 
     void SetUp() override
@@ -308,7 +311,7 @@ public:
         SHOW_DATETIME(FixtureDateTime);
 
         Increment();
-        SHOW_DATETIME(FixtureDateTime, "Adjusted");
+        SHOW_DATETIME_NAMED(FixtureDateTime, "Adjusted");
 
         ExpectedDateTime = DateTime::Parse(std::get<2>(GetParam()));
         SHOW_DATETIME(ExpectedDateTime);
@@ -415,6 +418,7 @@ public:
 //------------------------------------------------------------
 TEST_P(DateTimeDateOnlyConstructorFixture, CheckDateConstructor)
 {
+    // Assert
     ASSERT_EQ(Year, FixtureDateTime.GetYear());
     ASSERT_EQ(Month, FixtureDateTime.GetMonth());
     ASSERT_EQ(Day, FixtureDateTime.GetDay());
@@ -444,6 +448,7 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(DateTimeDateOnlyParseFixture, CheckParseDate)
 {
+    // Assert
     ASSERT_EQ(Year, FixtureDateTime.GetYear());
     ASSERT_EQ(Month, FixtureDateTime.GetMonth());
     ASSERT_EQ(Day, FixtureDateTime.GetDay());
@@ -474,6 +479,7 @@ INSTANTIATE_TEST_CASE_P(
 //------------------------------------------------------------
 TEST_P(DateTimeDateAndTimeConstructorFixture, CheckDateConstructor)
 {
+    // Assert
     ASSERT_EQ(Year, FixtureDateTime.GetYear());
     ASSERT_EQ(Month, FixtureDateTime.GetMonth());
     ASSERT_EQ(Day, FixtureDateTime.GetDay());
@@ -503,6 +509,7 @@ INSTANTIATE_TEST_CASE_P(
 //------------------------------------------------------------
 TEST_P(DateTimeDateOnlyFormatFixture, CheckFormattedDate)
 {
+    // Assert
     ASSERT_EQ(FixtureDateTime.ToString(Format), ExpectedOutput);
 }
 
@@ -518,6 +525,7 @@ INSTANTIATE_TEST_CASE_P(
 //------------------------------------------------------------
 TEST_P(DateTimeDateOnlyAddYearsFixture, AddYearsToDate)
 {
+    // Assert
     ASSERT_EQ(ExpectedDateTime, FixtureDateTime);
 }
 
@@ -533,6 +541,7 @@ INSTANTIATE_TEST_CASE_P(
 //------------------------------------------------------------
 TEST_P(DateTimeDateOnlyAddMonthsFixture, AddMonthsToDate)
 {
+    // Assert
     ASSERT_EQ(ExpectedDateTime, FixtureDateTime);
 }
 

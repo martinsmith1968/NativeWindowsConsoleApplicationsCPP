@@ -15,10 +15,10 @@ using namespace DNX::App;
 
 TEST(TEST_GROUP, ParseCommands_no_command_parses_correctly)
 {
-    constexpr auto argc = 1;
-    char* argv[argc] = {
-        "",
+    char* argv[] = {
+        const_cast<char*>(""),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 
@@ -33,11 +33,11 @@ TEST(TEST_GROUP, ParseCommands_no_command_parses_correctly)
 
 TEST(TEST_GROUP, ParseCommands_invalid_command_parses_correctly)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "bob",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("bob"),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 
@@ -52,11 +52,11 @@ TEST(TEST_GROUP, ParseCommands_invalid_command_parses_correctly)
 
 TEST(TEST_GROUP, ParseCommands_valid_command_without_arguments_parses_correctly)
 {
-    constexpr auto argc = 2;
-    char* argv[argc] = {
-        "",
-        "c2",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("c2"),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 
@@ -75,12 +75,12 @@ TEST(TEST_GROUP, ParseCommands_valid_command_without_arguments_parses_correctly)
 
 TEST(TEST_GROUP, ParseCommands_valid_command_with_optional_arguments_parses_correctly)
 {
-    constexpr auto argc = 3;
-    char* argv[argc] = {
-        "",
-        "c2",
-        "-w",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("c2"),
+        const_cast<char*>("-w"),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 
@@ -99,12 +99,12 @@ TEST(TEST_GROUP, ParseCommands_valid_command_with_optional_arguments_parses_corr
 
 TEST(TEST_GROUP, ParseCommands_valid_command_without_required_arguments_parses_correctly)
 {
-    constexpr auto argc = 3;
-    char* argv[argc] = {
-        "",
-        "c1",
-        "-v",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("c1"),
+        const_cast<char*>("-v"),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 
@@ -125,13 +125,13 @@ TEST(TEST_GROUP, ParseCommands_valid_command_without_required_arguments_parses_c
 
 TEST(TEST_GROUP, ParseCommands_valid_command_with_required_arguments_parses_correctly)
 {
-    constexpr auto argc = 4;
-    char* argv[argc] = {
-        "",
-        "c1",
-        "-v",
-        "myname",
+    char* argv[] = {
+        const_cast<char*>(""),
+        const_cast<char*>("c1"),
+        const_cast<char*>("-v"),
+        const_cast<char*>("myname"),
     };
+    constexpr auto argc = size(argv);
 
     Commands1 commands;
 

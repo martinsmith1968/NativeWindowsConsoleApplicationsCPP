@@ -12,19 +12,19 @@ using namespace DNX::Utils;
 
 TEST(TEST_GROUP, ToList_converts_correctly)
 {
-    constexpr auto argc = 7;
-    char* argv[argc] = {
-        "",
-        "-t",
-        "5",
-        "bob",
-        "-x",
-        "-s",
-        "500",
+    char* argv[] =
+    {
+        const_cast<char*>(""),
+        const_cast<char*>("-t"),
+        const_cast<char*>("5"),
+        const_cast<char*>("bob"),
+        const_cast<char*>("-x"),
+        const_cast<char*>("-s"),
+        const_cast<char*>("500"),
     };
 
     // Act
-    auto result = ListUtils::ToList(argc, argv);
+    auto result = ListUtils::ToList(size(argv), argv);
     auto iter = result.begin();
 
     // Assert

@@ -22,7 +22,7 @@ TEST(TEST_GROUP, GetExecutableFileNameWide_returns_something)
     const auto result = ProcessUtils::GetExecutableFileNameWide();
 
     // Assert
-    cout << "GetExecutableFileNameWide: " << result.c_str() << endl;
+    wcout << "GetExecutableFileNameWide: " << result.c_str() << endl;
     EXPECT_NE(result.size(), 0);
 }
 
