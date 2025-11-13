@@ -35,7 +35,9 @@ namespace FigLetText
         SMALL,
         STANDARD,
         STRAIGHT,
-        EPIC
+        GRAFFITI,
+        REDPHOENIX,
+        STARWARS,
     };
 
     enum class FramingType : uint8_t
@@ -74,6 +76,9 @@ namespace FigLetText
             SetText(FontType::SMALL, "small");
             SetText(FontType::STANDARD, "standard");
             SetText(FontType::STRAIGHT, "straight");
+            SetText(FontType::GRAFFITI, "graffiti");
+            SetText(FontType::REDPHOENIX, "redphoenix");
+            SetText(FontType::STARWARS, "starwars");
         }
     };
 

@@ -2,7 +2,9 @@
 #include "stdafx.h"
 #include "../../external/embedFiglet/embedFiglet.h"
 
-namespace Figlet {
+using namespace Figlet;
+
+namespace Figlet_Additional {
 
   //! \cond NODOC
 

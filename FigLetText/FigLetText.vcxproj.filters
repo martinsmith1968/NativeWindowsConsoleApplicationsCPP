@@ -33,6 +33,9 @@
     <ClInclude Include="extensions\stdafx.h">
       <Filter>extensions</Filter>
     </ClInclude>
+    <ClInclude Include="extensions\Figlet_Additional.hh">
+      <Filter>extensions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

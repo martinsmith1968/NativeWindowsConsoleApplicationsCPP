@@ -161,10 +161,16 @@
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_doom_produces_expected_output.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_graffiti_produces_expected_output.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_larry3d_produces_expected_output.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_mini_produces_expected_output.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_redphoenix_produces_expected_output.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_script_produces_expected_output.txt">
@@ -174,6 +180,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_standard_produces_expected_output.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_starwars_produces_expected_output.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_straight_produces_expected_output.txt">

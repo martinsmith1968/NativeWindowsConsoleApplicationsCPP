@@ -41,6 +41,15 @@
     <Text Include="ExpectedOutput\Execute_HelloWorld_font_straight_produces_expected_output.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_graffiti_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_redphoenix_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_HelloWorld_font_starwars_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ExpectedOutput">

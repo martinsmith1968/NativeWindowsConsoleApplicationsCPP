@@ -107,3 +107,24 @@ TEST(TEST_GROUP, Execute_HelloWorld_font_straight_produces_expected_output)
 
     EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|straight"), TestHelper::GetExpectedOutput(expectedResultsFileName));
 }
+
+TEST(TEST_GROUP, Execute_HelloWorld_font_graffiti_produces_expected_output)
+{
+    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|graffiti"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+}
+
+TEST(TEST_GROUP, Execute_HelloWorld_font_redphoenix_produces_expected_output)
+{
+    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|redphoenix"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+}
+
+TEST(TEST_GROUP, Execute_HelloWorld_font_starwars_produces_expected_output)
+{
+    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|starwars"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+}

@@ -4,6 +4,7 @@
 #include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "..\external\embedFiglet\embedFiglet.h"
+#include "extensions/Figlet_Additional.hh"
 #include <chrono>
 #include <iostream>
 #include <regex>
@@ -44,34 +45,30 @@ Figlet::Banner* App::GetWriter(const FontType fontType)
     {
     case FontType::BANNER:
         return &Figlet::banner;
-        break;
     case FontType::BIG:
         return &Figlet::big;
-        break;
     case FontType::DOOM:
         return &Figlet::doom;
-        break;
     case FontType::LARRY3D:
         return &Figlet::larry3d;
-        break;
     case FontType::MINI:
         return &Figlet::mini;
-        break;
     case FontType::SCRIPT:
         return &Figlet::script;
-        break;
     case FontType::SMALL:
         return &Figlet::small;
-        break;
     case FontType::STANDARD:
         return &Figlet::standard;
-        break;
     case FontType::STRAIGHT:
         return &Figlet::straight;
-        break;
+    case FontType::GRAFFITI:
+        return &Figlet_Additional::Graffiti;
+    case FontType::REDPHOENIX:
+        return &Figlet_Additional::RedPhoenix;
+    case FontType::STARWARS:
+        return &Figlet_Additional::StarWars;
     default:
         return &Figlet::standard;
-        break;
     }
 }
 
