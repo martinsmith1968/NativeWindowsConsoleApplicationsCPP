@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------*\
  |         , __                 , __                                        |
  |        /|/  \               /|/  \                                       |
- |         | __/ _   ,_         | __/ _   ,_                                | 
+ |         | __/ _   ,_         | __/ _   ,_                                |
  |         |   \|/  /  |  |   | |   \|/  /  |  |   |                        |
  |         |(__/|__/   |_/ \_/|/|(__/|__/   |_/ \_/|/                       |
  |                           /|                   /|                        |
@@ -229,7 +229,7 @@ namespace Figlet {
 
   typedef std::basic_ostream<char> ostream_type;
 
-  static unsigned const maxHeight    = 10;  //!< maximum allowed (lines) height of the font 
+  static unsigned const maxHeight    = 10;  //!< maximum allowed (lines) height of the font
   static unsigned const maxLenght    = 256; //!< maximum number of characters x line of the banner
   static unsigned const maxTableSize = 256; //!< maximum number of allowed character x font
 
@@ -262,7 +262,7 @@ namespace Figlet {
     unsigned   const   FontMaxLen; //!< maximum width of the letters of the font
     unsigned   const   FontSize;   //!< total number of characters in the font
     uint8_t            rspaces[maxHeight]; //!< extra right spaces availables after the last insertion
-    char               lines[maxHeight][maxLenght]; //!< lines buffer 
+    char               lines[maxHeight][maxLenght]; //!< lines buffer
     char               smush[maxHeight];            //!< charater used in the "smushing" algorithm
     unsigned short     charToTable[maxTableSize];   //!< map ascii character to font structure
     unsigned short     charWidth[maxTableSize];     //!< size width of each charater of the font

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7E7105E3-41E2-4D3A-8374-E7EFAB5ACA3E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DNXAppTests</RootNamespace>
+    <RootNamespace>BannerTextTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>

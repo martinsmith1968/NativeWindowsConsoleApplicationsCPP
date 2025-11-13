@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2401BD94-EDD8-4C5D-BDDF-8AE3B26BC2F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DNXAppTests</RootNamespace>
+    <RootNamespace>FigLetTextTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>

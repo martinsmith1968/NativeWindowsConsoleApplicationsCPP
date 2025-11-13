@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/Arguments.h"
-#include "figlet-1.0/Figlet.hh"
+#include "..\external\embedFiglet\embedFiglet.h"
 #include <string>
 #include <chrono>
 

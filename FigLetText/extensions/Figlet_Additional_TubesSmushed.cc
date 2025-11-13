@@ -1,6 +1,6 @@
-// Converted FLF file: C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\FigLetText\AdditionalFonts\TubesRegular.flf
+// Converted FLF file: C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\FigLetText\AdditionalFonts\TubesSmushed.flf
 #include "stdafx.h"
-#include "Figlet.hh"
+#include "../../external/embedFiglet/embedFiglet.h"
 
 namespace Figlet {
 
@@ -1543,7 +1543,7 @@ namespace Figlet {
   };
 
   static unsigned const FontSize   = sizeof(characters)/sizeof(characters[0]);
-  Banner TubesRegular(characters, Hardblank, FontHeight, FontMaxLen, FontSize );
+  Banner TubesSmushed(characters, Hardblank, FontHeight, FontMaxLen, FontSize );
 
   //! \endcond
 

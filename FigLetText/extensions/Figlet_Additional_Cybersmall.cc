@@ -1,6 +1,6 @@
 // Converted FLF file: C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\FigLetText\AdditionalFonts\Cybersmall.flf
 #include "stdafx.h"
-#include "Figlet.hh"
+#include "../../external/embedFiglet/embedFiglet.h"
 
 namespace Figlet {
 

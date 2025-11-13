@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="embedFiglet-1.0">
+      <UniqueIdentifier>{59579c77-adb6-4668-8048-3f64d2466cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="embedFiglet-1.0\src">
+      <UniqueIdentifier>{b3616cda-cf4d-4a81-a184-ae21391734f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="embedFiglet-1.0\src\Headers">
+      <UniqueIdentifier>{b5888567-359c-4a1f-a649-aa56f666c822}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_banner.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_big.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_doom.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_larry3d.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_mini.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_script.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_small.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_standard.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+    <ClCompile Include="embedFiglet-1.0\src\Figlet_Font_straight.cc">
+      <Filter>embedFiglet-1.0\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="embedFiglet-1.0\src\Figlet.hh">
+      <Filter>embedFiglet-1.0\src\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

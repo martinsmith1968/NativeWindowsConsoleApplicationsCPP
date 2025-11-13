@@ -13,8 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="figlet-1.0">
-      <UniqueIdentifier>{450b97e3-ea45-438e-8ac4-337700855d22}</UniqueIdentifier>
+    <Filter Include="extensions">
+      <UniqueIdentifier>{8a9666f9-99eb-4d87-b745-9ad8cee4b15b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,8 +30,8 @@
     <ClInclude Include="App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="figlet-1.0\Figlet.hh">
-      <Filter>figlet-1.0</Filter>
+    <ClInclude Include="extensions\stdafx.h">
+      <Filter>extensions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -47,71 +47,41 @@
     <ClCompile Include="App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_ANSIRegular.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_banner.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_ASCII3D.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_big.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Crawford2.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_doom.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Cyberlarge.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_larry3d.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Cybermedium.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_mini.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Cybersmall.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_script.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Epic.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_small.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_Graffiti.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_standard.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_RedPhoenix.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Font_straight.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_StarWars.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_ANSIRegular.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_TubesRegular.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_ASCII3D.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Crawford2.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Cyberlarge.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybermedium.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Cybersmall.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Epic.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_Graffiti.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_RedPhoenix.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_StarWars.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesRegular.cc">
-      <Filter>figlet-1.0</Filter>
-    </ClCompile>
-    <ClCompile Include="figlet-1.0\Figlet_Additional_TubesSmushed.cc">
-      <Filter>figlet-1.0</Filter>
+    <ClCompile Include="extensions\Figlet_Additional_TubesSmushed.cc">
+      <Filter>extensions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,6 @@
 #include "../DNX.App/ArgumentsParser.h"
 #include "../DNX.App/ArgumentsUsageDisplay.h"
 #include <iostream>
-#include <regex>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
