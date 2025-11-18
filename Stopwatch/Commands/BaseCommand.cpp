@@ -24,15 +24,15 @@ void BaseArguments::AddOptionAdditionalText()
 }
 void BaseArguments::AddSwitchVerboseOutput(const bool default_value)
 {
-    AddSwitch("v", ArgumentNameVerboseOutput, StringUtils::BoolToString(default_value), "Control verbosity of output messages", false, APP_MAX - 10);
+    AddSwitch("v", ArgumentNameVerboseOutput, default_value, "Control verbosity of output messages", false, APP_MAX - 10);
 }
 void BaseArguments::AddSwitchIgnoreInvalidState(const bool default_value)
 {
-    AddSwitch("i", ArgumentNameIgnoreInvalidState, StringUtils::BoolToString(default_value), "Ignore errors of Stopwatch being in invalid state for the action", false, APP_MAX - 20);
+    AddSwitch("i", ArgumentNameIgnoreInvalidState, default_value, "Ignore errors of Stopwatch being in invalid state for the action", false, APP_MAX - 20);
 }
 void BaseArguments::AddSwitchShowElapsedTime(const bool default_value)
 {
-    AddSwitch("set", ArgumentNameShowElapsedTime, StringUtils::BoolToString(default_value), "Show the Stopwatch Elapsed Time", false, APP_MAX - 35);
+    AddSwitch("set", ArgumentNameShowElapsedTime, default_value, "Show the Stopwatch Elapsed Time", false, APP_MAX - 35);
 }
 void BaseArguments::AddOptionElapsedTimeDisplayFormat()
 {

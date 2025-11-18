@@ -103,7 +103,7 @@ namespace DNX::App
         void AddSwitch(
             const string& shortName,
             const string& longName = "",
-            const string& defaultValue = "",
+            bool defaultValue = false,
             const string& description = "",
             bool required = false,
             int position = 0

@@ -25,7 +25,7 @@ namespace Stopwatch
         {
             AddParameterStopwatchName();
             AddSwitchVerboseOutput(true);
-            AddSwitch("f", ArgumentNameForce, StringUtils::BoolToString(false), "Force starting even if already exists", false);
+            AddSwitch("f", ArgumentNameForce, false, "Force starting even if already exists", false);
         }
 
         bool GetForce() { return GetSwitchValue(ArgumentNameForce); }

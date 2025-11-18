@@ -153,15 +153,12 @@ void Arguments::AddOption(
 void Arguments::AddSwitch(
     const string& shortName,
     const string& longName,
-    const string& defaultValue,
+    const bool defaultValue,
     const string& description,
     const bool required,
     const int position
 )
 {
-    if (!ValueConverter::IsBool(defaultValue))
-        throw exception((string("Default Value is not a BOOL: ") + defaultValue).c_str());
-
     int realPosition = position;
     if (position <= 0)
     {
@@ -169,7 +166,7 @@ void Arguments::AddSwitch(
         realPosition = static_cast<int>(GetArgumentsByTypes(types).size() + 1);
     }
 
-    AddArgument(ArgumentType::SWITCH, ValueType::BOOL, shortName, longName, defaultValue, description, required, realPosition);
+    AddArgument(ArgumentType::SWITCH, ValueType::BOOL, shortName, longName, StringUtils::BoolToString(defaultValue), description, required, realPosition);
 }
 
 void Arguments::AddError(const string& text)
@@ -355,12 +352,12 @@ Arguments::Arguments(const ParserContext& parser_context)
 
 void Arguments::AddStandardArguments()
 {
-    AddSwitch(HelpShortName, HelpLongName, StringUtils::BoolToString(false), HelpDescription, false, INT_MAX - 2);
+    AddSwitch(HelpShortName, HelpLongName, false, HelpDescription, false, INT_MAX - 2);
 }
 void Arguments::AddFileOverrideArguments()
 {
-    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, StringUtils::BoolToString(true), GetUseDefaultArgumentsFileDesc(), false, INT_MAX - 1);
-    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , StringUtils::BoolToString(true), GetUseLocalArgumentsFileDesc()  , false, INT_MAX);
+    AddSwitch(UseDefaultArgumentsFileShortName, UseDefaultArgumentsFileLongName, true, GetUseDefaultArgumentsFileDesc(), false, INT_MAX - 1);
+    AddSwitch(UseLocalArgumentsFileShortName  , UseLocalArgumentsFileLongName  , true, GetUseLocalArgumentsFileDesc()  , false, INT_MAX);
 }
 
 bool Arguments::IsEmpty() const
