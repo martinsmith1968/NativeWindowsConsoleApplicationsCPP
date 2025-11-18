@@ -23,17 +23,23 @@ namespace PauseN
         const string ArgumentNameMessageText = "message-text";
         const string ArgumentNameTimeout = "timeout";
         const string ArgumentNameSleep = "sleep";
+        const string ArgumentNameEscapeCancelsTimeout = "escape-cancels-timeout";
+        const string ArgumentNameTimeoutCancelledText = "timeout-cancelled-text";
 
     public:
         AppArguments()
         {
             auto const defaultMessageText = "Press any key to continue (or wait {" + ArgumentNameTimeout + "} seconds) . . . ";
+            auto const defaultTimeoutCancelledText = "(Timeout Cancelled)";
             auto const defaultTimeout = std::to_string(30);
             auto const defaultSleep = std::to_string(200);
+            constexpr auto defaultEscapeCancelsTimeout = true;
 
             AddParameter(ValueType::STRING, 1, ArgumentNameMessageText, defaultMessageText, "The Text to display", false);
             AddOption(ValueType::INT, "t", ArgumentNameTimeout, defaultTimeout, "The timeout to wait for in seconds", false);
             AddOption(ValueType::INT, "s", ArgumentNameSleep, defaultSleep, "The period to sleep for between checks for in milliseconds", false);
+            AddSwitch("e", ArgumentNameEscapeCancelsTimeout, defaultEscapeCancelsTimeout, "Allow ESC to cancel timeout", false);
+            AddOption(ValueType::STRING, "c", ArgumentNameTimeoutCancelledText, defaultTimeoutCancelledText, "The text to show when a timeout is cancelled", false);
         }
 
         string GetMessageText()
@@ -49,6 +55,16 @@ namespace PauseN
         int GetSleepMilliseconds()
         {
             return ValueConverter::ToInt(GetArgumentValue(ArgumentNameSleep));
+        }
+
+        bool GetEscapeCancelsTimeout()
+        {
+            return ValueConverter::ToBool(GetArgumentValue(ArgumentNameEscapeCancelsTimeout));
+        }
+
+        string GetTimeoutCancelledText()
+        {
+            return GetArgumentValue(ArgumentNameTimeoutCancelledText);
         }
 
         static string GetReplacementText(const string& text)
