@@ -20,7 +20,7 @@ These include :
   - JetBrains have largely covered this one off with their suite of IDEs that all operate in an extremely similar way, but sometimes VSCode with
   extensions and learning the command line tooling is a better option for learning.
 - Command Line Parsing, with individual Command support
-  - _I rolled my own (rather crude one) for the C++ version as there are features I required which other libraries did not provide.
+  - I rolled my own (rather crude one) for the C++ version as there are features I required which other libraries did not provide.
   This is not something I would likely repeat for porting to a different language_.
 - Modules
   - Separating common code to be consumed across different executable outputs, and (optionally) packaging for wider sonsumption.
