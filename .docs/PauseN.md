@@ -23,7 +23,7 @@ Both the `message-text` and the `timeout-seconds` to wait can be configured (as 
 The full help text looks something like this :
 
 ```text
-PauseN v1.12.0.0-dev - Pause with a timeout
+PauseN v1.13.0.0-dev - Pause with a timeout
 Copyright © 2018-2025 Martin Smith
 
 Usage:
@@ -33,6 +33,8 @@ Options:
 [message-text] Text                   The Text to display (Default:Press any key to continue (or wait {timeout} seconds) . . . )
 -t, --timeout Integer                 The timeout to wait for in seconds (Default:30)
 -s, --sleep Integer                   The period to sleep for between checks for in milliseconds (Default:200)
+-c, --timeout-cancelled-text Text     The text to show when a timeout is cancelled (Default:(Timeout Cancelled))
+-e, --escape-cancels-timeout +/-      Allow ESC to cancel timeout (Default:true)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (PauseN.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)

@@ -18,7 +18,7 @@ public:
     AppArgumentsC1()
     {
         AddParameter(ValueType::STRING, 1, "item-name", "", "The name of the item", true);
-        AddSwitch("v", "vflag", StringUtils::BoolToString(false), "v flag", false, 0);
+        AddSwitch("v", "vflag", false, "v flag", false, 0);
     }
 
     string GetItemName() { return GetArgumentValue("item-name"); }
@@ -30,7 +30,7 @@ class AppArgumentsC2 final : public Arguments
 public:
     AppArgumentsC2()
     {
-        AddSwitch("w", "wflag", StringUtils::BoolToString(false), "w flag", false, 0);
+        AddSwitch("w", "wflag", false, "w flag", false, 0);
     }
 
     bool GetFlagW() { return GetSwitchValue("wflag"); }
@@ -41,7 +41,7 @@ class AppArgumentsC3 final : public Arguments
 public:
     AppArgumentsC3()
     {
-        AddSwitch("x", "xflag", StringUtils::BoolToString(false), "x flag", false, 0);
+        AddSwitch("x", "xflag", false, "x flag", false, 0);
     }
 
     bool GetFlagX() { return GetSwitchValue("xflag"); }

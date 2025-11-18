@@ -18,7 +18,8 @@ public:
         AddParameter(ValueType::STRING, 1, "message-text", defaultMessageText, "The Text to display", false);
         AddOption(ValueType::INT, "t", "timeout", defaultTimeout, "The timeout to wait for in seconds", false);
         AddOption(ValueType::INT, "s", "sleep", defaultSleep, "The timeout to sleep for between checks for in milliseconds", false);
-        AddSwitch("x", "debug", StringUtils::BoolToString(false), "Activate debug mode", false);
+        AddSwitch("v", "verbose", true, "Control output level", false);
+        AddSwitch("x", "debug", false, "Activate debug mode", false);
 
         SetArgumentValue("message-text", defaultMessageText);
         SetArgumentValue("timeout", defaultTimeout);
@@ -38,6 +39,11 @@ public:
     int GetSleepMilliseconds()
     {
         return ValueConverter::ToInt(GetArgumentValue("sleep"));
+    }
+
+    bool IsVerbose()
+    {
+        return GetSwitchValue("verbose");
     }
 
     bool IsDebug()

@@ -6,6 +6,7 @@
 #include <chrono>
 #include <regex>
 #include <thread>
+#include <Windows.h>
 
 using namespace std;
 using namespace PauseN;
@@ -25,16 +26,25 @@ void App::Execute(AppArguments& arguments)
     const auto exit_time = start_time + arguments.GetTimeoutSeconds();
     const auto sleep_time = std::chrono::milliseconds(arguments.GetSleepMilliseconds());
 
+    auto wait_forever = false;
     do
     {
         if (_kbhit())
         {
-            _getch();
-            break;
+            const auto key = _getch();
+            if (arguments.GetEscapeCancelsTimeout() && key == VK_ESCAPE && !wait_forever)
+            {
+                wait_forever = true;
+                cout << arguments.GetTimeoutCancelledText();
+            }
+            else
+            {
+                break;
+            }
         }
 
         std::this_thread::sleep_for(sleep_time);
-    } while (DateUtils::GetNow() < exit_time || arguments.GetTimeoutSeconds() == 0);
+    } while (wait_forever || DateUtils::GetNow() < exit_time || arguments.GetTimeoutSeconds() == 0);
 
     cout << endl;
 }
