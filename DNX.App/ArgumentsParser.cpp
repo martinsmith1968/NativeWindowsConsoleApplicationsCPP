@@ -165,7 +165,7 @@ bool ArgumentsParser::HandleAsSwitch(Arguments& arguments, const ParserConfig& p
         switchValue = false;
     }
 
-    const auto& option = arguments.GetArgumentByName(argumentName);
+    const auto& option = arguments.GetArgumentByName(switchName);
     if (option.IsEmpty())
         return false;
 

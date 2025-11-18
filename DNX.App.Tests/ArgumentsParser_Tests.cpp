@@ -60,6 +60,7 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
     EXPECT_TRUE(arguments.IsValid());
     EXPECT_EQ("bob", arguments.GetMessageText());
     EXPECT_EQ(5, arguments.GetTimeoutSeconds());
+    EXPECT_EQ(true, arguments.IsVerbose());
     EXPECT_EQ(true, arguments.IsDebug());
 }
 
@@ -84,7 +85,33 @@ TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option
     EXPECT_TRUE(arguments.IsValid());
     EXPECT_EQ("bob", arguments.GetMessageText());
     EXPECT_EQ(5, arguments.GetTimeoutSeconds());
+    EXPECT_EQ(true, arguments.IsVerbose());
     EXPECT_EQ(true, arguments.IsDebug());
+}
+
+TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_option_after_and_switch_is_deactivated_correctly)
+{
+    constexpr auto argc = 5;
+    char* argv[argc] = {
+        "",
+        "bob",
+        "-t",
+        "5",
+        "-v-",
+    };
+
+    Arguments1 arguments;
+
+    // Act
+    ArgumentsParser::ParseArguments(arguments, argc, argv);
+    TestHelper::ShowErrors(arguments);
+
+    // Assert
+    EXPECT_TRUE(arguments.IsValid());
+    EXPECT_EQ("bob", arguments.GetMessageText());
+    EXPECT_EQ(5, arguments.GetTimeoutSeconds());
+    EXPECT_EQ(false, arguments.IsVerbose());
+    EXPECT_EQ(false, arguments.IsDebug());
 }
 
 TEST(TEST_GROUP, ParseArguments_single_positional_argument_with_shortname_arguments_before_and_after_and_switch_assigns_correctly)
