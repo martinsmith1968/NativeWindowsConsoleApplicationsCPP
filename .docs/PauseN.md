@@ -22,6 +22,8 @@ Both the `message-text` and the `timeout-seconds` to wait can be configured (as 
 
 The full help text looks something like this :
 
+[//]: # (APP_HELPOUTPUT)
+
 ```text
 PauseN v1.13.0.0-dev - Pause with a timeout
 Copyright © 2018-2025 Martin Smith
