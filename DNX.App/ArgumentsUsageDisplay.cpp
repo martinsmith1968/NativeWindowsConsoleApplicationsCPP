@@ -18,6 +18,13 @@ using namespace DNX::Utils;
 
 string ArgumentsUsageDisplay::ErrorLinePrefix = "ERROR";
 
+void ArgumentsUsageDisplay::ShowVersion(
+    const AppDetails& appDetails
+)
+{
+    cout << appDetails.GetVersionDetails() << endl;
+}
+
 void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserConfig& parser_config, const AppDetails& appDetails, const string& command_name)
 {
     cout << appDetails.GetHeaderLine() << endl;

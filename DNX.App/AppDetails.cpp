@@ -16,6 +16,13 @@ AppDetails::AppDetails() = default;
 
 AppDetails::~AppDetails() = default;
 
+string AppDetails::GetVersionDetails() const
+{
+    return Version.empty()
+        ? ""
+        : "v" + Version;
+}
+
 string AppDetails::_arguments_file_extension = "options";
 
 string AppDetails::GetHeaderLine() const
@@ -26,7 +33,7 @@ string AppDetails::GetHeaderLine() const
 
     if (!Version.empty())
     {
-        text << " v" << Version;
+        text << " " << GetVersionDetails();
     }
 
     if (!Description.empty())

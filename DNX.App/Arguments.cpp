@@ -25,7 +25,7 @@ string Arguments::GetUseDefaultArgumentsFileDesc() const
 }
 string Arguments::GetUseLocalArgumentsFileDesc() const
 {
-    // TODO: This should called GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
+    // TODO: This should be called GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
     return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
 }
 
@@ -352,6 +352,7 @@ Arguments::Arguments(const ParserContext& parser_context)
 
 void Arguments::AddStandardArguments()
 {
+    AddSwitch(VersionShortName, VersionLongName, false, VersionDescription, false, INT_MAX - 3);
     AddSwitch(HelpShortName, HelpLongName, false, HelpDescription, false, INT_MAX - 2);
 }
 void Arguments::AddFileOverrideArguments()
@@ -465,6 +466,14 @@ bool Arguments::IsValid() const
 bool Arguments::IsHelp()
 {
     const auto value = GetArgumentValue(HelpLongName);
+    return ValueConverter::IsBool(value)
+        ? ValueConverter::ToBool(value)
+        : false;
+}
+
+bool Arguments::IsVersion()
+{
+    const auto value = GetArgumentValue(VersionLongName);
     return ValueConverter::IsBool(value)
         ? ValueConverter::ToBool(value)
         : false;

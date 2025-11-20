@@ -27,6 +27,7 @@ namespace DNX::App
         AppDetails();
         virtual ~AppDetails();
 
+        [[nodiscard]] string virtual GetVersionDetails() const;
         [[nodiscard]] string virtual GetHeaderLine() const;
 
         static string GetApplicationName();
