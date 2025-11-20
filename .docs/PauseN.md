@@ -18,15 +18,27 @@ Press any key to continue (or wait 30 seconds) . . .
 
 Both the `message-text` and the `timeout-seconds` to wait can be configured (as well as other things).
 
+## Latest Version
+
+[//]: # (APP_LATESTVERSION)
+
+> PauseN -!
+
+```text
+v1.15.0.0-dev
+```
+
 ## Full Help Text
 
 The full help text looks something like this :
 
 [//]: # (APP_HELPOUTPUT)
 
+> PauseN -?
+
 ```text
-PauseN v1.13.0.0-dev - Pause with a timeout
-Copyright © 2018-2025 Martin Smith
+PauseN v1.15.0.0-dev - Pause with a timeout
+Copyright ® 2018-2025 Martin Smith
 
 Usage:
 PauseN [message-text] [OPTIONS]
@@ -37,10 +49,11 @@ Options:
 -s, --sleep Integer                   The period to sleep for between checks for in milliseconds (Default:200)
 -c, --timeout-cancelled-text Text     The text to show when a timeout is cancelled (Default:(Timeout Cancelled))
 -e, --escape-cancels-timeout +/-      Allow ESC to cancel timeout (Default:true)
+-!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (PauseN.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
 
-Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\PauseN.options
-Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\PauseN.options
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\PauseN.options
+Local App arguments can be specified in : C:\utils\PauseN.options
 ```

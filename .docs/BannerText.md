@@ -43,12 +43,27 @@ BannerText "Hello World" -minl 80 -ta Center
 ********************************************************************************
 ```
 
-## Full Help Text
+## Latest Version
 
+[//]: # (APP_LATESTVERSION)
+
+> BannerText -!
 
 ```text
-BannerText v1.12.0.0-dev - Generate and display a Text Banner in the console
-Copyright © 2018-2025 Martin Smith
+v1.15.0.0-dev
+```
+
+## Full Help Text
+
+The full help text looks something like this :
+
+[//]: # (APP_HELPOUTPUT)
+
+> BannerText -?
+
+```text
+BannerText v1.15.0.0-dev - Generate and display a Text Banner in the console
+Copyright ® 2018-2025 Martin Smith
 
 Usage:
 BannerText [message-text] [OPTIONS]
@@ -67,10 +82,11 @@ Options:
 -ta, --text-alignment Value             Set Text Alignment (Default:Left, Values: Left, Right, Center)
 -minl, --min-total-length Integer       Set Minimum Total line length (Default:0)
 -maxl, --max-total-length Integer       Set Maximum Total line length (Default:0)
+-!, --version +/-                       Show App Version details (Default:false)
 -?, --help +/-                          Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-    Use Default Arguments File (BannerText.options) (Default:true)
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 
-Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\BannerText.options
-Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\BannerText.options
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\BannerText.options
+Local App arguments can be specified in : C:\utils\BannerText.options
 ```

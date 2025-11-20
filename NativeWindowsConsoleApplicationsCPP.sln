@@ -73,6 +73,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Programs", "Programs", "{CAC710FC-B5D5-496D-999E-8AD037A6FCD0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".scripts", ".scripts", "{87B8729D-B4A1-473A-94ED-C3BE0C5DEF24}"
+	ProjectSection(SolutionItems) = preProject
+		.scripts\PopulateHelpTest.ps1 = .scripts\PopulateHelpTest.ps1
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PauseN.Tests", "PauseN.Tests\PauseN.Tests.vcxproj", "{77794131-111B-40D7-873D-DB4F41159497}"
 EndProject
