@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AppError.h" />
     <ClInclude Include="ArgumentsParser.h" />
     <ClInclude Include="AppDetails.h" />
     <ClInclude Include="Argument.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="CommandsParser.h" />
     <ClInclude Include="CommandsUsageDisplay.h" />
     <ClInclude Include="ParserContext.h" />
+    <ClInclude Include="SimpleApp.h" />
     <ClInclude Include="SwitchValue.h" />
     <ClInclude Include="ArgumentsUsageDisplay.h" />
     <ClInclude Include="ParserConfig.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppError.cpp" />
     <ClCompile Include="ArgumentsParser.cpp" />
     <ClCompile Include="AppDetails.cpp" />
     <ClCompile Include="Argument.cpp" />
