@@ -2,14 +2,8 @@
 #include "App.h"
 #include "AppInfo.h"
 #include "AppArguments.h"
-#include "../DNX.Utils/StringUtils.h"
-
-#include <regex>
 
 // ReSharper disable CppInconsistentNaming
-// ReSharper disable CppClangTidyPerformanceAvoidEndl
-// ReSharper disable CppTooWideScopeInitStatement
-// ReSharper disable CppTooWideScope
 
 using namespace std;
 using namespace DNX::App;
