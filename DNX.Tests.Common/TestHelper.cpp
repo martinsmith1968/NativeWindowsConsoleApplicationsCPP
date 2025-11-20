@@ -92,29 +92,38 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 
     const auto arguments = StringUtils::SplitText(argumentsText, argumentsSeparator);
 
-    stringstream commandLine;
-    commandLine << quote << targetExecutable << quote;
+    stringstream commandLineBuilder;
+    bool is_quoted = false;
+    commandLineBuilder << quote << targetExecutable << quote;
     for (const auto& argument : arguments)
     {
-        commandLine << " ";
+        commandLineBuilder << " ";
 
         if (StringUtils::Contains(argument, " "))
         {
-            commandLine << quote << argument << quote;
+            commandLineBuilder << quote << argument << quote;
+            is_quoted = true;
         }
         else
         {
-            commandLine << argument;
+            commandLineBuilder << argument;
         }
     }
 
-    cout << "Executing: " << commandLine.str() << endl;
+    cout << "Executing: " << commandLineBuilder.str() << endl;
+
+    // NOTE : https://stackoverflow.com/questions/1557091/how-to-call-popen-with-a-pathname-containing-spaces-under-windows-in-c-c
+    auto commandLine = commandLineBuilder.str();
+    if (is_quoted)
+    {
+        commandLine = quote + commandLineBuilder.str() + quote;
+    }
 
     constexpr int BUFFER_SIZE = 1234;
     char buf[BUFFER_SIZE];
 
     string output_text;
-    FILE* output_stream = _popen(commandLine.str().c_str(), "r");
+    FILE* output_stream = _popen(commandLine.c_str(), "r");
     while (fgets(buf, sizeof(buf), output_stream))
         output_text += buf;
     _pclose(output_stream);
