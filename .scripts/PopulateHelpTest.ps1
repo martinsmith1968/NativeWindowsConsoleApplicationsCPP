@@ -34,6 +34,7 @@ foreach ( $app in $apps.GetEnumerator() ) {
     $docs_helptext_folder = Join-Path $docs_folder -ChildPath "HelpText"
 
     # TODO: Adjust paths in output content
+    # TODO: Support multi-command apps
 
     Write-Host "  Generating Version info for: $appName"
     $version_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + ".Version.txt")
