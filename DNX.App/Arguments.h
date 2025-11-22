@@ -136,6 +136,7 @@ namespace DNX::App
 
     public:
         Arguments();
+        Arguments(const Arguments& other);
         explicit Arguments(const ParserContext& parser_context);
         virtual ~Arguments() = default;
 
@@ -147,7 +148,7 @@ namespace DNX::App
         static Arguments& Empty();
 
         [[nodiscard]] list<Argument> GetArguments() const;
-        ParserContext& GetParserContext() const { return const_cast<ParserContext&>(_parser_context); }
+        const ParserContext& GetParserContext() const { return _parser_context; }
         [[nodiscard]] list<Argument> GetArgumentsByType(ArgumentType ArgumentType) const;
         [[nodiscard]] list<Argument> GetArgumentsByTypes(const list<ArgumentType>& ArgumentTypes) const;
 

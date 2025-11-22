@@ -9,6 +9,13 @@ using namespace DNX::App;
 
 EmptyCommand Command::_empty_command = EmptyCommand();
 
+Command::Command()
+{
+    m_arguments = &Arguments::Empty();
+    m_name = "";
+    m_description = "";
+    m_sequence = 0;
+}
 Command::Command(
     Arguments* arguments,
     const string& name,
@@ -25,14 +32,6 @@ Command::Command(
     m_name        = name;
     m_description = description;
     m_sequence    = sequence;
-}
-
-Command::Command()
-{
-    m_arguments   = &Arguments::Empty();
-    m_name        = "";
-    m_description = "";
-    m_sequence    = 0;
 }
 
 bool Command::CompareBySequence(const Command& first, const Command& second)

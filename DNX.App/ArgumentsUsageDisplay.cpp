@@ -99,7 +99,8 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
     list<string> argument_file_lines;
     if (parser_config.GetUseDefaultArgumentsFile())
     {
-        const auto file_name = arguments.GetParserContext().GetDefaultArgumentsFileName();
+        const auto& parser_context = arguments.GetParserContext();
+        const auto file_name = parser_context.GetDefaultArgumentsFileName();
 
         const auto found = FileUtils::FileExists(file_name);
 

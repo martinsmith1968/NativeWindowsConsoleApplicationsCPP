@@ -26,6 +26,13 @@ namespace DNX::App
 
     public:
         Command();
+        Command(const Command& other) = default;
+        Command(
+            Arguments* arguments,
+            const string& name,
+            const string& description,
+            int sequence = 0
+        );
         virtual ~Command() = default;
 
         static bool CompareBySequence(const Command& first, const Command& second);
@@ -36,13 +43,6 @@ namespace DNX::App
         [[nodiscard]] string GetName() const;
         [[nodiscard]] string GetDescription() const;
         [[nodiscard]] int GetSequence() const;
-
-        Command(
-            Arguments* arguments,
-            const string& name,
-            const string& description,
-            int sequence = 0
-        );
 
         static EmptyCommand _empty_command;
         static EmptyCommand& Empty();

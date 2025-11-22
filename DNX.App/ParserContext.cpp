@@ -7,7 +7,7 @@
 using namespace std;
 using namespace DNX::App;
 
-ParserContext ParserContext::_empty_context = ParserContext();
+const ParserContext ParserContext::_empty_context = ParserContext();
 
 ParserContext::ParserContext()
     : ParserContext("")
@@ -38,4 +38,4 @@ string ParserContext::GetLocalArgumentsFileName() const
     return AppDetails::GetLocalCommandArgumentsFileName(_command_name);
 }
 
-ParserContext& ParserContext::Empty() { return _empty_context; }
+const ParserContext& ParserContext::Empty() { return _empty_context; }

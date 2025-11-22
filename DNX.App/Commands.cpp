@@ -16,9 +16,22 @@ CommandArguments& Commands::GetArguments()
     return _arguments;
 }
 
+void Commands::InitialiseCommandArguments()
+{
+    _arguments.Reset();
+    _arguments.AddStandardArguments();
+    _arguments.AddFileOverrideArguments();
+}
+
+void Commands::AppendCommandsToCommandArguments()
+{
+    _arguments.BuildFromCommands(GetCommands());
+}
+
 void Commands::AddCommand(const Command& command)
 {
-    _commands[command.GetName()] = command;
+    //_commands[command.GetName()] = command;
+    _commands.emplace(command.GetName(), command);
 }
 
 list<Command> Commands::GetCommands() const

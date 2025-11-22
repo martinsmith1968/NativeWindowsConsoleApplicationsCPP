@@ -9,6 +9,8 @@
 #include <string>
 #include <chrono>
 
+// ReSharper disable CppClangTidyClangDiagnosticCoveredSwitchDefault
+
 namespace DNX::Tests::Common {
 
     class BlockTimer {
@@ -64,28 +66,30 @@ namespace DNX::Tests::Common {
             const std::uint64_t ns_count = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
 
             switch (fmt) {
-            case TimeFormat::NANOSECONDS:
-            {
-                return ns_count;
-            }
-            case TimeFormat::MICROSECONDS:
-            {
-                std::uint64_t up = ((ns_count / 100) % 10 >= 5) ? 1 : 0;
-                const auto mus_count = (ns_count / 1000) + up;
-                return mus_count;
-            }
-            case TimeFormat::MILLISECONDS:
-            {
-                std::uint64_t up = ((ns_count / 100000) % 10 >= 5) ? 1 : 0;
-                const auto ms_count = (ns_count / 1000000) + up;
-                return ms_count;
-            }
-            case TimeFormat::SECONDS:
-            {
-                std::uint64_t up = ((ns_count / 100000000) % 10 >= 5) ? 1 : 0;
-                const auto s_count = (ns_count / 1000000000) + up;
-                return s_count;
-            }
+                case TimeFormat::NANOSECONDS:
+                {
+                    return ns_count;
+                }
+                case TimeFormat::MICROSECONDS:
+                {
+                    std::uint64_t up = ((ns_count / 100) % 10 >= 5) ? 1 : 0;
+                    const auto mus_count = (ns_count / 1000) + up;
+                    return mus_count;
+                }
+                case TimeFormat::MILLISECONDS:
+                {
+                    std::uint64_t up = ((ns_count / 100000) % 10 >= 5) ? 1 : 0;
+                    const auto ms_count = (ns_count / 1000000) + up;
+                    return ms_count;
+                }
+                case TimeFormat::SECONDS:
+                {
+                    std::uint64_t up = ((ns_count / 100000000) % 10 >= 5) ? 1 : 0;
+                    const auto s_count = (ns_count / 1000000000) + up;
+                    return s_count;
+                }
+                default:
+                    return ns_count;
             }
         }
     };

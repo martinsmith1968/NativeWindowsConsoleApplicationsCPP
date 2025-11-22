@@ -95,6 +95,9 @@
     <ClInclude Include="Commands\StopCommand.h">
       <Filter>Header Files\Commands\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AppInfo.rc">

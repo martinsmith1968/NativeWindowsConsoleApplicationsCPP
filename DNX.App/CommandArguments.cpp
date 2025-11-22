@@ -6,11 +6,11 @@
 using namespace std;
 using namespace DNX::App;
 
+const string CommandArguments::CommandNameLongName    = "command-name";
+const string CommandArguments::CommandNameDescription = "The command to execute";
+
 void CommandArguments::BuildFromCommands(list<Command> commands)
 {
-    Reset();
-    AddFileOverrideArguments();
-
     list<string> command_name_value_list;
     for (auto iter = commands.begin(); iter != commands.end(); ++iter)
     {

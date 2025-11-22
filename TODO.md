@@ -1,8 +1,15 @@
 # To Do
 
+## New Apps
+
+- [ ] Text File BOM Detector / Changer
+  - https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8
+  - https://superuser.com/questions/1823317/how-to-identify-a-file-encoding
+
 ## Fixes
 
-- None
+- Stopwatch
+  - List Command Help generates bad allocation error
 
 ### General
 

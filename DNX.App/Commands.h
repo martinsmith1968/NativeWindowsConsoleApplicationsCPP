@@ -10,6 +10,7 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable CppClangTidyClangDiagnosticPadded
 
 using namespace std;
 using namespace DNX::Utils;
@@ -26,15 +27,23 @@ namespace DNX::App
 
     public:
         Commands() = default;
+        virtual ~Commands() = default;
 
         CommandArguments& GetArguments();
+        virtual void InitialiseCommandArguments();
+        void AppendCommandsToCommandArguments();
 
         void AddCommand(const Command& command);
 
-        list<Command> GetCommands() const;
+        [[nodiscard]] list<Command> GetCommands() const;
         Command& GetCommandByName(const string& commandName);
 
-        list<string> GetErrors() const;
-        bool IsValid() const;
+        [[nodiscard]] list<string> GetErrors() const;
+        [[nodiscard]] bool IsValid() const;
+
+        virtual void Execute(const Command& command) = 0;
+
+        bool IsHelp() { return _arguments.IsHelp();  }
+        bool IsVersion() { return _arguments.IsVersion(); }
     };
 }

@@ -75,6 +75,9 @@
     <ClInclude Include="AppError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MultiCommandApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

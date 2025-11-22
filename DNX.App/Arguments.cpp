@@ -343,6 +343,17 @@ Arguments::Arguments()
 {
 }
 
+Arguments::Arguments(const Arguments& other)
+    : _last_position(other._last_position)
+    , _arguments(other._arguments)
+    , _values(other._values)
+    , _multipleValues(other._multipleValues)
+    , _notes(other._notes)
+    , _errors(other._errors)
+    , _parser_context(other._parser_context)
+{
+}
+
 Arguments::Arguments(const ParserContext& parser_context)
     : _parser_context(parser_context)
 {

@@ -257,7 +257,6 @@ ArgumentsParser::ArgumentsParser(Arguments& arguments, const AppDetails& app_det
     _app_details(app_details),
     _parser_config(parser_config),
     _parser_context(parser_context)
-
 {
 }
 

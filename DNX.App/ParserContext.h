@@ -17,7 +17,7 @@ namespace DNX::App
     class ParserContext {
         string _command_name;
 
-        static ParserContext _empty_context;
+        static const ParserContext _empty_context;
 
     public:
         ParserContext();
@@ -27,6 +27,6 @@ namespace DNX::App
         string GetDefaultArgumentsFileName() const;
         string GetLocalArgumentsFileName() const;
 
-        static ParserContext& Empty();
+        static const ParserContext& Empty();
     };
 }

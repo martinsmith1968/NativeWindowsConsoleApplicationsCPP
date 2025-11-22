@@ -3,7 +3,6 @@
 #include "pch.h"
 #include "../DNX.App/Arguments.h"
 #include "../DNX.App/Commands.h"
-#include "../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -84,4 +83,5 @@ public:
         AddCommand(_command_c2);
         AddCommand(_command_c3);
     }
+    void Execute(const Command& command) override { }
 };

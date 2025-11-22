@@ -26,7 +26,7 @@ namespace DNX::App
         explicit CommandsParser(Commands& commands, const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
         Command& Parse(int argc, char* argv[]) const;
 
-        static list<string> RefineCommandArguments(const list<string>& arguments, const string& commandName);
+        static list<string> RefineCommandArgumentValues(const list<string>& argument_values, const string& commandName);
 
         static Command& ParseCommands(Commands& commands, int argc, char* argv[], const AppDetails& app_details = AppDetails(), const ParserConfig& parser_config = ParserConfig());
     };

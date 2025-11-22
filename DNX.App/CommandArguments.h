@@ -12,9 +12,8 @@ namespace DNX::App
     // CommandArguments
     class CommandArguments final : public Arguments
     {
-        const string CommandNameLongName = "command-name";
-
-        const string CommandNameDescription = "The command to execute";
+        static const string CommandNameLongName;
+        static const string CommandNameDescription;
 
     public:
         CommandArguments() = default;
