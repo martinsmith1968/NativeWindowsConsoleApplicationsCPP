@@ -43,13 +43,17 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
         {
             raw_arguments.push_back(StringUtils::RemoveStartsAndEndsWith(parts, quote));
         }
-        else
+        else if (StringUtils::Contains(parts, " "))
         {
             auto argument_name = SanitizeText(StringUtils::Before(parts, " "));
             auto argument_value = SanitizeText(StringUtils::After(parts, " "));
 
             raw_arguments.push_back(argument_name);
             raw_arguments.push_back(argument_value);
+        }
+        else
+        {
+            raw_arguments.push_back(SanitizeText(parts));
         }
     }
 

@@ -84,13 +84,27 @@ timer1|1736190111|0|0.000000
 timer2|1736190115|0|0.000000
 ```
 
-## Full Help Text
+## Latest Version
 
-### Command List
+[//]: # (APP_LATESTVERSION)
+
+> Stopwatch -!
 
 ```text
-Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+v1.15.0.0-dev
+```
+
+## Full Help Text
+
+The full help text looks something like this :
+
+[//]: # (APP_HELPOUTPUT)
+
+> Stopwatch -?
+
+```text
+Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Copyright Â® 2018-2025 Martin Smith
 
 Usage:
 Stopwatch [command-name] { [command-arguments] }
@@ -105,8 +119,8 @@ Elapsed    Display the current elapsed time of an active Stopwatch
 Pause      Pause an active Stopwatch
 Resume     Resume a paused Stopwatch
 
-Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
-Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
+Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
 ```
 
 ### List
@@ -120,9 +134,11 @@ timer2: Running - 3 days, 1 hours, 39 minutes, 11 seconds
 Found: 2 stopwatches
 ```
 
+[//]: # (CMD_HELPOUTPUT List)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch List [OPTIONS]
@@ -146,9 +162,11 @@ Sample Output :
 timer1 started at 12:20:59
 ```
 
+[//]: # (CMD_HELPOUTPUT Start)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Start [stopwatch-name] [OPTIONS]
@@ -172,9 +190,11 @@ Sample Output :
 timer1: Stopped - 2 minutes, 40 seconds
 ```
 
+[//]: # (CMD_HELPOUTPUT Stop)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Stop [stopwatch-name] [OPTIONS]
@@ -199,9 +219,11 @@ Sample Output :
 timer2: Running - 5 minutes, 46 seconds
 ```
 
+[//]: # (CMD_HELPOUTPUT Elapsed)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Elapsed [stopwatch-name] [OPTIONS]
@@ -224,9 +246,11 @@ Sample Output :
 > stopwatch cancel timer1
 ```
 
+[//]: # (CMD_HELPOUTPUT Cancel)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Cancel [stopwatch-name] [OPTIONS]
@@ -248,9 +272,11 @@ Sample Output :
 > stopwatch pause timer1
 ```
 
+[//]: # (CMD_HELPOUTPUT Pause)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Pause [stopwatch-name] [OPTIONS]
@@ -281,9 +307,11 @@ timer1 resumed
 timer1: Active - 33 seconds
 ```
 
+[//]: # (CMD_HELPOUTPUT Resume)
+
 ```text
 Stopwatch v1.12.0.0-dev - Control named out-of-process Timers
-Copyright © 2018-2025 Martin Smith
+Copyright ï¿½ 2018-2025 Martin Smith
 
 Usage:
 Stopwatch Resume [stopwatch-name] [OPTIONS]

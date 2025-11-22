@@ -13,6 +13,7 @@
 
 ### General
 
+- [X] @filename not working (E.g. bannertext @args.txt does not use lines from file)
 - [X] Introduce some app output tests (Abandoned TextTest)
 - [X] Invoke via CI
 
