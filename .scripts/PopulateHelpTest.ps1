@@ -1,8 +1,11 @@
 $app_output_path = Join-Path $PSScriptRoot -ChildPath ".." "Output"
 
+# TODO: Adjust paths in output content (or call from temp folder)
+
 $latest_version_slug = "[//]: # (APP_LATESTVERSION)"
 $help_output_slug = "[//]: # (APP_HELPOUTPUT)"
 $command_output_slug_prefix = "[//]: # (CMD_HELPOUTPUT"
+$command_output_slug_suffix = ")"
 
 $allfiles = Get-ChildItem -Path $app_output_path -File -Filter "*.exe" -Recurse
 Write-Host $allfiles.Length
@@ -33,9 +36,6 @@ foreach ( $app in $apps.GetEnumerator() ) {
     $docs_folder = Join-Path $PSScriptRoot -ChildPath ".." ".docs"
     $docs_helptext_folder = Join-Path $docs_folder -ChildPath "HelpText"
 
-    # TODO: Adjust paths in output content
-    # TODO: Support multi-command apps
-
     Write-Host "  Generating Version info for: $appName"
     $version_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + ".Version.txt")
     $version_text = (& $appFile.FullName -!)
@@ -47,6 +47,39 @@ foreach ( $app in $apps.GetEnumerator() ) {
     $about_text = (& $appFile.FullName -?)
     Write-Host "    Writing About info to: $about_output_file"
     Set-Content -Path $about_output_file -Value $about_text -Encoding UTF8
+
+    if ($about_text.IndexOf("Commands:") -ge 0) {
+        # Multi-command app, extract commands
+        $commands = @()
+        $in_commands_section = $false
+        $commands_section_blank_line_count = 0
+        foreach ($line in $about_text) {
+            if ($line.Trim() -eq "Commands:") {
+                $in_commands_section = $true
+                continue
+            }
+            if ($in_commands_section) {
+                if ($line.Trim() -eq "") {
+                    $commands_section_blank_line_count += 1
+                    if ($commands_section_blank_line_count -ge 2) {
+                        break
+                    } else {
+                        continue
+                    }
+                }
+                $command_name = $line.Trim().Split(" ")[0].ToString()
+                $commands += $command_name
+            }
+        }
+
+        foreach ($cmd in $commands) {
+            Write-Host "    Generating Help info for Command: $cmd"
+            $cmd_help_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + "-" + $cmd + ".About.txt")
+            $cmd_help_text = (& $appFile.FullName $cmd -?)
+            Write-Host "      Writing Command Help info to: $cmd_help_output_file"
+            Set-Content -Path $cmd_help_output_file -Value $cmd_help_text -Encoding UTF8
+        }
+    }
 }
 
 
@@ -73,17 +106,19 @@ foreach ( $app in $apps.GetEnumerator() ) {
 
     $replacing_version = $false
     $replacing_about = $false
+    $replacing_cmd_about = $false
     foreach($line in $doc_content) {
         
         if ($line -eq "``````") {
-            if ($replacing_version -or $replacing_about) {
+            if ($replacing_version -or $replacing_about -or $replacing_cmd_about) {
                 $replacing_version = $false
                 $replacing_about = $false
+                $replacing_cmd_about = $false
                 continue
             }
         }
 
-        if ($replacing_version -or $replacing_about) {
+        if ($replacing_version -or $replacing_about -or $replacing_cmd_about) {
             continue
         }
 
@@ -123,6 +158,27 @@ foreach ( $app in $apps.GetEnumerator() ) {
             }
             else {
                 Write-Host "  WARNING: About file not found: $about_file" -ForegroundColor Yellow
+            }
+            continue
+        }
+
+        if ($line.StartsWith($command_output_slug_prefix) -and $line.EndsWith($command_output_slug_suffix)) {
+            $command_name = $line.Substring($command_output_slug_prefix.Length, $line.Length - $command_output_slug_prefix.Length - $command_output_slug_suffix.Length).Trim()
+            $commmand_help_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + "-" + $command_name + ".About.txt")
+            if (Test-Path -Path $commmand_help_file -PathType Leaf) {
+                $replacing_cmd_about = $true
+                $cmd_help_text = Get-Content -Path $commmand_help_file
+                Write-Host "  Replacing Command Help slug in doc: $doc_file for command: $command_name"
+                $new_content += $line
+                $new_content += ""
+                $new_content += "> ${appBaseName} ${command_name} -?"
+                $new_content += ""
+                $new_content += "``````text"
+                $new_content += $cmd_help_text
+                $new_content += "``````"
+            }
+            else {
+                Write-Host "  WARNING: Command Help file not found: $commmand_help_file" -ForegroundColor Yellow
             }
             continue
         }
