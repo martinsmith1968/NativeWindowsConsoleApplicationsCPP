@@ -15,7 +15,7 @@ using namespace Stopwatch;
 int main(const int argc, char* argv[])
 {
     const AppInfo app_info;
-    const ParserConfig parser_config;
+    ParserConfig parser_config;
     AppCommands commands;
 
     auto app = App(app_info, commands, parser_config);

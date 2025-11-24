@@ -3,12 +3,26 @@
 #include "StringUtils.h"
 #include <iostream>
 #include <cstdlib>
+#include <windows.h>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppExpressionWithoutSideEffects
+// ReSharper disable CppClangTidyMiscUseAnonymousNamespace
 
 using namespace DNX::Utils;
+
+namespace DNX::Utils::EnvironmentUtilsHelpers
+{
+    static CONSOLE_SCREEN_BUFFER_INFO GetConsoleScreenBufferInfoInternal()
+    {
+        CONSOLE_SCREEN_BUFFER_INFO console_screen_buffer_info;
+
+        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &console_screen_buffer_info);
+
+        return console_screen_buffer_info;
+    }
+}
 
 string EnvironmentUtils::GetNewLine()
 {
@@ -70,4 +84,20 @@ string EnvironmentUtils::GetEnvironmentVariableValue(const string& variable_name
     }
 
     return variable_value;
+}
+
+// From : https://stackoverflow.com/questions/23369503/get-size-of-terminal-window-rows-columns
+int EnvironmentUtils::GetConsoleWindowWidth()
+{
+    const auto console_size = EnvironmentUtilsHelpers::GetConsoleScreenBufferInfoInternal();
+    const auto columns = console_size.srWindow.Right - console_size.srWindow.Left + 1;
+    return columns;
+}
+
+// From : https://stackoverflow.com/questions/23369503/get-size-of-terminal-window-rows-columns
+int EnvironmentUtils::GetConsoleWindowHeight()
+{
+    const auto console_size = EnvironmentUtilsHelpers::GetConsoleScreenBufferInfoInternal();
+    const auto rows = console_size.srWindow.Bottom - console_size.srWindow.Top + 1;
+    return rows;
 }

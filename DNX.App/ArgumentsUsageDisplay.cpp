@@ -87,12 +87,28 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
             argument_details.push_back(argument_detail);
         }
 
-        const auto padded_details_width = max_argument_details_length + 2;
+        const auto argument_details_width = max_argument_details_length + 2;
         for (auto& tup : argument_details)
         {
-            cout << left << setfill(' ') << setw(static_cast<streamsize>(padded_details_width)) << get<0>(tup)
-                << get<1>(tup)
-                << endl;
+            auto description_lines = parser_config.GetHelpTextWriter()->BuildHelpTextLines(get<1>(tup), static_cast<int>(argument_details_width));
+
+            auto sequence = 0;
+            for (auto& line : description_lines)
+            {
+                ++sequence;
+                if (sequence == 1)
+                {
+                    cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_details_width)) << get<0>(tup)
+                        << line
+                        << endl;
+                }
+                else
+                {
+                    cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_details_width)) << " "
+                        << line
+                        << endl;
+                }
+            }
         }
     }
 

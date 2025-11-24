@@ -20,5 +20,7 @@ namespace DNX::Utils
         static map<string, string> GetEnvironmentVariables();
         static list<string> GetEnvironmentVariableNames();
         static string GetEnvironmentVariableValue(const string& variable_name);
+        static int GetConsoleWindowWidth();
+        static int GetConsoleWindowHeight();
     };
 }
