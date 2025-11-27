@@ -32,7 +32,7 @@ namespace DNX::App
     {
     protected:
         const AppDetails& _app_details;
-        TCommands& _app_commands;
+        Commands& _app_commands;
         const ParserConfig _parser_config;
 
         AppError _app_error = AppError::Empty();
@@ -60,17 +60,18 @@ namespace DNX::App
             , _app_commands(app_commands)
             , _parser_config(parser_config)
         {
+            // Compile-time check ; https://stackoverflow.com/questions/122316/template-constraints-c
+            static_assert(std::is_base_of_v<Commands, TCommands>, "type parameter of this class must derive from Commands");
         }
 
         virtual int Run(int argc, char* argv[])
         {
             try
             {
-                auto& command = CommandsParser::ParseCommands(_app_commands, argc, argv);
+                auto& command = CommandsParser::ParseCommands(_app_commands, argc, argv, _app_details, _parser_config);
 
                 if (command.IsEmpty())
                 {
-
                     if (_app_commands.IsHelp())
                     {
                         CommandsUsageDisplay::ShowUsage(_app_commands, _parser_config, _app_details);
@@ -81,6 +82,13 @@ namespace DNX::App
                         ArgumentsUsageDisplay::ShowVersion(_app_details);
                         SetError("", 2);
                         return 2;
+                    }
+                    if (!_app_commands.GetArguments().IsValid())
+                    {
+                        CommandsUsageDisplay::ShowUsage(_app_commands, _parser_config, _app_details);
+                        ArgumentsUsageDisplay::ShowErrors(_app_commands.GetArguments(), 1);
+                        SetError("", 3);
+                        return 3;
                     }
 
                     CommandsUsageDisplay::ShowUsage(_app_commands, _parser_config, _app_details);

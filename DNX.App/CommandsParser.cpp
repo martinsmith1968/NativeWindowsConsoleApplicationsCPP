@@ -41,15 +41,19 @@ Command& CommandsParser::Parse(int argc, char* argv[]) const
     {
         auto& selected_command = _commands.GetCommandByName(selected_command_name);
         if (selected_command.IsEmpty())
+        {
             command_arguments.AddError("Invalid or unknown command: " + selected_command_name);
+        }
+        else
+        {
+            // Filter remaining arguments on to be parsed
+            const auto refined_arguments = RefineCommandArgumentValues(ListUtils::ToList(argc, argv, 1), selected_command.GetName());
+            const auto parser_context = ParserContext(selected_command.GetName());
+            const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config, parser_context);
+            arguments_parser.Parse(refined_arguments);
 
-        // Filter remaining arguments on to be parsed
-        const auto refined_arguments = RefineCommandArgumentValues(ListUtils::ToList(argc, argv, 1), selected_command.GetName());
-        const auto parser_context = ParserContext(selected_command.GetName());
-        const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config, parser_context);
-        arguments_parser.Parse(refined_arguments);
-
-        return selected_command;
+            return selected_command;
+        }
     }
 
     return Command::Empty();

@@ -25,6 +25,7 @@
 - [ ] (Optionally) Support default argument files per command ([appname].[commandname].options)
 - [ ] (Optionally) Support default argument files per command in Help text
 - [X] Add Help text for adding a file of arguments
+- [ ] Line Wrapping Help Writer for long argument descriptions to wrap better
 
 ### Enhancements - Stopwatch
 

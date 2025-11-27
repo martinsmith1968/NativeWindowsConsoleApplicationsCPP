@@ -26,7 +26,7 @@ namespace DNX::App
 
     public:
         Command();
-        Command(const Command& other) = default;
+        Command(const Command& other);
         Command(
             Arguments* arguments,
             const string& name,

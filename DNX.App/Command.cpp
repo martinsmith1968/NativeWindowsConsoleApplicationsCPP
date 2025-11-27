@@ -7,8 +7,6 @@
 using namespace std;
 using namespace DNX::App;
 
-EmptyCommand Command::_empty_command = EmptyCommand();
-
 Command::Command()
 {
     m_arguments = &Arguments::Empty();
@@ -16,6 +14,15 @@ Command::Command()
     m_description = "";
     m_sequence = 0;
 }
+
+Command::Command(const Command& other)
+    : m_arguments(other.m_arguments)
+    , m_name(other.m_name)
+    , m_description(other.m_description)
+    , m_sequence(other.m_sequence)
+{
+}
+
 Command::Command(
     Arguments* arguments,
     const string& name,
@@ -43,6 +50,7 @@ bool Command::IsEmpty() const
 {
     return m_name.empty();
 }
+
 Arguments& Command::GetArguments() const
 {
     return *m_arguments;
@@ -59,6 +67,7 @@ int Command::GetSequence() const
 {
     return m_sequence;
 }
+EmptyCommand Command::_empty_command = EmptyCommand();
 
 EmptyCommand& Command::Empty()
 {

@@ -247,6 +247,9 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
                 if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
                     continue;
 
+                if (!iter->GetValueList().empty())
+                    continue;   // Already reported
+
                 arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
             }
         }

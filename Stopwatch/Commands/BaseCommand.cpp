@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "BaseCommand.h"
-#include "../../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 

@@ -111,13 +111,13 @@ Stopwatch [command-name] { [command-arguments] }
 
 Commands:
 
-List       List all active Stopwatches
-Start      Start a named Stopwatch
-Stop       Start an active Stopwatch
-Cancel     Cancel an active Stopwatch
-Elapsed    Display the current elapsed time of an active Stopwatch
-Pause      Pause an active Stopwatch
-Resume     Resume a paused Stopwatch
+List     List all active Stopwatches
+Start    Start a named Stopwatch
+Stop     Start an active Stopwatch
+Cancel   Cancel an active Stopwatch
+Elapsed  Display the current elapsed time of an active Stopwatch
+Pause    Pause an active Stopwatch
+Resume   Resume a paused Stopwatch
 
 Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
 Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
