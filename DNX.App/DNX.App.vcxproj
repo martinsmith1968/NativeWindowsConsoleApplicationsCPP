@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AppError.h" />
     <ClInclude Include="ArgumentsParser.h" />
     <ClInclude Include="AppDetails.h" />
     <ClInclude Include="Argument.h" />
@@ -167,7 +168,11 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="CommandsParser.h" />
     <ClInclude Include="CommandsUsageDisplay.h" />
+    <ClInclude Include="HelpTextWriter.h" />
+    <ClInclude Include="LineWrappingHelpTextWriter.h" />
+    <ClInclude Include="MultiCommandApp.h" />
     <ClInclude Include="ParserContext.h" />
+    <ClInclude Include="SimpleApp.h" />
     <ClInclude Include="SwitchValue.h" />
     <ClInclude Include="ArgumentsUsageDisplay.h" />
     <ClInclude Include="ParserConfig.h" />
@@ -176,8 +181,10 @@
     <ClInclude Include="ValueType.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WordWrappingHelpTextWriter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppError.cpp" />
     <ClCompile Include="ArgumentsParser.cpp" />
     <ClCompile Include="AppDetails.cpp" />
     <ClCompile Include="Argument.cpp" />
@@ -187,6 +194,8 @@
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="CommandsParser.cpp" />
     <ClCompile Include="CommandsUsageDisplay.cpp" />
+    <ClCompile Include="HelpTextWriter.cpp" />
+    <ClCompile Include="LineWrappingHelpTextWriter.cpp" />
     <ClCompile Include="ParserContext.cpp" />
     <ClCompile Include="SwitchValue.cpp" />
     <ClCompile Include="ArgumentsUsageDisplay.cpp" />
@@ -200,6 +209,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WordWrappingHelpTextWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DNX.Utils\DNX.Utils.vcxproj">

@@ -17,9 +17,11 @@ namespace Stopwatch
 {
     class CancelArguments final : public BaseArguments
     {
+        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL)));
+
     public:
         CancelArguments()
-            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL))))
+            : BaseArguments(m_parser_context)
         {
             AddParameterStopwatchName();
             AddSwitchVerboseOutput(false);

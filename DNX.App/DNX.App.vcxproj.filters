@@ -69,6 +69,24 @@
     <ClInclude Include="ParserContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiCommandApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LineWrappingHelpTextWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpTextWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordWrappingHelpTextWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -120,6 +138,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CommandArguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AppError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineWrappingHelpTextWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpTextWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WordWrappingHelpTextWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Stopwatch_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ExpectedOutput">
+      <UniqueIdentifier>{22719b0a-b441-4d02-af26-46f5afaeb1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{72feeef6-2f3f-48f8-b1c4-305b43aa2f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{27472c2d-81c0-4889-958a-4ac71a4c9eb6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ExpectedOutput\Execute_test.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_with_help_request_long_produces_command_list.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_with_help_request_short_produces_command_list.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

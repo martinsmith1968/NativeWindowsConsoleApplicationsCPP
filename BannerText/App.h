@@ -1,14 +1,20 @@
 #pragma once
 
 #include "AppArguments.h"
+#include "../DNX.App/SimpleApp.h"
 
 // ReSharper disable CppInconsistentNaming
 
 namespace BannerText
 {
-    class App
+    class App : public SimpleApp<AppArguments>
     {
     public:
-        static void Execute(AppArguments& arguments);  // NOLINT(misc-use-anonymous-namespace)
+        App(const int argc, char* argv[], const AppDetails& app_details, AppArguments& arguments, const ParserConfig& parser_config)
+            : SimpleApp(argc, argv, app_details, arguments, parser_config)
+        {
+        }
+
+        void Execute(AppArguments& arguments) override;
     };
 }

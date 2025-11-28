@@ -25,14 +25,17 @@ namespace DNX::App
     class Arguments
     {
         const string HelpShortName = "?";
+        const string VersionShortName = "!";
         const string UseDefaultArgumentsFileShortName = "@";
         const string UseLocalArgumentsFileShortName = "$";
 
         const string HelpLongName = "help";
+        const string VersionLongName = "version";
         const string UseDefaultArgumentsFileLongName = "use-default-arguments-file";
         const string UseLocalArgumentsFileLongName = "use-local-arguments-file";
 
         const string HelpDescription = "Show Help screen";
+        const string VersionDescription = "Show App Version details";
         [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const;
         [[nodiscard]] string GetUseLocalArgumentsFileDesc() const;
 
@@ -133,6 +136,7 @@ namespace DNX::App
 
     public:
         Arguments();
+        Arguments(const Arguments& other);
         explicit Arguments(const ParserContext& parser_context);
         virtual ~Arguments() = default;
 
@@ -144,7 +148,7 @@ namespace DNX::App
         static Arguments& Empty();
 
         [[nodiscard]] list<Argument> GetArguments() const;
-        ParserContext& GetParserContext() const { return const_cast<ParserContext&>(_parser_context); }
+        const ParserContext& GetParserContext() const { return _parser_context; }
         [[nodiscard]] list<Argument> GetArgumentsByType(ArgumentType ArgumentType) const;
         [[nodiscard]] list<Argument> GetArgumentsByTypes(const list<ArgumentType>& ArgumentTypes) const;
 
@@ -152,6 +156,7 @@ namespace DNX::App
         [[nodiscard]] list<string> GetNotes() const;
         [[nodiscard]] bool IsValid() const;
         bool IsHelp();
+        bool IsVersion();
         bool IsUsingDefaultArgumentsFile();
 
     };

@@ -25,7 +25,7 @@ namespace Stopwatch
     // Commands
     class AppCommands final : public Commands
     {
-        ListArguments  _list_arguments;
+        //ListArguments  _list_arguments;
 
         ListCommand m_list_command;
         StartCommand m_start_command;
@@ -47,11 +47,14 @@ namespace Stopwatch
             AddCommand(m_cancel_command);
         }
 
-        void Execute(const Command& command)
+        void Execute(const Command& command) override
         {
-            // NOTE: Necessary until rework for Parse to return a pointer rather than a reference
+            // NOTE: command.Execute() does not work as expected
+            //       So, this is necessary until rework for Parse to return a pointer rather than a reference
             //       Then we *should* be able to call command->Execute() from main and let the vtable execute the correct instance method
             //       (Currently doesn't work with references, but at least it's all encapsulated here)
+            //
+            // command.Execute()
             if (command.GetName() == m_list_command.GetName())
             {
                 m_list_command.Execute();

@@ -49,9 +49,11 @@ namespace Stopwatch
         const string ArgumentNameOutputFormat = "output-format";
         const string ArgumentNameCustomFormatText = "custom-format-text";
 
+        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST)));
+
     public:
         ListArguments()
-            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST))))
+            : BaseArguments(m_parser_context)
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);

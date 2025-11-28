@@ -30,13 +30,13 @@ namespace Stopwatch
     protected:
         const int APP_MAX = INT_MAX - 10;
 
-        const string ArgumentNameDataFileName = "data-filename";
-        const string ArgumentNameStopwatchName = "stopwatch-name";
-        const string ArgumentNameVerboseOutput = "verbose-output";
-        const string ArgumentNameIgnoreInvalidState = "ignore-invalid-state";
-        const string ArgumentNameShowElapsedTime = "show-elapsed-time";
+        const string ArgumentNameDataFileName             = "data-filename";
+        const string ArgumentNameStopwatchName            = "stopwatch-name";
+        const string ArgumentNameVerboseOutput            = "verbose-output";
+        const string ArgumentNameIgnoreInvalidState       = "ignore-invalid-state";
+        const string ArgumentNameShowElapsedTime          = "show-elapsed-time";
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
-        const string ArgumentNameAdditionalText = "additional-text";
+        const string ArgumentNameAdditionalText           = "additional-text";
 
         explicit BaseArguments(const ParserContext& parser_context);
 
@@ -91,6 +91,7 @@ namespace Stopwatch
             const string exception_text = "Stopwatch '" + stopwatch_name + "' already exists";
             throw exception(exception_text.c_str());
         }
+
         static void AbortInvalidState(const Timer& timer, const CommandType command_type)
         {
             const string exception_text = string("Stopwatch: '")

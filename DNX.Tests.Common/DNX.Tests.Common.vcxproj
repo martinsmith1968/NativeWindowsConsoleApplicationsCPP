@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="BlockTimer.hpp" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestHelper.h" />
   </ItemGroup>

@@ -26,8 +26,9 @@ Command& CommandsParser::Parse(int argc, char* argv[]) const
     for (Command& command : _commands.GetCommands())
         commands.emplace_back(command);
 
+    _commands.InitialiseCommandArguments();
+    _commands.AppendCommandsToCommandArguments();
     auto& command_arguments = _commands.GetArguments();
-    command_arguments.BuildFromCommands(commands);
 
     ParserConfig commands_parser_config = _parser_config;
     commands_parser_config.SetIgnoreAdditionalArguments(true);
@@ -40,33 +41,37 @@ Command& CommandsParser::Parse(int argc, char* argv[]) const
     {
         auto& selected_command = _commands.GetCommandByName(selected_command_name);
         if (selected_command.IsEmpty())
+        {
             command_arguments.AddError("Invalid or unknown command: " + selected_command_name);
+        }
+        else
+        {
+            // Filter remaining arguments on to be parsed
+            const auto refined_arguments = RefineCommandArgumentValues(ListUtils::ToList(argc, argv, 1), selected_command.GetName());
+            const auto parser_context = ParserContext(selected_command.GetName());
+            const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config, parser_context);
+            arguments_parser.Parse(refined_arguments);
 
-        // Filter remaining arguments on to be parsed
-        const auto refined_arguments = RefineCommandArguments(ListUtils::ToList(argc, argv, 1), selected_command.GetName());
-        const auto parser_context = ParserContext(selected_command.GetName());
-        const auto arguments_parser = ArgumentsParser(selected_command.GetArguments(), _app_details, _parser_config, parser_context);
-        arguments_parser.Parse(refined_arguments);
-
-        return selected_command;
+            return selected_command;
+        }
     }
 
     return Command::Empty();
 }
 
-list<string> CommandsParser::RefineCommandArguments(const list<string>& arguments, const string& commandName)
+list<string> CommandsParser::RefineCommandArgumentValues(const list<string>& argument_values, const string& commandName)
 {
     auto removed = false;
     list<string> result;
-    for (auto& argument : arguments)
+    for (auto& argument_value : argument_values)
     {
-        if (!removed && StringUtils::ToLower(argument) == StringUtils::ToLower(commandName))
+        if (!removed && StringUtils::ToLower(argument_value) == StringUtils::ToLower(commandName))
         {
             removed = true;
             continue;
         }
 
-        result.emplace_back(argument);
+        result.emplace_back(argument_value);
     }
 
     return result;

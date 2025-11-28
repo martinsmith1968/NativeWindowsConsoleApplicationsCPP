@@ -18,9 +18,11 @@ namespace Stopwatch
 {
     class ElapsedArguments final : public BaseArguments
     {
+        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::ELAPSED)));
+
     public:
         ElapsedArguments()
-            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::ELAPSED))))
+            : BaseArguments(m_parser_context)
         {
             AddParameterStopwatchName();
             AddOptionAdditionalText();

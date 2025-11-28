@@ -66,13 +66,27 @@ FigLet fonts can be found defined as `.flf` files, throughtout the internet. A c
 
 The spec can be found here : http://jave.de/figlet/figfont.html:
 
+## Latest Version
+
+[//]: # (APP_LATESTVERSION)
+
+> FigLetText -!
+
+```text
+v1.15.0.0-dev
+```
+
 ## Full Help Text
 
 The full help text looks something like this :
 
+[//]: # (APP_HELPOUTPUT)
+
+> FigLetText -?
+
 ```text
-FigLetText v1.12.0.0-dev - Generate Text in FigLet format
-Copyright � 2018-2025 Martin Smith
+FigLetText v1.15.0.0-dev - Generate Text in FigLet format
+Copyright ® 2018-2025 Martin Smith
 
 Usage:
 FigLetText [message-text] [OPTIONS]
@@ -84,10 +98,11 @@ Options:
 -s, --spacing-type Value              The character spacing to use (Default:smushed, Values: smushed, packed, fullwidth, monospaced)
 -ta, --text-alignment-type Value      The Text Alignment (Default:Left, Values: Left, Right, Center)
 -w, --output-width Integer            Specify a fixed output width (for alignment) (Default:0)
+-!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (FigLetText.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 
-Default App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\FigLetText.options
-Local App arguments can be specified in : C:\dev\Github\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.docs\FigLetText.options
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\FigLetText.options
+Local App arguments can be specified in : C:\utils\FigLetText.options
 ```

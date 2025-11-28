@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="App.h" />
     <ClInclude Include="AppInfo.h" />
     <ClInclude Include="Commands\BaseCommand.h" />
     <ClInclude Include="Commands\CancelCommand.h" />

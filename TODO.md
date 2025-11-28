@@ -1,11 +1,19 @@
 # To Do
 
+## New Apps
+
+- [ ] Text File BOM Detector / Changer
+  - https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8
+  - https://superuser.com/questions/1823317/how-to-identify-a-file-encoding
+
 ## Fixes
 
-- None
+- Stopwatch
+  - List Command Help generates bad allocation error
 
 ### General
 
+- [X] @filename not working (E.g. bannertext @args.txt does not use lines from file)
 - [X] Introduce some app output tests (Abandoned TextTest)
 - [X] Invoke via CI
 
@@ -17,6 +25,7 @@
 - [ ] (Optionally) Support default argument files per command ([appname].[commandname].options)
 - [ ] (Optionally) Support default argument files per command in Help text
 - [X] Add Help text for adding a file of arguments
+- [ ] Line Wrapping Help Writer for long argument descriptions to wrap better
 
 ### Enhancements - Stopwatch
 

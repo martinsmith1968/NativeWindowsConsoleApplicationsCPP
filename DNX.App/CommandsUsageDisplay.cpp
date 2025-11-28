@@ -39,12 +39,29 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
         cout << std::endl;
         cout << "Commands:" << std::endl;
         cout << std::endl;
-        const auto argument_name_width = max_argument_name_length + 4;
+        const auto command_name_width = max_argument_name_length + 2;
         for (Command& command : command_list)
         {
-            std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(argument_name_width)) << command.GetName()
-                << command.GetDescription()
-                << std::endl;
+            auto description_lines = parser_config.GetHelpTextWriter()->BuildHelpTextLines(command.GetDescription(), static_cast<int>(command_name_width));
+
+            auto sequence = 0;
+            for (auto& line : description_lines)
+            {
+                ++sequence;
+                if (sequence == 1)
+                {
+                    std::cout << std::left << std::setfill(' ') << std::setw(static_cast<streamsize>(command_name_width)) << command.GetName()
+                        << line
+                        << std::endl;
+                }
+                else
+                {
+                    cout << left << setfill(' ') << setw(static_cast<streamsize>(command_name_width)) << " "
+                        << line
+                        << endl;
+                }
+            }
+
         }
     }
 
@@ -61,7 +78,8 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
     {
         if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
         {
-            const auto file_name = AppDetails::GetDefaultArgumentsFileName();
+            const CommandArguments command_arguments = const_cast<Commands&>(commands).GetArguments();
+            const auto file_name = command_arguments.GetParserContext().GetLocalArgumentsFileName();
 
             const auto found = FileUtils::FileExists(file_name);
 

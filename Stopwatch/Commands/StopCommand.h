@@ -17,10 +17,11 @@ namespace Stopwatch
 {
     class StopArguments final : public BaseArguments
     {
+        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::STOP)));
 
     public:
         StopArguments()
-            : BaseArguments(ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::STOP))))
+            : BaseArguments(m_parser_context)
         {
             AddParameterStopwatchName();
             AddSwitchShowElapsedTime(true);

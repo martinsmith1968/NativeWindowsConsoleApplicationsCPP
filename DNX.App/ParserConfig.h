@@ -3,9 +3,12 @@
 #include "stdafx.h"
 #include <string>
 
+#include "HelpTextWriter.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
+// ReSharper disable CppClangTidyClangDiagnosticPadded
 
 using namespace std;
 
@@ -34,6 +37,7 @@ namespace DNX::App
         char _switchOnSuffix;
         char _switchOffSuffix;
         bool _ignoreAdditionalArguments;
+        HelpTextWriter* _helpTextWriter;
 
     public:
         [[nodiscard]] const string& GetShortNamePrefix() const { return _shortNamePrefix; }
@@ -47,6 +51,9 @@ namespace DNX::App
         [[nodiscard]] bool GetIgnoreAdditionalArguments() const { return _ignoreAdditionalArguments; }
 
         void SetIgnoreAdditionalArguments(const bool value) { _ignoreAdditionalArguments = value; }
+
+        [[nodiscard]] HelpTextWriter* GetHelpTextWriter() const;
+        void SetHelpTextWriter(HelpTextWriter* help_text_writer);
 
         ParserConfig();
 

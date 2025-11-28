@@ -18,6 +18,13 @@ using namespace DNX::Utils;
 
 string ArgumentsUsageDisplay::ErrorLinePrefix = "ERROR";
 
+void ArgumentsUsageDisplay::ShowVersion(
+    const AppDetails& appDetails
+)
+{
+    cout << appDetails.GetVersionDetails() << endl;
+}
+
 void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserConfig& parser_config, const AppDetails& appDetails, const string& command_name)
 {
     cout << appDetails.GetHeaderLine() << endl;
@@ -80,19 +87,36 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
             argument_details.push_back(argument_detail);
         }
 
-        const auto padded_details_width = max_argument_details_length + 2;
+        const auto argument_details_width = max_argument_details_length + 2;
         for (auto& tup : argument_details)
         {
-            cout << left << setfill(' ') << setw(static_cast<streamsize>(padded_details_width)) << get<0>(tup)
-                << get<1>(tup)
-                << endl;
+            auto description_lines = parser_config.GetHelpTextWriter()->BuildHelpTextLines(get<1>(tup), static_cast<int>(argument_details_width));
+
+            auto sequence = 0;
+            for (auto& line : description_lines)
+            {
+                ++sequence;
+                if (sequence == 1)
+                {
+                    cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_details_width)) << get<0>(tup)
+                        << line
+                        << endl;
+                }
+                else
+                {
+                    cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_details_width)) << " "
+                        << line
+                        << endl;
+                }
+            }
         }
     }
 
     list<string> argument_file_lines;
     if (parser_config.GetUseDefaultArgumentsFile())
     {
-        const auto file_name = arguments.GetParserContext().GetDefaultArgumentsFileName();
+        const auto& parser_context = arguments.GetParserContext();
+        const auto file_name = parser_context.GetDefaultArgumentsFileName();
 
         const auto found = FileUtils::FileExists(file_name);
 

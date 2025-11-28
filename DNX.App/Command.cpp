@@ -7,7 +7,21 @@
 using namespace std;
 using namespace DNX::App;
 
-EmptyCommand Command::_empty_command = EmptyCommand();
+Command::Command()
+{
+    m_arguments = &Arguments::Empty();
+    m_name = "";
+    m_description = "";
+    m_sequence = 0;
+}
+
+Command::Command(const Command& other)
+    : m_arguments(other.m_arguments)
+    , m_name(other.m_name)
+    , m_description(other.m_description)
+    , m_sequence(other.m_sequence)
+{
+}
 
 Command::Command(
     Arguments* arguments,
@@ -27,14 +41,6 @@ Command::Command(
     m_sequence    = sequence;
 }
 
-Command::Command()
-{
-    m_arguments   = &Arguments::Empty();
-    m_name        = "";
-    m_description = "";
-    m_sequence    = 0;
-}
-
 bool Command::CompareBySequence(const Command& first, const Command& second)
 {
     return first.GetSequence() < second.GetSequence();
@@ -44,6 +50,7 @@ bool Command::IsEmpty() const
 {
     return m_name.empty();
 }
+
 Arguments& Command::GetArguments() const
 {
     return *m_arguments;
@@ -60,6 +67,7 @@ int Command::GetSequence() const
 {
     return m_sequence;
 }
+EmptyCommand Command::_empty_command = EmptyCommand();
 
 EmptyCommand& Command::Empty()
 {
