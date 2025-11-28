@@ -3,6 +3,7 @@
 #include "StringUtils.h"
 #include <iostream>
 #include <cstdlib>
+#include <stdlib.h>
 #include <windows.h>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -84,6 +85,11 @@ string EnvironmentUtils::GetEnvironmentVariableValue(const string& variable_name
     }
 
     return variable_value;
+}
+
+void EnvironmentUtils::SetEnvironmentVariableValue(const string& variable_name, const string& variable_value)
+{
+    _putenv_s(variable_name.c_str(), variable_value.c_str());
 }
 
 // From : https://stackoverflow.com/questions/23369503/get-size-of-terminal-window-rows-columns

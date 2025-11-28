@@ -6,7 +6,10 @@
 #include "../DNX.Utils/StringUtils.h"
 
 #include <complex>
+#include <direct.h>
 #include <iostream>
+
+#include "../DNX.Utils/EnvironmentUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -14,6 +17,7 @@ using namespace DNX::Tests::Common;
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppTooWideScopeInitStatement
 
 const string TestHelper::SingleQuote = "'";
 const string TestHelper::DoubleQuote = "\"";
@@ -39,6 +43,18 @@ list<string> TestHelper::GetBuildConfigurations()
     return configurations;
 }
 
+void TestHelper::WriteMajorSeparator(const int length)
+{
+    const auto line = string(length, '=');
+    cout << line << endl;
+}
+
+void TestHelper::WriteMinorSeparator(const int length)
+{
+    const auto line = string(length, '-');
+    cout << line << endl;
+}
+
 string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName)
 {
     cout << "Searching for file: " << fileName << endl;
@@ -62,30 +78,42 @@ string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, 
     return "";
 }
 
-string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
+string TestHelper::FindExecutableFileName(const string& executableFileName, const bool ensureExists)
 {
-    static const auto quote = "\"";
+    auto targetExecutableFileName = executableFileName;
 
-    auto targetExecutable = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), executableFileName);
-    if (!FileUtils::FileExists(targetExecutable))
+    if ((ensureExists && !FileUtils::FileExists(targetExecutableFileName)) || !StringUtils::Contains(executableFileName, PathUtils::PATH_SEPARATOR))
     {
-        for (const auto& platform : GetBuildPlatforms())
+        targetExecutableFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), FileUtils::GetFileNameOnly(executableFileName));
+        if (!FileUtils::FileExists(targetExecutableFileName))
         {
-            for (const auto& configuration : GetBuildConfigurations())
+            for (const auto& platform : GetBuildPlatforms())
             {
-                auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), "..", "..", "..", "Output", platform, configuration);
-                cout << "DEBUG: Checking directory: " << directory << endl;
-
-                auto targetFileName = PathUtils::Combine(directory, executableFileName);
-                if (FileUtils::FileExists(targetFileName))
+                for (const auto& configuration : GetBuildConfigurations())
                 {
-                    cout << "DEBUG: Found file: " << targetFileName << endl;
-                    targetExecutable = targetFileName;
-                    break;
+                    auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), "..", "..", "..", "Output", platform, configuration);
+                    cout << "DEBUG: Checking directory: " << directory << endl;
+
+                    auto targetFileName = PathUtils::Combine(directory, executableFileName);
+                    if (FileUtils::FileExists(targetFileName))
+                    {
+                        cout << "DEBUG: Found file: " << targetFileName << endl;
+                        targetExecutableFileName = targetFileName;
+                        break;
+                    }
                 }
             }
         }
     }
+
+    return targetExecutableFileName;
+}
+
+string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
+{
+    static const auto quote = "\"";
+
+    const auto targetExecutable = FindExecutableFileName(executableFileName);
 
     if (!FileUtils::FileExists(targetExecutable))
         throw exception(("File not found: " + targetExecutable).c_str());
@@ -122,6 +150,8 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
     constexpr int BUFFER_SIZE = 1234;
     char buf[BUFFER_SIZE];
 
+    cout << "DEBUG: Current Directory: " << PathUtils::GetCurrentDirectory() << endl;
+
     string output_text;
     FILE* output_stream = _popen(commandLine.c_str(), "r");
     while (fgets(buf, sizeof(buf), output_stream))
@@ -130,23 +160,24 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 
     if (showGeneratedOutput)
     {
-        cout << "Generated Output:" << endl;
+        WriteMinorSeparator(80);
+        cout << "-- Generated Output:" << endl;
         cout << output_text << endl;
-        cout << output_text.size() << " characters" << endl;
+        cout << "-- " << output_text.size() << " characters" << endl;
+        WriteMinorSeparator(80);
     }
 
     return output_text;
 }
 
-string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput)
+string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput, const bool replaceEnvironmentVariables)
 {
     auto fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
     if (!FileUtils::FileExists(fullFileName))
-    {
-        auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), FileUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
+    { const auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), FileUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
         cout << "DEBUG: Checking directory: " << directory << endl;
 
-        auto targetFileName = PathUtils::Combine(directory, fileName);
+        const auto targetFileName = PathUtils::Combine(directory, fileName);
         if (FileUtils::FileExists(targetFileName))
         {
             cout << "DEBUG: Found file: " << targetFileName << endl;
@@ -160,11 +191,27 @@ string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpe
     cout << "Reading: " << fullFileName << endl;
     auto file_text = FileUtils::ReadText(fullFileName);
 
+    if (replaceEnvironmentVariables)
+    {
+        const auto variables = EnvironmentUtils::GetEnvironmentVariables();
+        for (const auto& [fst, snd] : variables)
+        {
+            const auto variable_pattern = "%" + fst + "%";
+            if (StringUtils::Contains(file_text, variable_pattern))
+            {
+                cout << "DEBUG: Replacing variable: " << variable_pattern << " with value: " << snd << endl;
+                file_text = StringUtils::ReplaceString(file_text, variable_pattern, snd);
+            }
+        }
+    }
+
     if (showExpectedOutput)
     {
-        cout << "Expected Output:" << endl;
+        WriteMinorSeparator(80);
+        cout << "-- Expected Output:" << endl;
         cout << file_text << endl;
-        cout << file_text.size() << " characters" << endl;
+        cout << "-- " << file_text.size() << " characters" << endl;
+        WriteMinorSeparator(80);
     }
 
     return file_text;

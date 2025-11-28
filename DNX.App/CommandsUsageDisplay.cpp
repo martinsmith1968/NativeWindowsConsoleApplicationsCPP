@@ -78,7 +78,8 @@ void CommandsUsageDisplay::ShowUsage(const Commands& commands, const ParserConfi
     {
         if (AppDetails::GetLocalArgumentsFileName() != AppDetails::GetDefaultArgumentsFileName())
         {
-            const auto file_name = AppDetails::GetDefaultArgumentsFileName();
+            const CommandArguments command_arguments = const_cast<Commands&>(commands).GetArguments();
+            const auto file_name = command_arguments.GetParserContext().GetLocalArgumentsFileName();
 
             const auto found = FileUtils::FileExists(file_name);
 

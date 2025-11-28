@@ -1,0 +1,18 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch [command-name] { [command-arguments] }
+
+Commands:
+
+List     List all active Stopwatches
+Start    Start a named Stopwatch
+Stop     Start an active Stopwatch
+Cancel   Cancel an active Stopwatch
+Elapsed  Display the current elapsed time of an active Stopwatch
+Pause    Pause an active Stopwatch
+Resume   Resume a paused Stopwatch
+
+Default App arguments can be specified in : %TEMP%\Stopwatch.options
+Local App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.options
