@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD31BEB3-D870-4382-9D92-30FBA60F7725}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DNXAppTests</RootNamespace>
+    <RootNamespace>StopwatchTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
