@@ -4,6 +4,8 @@
 #include <list>
 #include <string>
 
+#include "EnvironmentUtils.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 
@@ -86,5 +88,8 @@ namespace DNX::Utils
         static string RemoveEndsWith(const string& str, const string& suffix, int count = -1);
         static string RemoveStartsAndEndsWith(const string& str, const string& prefixAndSuffix, int count = -1);
         static string RemoveStartsAndEndsWith(const string& str, const string& prefix, const string& suffix, int count = -1);
+
+        static list<string> SeparateByLineEndings(const string& text);
+        static string NormalizeLineEndings(const string& text, const string& desiredLineEndings = EnvironmentUtils::GetNewLine());
     };
 }

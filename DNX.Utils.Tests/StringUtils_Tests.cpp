@@ -5,6 +5,9 @@
 using namespace std;
 using namespace DNX::Utils;
 
+// ReSharper disable CppInconsistentNaming
+// ReSharper disable CppClangTidyClangDiagnosticPadded
+
 #define TEST_GROUP StringUtils
 
 TEST(TEST_GROUP, RTrim_single_character_removes_found_target_returns_as_expected) {
@@ -40,7 +43,7 @@ TEST(TEST_GROUP, RTrim_text_removes_found_target_returns_as_expected) {
     EXPECT_EQ(StringUtils::RTrim(". .text. .", " ."), ". .text.");
     EXPECT_EQ(StringUtils::RTrim("..........", "."), "");
     EXPECT_EQ(StringUtils::RTrim("#.#.#text#.#.#", ".#"), "#.#.#text#");
-	EXPECT_EQ(StringUtils::RTrim("          ",  " "), "");
+    EXPECT_EQ(StringUtils::RTrim("          ",  " "), "");
 }
 
 TEST(TEST_GROUP, LTrim_text_removes_found_target_returns_as_expected) {
@@ -50,7 +53,7 @@ TEST(TEST_GROUP, LTrim_text_removes_found_target_returns_as_expected) {
     EXPECT_EQ(StringUtils::LTrim(". .text. .", " ."), ". .text. .");
     EXPECT_EQ(StringUtils::LTrim(". .text. .", ". "), ".text. .");
     EXPECT_EQ(StringUtils::Trim("#.#.#text#.#.#", "#."), "#text#.#.#");
-	EXPECT_EQ(StringUtils::LTrim("..........", "."), "");
+    EXPECT_EQ(StringUtils::LTrim("..........", "."), "");
 }
 
 TEST(TEST_GROUP, Trim_text_removes_found_target_returns_as_expected) {
@@ -116,7 +119,7 @@ TEST(TEST_GROUP, SplitText_string_returns_as_expected) {
     const auto result1 = StringUtils::SplitText("aaa::bbb::ccc::ddd", "::");
     EXPECT_EQ(result1.size(), 4);
 
-    vector<string> result1_vector(std::begin(result1), std::end(result1));
+    vector<string> result1_vector(begin(result1), end(result1));
     EXPECT_EQ("aaa", result1_vector[0]);
     EXPECT_EQ("bbb", result1_vector[1]);
     EXPECT_EQ("ccc", result1_vector[2]);
@@ -186,10 +189,94 @@ TEST(TEST_GROUP, SplitTextByAny_string_returns_as_expected) {
     EXPECT_EQ("", ListUtils::GetAt(result4, 6));
     EXPECT_EQ("eee", ListUtils::GetAt(result4, 7));
 
-	auto result5 = StringUtils::SplitTextByAny("aaa:bbb::ccc:::ddd", ":", "", true);
+    auto result5 = StringUtils::SplitTextByAny("aaa:bbb::ccc:::ddd", ":", "", true);
     EXPECT_EQ(result5.size(), 4);
     EXPECT_EQ("aaa", ListUtils::GetAt(result5, 0));
     EXPECT_EQ("bbb", ListUtils::GetAt(result5, 1));
     EXPECT_EQ("ccc", ListUtils::GetAt(result5, 2));
     EXPECT_EQ("ddd", ListUtils::GetAt(result5, 3));
 }
+
+//----------------------------------------------------------------------------------------------------
+class SeparateByLineEndingsFixture
+    : public ::testing::TestWithParam<std::tuple<string, int>>
+{
+protected:
+    void SetUp() override
+    {
+        m_input_text          = std::get<0>(GetParam());
+        m_expected_line_count = std::get<1>(GetParam());
+    }
+    string m_input_text;
+    int m_expected_line_count = 0;
+};
+
+TEST_P(SeparateByLineEndingsFixture, SeparateByLineEndings_can_parse_text_correctly)
+{
+    // Act
+    const auto lines = StringUtils::SeparateByLineEndings(m_input_text);
+
+    // Assert
+    EXPECT_EQ(m_expected_line_count, lines.size());
+}
+
+INSTANTIATE_TEST_CASE_P(
+    SeparateByLineEndingsTests,
+    SeparateByLineEndingsFixture,
+    ::testing::Values(
+        std::make_tuple("", 0)
+        , std::make_tuple(" ", 1)
+        , std::make_tuple("\r", 2)
+        , std::make_tuple("\n", 2)
+        , std::make_tuple("\r\n", 2)
+        , std::make_tuple("\n\r", 3)
+        , std::make_tuple("Line1\r\nLine2\r\nLine3", 3)
+        , std::make_tuple("Line1\rLine2\rLine3", 3)
+        , std::make_tuple("Line1\nLine2\nLine3", 3)
+        , std::make_tuple("Line1\nLine2\rLine3", 3)
+        , std::make_tuple("\nLine1\nLine2\rLine3\n", 5)
+        , std::make_tuple("\n\rLine1\nLine2\rLine3\n\r", 7)
+    )
+);
+
+//----------------------------------------------------------------------------------------------------
+class NormalizeLineEndingsDefaultLineEndingFixture
+    : public ::testing::TestWithParam<std::tuple<string, string>>
+{
+protected:
+    void SetUp() override
+    {
+        m_input_text    = std::get<0>(GetParam());
+        m_expected_text = std::get<1>(GetParam());
+    }
+    string m_input_text;
+    string m_expected_text;
+};
+
+TEST_P(NormalizeLineEndingsDefaultLineEndingFixture, NormalizeLineEndings_can_process_text_correctly)
+{
+    // Act
+    const auto result = StringUtils::NormalizeLineEndings(m_input_text);
+
+    // Assert
+    EXPECT_EQ(m_expected_text, result);
+}
+
+INSTANTIATE_TEST_CASE_P(
+    NormalizeLineEndingsDefaultLineEndingTests,
+    NormalizeLineEndingsDefaultLineEndingFixture,
+    ::testing::Values(
+        std::make_tuple("", "")
+        , std::make_tuple(" ", " ")
+        , std::make_tuple("\r", "\r\n")
+        , std::make_tuple("\n", "\r\n")
+        , std::make_tuple("\r\n", "\r\n")
+        , std::make_tuple("\n\r", "\r\n\r\n")
+        , std::make_tuple("Line1\r\nLine2\r\nLine3", "Line1\r\nLine2\r\nLine3")
+        , std::make_tuple("Line1\rLine2\rLine3", "Line1\r\nLine2\r\nLine3")
+        , std::make_tuple("Line1\nLine2\nLine3", "Line1\r\nLine2\r\nLine3")
+        , std::make_tuple("Line1\nLine2\rLine3", "Line1\r\nLine2\r\nLine3")
+        , std::make_tuple("\nLine1\nLine2\rLine3\n", "\r\nLine1\r\nLine2\r\nLine3\r\n")
+        , std::make_tuple("\n\rLine1\nLine2\rLine3\n\r", "\r\n\r\nLine1\r\nLine2\r\nLine3\r\n\r\n")
+    )
+);
