@@ -12,6 +12,10 @@ namespace DNX::Utils
     //--------------------------------------------------------------------------
     // Class: DateUtils
     //--------------------------------------------------------------------------
+    // NOTE: DEPRECATED - Use alternative TODO
+    // Some useful supporting libraries
+    // https://github.com/jeremydumais/CPP-DateTime-library
+    // https://docs.pocoproject.org/current/Poco.DateTime.html
     class DateUtils
     {
     public:

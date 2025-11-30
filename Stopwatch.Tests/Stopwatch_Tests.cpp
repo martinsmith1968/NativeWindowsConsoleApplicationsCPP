@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include "../DNX.Tests.Common/TestHelper.h"
+#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 
@@ -66,18 +67,18 @@ protected:
         _defaultTargetExecutableFileName = TestHelper::FindExecutableFileName(executableFileName);
 
         _tempRunFolderName = PathUtils::Combine(PathUtils::GetTempPath(), "test" + _run_id);
-        PathUtils::CreateDirectory(_tempRunFolderName);
+        DirectoryUtils::Create(_tempRunFolderName);
         EnvironmentUtils::SetEnvironmentVariableValue("RUN_FOLDERNAME", _tempRunFolderName);
 
-        _movedTargetExecutableFileName = PathUtils::Combine(PathUtils::GetTempPath(), FileUtils::GetFileNameAndExtension(_defaultTargetExecutableFileName));
+        _movedTargetExecutableFileName = PathUtils::Combine(PathUtils::GetTempPath(), PathUtils::GetFileNameAndExtension(_defaultTargetExecutableFileName));
         copy_file(_defaultTargetExecutableFileName.c_str(), _movedTargetExecutableFileName.c_str(), copy_options::overwrite_existing);
     }
 
     void TearDown() override
     {
-        if (!_tempRunFolderName.empty() && PathUtils::DirectoryExists(_tempRunFolderName))
+        if (!_tempRunFolderName.empty() && DirectoryUtils::Exists(_tempRunFolderName))
         {
-            PathUtils::DeleteDirectory(_tempRunFolderName, true, true);
+            DirectoryUtils::Delete(_tempRunFolderName, true, true);
         }
     }
 };

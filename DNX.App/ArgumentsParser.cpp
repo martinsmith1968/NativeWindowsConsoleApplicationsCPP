@@ -62,7 +62,7 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
 
 void ArgumentsParser::ParseArgumentsFile(Arguments& arguments, const string& fileName) const
 {
-    if (FileUtils::FileExists(fileName))
+    if (FileUtils::Exists(fileName))
     {
         const auto arg = _parser_config.GetCustomArgumentsFilePrefix() + fileName;
 
@@ -96,7 +96,7 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
 
         try
         {
-            const auto lines = FileUtils::ReadLines(fileName);
+            const auto lines = FileUtils::ReadAllLines(fileName);
             auto argumentsText = ConvertLinesToRawArguments(lines);
 
             ParseArgumentsList(arguments, argumentsText);

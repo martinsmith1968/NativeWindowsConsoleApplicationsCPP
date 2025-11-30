@@ -152,7 +152,7 @@ TEST(TEST_GROUP, ParseArguments_parse_a_file_of_arguments_correctly)
     auto lines = list<string>();
     lines.emplace_back(quote + message_text + quote);
     lines.emplace_back("-t " + to_string(timeout));
-    FileUtils::WriteLines(fileName, lines);
+    FileUtils::WriteAllLines(fileName, lines);
 
     auto args = list<string>();
     args.emplace_back("@" + fileName);

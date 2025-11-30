@@ -47,3 +47,7 @@ These include :
 
 - [Guides](Guides.md)
 - [Future To Do](TODO.md)
+
+## Language Notes
+
+- [C++ 14 vs 17 vs 20](https://www.geeksforgeeks.org/cpp/cpp14-vs-cpp17-vs-cpp20/)

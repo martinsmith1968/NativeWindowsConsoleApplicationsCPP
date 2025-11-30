@@ -9,6 +9,8 @@
 #include <map>
 #include <string>
 
+#include "../DNX.Utils/ListUtils.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
@@ -111,6 +113,41 @@ namespace DNX::App
             bool required = false,
             int position = 0
         );
+
+        // TODO: Add typed shortcuts
+        //void AddOptionINT(
+        //    const string& shortName,
+        //    const string& longName = "",
+        //    int defaultValue = 0,
+        //    const string& description = "",
+        //    bool required = false,
+        //    int position = 0,
+        //    const list<int>& valueList = list<int>()
+        //);
+        //
+        // or templated
+        //template<typename T>
+        //void AddOptionTyped(
+        //    const string& shortName,
+        //    const string& longName = "",
+        //    T defaultValue = 0,
+        //    const string& description = "",
+        //    bool required = false,
+        //    int position = 0,
+        //    const list<T>& valueList = list<T>()
+        //)
+        //{
+        //    AddOption(
+        //        ValueTypeTextResolver::GetValue(T),
+        //        shortName,
+        //        longName,
+        //        to_string(defaultValue),
+        //        description,
+        //        required,
+        //        position,
+        //        ValueConverter::ConvertListToStringList(valueList)
+        //    );
+        //}
 
         void AddError(const string& text);
 

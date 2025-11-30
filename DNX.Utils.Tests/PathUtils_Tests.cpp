@@ -11,12 +11,16 @@ using namespace DNX::Utils;
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
+// ReSharper disable CppClangTidyModernizeRawStringLiteral
 
 #define TEST_GROUP PathUtils
 
 class TestData
 {
 public:
+    static string GetFile1FullName() { return "C:\\test\\test_file1.txt"; }
+    static string GetFile2FullName() { return "d:\\a\\b\\c\\d\\test_file2.txt"; }
+
     static string GetUniqueFolderName()
     {
         const auto now = DateUtils::ToCalendarDateTime(DateUtils::GetNow());
@@ -25,30 +29,156 @@ public:
     }
 };
 
-TEST(TEST_GROUP, GetCurrentDirectory_returns_something)
+TEST(TEST_GROUP, FixUpPath_returns_an_appropriate_value)
 {
-    // Act
-    const auto result = PathUtils::GetCurrentDirectory();
-    cout << "GetCurrentDirectory: " << result << endl;
-
-    // Assert
-    EXPECT_NE(result, "");
+    EXPECT_EQ("C:\\test\\a\\b\\c\\d\\file.txt", PathUtils::FixUpPath("C:\\test\\a\\b\\c\\d\\file.txt"));
+    EXPECT_EQ("C:\\test\\a\\b\\c\\d\\file.txt", PathUtils::FixUpPath("  C:/test/a/b/c/d/file.txt  "));
 }
 
-TEST(TEST_GROUP, ChangeDirectory_has_an_effect)
+TEST(TEST_GROUP, GetPathParts_returns_an_appropriate_value)
 {
-    const auto original_directory = PathUtils::GetCurrentDirectory();
-    const auto target_directory = PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName());
-
-    PathUtils::CreateDirectory(target_directory);
-
-    // Act
-    const auto result = PathUtils::ChangeDirectory(target_directory);
-    cout << "ChangeDirectory: " << result << endl;
+    const auto file1 = "C:\\test\\a\\b\\c\\d\\file.txt";
+    const auto parts1 = list<string>({
+        "C:",
+        "test",
+        "a",
+        "b",
+        "c",
+        "d",
+        "file.txt"
+        });
 
     // Assert
-    EXPECT_EQ(result, target_directory);
-    EXPECT_EQ(PathUtils::GetCurrentDirectory(), target_directory);
+    EXPECT_EQ(parts1, PathUtils::GetPathParts(file1));
+}
+
+
+TEST(TEST_GROUP, IsDriveReference_returns_an_appropriate_value)
+{
+    // Assert
+    EXPECT_FALSE(PathUtils::IsDriveReference(PathUtils::GetTempPath()));
+    EXPECT_FALSE(PathUtils::IsDriveReference(PathUtils::GetTempFileName("q")));
+    EXPECT_TRUE(PathUtils::IsDriveReference(PathUtils::GetDrive(PathUtils::GetTempFileName("q"))));
+    EXPECT_TRUE(PathUtils::IsDriveReference("C:"));
+    EXPECT_TRUE(PathUtils::IsDriveReference("d:"));
+    EXPECT_FALSE(PathUtils::IsDriveReference("4:"));
+}
+
+TEST(TEST_GROUP, IsFile_returns_an_appropriate_value)
+{
+    // Assert
+    EXPECT_FALSE(PathUtils::IsFile(PathUtils::GetTempPath()));
+    EXPECT_TRUE(PathUtils::IsFile(PathUtils::GetTempFileName("q")));
+}
+
+TEST(TEST_GROUP, IsDirectory_returns_an_appropriate_value)
+{
+    // Assert
+    EXPECT_TRUE(PathUtils::IsDirectory(PathUtils::GetTempPath()));
+    EXPECT_FALSE(PathUtils::IsDirectory(PathUtils::GetTempFileName("q")));
+}
+
+TEST(TEST_GROUP, GetParentPath_returns_an_appropriate_value)
+{
+    // Assert
+    EXPECT_EQ("", PathUtils::GetParentPath("C:\\"));
+    EXPECT_EQ("C:\\", PathUtils::GetParentPath("C:\\Temp"));
+    EXPECT_EQ("C:\\Temp", PathUtils::GetParentPath("C:\\Temp\\A"));
+    EXPECT_EQ("C:\\Temp\\A", PathUtils::GetParentPath("C:\\Temp\\A\\B"));
+    EXPECT_EQ("C:\\Temp\\A\\B", PathUtils::GetParentPath("C:\\Temp\\A\\B\\C"));
+}
+
+TEST(TEST_GROUP, GetAbsolutePath_returns_an_appropriate_value)
+{
+    const auto path1 = PathUtils::Combine("C:\\Temp\\A\\B", "..\\C");
+    const auto path2 = PathUtils::Combine("C:\\Temp\\A\\B", "..\\..\\C");
+    const auto path3 = PathUtils::Combine("C:\\Temp\\A\\B", "..\\..\\..\\C");
+    const auto path4 = PathUtils::Combine("C:\\Temp\\A\\B", "C");
+
+    // Act
+    const auto result1 = PathUtils::GetAbsolutePath(path1);
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::GetAbsolutePath(path2);
+    cout << "Result2: " << result2 << endl;
+    const auto result3 = PathUtils::GetAbsolutePath(path3);
+    cout << "Result3: " << result3 << endl;
+    const auto result4 = PathUtils::GetAbsolutePath(path4);
+    cout << "Result4: " << result4 << endl;
+
+    // Assert
+    EXPECT_EQ("C:\\Temp\\A\\C", result1);
+    EXPECT_EQ("C:\\Temp\\C", result2);
+    EXPECT_EQ("C:\\C", result3);
+    EXPECT_EQ("C:\\Temp\\A\\B\\C", result4);
+}
+
+TEST(TEST_GROUP, GetDrive_returns_an_appropriate_value)
+{
+    // Act
+    const auto result1 = PathUtils::GetDrive(TestData::GetFile1FullName());
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::GetDrive(TestData::GetFile2FullName());
+    cout << "Result2: " << result2 << endl;
+
+    // Assert
+    EXPECT_TRUE(StringUtils::EndsWith(result1, PathUtils::DRIVE_SEPARATOR));
+    EXPECT_TRUE(StringUtils::EndsWith(result2, PathUtils::DRIVE_SEPARATOR));
+    EXPECT_EQ(result1, "C:");
+    EXPECT_EQ(result2, "d:");
+}
+
+TEST(TEST_GROUP, GetDriveAndPath_returns_an_appropriate_value)
+{
+    // Act
+    const auto result1 = PathUtils::GetDriveAndPath(TestData::GetFile1FullName());
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::GetDriveAndPath(TestData::GetFile2FullName());
+    cout << "Result2: " << result2 << endl;
+
+    // Assert
+    EXPECT_TRUE(StringUtils::EndsWith(result1, PathUtils::PATH_SEPARATOR));
+    EXPECT_TRUE(StringUtils::EndsWith(result2, PathUtils::PATH_SEPARATOR));
+    EXPECT_EQ(result1, "C:\\test\\");
+    EXPECT_EQ(result2, "d:\\a\\b\\c\\d\\");
+}
+
+TEST(TEST_GROUP, GetFileNameOnly_returns_an_appropriate_value)
+{
+    // Act
+    const auto result1 = PathUtils::GetFileNameOnly(TestData::GetFile1FullName());
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::GetFileNameOnly(TestData::GetFile2FullName());
+    cout << "Result2: " << result2 << endl;
+
+    // Assert
+    EXPECT_EQ(result1, "test_file1");
+    EXPECT_EQ(result2, "test_file2");
+}
+
+TEST(TEST_GROUP, GetFileNameAndExtension_returns_an_appropriate_value)
+{
+    // Act
+    const auto result1 = PathUtils::GetFileNameAndExtension(TestData::GetFile1FullName());
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::GetFileNameAndExtension(TestData::GetFile2FullName());
+    cout << "Result2: " << result2 << endl;
+
+    // Assert
+    EXPECT_EQ(result1, "test_file1.txt");
+    EXPECT_EQ(result2, "test_file2.txt");
+}
+
+TEST(TEST_GROUP, ChangeFileExtension_returns_an_appropriate_value)
+{
+    // Act
+    const auto result1 = PathUtils::ChangeFileExtension(TestData::GetFile1FullName(), "bob");
+    cout << "Result1: " << result1 << endl;
+    const auto result2 = PathUtils::ChangeFileExtension(TestData::GetFile2FullName(), ".dave");
+    cout << "Result2: " << result2 << endl;
+
+    // Assert
+    EXPECT_EQ(result1, "C:\\test\\test_file1.bob");
+    EXPECT_EQ(result2, "d:\\a\\b\\c\\d\\test_file2.dave");
 }
 
 TEST(TEST_GROUP, Combine_returns_appropriate_combined_value)
@@ -60,28 +190,6 @@ TEST(TEST_GROUP, Combine_returns_appropriate_combined_value)
     EXPECT_EQ(PathUtils::Combine("a" + PathUtils::PATH_SEPARATOR + "b", "c"), "a" + PathUtils::PATH_SEPARATOR + "b" + PathUtils::PATH_SEPARATOR + "c");
     EXPECT_EQ(PathUtils::Combine("a" + PathUtils::PATH_SEPARATOR + "b" + PathUtils::PATH_SEPARATOR, "c"), "a" + PathUtils::PATH_SEPARATOR + "b" + PathUtils::PATH_SEPARATOR + "c");
 }
-
-TEST(TEST_GROUP, DirectoryExists_returns_appropriate_value)
-{
-    EXPECT_EQ(PathUtils::DirectoryExists(""), false);
-    EXPECT_EQ(PathUtils::DirectoryExists(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), false);
-    EXPECT_EQ(PathUtils::DirectoryExists(PathUtils::GetCurrentDirectory()), true);
-}
-
-TEST(TEST_GROUP, CreateDirectory_can_respond_correctly)
-{
-    EXPECT_EQ(PathUtils::CreateDirectory(""), false);
-    EXPECT_EQ(PathUtils::CreateDirectory("   "), false);
-    EXPECT_EQ(PathUtils::CreateDirectory(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), true);
-    EXPECT_EQ(PathUtils::CreateDirectory(PathUtils::GetCurrentDirectory()), true);
-}
-
-
-
-
-
-
-
 
 TEST(TEST_GROUP, GetTempPath_returns_something)
 {
@@ -101,6 +209,6 @@ TEST(TEST_GROUP, GetTempFileName_returns_something)
 
     // Assert
     EXPECT_NE(result, "");
-    EXPECT_TRUE(StringUtils::StartsWith(FileUtils::GetFileNameOnly(result), "test"));
-    EXPECT_TRUE(FileUtils::FileExists(result));
+    EXPECT_TRUE(StringUtils::StartsWith(PathUtils::GetFileNameOnly(result), "test"));
+    EXPECT_TRUE(FileUtils::Exists(result));
 }

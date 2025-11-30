@@ -110,7 +110,9 @@
   <ItemGroup>
     <ClCompile Include="ConsoleUtils_Tests.cpp" />
     <ClCompile Include="CryptoUtils_Tests.cpp" />
+    <ClCompile Include="DateTime_Tests.cpp" />
     <ClCompile Include="DateUtils_Tests.cpp" />
+    <ClCompile Include="DirectoryUtils_Tests.cpp" />
     <ClCompile Include="EnvironmentUtils_Tests.cpp" />
     <ClCompile Include="FileUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />

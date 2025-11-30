@@ -10,6 +10,57 @@ using namespace DNX::Utils;
 
 #define TEST_GROUP StringUtils
 
+TEST(TEST_GROUP, IsNullOrEmpty_returns_as_expected)
+{
+    const string text1;
+    EXPECT_TRUE(StringUtils::IsNullOrEmpty(&text1));
+
+    const string* text2 = nullptr;
+    EXPECT_TRUE(StringUtils::IsNullOrEmpty(text2));
+
+    const string text3 = "a";
+    EXPECT_FALSE(StringUtils::IsNullOrEmpty(&text3));
+}
+
+TEST(TEST_GROUP, IsNullOrWhiteSpace_returns_as_expected)
+{
+    const string text1;
+    EXPECT_TRUE(StringUtils::IsNullOrWhiteSpace(&text1));
+
+    const string* text2 = nullptr;
+    EXPECT_TRUE(StringUtils::IsNullOrWhiteSpace(text2));
+
+    const string text3 = " ";
+    EXPECT_TRUE(StringUtils::IsNullOrWhiteSpace(&text3));
+
+    const string text4 = "a";
+    EXPECT_FALSE(StringUtils::IsNullOrWhiteSpace(&text4));
+}
+
+TEST(TEST_GROUP, IsEmpty_returns_as_expected)
+{
+    const string text1;
+    EXPECT_TRUE(StringUtils::IsEmpty(text1));
+
+    const string text2 = "  ";
+    EXPECT_FALSE(StringUtils::IsEmpty(text2));
+
+    const string text3 = "a";
+    EXPECT_FALSE(StringUtils::IsEmpty(text3));
+}
+
+TEST(TEST_GROUP, IsEmptyrWhiteSpace_returns_as_expected)
+{
+    const string text1;
+    EXPECT_TRUE(StringUtils::IsEmptyOrWhiteSpace(text1));
+
+    const string text2 = "  ";
+    EXPECT_TRUE(StringUtils::IsEmptyOrWhiteSpace(text2));
+
+    const string text3 = "a";
+    EXPECT_FALSE(StringUtils::IsEmptyOrWhiteSpace(text3));
+}
+
 TEST(TEST_GROUP, RTrim_single_character_removes_found_target_returns_as_expected) {
     EXPECT_EQ(StringUtils::RTrim("...text...", '.'), "...text");
     EXPECT_EQ(StringUtils::RTrim("...text...", ' '), "...text...");
@@ -198,20 +249,20 @@ TEST(TEST_GROUP, SplitTextByAny_string_returns_as_expected) {
 }
 
 //----------------------------------------------------------------------------------------------------
-class SeparateByLineEndingsFixture
-    : public ::testing::TestWithParam<std::tuple<string, int>>
+class StringUtils_SeparateByLineEndingsFixture
+    : public ::testing::TestWithParam<tuple<string, int>>
 {
 protected:
     void SetUp() override
     {
-        m_input_text          = std::get<0>(GetParam());
-        m_expected_line_count = std::get<1>(GetParam());
+        m_input_text          = get<0>(GetParam());
+        m_expected_line_count = get<1>(GetParam());
     }
     string m_input_text;
     int m_expected_line_count = 0;
 };
 
-TEST_P(SeparateByLineEndingsFixture, SeparateByLineEndings_can_parse_text_correctly)
+TEST_P(StringUtils_SeparateByLineEndingsFixture, SeparateByLineEndings_can_parse_text_correctly)
 {
     // Act
     const auto lines = StringUtils::SeparateByLineEndings(m_input_text);
@@ -222,38 +273,38 @@ TEST_P(SeparateByLineEndingsFixture, SeparateByLineEndings_can_parse_text_correc
 
 INSTANTIATE_TEST_CASE_P(
     SeparateByLineEndingsTests,
-    SeparateByLineEndingsFixture,
+    StringUtils_SeparateByLineEndingsFixture,
     ::testing::Values(
-        std::make_tuple("", 0)
-        , std::make_tuple(" ", 1)
-        , std::make_tuple("\r", 2)
-        , std::make_tuple("\n", 2)
-        , std::make_tuple("\r\n", 2)
-        , std::make_tuple("\n\r", 3)
-        , std::make_tuple("Line1\r\nLine2\r\nLine3", 3)
-        , std::make_tuple("Line1\rLine2\rLine3", 3)
-        , std::make_tuple("Line1\nLine2\nLine3", 3)
-        , std::make_tuple("Line1\nLine2\rLine3", 3)
-        , std::make_tuple("\nLine1\nLine2\rLine3\n", 5)
-        , std::make_tuple("\n\rLine1\nLine2\rLine3\n\r", 7)
+        make_tuple("", 0)
+        , make_tuple(" ", 1)
+        , make_tuple("\r", 2)
+        , make_tuple("\n", 2)
+        , make_tuple("\r\n", 2)
+        , make_tuple("\n\r", 3)
+        , make_tuple("Line1\r\nLine2\r\nLine3", 3)
+        , make_tuple("Line1\rLine2\rLine3", 3)
+        , make_tuple("Line1\nLine2\nLine3", 3)
+        , make_tuple("Line1\nLine2\rLine3", 3)
+        , make_tuple("\nLine1\nLine2\rLine3\n", 5)
+        , make_tuple("\n\rLine1\nLine2\rLine3\n\r", 7)
     )
 );
 
 //----------------------------------------------------------------------------------------------------
-class NormalizeLineEndingsDefaultLineEndingFixture
-    : public ::testing::TestWithParam<std::tuple<string, string>>
+class StringUtils_NormalizeLineEndingsDefaultLineEndingFixture
+    : public ::testing::TestWithParam<tuple<string, string>>
 {
 protected:
     void SetUp() override
     {
-        m_input_text    = std::get<0>(GetParam());
-        m_expected_text = std::get<1>(GetParam());
+        m_input_text = get<0>(GetParam());
+        m_expected_text = get<1>(GetParam());
     }
     string m_input_text;
     string m_expected_text;
 };
 
-TEST_P(NormalizeLineEndingsDefaultLineEndingFixture, NormalizeLineEndings_can_process_text_correctly)
+TEST_P(StringUtils_NormalizeLineEndingsDefaultLineEndingFixture, NormalizeLineEndings_can_process_text_correctly)
 {
     // Act
     const auto result = StringUtils::NormalizeLineEndings(m_input_text);
@@ -264,19 +315,19 @@ TEST_P(NormalizeLineEndingsDefaultLineEndingFixture, NormalizeLineEndings_can_pr
 
 INSTANTIATE_TEST_CASE_P(
     NormalizeLineEndingsDefaultLineEndingTests,
-    NormalizeLineEndingsDefaultLineEndingFixture,
+    StringUtils_NormalizeLineEndingsDefaultLineEndingFixture,
     ::testing::Values(
-        std::make_tuple("", "")
-        , std::make_tuple(" ", " ")
-        , std::make_tuple("\r", "\r\n")
-        , std::make_tuple("\n", "\r\n")
-        , std::make_tuple("\r\n", "\r\n")
-        , std::make_tuple("\n\r", "\r\n\r\n")
-        , std::make_tuple("Line1\r\nLine2\r\nLine3", "Line1\r\nLine2\r\nLine3")
-        , std::make_tuple("Line1\rLine2\rLine3", "Line1\r\nLine2\r\nLine3")
-        , std::make_tuple("Line1\nLine2\nLine3", "Line1\r\nLine2\r\nLine3")
-        , std::make_tuple("Line1\nLine2\rLine3", "Line1\r\nLine2\r\nLine3")
-        , std::make_tuple("\nLine1\nLine2\rLine3\n", "\r\nLine1\r\nLine2\r\nLine3\r\n")
-        , std::make_tuple("\n\rLine1\nLine2\rLine3\n\r", "\r\n\r\nLine1\r\nLine2\r\nLine3\r\n\r\n")
+        make_tuple("", "")
+        , make_tuple(" ", " ")
+        , make_tuple("\r", "\r\n")
+        , make_tuple("\n", "\r\n")
+        , make_tuple("\r\n", "\r\n")
+        , make_tuple("\n\r", "\r\n\r\n")
+        , make_tuple("Line1\r\nLine2\r\nLine3", "Line1\r\nLine2\r\nLine3")
+        , make_tuple("Line1\rLine2\rLine3", "Line1\r\nLine2\r\nLine3")
+        , make_tuple("Line1\nLine2\nLine3", "Line1\r\nLine2\r\nLine3")
+        , make_tuple("Line1\nLine2\rLine3", "Line1\r\nLine2\r\nLine3")
+        , make_tuple("\nLine1\nLine2\rLine3\n", "\r\nLine1\r\nLine2\r\nLine3\r\n")
+        , make_tuple("\n\rLine1\nLine2\rLine3\n\r", "\r\n\r\nLine1\r\nLine2\r\nLine3\r\n\r\n")
     )
 );

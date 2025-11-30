@@ -95,14 +95,14 @@ namespace ShowDateTime
 
             auto text = string(buffer, size);
 
-            text = StringUtils::ReplaceString(text, "{fff}", StringUtils::LPad(std::to_string(milliseconds), 3, '0'));
-            text = StringUtils::ReplaceString(text, "{f}", std::to_string(milliseconds));
-            text = StringUtils::ReplaceString(text, "{qq}", StringUtils::LPad(std::to_string(quarter), 2, '0'));
-            text = StringUtils::ReplaceString(text, "{q}", std::to_string(quarter));
-            text = StringUtils::ReplaceString(text, "{M}", std::to_string(datetime_tm.tm_mon + 1));
-            text = StringUtils::ReplaceString(text, "{d}", std::to_string(datetime_tm.tm_mday));
-            text = StringUtils::ReplaceString(text, "{H}", std::to_string(datetime_tm.tm_hour));
-            text = StringUtils::ReplaceString(text, "{h}", std::to_string(datetime_tm.tm_hour > 11 ? datetime_tm.tm_hour - 12 : datetime_tm.tm_hour));
+            text = StringUtils::Replace(text, "{fff}", StringUtils::LPad(std::to_string(milliseconds), 3, '0'));
+            text = StringUtils::Replace(text, "{f}", std::to_string(milliseconds));
+            text = StringUtils::Replace(text, "{qq}", StringUtils::LPad(std::to_string(quarter), 2, '0'));
+            text = StringUtils::Replace(text, "{q}", std::to_string(quarter));
+            text = StringUtils::Replace(text, "{M}", std::to_string(datetime_tm.tm_mon + 1));
+            text = StringUtils::Replace(text, "{d}", std::to_string(datetime_tm.tm_mday));
+            text = StringUtils::Replace(text, "{H}", std::to_string(datetime_tm.tm_hour));
+            text = StringUtils::Replace(text, "{h}", std::to_string(datetime_tm.tm_hour > 11 ? datetime_tm.tm_hour - 12 : datetime_tm.tm_hour));
 
             return text;
         }

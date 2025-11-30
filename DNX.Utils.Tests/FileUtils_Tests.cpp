@@ -1,7 +1,9 @@
 #include "pch.h"
 
+#include "../DNX.Utils/CryptoUtils.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../DNX.Utils/PathUtils.h"
+#include "../DNX.Utils/ProcessUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -20,54 +22,16 @@ public:
     static string GetFile2FullName() { return "C:\\a\\b\\c\\d\\test_file2.txt"; }
 };
 
-TEST(TEST_GROUP, GetPath_returns_an_appropriate_value)
+TEST(TEST_GROUP, Exists_can_detect_files_correctly)
 {
+    const auto existing_file_name = ProcessUtils::GetExecutableFileName();
+    const auto non_existing_file_name = PathUtils::Combine(PathUtils::GetTempPath(), "tmp", to_string(CryptoUtils::GetRandomNumber()), ".", to_string(CryptoUtils::GetRandomNumber()));
+
     // Act
-    const auto result1 = FileUtils::GetPath(TestData::GetFile1FullName());
-    cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetPath(TestData::GetFile2FullName());
-    cout << "Result2: " << result2 << endl;
+    const auto result1 = FileUtils::Exists(existing_file_name);
+    const auto result2 = FileUtils::Exists(non_existing_file_name);
 
     // Assert
-    EXPECT_EQ(result1, "C:\\test");
-    EXPECT_EQ(result2, "C:\\a\\b\\c\\d");
-}
-
-TEST(TEST_GROUP, GetFileNameOnly_returns_an_appropriate_value)
-{
-    // Act
-    const auto result1 = FileUtils::GetFileNameOnly(TestData::GetFile1FullName());
-    cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetFileNameOnly(TestData::GetFile2FullName());
-    cout << "Result2: " << result2 << endl;
-
-    // Assert
-    EXPECT_EQ(result1, "test_file1");
-    EXPECT_EQ(result2, "test_file2");
-}
-
-TEST(TEST_GROUP, GetFileNameAndExtension_returns_an_appropriate_value)
-{
-    // Act
-    const auto result1 = FileUtils::GetFileNameAndExtension(TestData::GetFile1FullName());
-    cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::GetFileNameAndExtension(TestData::GetFile2FullName());
-    cout << "Result2: " << result2 << endl;
-
-    // Assert
-    EXPECT_EQ(result1, "test_file1.txt");
-    EXPECT_EQ(result2, "test_file2.txt");
-}
-
-TEST(TEST_GROUP, ChangeFileExtension_returns_an_appropriate_value)
-{
-    // Act
-    const auto result1 = FileUtils::ChangeFileExtension(TestData::GetFile1FullName(), "bob");
-    cout << "Result1: " << result1 << endl;
-    const auto result2 = FileUtils::ChangeFileExtension(TestData::GetFile2FullName(), ".dave");
-    cout << "Result2: " << result2 << endl;
-
-    // Assert
-    EXPECT_EQ(result1, "C:\\test\\test_file1.bob");
-    EXPECT_EQ(result2, "C:\\a\\b\\c\\d\\test_file2.dave");
+    EXPECT_TRUE(result1);
+    EXPECT_FALSE(result2);
 }

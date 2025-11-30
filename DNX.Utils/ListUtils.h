@@ -30,7 +30,7 @@ namespace DNX::Utils
 
             auto iter = list.begin();
 
-            std::advance(iter, index);
+            advance(iter, index);
 
             return *iter;
         }

@@ -6,13 +6,17 @@
   - https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8
   - https://superuser.com/questions/1823317/how-to-identify-a-file-encoding
 
+- [ ] Test File Line Ending Detector / Normaliser
+
 ## Fixes
 
-- Stopwatch
-  - List Command Help generates bad allocation error
+- None
 
 ### General
 
+- [ ] All Utils classes to have unit tests
+- [ ] All Utils classes to have XML comments
+- [ ] All Utils classes to move to namespaces and become simple static methods
 - [X] @filename not working (E.g. bannertext @args.txt does not use lines from file)
 - [X] Introduce some app output tests (Abandoned TextTest)
 - [X] Invoke via CI
@@ -30,6 +34,7 @@
 ### Enhancements - Stopwatch
 
 - [ ] Introduce `SortOrder` parameter to `List` command
+- [ ] Output Tests for `Stopwatch` app and commands
 
 ### Enhabcements - FigLetText
 

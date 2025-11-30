@@ -37,6 +37,35 @@ string StringUtils::ToString(const wstring& wstr)
     return str;
 }
 
+bool StringUtils::IsNullOrEmpty(const string* str)
+{
+    return str == nullptr || IsEmpty(*str);
+}
+
+bool StringUtils::IsNullOrWhiteSpace(const string* str)
+{
+    return str == nullptr || IsEmptyOrWhiteSpace(*str);
+}
+
+bool StringUtils::IsEmpty(const string& str)
+{
+    return str.empty();
+}
+
+bool StringUtils::IsEmptyOrWhiteSpace(const string& str)
+{
+    if (IsEmpty(str))
+        return true;
+
+    for (auto ch : str)
+    {
+        if (!isspace(ch) && !isblank(ch) && !iscntrl(ch))
+            return false;
+    }
+
+    return true;
+}
+
 string StringUtils::Trim(const string& str, const char removeChar)
 {
     return LTrim(RTrim(str, removeChar), removeChar);
@@ -164,12 +193,32 @@ string StringUtils::Between(const string& str, const string& first, const string
     return BeforeLast(After(str, first), second);
 }
 
+string StringUtils::Between(const string& str, const string& firstAndSecond)
+{
+    return Between(str, firstAndSecond, firstAndSecond);
+}
+
 string StringUtils::BetweenInner(const string& str, const string& first, const string& second)
 {
     return Before(AfterLast(str, first), second);
 }
 
-string StringUtils::ReplaceString(string subject, const string& search, const string& replace)
+string StringUtils::BetweenInner(const string& str, const string& firstAndSecond)
+{
+    return BetweenInner(str, firstAndSecond, firstAndSecond);
+}
+
+string StringUtils::BetweenOuter(const string& str, const string& first, const string& second)
+{
+    return BeforeLast(After(str, first), second);
+}
+
+string StringUtils::BetweenOuter(const string& str, const string& firstAndSecond)
+{
+    return BetweenOuter(str, firstAndSecond, firstAndSecond);
+}
+
+string StringUtils::Replace(string subject, const string& search, const string& replace)
 {
     size_t pos = 0;
 
@@ -205,6 +254,17 @@ string StringUtils::ToUpper(const string& text)
     transform(copy.begin(), copy.end(), copy.begin(), toupper);
 
     return copy;
+}
+
+bool StringUtils::Equals(const string& text1, const string& text2, bool caseSensitive)
+{
+    return (text1.size() == text2.size())
+        && std::equal(text1.begin(), text1.end(), text2.begin(),
+            [caseSensitive](const char& c1, const char& c2)
+            {
+                return (c1 == c2 || (!caseSensitive && std::toupper(c1) == std::toupper(c2)));
+            }
+        );
 }
 
 string StringUtils::Left(const string& text, const size_t length)
@@ -478,9 +538,14 @@ bool StringUtils::EndsWith(const string& str, const string& suffix)
     return Right(str, suffix.length()) == suffix;
 }
 
+bool StringUtils::StartsAndEndsWith(const string& str, const string& prefix, const string& suffix)
+{
+    return StartsWith(str, prefix) && EndsWith(str, suffix);
+}
+
 bool StringUtils::StartsAndEndsWith(const string& str, const string& prefixAndSuffix)
 {
-    return StartsWith(str, prefixAndSuffix) && EndsWith(str, prefixAndSuffix);
+    return StartsAndEndsWith(str, prefixAndSuffix);
 }
 
 string StringUtils::EnsureStartsWith(const string& str, const string& prefix)
@@ -571,7 +636,7 @@ list<string> StringUtils::SeparateByLineEndings(const string& text)
 
     auto lines = list<string>();
 
-    string remaining = ReplaceString(text, "\r\n", Left(possibleLineEndingCharacters, 1));
+    string remaining = Replace(text, "\r\n", Left(possibleLineEndingCharacters, 1));
 
     if (!remaining.empty())
     {

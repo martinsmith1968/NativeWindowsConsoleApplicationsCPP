@@ -42,12 +42,12 @@ TEST(TEST_GROUP, FormatDate_with_only_modifiers_in_the_format_returns_sucessfull
     const string format = "%Y-%m-%d %H:%M:%S";
 
     string expected_result = format;
-    expected_result = StringUtils::ReplaceString(expected_result, "%Y", to_string(tm.tm_year));
-    expected_result = StringUtils::ReplaceString(expected_result, "%m", StringUtils::LPad(to_string(tm.tm_mon), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%d", StringUtils::LPad(to_string(tm.tm_mday), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%H", StringUtils::LPad(to_string(tm.tm_hour), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%M", StringUtils::LPad(to_string(tm.tm_min), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%S", StringUtils::LPad(to_string(tm.tm_sec), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%Y", to_string(tm.tm_year));
+    expected_result = StringUtils::Replace(expected_result, "%m", StringUtils::LPad(to_string(tm.tm_mon), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%d", StringUtils::LPad(to_string(tm.tm_mday), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%H", StringUtils::LPad(to_string(tm.tm_hour), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%M", StringUtils::LPad(to_string(tm.tm_min), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%S", StringUtils::LPad(to_string(tm.tm_sec), 2, '0'));
 
     // Act
     const auto result = DateUtils::FormatDate(&tm, format);
@@ -65,12 +65,12 @@ TEST(TEST_GROUP, FormatDate_with_text_and_modifiers_in_the_format_returns_sucess
     const string format = "Today's Date is %Y-%m-%d, and the current time is %H:%M:%S";
 
     string expected_result = format;
-    expected_result = StringUtils::ReplaceString(expected_result, "%Y", to_string(tm.tm_year));
-    expected_result = StringUtils::ReplaceString(expected_result, "%m", StringUtils::LPad(to_string(tm.tm_mon), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%d", StringUtils::LPad(to_string(tm.tm_mday), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%H", StringUtils::LPad(to_string(tm.tm_hour), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%M", StringUtils::LPad(to_string(tm.tm_min), 2, '0'));
-    expected_result = StringUtils::ReplaceString(expected_result, "%S", StringUtils::LPad(to_string(tm.tm_sec), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%Y", to_string(tm.tm_year));
+    expected_result = StringUtils::Replace(expected_result, "%m", StringUtils::LPad(to_string(tm.tm_mon), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%d", StringUtils::LPad(to_string(tm.tm_mday), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%H", StringUtils::LPad(to_string(tm.tm_hour), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%M", StringUtils::LPad(to_string(tm.tm_min), 2, '0'));
+    expected_result = StringUtils::Replace(expected_result, "%S", StringUtils::LPad(to_string(tm.tm_sec), 2, '0'));
 
     // Act
     const auto result = DateUtils::FormatDate(&tm, format);

@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/MapUtils.h"
+#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 
@@ -33,7 +34,7 @@ string TimerRepository::GetDefaultFileName()
 
 string TimerRepository::GetDefaultRepositoryFileName()
 {
-    string file_path = PathUtils::Combine(PathUtils::GetUserDataDirectory(), COMPANY_DATA_FOLDER_NAME);
+    string file_path = PathUtils::Combine(DirectoryUtils::GetUserDataDirectory(), COMPANY_DATA_FOLDER_NAME);
     file_path = PathUtils::Combine(file_path, VER_PRODUCTNAME_STR);
     file_path = PathUtils::Combine(file_path, GetDefaultFileName());
     return file_path;
@@ -43,7 +44,7 @@ map<string, Timer> TimerRepository::ReadAll() const
 {
     map<string, Timer> items;
 
-    const auto lines = FileUtils::ReadLines(m_fileName);
+    const auto lines = FileUtils::ReadAllLines(m_fileName);
     for (auto& line : lines)
     {
         Timer timer = Timer::Create(line);
@@ -64,11 +65,11 @@ void TimerRepository::SaveAll(const map<string, Timer>& timers)
         lines.emplace_back(line);
     }
 
-    const auto file_path = StringUtils::EnsureEndsWith(FileUtils::GetPath(m_fileName), PathUtils::PATH_SEPARATOR);
+    const auto file_path = StringUtils::EnsureEndsWith(PathUtils::GetDriveAndPath(m_fileName), PathUtils::PATH_SEPARATOR);
     if (!file_path.empty())
-        PathUtils::CreateDirectory(file_path);
+        DirectoryUtils::Create(file_path);
 
-    FileUtils::WriteLines(m_fileName, lines);
+    FileUtils::WriteAllLines(m_fileName, lines);
 }
 
 bool TimerRepository::Exists(const string& stopwatch_name) const

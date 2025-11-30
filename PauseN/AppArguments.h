@@ -76,8 +76,8 @@ namespace PauseN
         {
             auto formatted_text = GetMessageText();
 
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
+            formatted_text = StringUtils::Replace(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
+            formatted_text = StringUtils::Replace(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
 
             return formatted_text;
         }
