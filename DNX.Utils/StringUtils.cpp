@@ -545,7 +545,7 @@ bool StringUtils::StartsAndEndsWith(const string& str, const string& prefix, con
 
 bool StringUtils::StartsAndEndsWith(const string& str, const string& prefixAndSuffix)
 {
-    return StartsAndEndsWith(str, prefixAndSuffix);
+    return StartsAndEndsWith(str, prefixAndSuffix, prefixAndSuffix);
 }
 
 string StringUtils::EnsureStartsWith(const string& str, const string& prefix)
@@ -588,7 +588,7 @@ string StringUtils::RemoveStartsWith(const string& str, const string& prefix, in
         return str;
 
     string trimmedStr = str;
-    while (StartsWith(trimmedStr, prefix) && count != 0)
+    while (!prefix.empty() && StartsWith(trimmedStr, prefix) && count != 0)
     {
         trimmedStr = trimmedStr == prefix
             ? ""
@@ -607,7 +607,7 @@ string StringUtils::RemoveEndsWith(const string& str, const string& suffix, int 
         return str;
 
     string trimmedStr = str;
-    while (EndsWith(trimmedStr, suffix) && count != 0)
+    while (!suffix.empty() && EndsWith(trimmedStr, suffix) && count != 0)
     {
         trimmedStr = trimmedStr == suffix
             ? ""

@@ -13,6 +13,8 @@
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppTooWideScopeInitStatement
+// ReSharper disable CppClangTidyClangDiagnosticNrvo
+// ReSharper disable CppUnsignedZeroComparison
 
 using namespace std;
 using namespace DNX::Utils;
@@ -57,7 +59,7 @@ bool PathUtils::IsDriveReference(const string& filePath)
 {
     try
     {
-        static const regex pattern ("^[A-Za-z][\\:]*$");
+        static const regex pattern ("^[A-Za-z]\\:$");
 
         smatch matches;
         return std::regex_search(filePath, matches, pattern) && !matches.empty();
@@ -219,50 +221,63 @@ string PathUtils::ChangeFileExtension(const string& filePath, const string& file
     return fileName;
 }
 
-string PathUtils::Combine(const string& path1, const string& path2)
+string PathUtils::Combine(const initializer_list<string> paths)
 {
-    auto path = path1.empty()
-        ? path1
-        : StringUtils::RemoveEndsWith(path1, PATH_SEPARATOR);
+    string result;
 
-    if (!path.empty() && !path2.empty())
+    for (auto& path : paths)
     {
-        path += PATH_SEPARATOR;
+        if (result.empty())
+        {
+            result = StringUtils::RemoveEndsWith(path, PATH_SEPARATOR);
+            continue;
+        }
+
+        if (path.empty())
+            continue;
+
+        result += PATH_SEPARATOR + StringUtils::RemoveEndsWith(path, PATH_SEPARATOR);
     }
 
-    path += path2;
+    if (IsDriveReference(result))
+        result = StringUtils::EnsureEndsWith(result, PATH_SEPARATOR);
 
-    return path;
+    return result;
+}
+
+string PathUtils::Combine(const string& path1, const string& path2)
+{
+    return Combine({ path1, path2 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3)
 {
-    return Combine(Combine(path1, path2), path3);
+    return Combine({ path1, path2, path3 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4)
 {
-    return Combine(Combine(path1, path2, path3), path4);
+    return Combine({ path1, path2, path3, path4 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5)
 {
-    return Combine(Combine(path1, path2, path3, path4), path5);
+    return Combine({ path1, path2, path3, path4, path5 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6)
 {
-    return Combine(Combine(path1, path2, path3, path4, path5), path6);
+    return Combine({ path1, path2, path3, path4, path5, path6 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7)
 {
-    return Combine(Combine(path1, path2, path3, path4, path5, path6), path7);
+    return Combine({ path1, path2, path3, path4, path5, path6, path7 });
 }
 
 string PathUtils::Combine(const string& path1, const string& path2, const string& path3, const string& path4, const string& path5, const string& path6, const string& path7, const string& path8)
 {
-    return Combine(Combine(path1, path2, path3, path4, path5, path6, path7), path8);
+    return Combine({ path1, path2, path3, path4, path5, path6, path7, path8 });
 }
 
 string PathUtils::GetTempPath()

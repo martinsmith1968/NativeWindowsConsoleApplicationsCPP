@@ -39,7 +39,7 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
     {
         string parts = StringUtils::Trim(line);
 
-        if (StringUtils::StartsAndEndsWith(parts, quote) && StringUtils::CountOccurrences(parts, quote[0]) == 2)
+        if (StringUtils::StartsAndEndsWith(parts, quote) && StringUtils::CountOccurrences(parts, quote) == 2)
         {
             raw_arguments.push_back(StringUtils::RemoveStartsAndEndsWith(parts, quote));
         }

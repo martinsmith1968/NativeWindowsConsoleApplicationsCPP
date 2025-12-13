@@ -1,8 +1,10 @@
 #pragma once
 
 #include "stdafx.h"
+#include <iostream>
 #include <list>
 #include <string>
+#include <initializer_list>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -40,6 +42,8 @@ namespace DNX::Utils
         static string GetFileNameOnly(const string& filePath);
         static string GetFileNameAndExtension(const string& filePath);
         static string ChangeFileExtension(const string& filePath, const string& fileExtension);
+
+        static string Combine(initializer_list<string> paths);
 
         static string Combine(const string& path1, const string& path2);
         static string Combine(const string& path1, const string& path2, const string& path3);
