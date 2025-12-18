@@ -35,27 +35,26 @@ TEST(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName(); // string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "bob"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "bob"));
 }
 
 TEST(TEST_GROUP, Execute_with_text_and_min_length_produces_expected_output)
 {
-    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName()
-    ;
+    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName()    ;
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "bob|-minl|80"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "bob|-minl|80"));
 }
 
 TEST(TEST_GROUP, Execute_with_multiple_text_lines_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "a|bb|ccc|dddd|eeeee"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "a|bb|ccc|dddd|eeeee"));
 }
 
 TEST(TEST_GROUP, Execute_with_multiple_text_lines_aligned_center_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "a|bb|ccc|dddd|eeeee|-ta|Center"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "a|bb|ccc|dddd|eeeee|-ta|Center"));
 }

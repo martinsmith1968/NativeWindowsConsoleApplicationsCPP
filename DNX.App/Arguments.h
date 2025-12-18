@@ -9,8 +9,6 @@
 #include <map>
 #include <string>
 
-#include "../DNX.Utils/ListUtils.h"
-
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
@@ -26,18 +24,19 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Arguments
     {
-        const string HelpShortName = "?";
-        const string VersionShortName = "!";
+        const string HelpShortName                    = "?";
+        const string VersionShortName                 = "!";
         const string UseDefaultArgumentsFileShortName = "@";
-        const string UseLocalArgumentsFileShortName = "$";
+        const string UseLocalArgumentsFileShortName   = "$";
 
-        const string HelpLongName = "help";
-        const string VersionLongName = "version";
+        const string HelpLongName                    = "help";
+        const string VersionLongName                 = "version";
         const string UseDefaultArgumentsFileLongName = "use-default-arguments-file";
-        const string UseLocalArgumentsFileLongName = "use-local-arguments-file";
+        const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
-        const string HelpDescription = "Show Help screen";
+        const string HelpDescription    = "Show Help screen";
         const string VersionDescription = "Show App Version details";
+
         [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const;
         [[nodiscard]] string GetUseLocalArgumentsFileDesc() const;
 

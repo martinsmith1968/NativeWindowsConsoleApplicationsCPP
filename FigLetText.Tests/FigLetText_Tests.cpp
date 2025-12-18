@@ -42,68 +42,68 @@ TEST(TEST_GROUP, Execute_HelloWorld_default_font_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld()), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld()));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_banner_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|banner"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|banner"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_big_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|big"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|big"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_doom_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|doom"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|doom"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_larry3d_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|larry3d"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|larry3d"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_mini_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|mini"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|mini"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_script_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|script"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|script"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_small_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|small"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|small"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_standard_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|standard"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|standard"));
 }
 
 TEST(TEST_GROUP, Execute_HelloWorld_font_straight_produces_expected_output)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|straight"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_HelloWorld() + "|-n|straight"));
 }

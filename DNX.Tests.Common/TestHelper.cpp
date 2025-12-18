@@ -1,15 +1,13 @@
 #include "stdafx.h"
 #include "TestHelper.h"
 #include "../DNX.Utils/DirectoryUtils.h"
+#include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
-
 #include <complex>
 #include <iostream>
-
-#include "../DNX.Utils/EnvironmentUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

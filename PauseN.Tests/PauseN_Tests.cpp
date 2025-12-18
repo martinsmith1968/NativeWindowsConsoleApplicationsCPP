@@ -45,7 +45,7 @@ TEST(TEST_GROUP, Execute_no_parameters_produces_expected_output)
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
     auto timer = BlockTimer();
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "|-t|3"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), "|-t|3"));
     EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 3);
 }
 
@@ -54,6 +54,6 @@ TEST(TEST_GROUP, Execute_custom_text_showing_timeout_value_produces_expected_out
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
 
     auto timer = BlockTimer();
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_CustomWithTimeoutValue() + "|-t|5"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(TestConfig::GetExecutableName(), TestData::GetText_CustomWithTimeoutValue() + "|-t|5"));
     EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 5);
 }
