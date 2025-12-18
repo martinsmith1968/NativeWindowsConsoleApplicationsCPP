@@ -91,7 +91,7 @@ timer2|1736190115|0|0.000000
 > Stopwatch -!
 
 ```text
-v1.15.0.0-dev
+v2.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -103,7 +103,7 @@ The full help text looks something like this :
 > Stopwatch -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -119,8 +119,8 @@ Elapsed  Display the current elapsed time of an active Stopwatch
 Pause    Pause an active Stopwatch
 Resume   Resume a paused Stopwatch
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
-Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.options
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.options
 ```
 
 ### List
@@ -139,7 +139,7 @@ Found: 2 stopwatches
 > Stopwatch List -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -152,11 +152,11 @@ Options:
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
--@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.options) (Default:true)
--$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.options) (Default:true)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.list.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.list.options) (Default:true)
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\Stopwatch.list.options
-Local App arguments can be specified in : C:\utils\Stopwatch.list.options
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.list.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.list.options
 ```
 
 ### Start
@@ -173,7 +173,7 @@ timer1 started at 12:20:59
 > Stopwatch Start -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -188,6 +188,9 @@ Options:
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.start.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.start.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.start.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.start.options
 ```
 
 ### Stop
@@ -204,7 +207,7 @@ timer1: Stopped - 2 minutes, 40 seconds
 > Stopwatch Stop -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -220,6 +223,9 @@ Options:
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.stop.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.stop.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.stop.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.stop.options
 ```
 
 ### Elapsed
@@ -236,7 +242,7 @@ timer2: Running - 5 minutes, 46 seconds
 > Stopwatch Elapsed -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -251,6 +257,9 @@ Options:
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.elapsed.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.elapsed.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.elapsed.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.elapsed.options
 ```
 
 ### Cancel
@@ -266,7 +275,7 @@ Sample Output :
 > Stopwatch Cancel -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -280,6 +289,9 @@ Options:
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.cancel.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.cancel.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.cancel.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.cancel.options
 ```
 
 ### Pause
@@ -295,7 +307,7 @@ Sample Output :
 > Stopwatch Pause -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -313,6 +325,9 @@ Options:
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.pause.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.pause.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.pause.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.pause.options
 ```
 
 ### Resume
@@ -333,7 +348,7 @@ timer1: Active - 33 seconds
 > Stopwatch Resume -?
 
 ```text
-Stopwatch v1.15.0.0-dev - Control named out-of-process Timers
+Stopwatch v2.0.0.0-dev - Control named out-of-process Timers
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -351,4 +366,7 @@ Options:
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.resume.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.resume.options) (Default:true)
+
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\Stopwatch.resume.options
+Local App arguments can be specified in : C:\Temp\Stopwatch.resume.options
 ```

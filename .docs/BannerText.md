@@ -50,7 +50,7 @@ BannerText "Hello World" -minl 80 -ta Center
 > BannerText -!
 
 ```text
-v1.15.0.0-dev
+v2.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -62,7 +62,7 @@ The full help text looks something like this :
 > BannerText -?
 
 ```text
-BannerText v1.15.0.0-dev - Generate and display a Text Banner in the console
+BannerText v2.0.0.0-dev - Display a Text Banner in the console
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -87,6 +87,6 @@ Options:
 -@, --use-default-arguments-file +/-    Use Default Arguments File (BannerText.options) (Default:true)
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\BannerText.options
-Local App arguments can be specified in : C:\utils\BannerText.options
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\BannerText.options
+Local App arguments can be specified in : C:\Temp\BannerText.options
 ```

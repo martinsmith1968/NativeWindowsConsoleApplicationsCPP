@@ -40,7 +40,7 @@ So I came up with ShowDateTime, which allows you to control the format of the ou
 > ShowDateTime -!
 
 ```text
-v1.15.0.0-dev
+v2.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -52,7 +52,7 @@ The full help text looks something like this :
 > ShowDateTime -?
 
 ```text
-ShowDateTime v1.15.0.0-dev - Show current date and time formatted
+ShowDateTime v2.0.0.0-dev - Show current date and time formatted
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -66,8 +66,8 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (ShowDateTime.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\ShowDateTime.options
-Local App arguments can be specified in : C:\utils\ShowDateTime.options
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\ShowDateTime.options
+Local App arguments can be specified in : C:\Temp\ShowDateTime.options
 
 Notes:
 This uses 'strftime' internally, so see the following for supported date formats:

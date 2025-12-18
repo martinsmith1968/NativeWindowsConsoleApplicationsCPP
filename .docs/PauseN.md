@@ -25,7 +25,7 @@ Both the `message-text` and the `timeout-seconds` to wait can be configured (as 
 > PauseN -!
 
 ```text
-v1.15.0.0-dev
+v2.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -37,7 +37,7 @@ The full help text looks something like this :
 > PauseN -?
 
 ```text
-PauseN v1.15.0.0-dev - Pause with a timeout
+PauseN v2.0.0.0-dev - Pause console output for a keypress, or a timeout
 Copyright ® 2018-2025 Martin Smith
 
 Usage:
@@ -54,6 +54,6 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (PauseN.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\PauseN.options
-Local App arguments can be specified in : C:\utils\PauseN.options
+Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\PauseN.options
+Local App arguments can be specified in : C:\Temp\PauseN.options
 ```
