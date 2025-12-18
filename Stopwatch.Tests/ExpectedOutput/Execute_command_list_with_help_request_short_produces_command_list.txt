@@ -1,0 +1,18 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch List [OPTIONS]
+
+Options:
+-o, --output-format Text              Control output format of list (Default:Display, Values: Display, CSV, Custom)
+-fmt, --custom-format-text Text       A custom format string for the Timer details
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-v, --verbose-output +/-              Control verbosity of output messages (Default:false)
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.list.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.list.options) (Default:true)
+
+Default App arguments can be specified in : %TEMP%\Stopwatch.list.options
+Local App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.list.options

@@ -142,7 +142,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ExpectedOutput\Execute_test.txt">
+    <Text Include="ExpectedOutput\Execute_command_cancel_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_elapsed_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_list_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_pause_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_resume_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_start_with_help_request_short_produces_command_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_command_stop_with_help_request_short_produces_command_list.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
     <Text Include="ExpectedOutput\Execute_with_help_request_long_produces_command_list.txt">
