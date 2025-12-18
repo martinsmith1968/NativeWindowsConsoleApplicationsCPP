@@ -162,6 +162,7 @@
     <ClInclude Include="CharUtils.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="CryptoUtils.h" />
+    <ClInclude Include="date.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="DateUtils.h" />
     <ClInclude Include="DirectoryUtils.h" />

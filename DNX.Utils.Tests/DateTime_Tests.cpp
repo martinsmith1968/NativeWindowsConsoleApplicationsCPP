@@ -472,7 +472,7 @@ INSTANTIATE_TEST_CASE_P(
         , std::make_tuple("1996-12-31", 1996, 12, 31)
         , std::make_tuple("1950-11-22", 1950, 11, 22)
         , std::make_tuple("2000-02-29", 2000, 2, 29)
-        , std::make_tuple("1968-01-11", 1968, 8, 11)
+        , std::make_tuple("1968-08-11", 1968, 8, 11)
     )
 );
 
@@ -517,7 +517,7 @@ INSTANTIATE_TEST_CASE_P(
     DateTimeConstructorTests,
     DateTimeDateOnlyFormatFixture,
     ::testing::Values(
-          std::make_tuple(DateTime::Base_Year, 1, 1, DateTime::Formats::Date_Default, "Thu, Jan  1 " + to_string(DateTime::Base_Year))
+          std::make_tuple(DateTime::Base_Year, 1, 1, DateTime::Formats::Date_Default, "Mon, Jan  1 " + to_string(DateTime::Base_Year))
         , std::make_tuple(DateTime::Epoch_Year, 1, 1, DateTime::Formats::Date_Default, "Thu, Jan  1 " + to_string(DateTime::Epoch_Year))
     )
 );

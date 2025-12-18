@@ -11,12 +11,15 @@
 #include "MathUtils.h"
 #include "StringUtils.h"
 
+#include "date.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCertMsc51Cpp
 // ReSharper disable CppClangTidyClangDiagnosticShorten64To32
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 
 using namespace std;
+using namespace chrono;
 using namespace DNX::Utils;
 
 //--------------------------------------------------------------------------
@@ -33,6 +36,26 @@ using namespace DNX::Utils;
 
 const int DateTime::m_month_days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+date::year_month_day DateTime::GetAsDateInternal() const
+{
+    // Source : https://stackoverflow.com/questions/15957805/extract-year-month-day-etc-from-stdchronotime-point-in-c
+
+    const auto time_point = date::floor<date::days>(m_time_point);
+    const auto ymd = date::year_month_day{ time_point };
+
+    return ymd;
+}
+
+date::hh_mm_ss<duration<long long, ratio<1, 1000>>> DateTime::GetAsTimeInternal() const
+{
+    // Source : https://stackoverflow.com/questions/15957805/extract-year-month-day-etc-from-stdchronotime-point-in-c
+
+    const auto dp = date::floor<date::days>(m_time_point);
+    const auto time = date::make_time(chrono::duration_cast<milliseconds>(m_time_point - dp));
+
+    return time;
+}
+
 const string DateTime::Formats::Default  = "%a, %b %e %T %Y";   // Sun, Aug 11 12:34:56 1968
 const string DateTime::Formats::Sortable = "%F %T%z";
 const string DateTime::Formats::ISO      = "%FT%T%z";
@@ -41,7 +64,7 @@ const string DateTime::Formats::Date_Default  = "%a, %b %e %Y";   // Sun, Aug 11
 const string DateTime::Formats::Date_Sortable = "%F";
 const string DateTime::Formats::Date_ISO      = "%F";
 
-chrono::time_point<chrono::system_clock> DateTime::GetTimePoint() const
+time_point<system_clock> DateTime::GetTimePoint() const
 {
     return m_time_point;
 }
@@ -53,30 +76,8 @@ DateTime::DateTime()
 
 DateTime::DateTime(const int year, const int month, const int day)
 {
-    auto timeInfo = tm();
-    timeInfo.tm_year = year - Base_Year;
-    timeInfo.tm_mon = month - 1;
-    timeInfo.tm_mday = day;
-    timeInfo.tm_hour = 0;
-    timeInfo.tm_min = 0;
-    timeInfo.tm_sec = 0;
-    timeInfo.tm_wday = 0;
-    timeInfo.tm_yday = 0;
-    timeInfo.tm_isdst = false;
-
-    int year_offset = 0;
-    if (year < Epoch_Year)
-    {
-        year_offset = Epoch_Year - year;
-        timeInfo.tm_year += year_offset;
-    }
-
-    const auto time_t = mktime(&timeInfo);
-    if (time_t == -1)
-        throw runtime_error("Invalid date parameters");
-
-    m_time_point = chrono::system_clock::from_time_t(time_t);
-    AddYears(year_offset * -1);
+    const auto ymd = date::year_month_day(date::year(year), date::month(month), date::day(day));
+    m_time_point = date::sys_days(ymd);
 }
 
 DateTime::DateTime(const int year,
@@ -95,24 +96,24 @@ DateTime::DateTime(const int year,
     AddMilliseconds(millisecond);
 }
 
-DateTime::DateTime(const chrono::time_point<chrono::system_clock> time_point)
+DateTime::DateTime(const time_point<system_clock> time_point)
 {
     m_time_point = time_point;
 }
 
 DateTime::DateTime(const time_t time)
 {
-    m_time_point = chrono::system_clock::from_time_t(time);
+    m_time_point = system_clock::from_time_t(time);
 }
 
 DateTime::DateTime(tm time)
 {
-    m_time_point = chrono::system_clock::from_time_t(mktime(&time));
+    m_time_point = system_clock::from_time_t(mktime(&time));
 }
 
 DateTime DateTime::Now()
 {
-    return { chrono::system_clock::now() };
+    return { system_clock::now() };
 }
 
 DateTime DateTime::Parse(const string& text)
@@ -196,17 +197,14 @@ string DateTime::ToString() const
 /// </remarks>
 string DateTime::ToString(const string& format) const
 {
-    const auto time = GetAsTm();
+    auto output = date::format(format, m_time_point);
 
-    ostringstream oss;
-    oss << put_time(&time, format.c_str());
-
-    return oss.str();
+    return output;
 }
 
 time_t DateTime::GetAsTimeT() const
 {
-    const time_t result = chrono::system_clock::to_time_t(m_time_point);
+    const time_t result = system_clock::to_time_t(m_time_point);
     return result;
 }
 
@@ -242,7 +240,9 @@ bool DateTime::IsLeapYear() const
 
 int DateTime::GetYear() const
 {
-    return GetAsTm().tm_year + 1900; // tm_year is years since 1900, so we add 1900 to get the full year
+    const auto ymd = GetAsDateInternal();
+
+    return static_cast<int>(ymd.year());
 }
 
 int DateTime::GetQuarter() const
@@ -252,27 +252,47 @@ int DateTime::GetQuarter() const
 
 int DateTime::GetMonth() const
 {
-    return GetAsTm().tm_mon + 1; // tm_mon is 0-based, so we add 1 to get the month number (1-12)
+    const auto ymd = GetAsDateInternal();
+
+    const auto value = static_cast<unsigned>(ymd.month());
+
+    return static_cast<int>(value);
 }
 
 int DateTime::GetDay() const
 {
-    return GetAsTm().tm_mday; // tm_mday is 1-based, so it directly gives the day number (1-31)
+    const auto ymd = GetAsDateInternal();
+
+    const auto value = static_cast<unsigned>(ymd.day());
+
+    return static_cast<int>(value);
 }
 
 int DateTime::GetHour() const
 {
-    return GetAsTm().tm_hour; // tm_hour is 0-based, so it gives the hour in 24-hour format (0-23)
+    const auto hms = GetAsTimeInternal();
+
+    const auto value = hms.hours();
+
+    return value.count();
 }
 
 int DateTime::GetMinute() const
 {
-    return GetAsTm().tm_min; // tm_min is 0-based, so it gives the minute (0-59)
+    const auto hms = GetAsTimeInternal();
+
+    const auto value = hms.minutes();
+
+    return value.count();
 }
 
 int DateTime::GetSeconds() const
 {
-    return GetAsTm().tm_sec; // tm_sec is 0-based, so it gives the seconds (0-59)
+    const auto hms = GetAsTimeInternal();
+
+    const auto value = hms.seconds();
+
+    return value.count();
 }
 
 long DateTime::GetMilliseconds() const

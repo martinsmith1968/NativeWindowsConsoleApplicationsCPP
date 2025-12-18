@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <string>
+#include "date.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -21,6 +22,9 @@ namespace DNX::Utils
         [[nodiscard]] chrono::time_point<std::chrono::system_clock> GetTimePoint() const;
 
         static const int m_month_days[];
+
+        [[nodiscard]] date::year_month_day GetAsDateInternal() const;
+        [[nodiscard]] date::hh_mm_ss<chrono::duration<long long, ratio<1, 1000>>> GetAsTimeInternal() const;
 
     public:
         class Formats
@@ -65,6 +69,7 @@ namespace DNX::Utils
 
         [[nodiscard]] time_t GetAsTimeT() const;
         [[nodiscard]] tm GetAsTm() const;
+
         [[nodiscard]] DateTime GetDate() const;
 
         [[nodiscard]] bool IsDateOnly() const;
