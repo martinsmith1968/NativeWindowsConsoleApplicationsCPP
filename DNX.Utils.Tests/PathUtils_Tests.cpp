@@ -62,6 +62,7 @@ TEST(TEST_GROUP, IsDriveReference_returns_an_appropriate_value)
     EXPECT_TRUE(PathUtils::IsDriveReference("C:"));
     EXPECT_TRUE(PathUtils::IsDriveReference("d:"));
     EXPECT_FALSE(PathUtils::IsDriveReference("4:"));
+    EXPECT_FALSE(PathUtils::IsDriveReference("C"));
 }
 
 TEST(TEST_GROUP, IsFile_returns_an_appropriate_value)
