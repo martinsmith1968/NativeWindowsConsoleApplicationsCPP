@@ -7,8 +7,8 @@
 #include <sstream>
 #include <iostream>
 #include <ostream>
-
 #include "../../DNX.Utils/MapUtils.h"
+#include "../../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -49,7 +49,7 @@ namespace Stopwatch
         const string ArgumentNameOutputFormat = "output-format";
         const string ArgumentNameCustomFormatText = "custom-format-text";
 
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST)));
+        static const ParserContext m_parser_context;
 
     public:
         ListArguments()

@@ -1,11 +1,18 @@
 #include "stdafx.h"
 #include "BaseCommand.h"
+#include "CancelCommand.h"
+#include "ElapsedCommand.h"
+#include "ListCommand.h"
+#include "PauseCommand.h"
+#include "ResumeCommand.h"
+#include "StartCommand.h"
+#include "StopCommand.h"
+#include "../../DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 
 using namespace std;
 using namespace Stopwatch;
-
 
 BaseArguments::BaseArguments(const ParserContext& parser_context)
     : Arguments(parser_context)
@@ -71,3 +78,11 @@ string BaseArguments::GetArgumentAdditionalText()
 {
     return GetArgumentValue(ArgumentNameAdditionalText);
 }
+
+const ParserContext CancelArguments::m_parser_context  = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL)));
+const ParserContext ElapsedArguments::m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::ELAPSED)));
+const ParserContext ListArguments::m_parser_context    = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST)));
+const ParserContext PauseArguments::m_parser_context   = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::PAUSE)));
+const ParserContext ResumeArguments::m_parser_context  = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::RESUME)));
+const ParserContext StartArguments::m_parser_context   = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::START)));
+const ParserContext StopArguments::m_parser_context    = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::STOP)));

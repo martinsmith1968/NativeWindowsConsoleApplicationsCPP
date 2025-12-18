@@ -2,7 +2,6 @@
 
 #include "../stdafx.h"
 #include "BaseCommand.h"
-#include "../../DNX.Utils/StringUtils.h"
 #include <string>
 #include <iostream>
 
@@ -17,7 +16,7 @@ namespace Stopwatch
 {
     class CancelArguments final : public BaseArguments
     {
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL)));
+        static const ParserContext m_parser_context;
 
     public:
         CancelArguments()

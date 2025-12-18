@@ -17,7 +17,7 @@ namespace Stopwatch
 {
     class PauseArguments final : public BaseArguments
     {
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::PAUSE)));
+        static const ParserContext m_parser_context;
 
     public:
         PauseArguments()

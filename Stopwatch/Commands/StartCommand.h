@@ -19,7 +19,7 @@ namespace Stopwatch
     {
         const string ArgumentNameForce = "force";
 
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::START)));
+        static const ParserContext m_parser_context;
 
     public:
         StartArguments()

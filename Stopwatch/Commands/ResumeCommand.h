@@ -17,7 +17,7 @@ namespace Stopwatch
 {
     class ResumeArguments final : public BaseArguments
     {
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::RESUME)));
+        static const ParserContext m_parser_context;
 
     public:
         ResumeArguments()
