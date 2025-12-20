@@ -52,7 +52,6 @@ TEST(TEST_GROUP, GetPathParts_returns_an_appropriate_value)
     EXPECT_EQ(parts1, PathUtils::GetPathParts(file1));
 }
 
-
 TEST(TEST_GROUP, IsDriveReference_returns_an_appropriate_value)
 {
     // Assert
@@ -77,6 +76,17 @@ TEST(TEST_GROUP, IsDirectory_returns_an_appropriate_value)
     // Assert
     EXPECT_TRUE(PathUtils::IsDirectory(PathUtils::GetTempPath()));
     EXPECT_FALSE(PathUtils::IsDirectory(PathUtils::GetTempFileName("q")));
+}
+
+TEST(TEST_GROUP, HasDriveReference_returns_an_appropriate_value)
+{
+    // Assert
+    EXPECT_TRUE(PathUtils::HasDriveReference(PathUtils::GetTempPath()));
+    EXPECT_TRUE(PathUtils::HasDriveReference(PathUtils::GetTempFileName()));
+    EXPECT_FALSE(PathUtils::HasDriveReference("bob.txt"));
+    EXPECT_FALSE(PathUtils::HasDriveReference(""));
+    EXPECT_FALSE(PathUtils::HasDriveReference("C"));
+    EXPECT_TRUE(PathUtils::HasDriveReference("C:"));
 }
 
 TEST(TEST_GROUP, GetParentPath_returns_an_appropriate_value)
@@ -192,7 +202,7 @@ TEST(TEST_GROUP, Combine_returns_appropriate_combined_value)
     EXPECT_EQ(PathUtils::Combine("a" + PathUtils::PATH_SEPARATOR + "b" + PathUtils::PATH_SEPARATOR, "c"), "a" + PathUtils::PATH_SEPARATOR + "b" + PathUtils::PATH_SEPARATOR + "c");
 }
 
-TEST(TEST_GROUP, Combine2_returns_appropriate_combined_value)
+TEST(TEST_GROUP, Combine_list_returns_appropriate_combined_value)
 {
     EXPECT_EQ(PathUtils::Combine({ "", "" }), "");
     EXPECT_EQ(PathUtils::Combine({ "", "b" }), "b");

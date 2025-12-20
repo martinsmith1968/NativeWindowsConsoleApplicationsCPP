@@ -19,8 +19,6 @@ namespace DNX::Utils
     {
         chrono::time_point<std::chrono::system_clock> m_time_point;
 
-        [[nodiscard]] chrono::time_point<std::chrono::system_clock> GetTimePoint() const;
-
         static const int m_month_days[];
 
         [[nodiscard]] date::year_month_day GetAsDateInternal() const;
@@ -67,6 +65,7 @@ namespace DNX::Utils
         string ToString() const;
         string ToString(const string& format) const;
 
+        [[nodiscard]] chrono::time_point<std::chrono::system_clock> GetTimePoint() const;
         [[nodiscard]] time_t GetAsTimeT() const;
         [[nodiscard]] tm GetAsTm() const;
 

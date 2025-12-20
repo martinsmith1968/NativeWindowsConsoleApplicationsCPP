@@ -1,17 +1,18 @@
 #include "stdafx.h"
 #include "DateTime.h"
-#include <chrono>
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <ctime>
-#include <iomanip>
-#include <regex>
-
+#include "date.h"
 #include "MathUtils.h"
 #include "StringUtils.h"
-
-#include "date.h"
+#include <chrono>
+#include <cmath>
+#include <corecrt.h>
+#include <exception>
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <regex>
+#include <ratio>
+#include <stdexcept>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCertMsc51Cpp
@@ -292,7 +293,7 @@ int DateTime::GetSeconds() const
 
     const auto value = hms.seconds();
 
-    return value.count();
+    return static_cast<int>(value.count());
 }
 
 long DateTime::GetMilliseconds() const

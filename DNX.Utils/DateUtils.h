@@ -1,5 +1,7 @@
 #pragma once
 
+#include <corecrt.h>
+#include <ctime>
 #include <string>
 
 // ReSharper disable CppInconsistentNaming

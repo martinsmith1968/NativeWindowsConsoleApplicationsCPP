@@ -165,9 +165,12 @@
     <ClInclude Include="date.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="DateUtils.h" />
+    <ClInclude Include="DirectoryInfo.h" />
     <ClInclude Include="DirectoryUtils.h" />
     <ClInclude Include="EnumUtils.h" />
     <ClInclude Include="EnvironmentUtils.h" />
+    <ClInclude Include="FileComparer.h" />
+    <ClInclude Include="FileInfo.h" />
     <ClInclude Include="FileUtils.h" />
     <ClInclude Include="ListUtils.h" />
     <ClInclude Include="MapUtils.h" />
@@ -186,8 +189,11 @@
     <ClCompile Include="CryptoUtils.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="DateUtils.cpp" />
+    <ClCompile Include="DirectoryInfo.cpp" />
     <ClCompile Include="DirectoryUtils.cpp" />
     <ClCompile Include="EnvironmentUtils.cpp" />
+    <ClCompile Include="FileComparer.cpp" />
+    <ClCompile Include="FileInfo.cpp" />
     <ClCompile Include="FileUtils.cpp" />
     <ClCompile Include="ListUtils.cpp" />
     <ClCompile Include="MathUtils.cpp" />
