@@ -55,14 +55,14 @@ list<string> PathUtils::GetPathParts(const string& path)
     return parts;
 }
 
-bool PathUtils::IsDriveReference(const string& filePath)
+bool PathUtils::IsDriveReference(const string& file_path)
 {
     try
     {
         static const regex pattern ("^[A-Za-z]\\:$");
 
         smatch matches;
-        return std::regex_search(filePath, matches, pattern) && !matches.empty();
+        return std::regex_search(file_path, matches, pattern) && !matches.empty();
     }
     catch ([[maybe_unused]] const exception &ex)
     {
@@ -70,42 +70,71 @@ bool PathUtils::IsDriveReference(const string& filePath)
     }
 }
 
-bool PathUtils::IsFile(const string& filePath)
+bool PathUtils::IsFile(const string& file_path)
 {
-    if (filePath.empty() || IsDriveReference(filePath) || DirectoryUtils::Exists(filePath))
+    if (file_path.empty() || IsDriveReference(file_path) || DirectoryUtils::Exists(file_path))
         return false;
 
-    if (FileUtils::Exists(filePath))
+    if (FileUtils::Exists(file_path))
     {
         return true;
     }
 
-    const auto parts = GetPathParts(filePath);
+    const auto parts = GetPathParts(file_path);
     const auto& fileName = parts.back();
 
     return StringUtils::Contains(fileName, EXTENSION_SEPARATOR);
 }
 
-bool PathUtils::IsDirectory(const string& filePath)
+bool PathUtils::IsDirectory(const string& file_path)
 {
-    if (filePath.empty() || IsDriveReference(filePath) || FileUtils::Exists(filePath))
+    if (file_path.empty() || IsDriveReference(file_path) || FileUtils::Exists(file_path))
         return false;
 
-    if (DirectoryUtils::Exists(filePath))
+    if (DirectoryUtils::Exists(file_path))
     {
         return true;
     }
 
-    const auto parts = GetPathParts(filePath);
+    const auto parts = GetPathParts(file_path);
     const auto& fileName = parts.back();
 
     return !StringUtils::Contains(fileName, EXTENSION_SEPARATOR);
 }
 
-string PathUtils::GetParentPath(const string& path)
+bool PathUtils::HasDriveReference(const string& file_path)
+{
+    if (file_path.length() < 2)
+        return false;
+
+    const auto drive_part = file_path.substr(0, 2);
+    return IsDriveReference(drive_part);
+}
+
+int PathUtils::GetDriveId(const string& file_path)
+{
+    if (HasDriveReference(file_path))
+        return 0;
+
+    const auto drive_char = StringUtils::ToUpper(GetDrive(file_path))[0];
+    if (drive_char < 'A' || drive_char > 'Z')
+        return 0;
+
+    return drive_char - 'A' + 1;
+}
+
+string PathUtils::GetDriveReference(const int drive_id)
+{
+    if ((drive_id < 'A' || drive_id > 'Z') && (drive_id < 'a' || drive_id > 'z'))
+        return "";
+
+    return to_string(static_cast<char>(drive_id));
+}
+
+string PathUtils::GetParentPath(const string& file_path)
 {
     auto parent_path = StringUtils::BeforeLast(
-        StringUtils::RemoveEndsWith(path, PATH_SEPARATOR),
+        StringUtils::RemoveEndsWith(file_path, PATH_SEPARATOR),
         PATH_SEPARATOR
     );
 
@@ -117,9 +146,9 @@ string PathUtils::GetParentPath(const string& path)
     return parent_path;
 }
 
-string PathUtils::GetAbsolutePath(const string& path)
+string PathUtils::GetAbsolutePath(const string& file_path)
 {
-    auto parts = GetPathParts(path);
+    auto parts = GetPathParts(file_path);
 
     list<string> absolute_parts;
     for(const auto& part : parts)
@@ -145,39 +174,39 @@ string PathUtils::GetAbsolutePath(const string& path)
     return StringUtils::JoinText(absolute_parts, PATH_SEPARATOR);
 }
 
-string PathUtils::GetDrive(const string& filePath)
+string PathUtils::GetDrive(const string& file_path)
 {
-    if (filePath.empty())
+    if (file_path.empty())
         return "";
 
-    if (IsDriveReference(filePath))
+    if (IsDriveReference(file_path))
     {
-        return filePath;
+        return file_path;
     }
 
-    const auto drive_separator_pos = filePath.find(DRIVE_SEPARATOR);
+    const auto drive_separator_pos = file_path.find(DRIVE_SEPARATOR);
     if (drive_separator_pos == string::npos || drive_separator_pos > 1)
         return "";
 
-    return filePath.substr(0, drive_separator_pos + 1);
+    return file_path.substr(0, drive_separator_pos + 1);
 }
 
-string PathUtils::GetDriveAndPath(const string& filePath)
+string PathUtils::GetDriveAndPath(const string& file_path)
 {
-    if (IsDirectory(filePath))
+    if (IsDirectory(file_path))
     {
-        return StringUtils::EnsureEndsWith(filePath, PATH_SEPARATOR);
+        return StringUtils::EnsureEndsWith(file_path, PATH_SEPARATOR);
     }
 
-    const auto parts = GetPathParts(filePath);
+    const auto parts = GetPathParts(file_path);
     const auto& fileName = parts.back();
 
-    return StringUtils::RemoveEndsWith(filePath, fileName);
+    return StringUtils::RemoveEndsWith(file_path, fileName);
 }
 
-string PathUtils::GetFileNameOnly(const string& filePath)
+string PathUtils::GetFileNameOnly(const string& file_path)
 {
-    auto fileName = GetFileNameAndExtension(filePath);
+    auto fileName = GetFileNameAndExtension(file_path);
 
     const auto lastFileExtSep = fileName.find_last_of('.');
     if (lastFileExtSep >= 0)
@@ -188,22 +217,27 @@ string PathUtils::GetFileNameOnly(const string& filePath)
     return fileName;
 }
 
-string PathUtils::GetFileNameAndExtension(const string& filePath)
+string PathUtils::GetFileNameAndExtension(const string& file_path)
 {
-    string fileName = filePath;
+    string fileName = file_path;
 
-    const auto lastPathSep = filePath.find_last_of('\\');
+    const auto lastPathSep = file_path.find_last_of('\\');
     if (lastPathSep >= 0)
     {
-        fileName = filePath.substr(lastPathSep + 1);
+        fileName = file_path.substr(lastPathSep + 1);
     }
 
     return fileName;
 }
 
-string PathUtils::ChangeFileExtension(const string& filePath, const string& fileExtension)
+string PathUtils::GetFileExtension(const string& file_path)
 {
-    string fileName = filePath;
+    return StringUtils::AfterLast(file_path, EXTENSION_SEPARATOR);
+}
+
+string PathUtils::ChangeFileExtension(const string& file_path, const string& file_extension)
+{
+    string fileName = file_path;
 
     const auto lastFileExtSep = fileName.find_last_of('.');
     if (lastFileExtSep >= 0)
@@ -211,12 +245,12 @@ string PathUtils::ChangeFileExtension(const string& filePath, const string& file
         fileName = fileName.substr(0, lastFileExtSep);
     }
 
-    if (!fileExtension.empty() && fileExtension.substr(0, 1) != ".")
+    if (!file_extension.empty() && file_extension.substr(0, 1) != ".")
     {
         fileName += '.';
     }
 
-    fileName += fileExtension;
+    fileName += file_extension;
 
     return fileName;
 }
@@ -313,7 +347,7 @@ string PathUtils::GetTempFileName(const string& prefix)
     return GetTempFileName(prefix, "tmp");
 }
 
-string PathUtils::GetTempFileName(const string& prefix, const string& extension)
+string PathUtils::GetTempFileName(const string& prefix, const string& file_extension)
 {
     const auto now = DateUtils::ToCalendarDateTime(DateUtils::GetNow());
 
@@ -332,7 +366,7 @@ string PathUtils::GetTempFileName(const string& prefix, const string& extension)
                 ? to_string(adjuster)
                 : "");
 
-        fileName = Combine(filePath, filePrefix + fileId + "." + extension);
+        fileName = Combine(filePath, filePrefix + fileId + "." + file_extension);
     } while (FileUtils::Exists(fileName));
 
     FileUtils::Create(fileName);

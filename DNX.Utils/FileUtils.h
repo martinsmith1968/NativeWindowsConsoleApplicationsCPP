@@ -1,10 +1,12 @@
 #pragma once
 
 #include "stdafx.h"
-
+#include "DateTime.h"
+#include "PathUtils.h"
 #include <filesystem>
 #include <list>
 #include <string>
+
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -19,35 +21,32 @@ namespace DNX::Utils
     //--------------------------------------------------------------------------
     class FileUtils
     {
-    private:
-        static time_t ConvertDateTime(const file_time_type date_time);
-        static file_time_type ConvertDateTime(const time_t date_time);
+        static DateTime ConvertToDateTime(const file_time_type file_time);
+        static file_time_type ConvertToFileTime(DateTime date_time);
 
     public:
-        static bool Exists(const string& fileName);
-        static int GetSize(const string& fileName);
-        static string GetAttributes(const string& fileName);
+        static bool Exists(const string& file_name);
+        static int GetSize(const string& file_name);
+        static FileSystemItemAttributes GetAttributes(const string& file_name);
+        static void SetAttributes(const string& file_name, FileSystemItemAttributes attributes);
 
-        static time_t GetCreationTime(const string& fileName);
-        static time_t GetLastWriteTime(const string& fileName);
-        static time_t GetLastAccessTime(const string& fileName);
-        static bool SetCreationTime(const string& fileName, const time_t& dateTime);
-        static bool SetLastWriteTime(const string& fileName, const time_t& dateTime);
-        static bool SetLastAccessTime(const string& fileName, const time_t& dateTime);
+        static DateTime GetCreationTime(const string& file_name);
+        static DateTime GetLastWriteTime(const string& file_name);
+        static DateTime GetLastAccessTime(const string& file_name);
+        static bool SetCreationTime(const string& file_name, DateTime date_time);
+        static bool SetLastWriteTime(const string& file_name, DateTime date_time);
+        static bool SetLastAccessTime(const string& file_name, DateTime date_time);
 
-        static bool Create(const string& fileName);
-        static bool Delete(const string& fileName, bool ignoreResultCode = false);
-        static bool Move(const string& fileName, const string& newFileName, bool overwrite = false);
-        static bool Copy(const string& fileName, const string& newFileName, bool overwrite = false);
+        static bool Create(const string& file_name, bool overwrite = false);
+        static bool Delete(const string& file_name, bool ignore_result_code = false);
+        static bool Move(const string& file_name, const string& destination, bool overwrite = false);
+        static bool Copy(const string& file_name, const string& destination, bool overwrite = false);
 
-        static list<string> ReadAllLines(const string& fileName);
-        static string ReadAllText(const string& fileName);
-        static void WriteAllLines(const string& fileName, const list<string>& lines);
-        static void WriteAllText(const string& fileName, const string& text);
-        static void AppendAllLines(const string& fileName, const list<string>& lines);
-        static void AppendAllText(const string& fileName, const string& text);
-
-        static bool CompareTextFiles(const string& fileName1, const string& fileName2);
-        static bool CompareBinaryFiles(const string& fileName1, const string& fileName2);
+        static list<string> ReadAllLines(const string& file_name);
+        static string ReadAllText(const string& file_name);
+        static void WriteAllLines(const string& file_name, const list<string>& lines);
+        static void WriteAllText(const string& file_name, const string& text);
+        static void AppendAllLines(const string& file_name, const list<string>& lines);
+        static void AppendAllText(const string& file_name, const string& text);
     };
 }

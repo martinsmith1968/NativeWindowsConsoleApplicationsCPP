@@ -1,12 +1,18 @@
 #include "stdafx.h"
+#include "DateTime.h"
 #include "FileUtils.h"
 #include "PathUtils.h"
 #include <chrono>
+#include <sys/stat.h>
+#include <exception>
 #include <sstream>
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-#include <io.h>
+#include <list>
+#include <ios>
+#include <string>
+#include <system_error>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -22,41 +28,35 @@ using namespace DNX::Utils;
 // Useful Sources
 // https://stackoverflow.com/questions/61030383/how-to-convert-stdfilesystemfile-time-type-to-time-t
 
-time_t FileUtils::ConvertDateTime(const file_time_type date_time)
+DateTime FileUtils::ConvertToDateTime(const file_time_type file_time)
 {
-    const auto result = date_time.time_since_epoch().count();
+    const auto result = file_time.time_since_epoch().count();
 
-    return result < 0
-        ? 0
-        : result;
+    return DateTime(result);
 }
 
-file_time_type FileUtils::ConvertDateTime(const time_t date_time)
+file_time_type FileUtils::ConvertToFileTime(DateTime date_time)
 {
-    //const file_time_type result = file_time_type<chrono::system_clock>(
-    //    chrono::duration_cast<chrono::system_clock::duration>(
-    //        chrono::seconds()
-    //    )
-    //);
+    const auto time_since_epoch = chrono::system_clock::from_time_t(date_time.GetAsTimeT()).time_since_epoch();
 
-    file_time_type result;
+    const auto result = file_time_type(time_since_epoch);
 
     return result;
 }
 
-bool FileUtils::Exists(const string& fileName)
+bool FileUtils::Exists(const string& file_name)
 {
     error_code error;
-    if (!exists(fileName, error) || error.value() != 0)
+    if (!exists(file_name, error) || error.value() != 0)
         return false;
 
-    return is_regular_file(fileName, error) && error.value() == 0;
+    return is_regular_file(file_name, error) && error.value() == 0;
 }
 
-int FileUtils::GetSize(const string& fileName)
+int FileUtils::GetSize(const string& file_name)
 {
     error_code error;
-    const auto result = file_size(fileName, error);
+    const auto result = file_size(file_name, error);
 
     if (error.value() != 0)
     {
@@ -66,100 +66,157 @@ int FileUtils::GetSize(const string& fileName)
     return static_cast<int>(result);
 }
 
-string FileUtils::GetAttributes(const string& fileName)
+FileSystemItemAttributes FileUtils::GetAttributes(const string& file_name)
+{
+    // TODO: Convert to C++ 17 standard
+    // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
+
+    auto attributes = FileSystemItemAttributes::None;
+
+    if (Exists(file_name))
+    {
+        error_code error;
+        const auto file_status = status(file_name, error);
+        if (error.value() != 0)
+            return attributes;
+
+        switch (file_status.type()) {
+        case file_type::none:
+        case file_type::not_found:
+        case file_type::unknown:
+            attributes = FileSystemItemAttributes::None;
+            break;
+        case file_type::regular:
+            attributes = attributes | FileSystemItemAttributes::CharacterFile;
+            break;
+        case file_type::directory:
+            attributes = attributes | FileSystemItemAttributes::Directory;
+            break;
+        case file_type::symlink:
+            attributes = attributes | FileSystemItemAttributes::Symlink;
+            break;
+        case file_type::block:
+            attributes = attributes | FileSystemItemAttributes::Block;
+            break;
+        case file_type::character:
+            attributes = attributes | FileSystemItemAttributes::CharacterFile;
+            break;
+        case file_type::fifo:
+            attributes = attributes | FileSystemItemAttributes::FIFO;
+            break;
+        case file_type::socket:
+            attributes = attributes | FileSystemItemAttributes::Socket;
+            break;
+        case file_type::junction:
+            attributes = attributes | FileSystemItemAttributes::Junction;
+            break;
+        }
+    }
+
+    return attributes;
+}
+
+void FileUtils::SetAttributes(const string& file_name, FileSystemItemAttributes attributes)
+{
+
+
+
+
+    struct stat status;
+
+
+
+    stat(file_name.c_str(), &status);
+}
+
+DateTime FileUtils::GetCreationTime(const string& file_name)
+{
+    // TODO: Convert to C++ 17 standard
+    // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
+
+    struct stat status_buffer;
+    stat(file_name.c_str(), &status_buffer);
+
+    return DateTime(status_buffer.st_ctime);
+}
+
+DateTime FileUtils::GetLastWriteTime(const string& file_name)
 {
     // TODO: Convert to C++ 17 standard
     // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
     struct stat status_buffer;
-    stat(fileName.c_str(), &status_buffer);
+    stat(file_name.c_str(), &status_buffer);
 
-    error_code error;
-    auto result = status(fileName, error);
-
-    return ""; // TODO : Need something other than string here
+    return DateTime(status_buffer.st_mtime);
 }
 
-time_t FileUtils::GetCreationTime(const string& fileName)
+DateTime FileUtils::GetLastAccessTime(const string& file_name)
 {
     // TODO: Convert to C++ 17 standard
     // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
     struct stat status_buffer;
-    stat(fileName.c_str(), &status_buffer);
+    stat(file_name.c_str(), &status_buffer);
 
-    return status_buffer.st_ctime;
+    return DateTime(status_buffer.st_atime);
 }
 
-time_t FileUtils::GetLastWriteTime(const string& fileName)
-{
-    // TODO: Convert to C++ 17 standard
-    // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
-    struct stat status_buffer;
-    stat(fileName.c_str(), &status_buffer);
-
-    return status_buffer.st_mtime;
-}
-
-time_t FileUtils::GetLastAccessTime(const string& fileName)
-{
-    // TODO: Convert to C++ 17 standard
-    // NOTE: Convert when C++ 20 is available : https://www.cppstories.com/2024/file-time-cpp20
-    struct stat status_buffer;
-    stat(fileName.c_str(), &status_buffer);
-
-    return status_buffer.st_atime;
-}
-
-bool FileUtils::SetCreationTime(const string& fileName, const time_t& dateTime)
+bool FileUtils::SetCreationTime(const string& file_name, DateTime date_time)
 {
     return false; // TODO: Creation time is not supported in C++17 filesystem library
 }
 
-bool FileUtils::SetLastWriteTime(const string& fileName, const time_t& dateTime)
+bool FileUtils::SetLastWriteTime(const string& file_name, DateTime date_time)
 {
-    const auto new_time = ConvertDateTime(dateTime);
-
     error_code error;
-    last_write_time(fileName, new_time, error);
+    last_write_time(file_name, ConvertToFileTime(date_time), error);
 
     return error.value() == 0;
 }
 
-bool FileUtils::SetLastAccessTime(const string& fileName, const time_t& dateTime)
+bool FileUtils::SetLastAccessTime(const string& file_name, DateTime date_time)
 {
-    return false; // TODO: Last Access time is not supported in C++17 filesystem library
+    // Not Supported
+
+    return false;
 }
 
-bool FileUtils::Create(const string& fileName)
+bool FileUtils::Create(const string& file_name, const bool overwrite)
 {
-    auto file = ofstream{ fileName };
+    if (!overwrite && Exists(file_name))
+    {
+        return false;
+    }
 
-    return Exists(fileName);
+    auto file = ofstream{ file_name };
+    file.close();
+
+    return Exists(file_name);
 }
 
-bool FileUtils::Delete(const string& fileName, const bool ignoreResultCode)
+bool FileUtils::Delete(const string& file_name, const bool ignore_result_code)
 {
     error_code error;
-    const auto result = filesystem::remove(fileName, error);
+    const auto result = filesystem::remove(file_name, error);
 
-    return (ignoreResultCode || (result && error.value() == 0)) && !Exists(fileName);
+    return (ignore_result_code || (result && error.value() == 0)) && !Exists(file_name);
 }
 
-bool FileUtils::Move(const string& fileName, const string& newFileName, const bool overwrite)
+bool FileUtils::Move(const string& file_name, const string& destination, const bool overwrite)
 {
     try
     {
-        if (overwrite && Exists(newFileName))
+        if (overwrite && Exists(destination))
         {
-            if (!Delete(newFileName, true))
+            if (!Delete(destination, true))
             {
                 return false;
             }
         }
 
         error_code error;
-        filesystem::rename(fileName, newFileName, error);
+        filesystem::rename(file_name, destination, error);
 
-        return error.value() == 0 && !Exists(fileName) && Exists(newFileName);
+        return error.value() == 0 && !Exists(file_name) && Exists(destination);
     }
     catch ([[maybe_unused]] exception& ex)
     {
@@ -167,9 +224,9 @@ bool FileUtils::Move(const string& fileName, const string& newFileName, const bo
     }
 }
 
-bool FileUtils::Copy(const string& fileName, const string& newFileName, const bool overwrite)
+bool FileUtils::Copy(const string& file_name, const string& destination, const bool overwrite)
 {
-    if (!Exists(fileName))
+    if (!Exists(file_name))
         return false;
 
     copy_options options = overwrite
@@ -179,7 +236,7 @@ bool FileUtils::Copy(const string& fileName, const string& newFileName, const bo
     try
     {
         error_code error;
-        copy_file(fileName, newFileName, options, error);
+        copy_file(file_name, destination, options, error);
 
         return error.value() == 0;
     }
@@ -189,15 +246,15 @@ bool FileUtils::Copy(const string& fileName, const string& newFileName, const bo
     }
 }
 
-list<string> FileUtils::ReadAllLines(const string& fileName)
+list<string> FileUtils::ReadAllLines(const string& file_name)
 {
     list<string> lines;
 
-    if (Exists(fileName))
+    if (Exists(file_name))
     {
         try
         {
-            if (ifstream in(fileName); in)
+            if (ifstream in(file_name); in)
             {
                 string line;
 
@@ -219,13 +276,13 @@ list<string> FileUtils::ReadAllLines(const string& fileName)
     return lines;
 }
 
-string FileUtils::ReadAllText(const string& fileName)
+string FileUtils::ReadAllText(const string& file_name)
 {
     stringstream text;
 
-    if (Exists(fileName))
+    if (Exists(file_name))
     {
-        if (ifstream in(fileName); in)
+        if (ifstream in(file_name); in)
         {
             text << in.rdbuf();
 
@@ -236,9 +293,9 @@ string FileUtils::ReadAllText(const string& fileName)
     return text.str();
 }
 
-void FileUtils::WriteAllLines(const string& fileName, const list<string>& lines)
+void FileUtils::WriteAllLines(const string& file_name, const list<string>& lines)
 {
-    if (ofstream out(fileName); out)
+    if (ofstream out(file_name); out)
     {
         if (out.is_open())
         {
@@ -251,9 +308,9 @@ void FileUtils::WriteAllLines(const string& fileName, const list<string>& lines)
     }
 }
 
-void FileUtils::WriteAllText(const string& fileName, const string& text)
+void FileUtils::WriteAllText(const string& file_name, const string& text)
 {
-    if (ofstream out(fileName); out)
+    if (ofstream out(file_name); out)
     {
         if (out.is_open())
         {
@@ -263,9 +320,9 @@ void FileUtils::WriteAllText(const string& fileName, const string& text)
     }
 }
 
-void FileUtils::AppendAllLines(const string& fileName, const list<string>& lines)
+void FileUtils::AppendAllLines(const string& file_name, const list<string>& lines)
 {
-    if (ofstream out(fileName, ios_base::ate); out)
+    if (ofstream out(file_name, ios_base::ate); out)
     {
         if (out.is_open())
         {
@@ -279,9 +336,9 @@ void FileUtils::AppendAllLines(const string& fileName, const list<string>& lines
 
 }
 
-void FileUtils::AppendAllText(const string& fileName, const string& text)
+void FileUtils::AppendAllText(const string& file_name, const string& text)
 {
-    if (ofstream out(fileName, ios_base::ate); out)
+    if (ofstream out(file_name, ios_base::ate); out)
     {
         if (out.is_open())
         {
@@ -289,61 +346,4 @@ void FileUtils::AppendAllText(const string& fileName, const string& text)
             out.close();
         }
     }
-}
-
-bool FileUtils::CompareTextFiles(const string& fileName1, const string& fileName2)
-{
-    if (!Exists(fileName1))
-        return false;
-    if (!Exists(fileName2))
-        return false;
-
-    const auto content1 = ReadAllLines(fileName1);
-    const auto content2 = ReadAllLines(fileName2);
-
-    return content1.size() == content2.size()
-        && content1 == content2;
-}
-
-bool FileUtils::CompareBinaryFiles(const string& fileName1, const string& fileName2)
-{
-    if (!Exists(fileName1))
-        return false;
-    if (!Exists(fileName2))
-        return false;
-
-    constexpr int buffer_size = 2048;
-
-    const auto buffer1 = new char[buffer_size];
-    const auto buffer2 = new char[buffer_size];
-
-    fstream file1(fileName1, ios::in | ios::binary);
-    fstream file2(fileName2, ios::in | ios::binary);
-
-    auto files_equal = true;
-    while (!file1.eof() && !file2.eof() && files_equal)
-    {
-        for (auto i = 0; i < buffer_size; ++i)
-        {
-            buffer1[i] = '0';
-            buffer2[i] = '0';
-        }
-
-        file1.read(buffer1, buffer_size);
-        file2.read(buffer1, buffer_size);
-
-        for (auto i = 0; i < buffer_size; ++i)
-        {
-            if (buffer1[i] != buffer2[i])
-            {
-                files_equal = false;
-                break;
-            }
-        }
-    }
-
-    file1.close();
-    file2.close();
-
-    return files_equal;
 }

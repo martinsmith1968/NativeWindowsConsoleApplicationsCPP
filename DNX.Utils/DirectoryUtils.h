@@ -1,7 +1,9 @@
 #pragma once
 
 #include "stdafx.h"
+#include "DateTime.h"
 #include <list>
+#include <cstdint>
 #include <string>
 
 // ReSharper disable CppInconsistentNaming
@@ -24,7 +26,13 @@ namespace DNX::Utils
     {
     public:
         static string GetCurrentDirectory();
+        static string GetCurrentDirectory(const string& drive_reference);
         static string SetCurrentDirectory(const string& path);
+
+        static string GetCurrentDrive();
+        static int GetCurrentDriveId();
+        static bool SetCurrentDrive(const string& drive_reference);
+        static bool SetCurrentDrive(int drive_id);
 
         static string GetUserHomeDirectory();
         static string GetUserDataDirectory();
@@ -32,16 +40,17 @@ namespace DNX::Utils
         static bool Exists(const string& path);
         static bool Create(const string& path);
         static bool Delete(const string& path, bool recurse_sub_directories = false, bool remove_files = false);
-        static bool Move(const string& path, const string& newPath);
+        static bool Move(const string& path, const string& newPath, bool overwrite = false);
+        static bool Copy(const string& path, const string& newPath, bool overwrite = false);
 
         static list<string> GetFiles(const string& path, const string& searchPattern, DirectorySearchOption searchOption = DirectorySearchOption::TopDirectoryOnly);
         static list<string> GetDirectories(const string& path, const string& searchPattern, DirectorySearchOption searchOption = DirectorySearchOption::TopDirectoryOnly);
 
-        static time_t GetCreationTime(const string& path);
-        static time_t GetLastWriteTime(const string& path);
-        static time_t GetLastAccessTime(const string& path);
-        static void SetCreationTime(const string& path, const time_t& dateTime);
-        static void SetLastWriteTime(const string& path, const time_t& dateTime);
-        static void SetLastAccessTime(const string& path, const time_t& dateTime);
+        static DateTime GetCreationTime(const string& path);
+        static DateTime GetLastWriteTime(const string& path);
+        static DateTime GetLastAccessTime(const string& path);
+        static bool SetCreationTime(const string& path, DateTime dateTime);
+        static bool SetLastWriteTime(const string& path, DateTime dateTime);
+        static bool SetLastAccessTime(const string& path, DateTime dateTime);
     };
 }

@@ -1,12 +1,17 @@
 #include "stdafx.h"
+#include "DateTime.h"
 #include "DirectoryUtils.h"
 #include "EnvironmentUtils.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
+#include <cstdlib>
 #include <direct.h>
+#include <exception>
 #include <iostream>
 #include <filesystem>
-#include "DateUtils.h"
+#include <list>
+#include <string>
+#include <system_error>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -27,11 +32,55 @@ string DirectoryUtils::GetCurrentDirectory()
     return cwd;
 }
 
+string DirectoryUtils::GetCurrentDirectory(const string& drive_reference)
+{
+    if (!PathUtils::IsDriveReference(drive_reference))
+        return GetCurrentDirectory();
+
+    const auto current_drive = GetCurrentDrive();
+    SetCurrentDrive(drive_reference);
+
+    const auto current_directory = GetCurrentDirectory();
+    SetCurrentDrive(current_drive);
+
+    return current_directory;
+}
+
 string DirectoryUtils::SetCurrentDirectory(const string& path)
 {
     auto _ = _chdir(path.c_str());
 
     return GetCurrentDirectory();
+}
+
+string DirectoryUtils::GetCurrentDrive()
+{
+    return PathUtils::GetDriveReference(GetCurrentDriveId());
+}
+
+int DirectoryUtils::GetCurrentDriveId()
+{
+    const auto drive_id = _getdrive();
+
+    return drive_id;
+}
+
+bool DirectoryUtils::SetCurrentDrive(const string& drive_reference)
+{
+    const auto drive_id = PathUtils::GetDriveId(drive_reference);
+
+    return SetCurrentDrive(drive_id);
+}
+
+bool DirectoryUtils::SetCurrentDrive(const int drive_id)
+{
+    if (drive_id < 1 || drive_id > 26)
+        return false;
+
+    if (_chdrive(drive_id) != 0)
+        return false;
+
+    return true;
 }
 
 string DirectoryUtils::GetUserHomeDirectory()
@@ -109,13 +158,18 @@ bool DirectoryUtils::Delete(const string& path, bool recurse_sub_directories, bo
     return true;
 }
 
-bool DirectoryUtils::Move(const string& path, const string& newPath)
+bool DirectoryUtils::Move(const string& path, const string& newPath, bool overwrite)
 {
     if (!Exists(path))
         return false;
 
     if (Exists(newPath))
     {
+        if (!overwrite)
+        {
+            return false;
+        }
+
         if (!Delete(newPath, true, true))
         {
             return false;
@@ -126,6 +180,42 @@ bool DirectoryUtils::Move(const string& path, const string& newPath)
     {
         error_code error;
         filesystem::rename(path, newPath, error);
+        return error.value() == 0 && !Exists(path) && Exists(newPath);
+    }
+    catch ([[maybe_unused]] exception& ex)
+    {
+        return false;
+    }
+}
+
+bool DirectoryUtils::Copy(const string& path, const string& newPath, bool overwrite)
+{
+    if (!Exists(path))
+        return false;
+
+    if (Exists(newPath))
+    {
+        if (!overwrite)
+        {
+            return false;
+        }
+
+        if (!Delete(newPath, true, true))
+        {
+            return false;
+        }
+    }
+
+    try
+    {
+        error_code error;
+        auto options = copy_options::recursive;
+        if (overwrite)
+        {
+            options = options | copy_options::overwrite_existing;
+        }
+
+        filesystem::copy(path, newPath, options, error);
         return error.value() == 0 && !Exists(path) && Exists(newPath);
     }
     catch ([[maybe_unused]] exception& ex)
@@ -152,35 +242,38 @@ list<string> DirectoryUtils::GetDirectories(const string& path, const string& se
     return directories;
 }
 
-time_t DirectoryUtils::GetCreationTime(const string& path)
+DateTime DirectoryUtils::GetCreationTime(const string& path)
 {
     // TODO: Implement
-    return DateUtils::GetNow();
+    return DateTime::Now();
 }
 
-time_t DirectoryUtils::GetLastWriteTime(const string& path)
+DateTime DirectoryUtils::GetLastWriteTime(const string& path)
 {
     // TODO: Implement
-    return DateUtils::GetNow();
+    return DateTime::Now();
 }
 
-time_t DirectoryUtils::GetLastAccessTime(const string& path)
+DateTime DirectoryUtils::GetLastAccessTime(const string& path)
 {
     // TODO: Implement
-    return DateUtils::GetNow();
+    return DateTime::Now();
 }
 
-void DirectoryUtils::SetCreationTime(const string& path, const time_t& dateTime)
+bool DirectoryUtils::SetCreationTime(const string& path, const DateTime dateTime)
 {
     // TODO: Implement
+    return false;
 }
 
-void DirectoryUtils::SetLastWriteTime(const string& path, const time_t& dateTime)
+bool DirectoryUtils::SetLastWriteTime(const string& path, const DateTime dateTime)
 {
     // TODO: Implement
+    return false;
 }
 
-void DirectoryUtils::SetLastAccessTime(const string& path, const time_t& dateTime)
+bool DirectoryUtils::SetLastAccessTime(const string& path, const DateTime dateTime)
 {
     // TODO: Implement
+    return false;
 }
