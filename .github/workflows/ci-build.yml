@@ -217,9 +217,10 @@ jobs:
       run: nuget restore
 
     - name: Setup msbuild
-      uses: microsoft/setup-msbuild@v2
-      with:
-        vs-version: '[17.0,18.9)'
+      run: dotnet add package Microsoft.Build.Runtime --version 18.0.2
+#      uses: microsoft/setup-msbuild@v2
+#      with:
+#        vs-version: '[17.0,18.9)'
 
     - name: Build (${{ env.BUILD_CONFIG }})
       run: msbuild ${{ env.PROJECT_NAME }}.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
