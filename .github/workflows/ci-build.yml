@@ -219,7 +219,7 @@ jobs:
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v2
       with:
-        vs-version: '[18.0,18.9)'
+        vs-version: '[17.0,18.9)'
 
     - name: Build (${{ env.BUILD_CONFIG }})
       run: msbuild ${{ env.PROJECT_NAME }}.sln -t:Rebuild -p:Configuration=${{ env.BUILD_CONFIG }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
