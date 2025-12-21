@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
+#include "../stdafx.h"
 #include <string>
-#include <iostream>
-#include <ostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -47,15 +45,17 @@ namespace Stopwatch
             const auto stopwatch_name = m_arguments.GetStopwatchName();
             const auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             const auto& timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
-            string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat());
-            const string additional_text = m_arguments.GetArgumentAdditionalText();
-            if (!additional_text.empty())
-                text = text.append(" - ").append(additional_text);
-            cout << text << endl;
+            if (m_arguments.GetVerboseOutput())
+                ShowTimerDisplayDetails(timer);
+
+            ShowFormattedElapsedTime(timer, m_arguments.GetElapsedTimeDisplayFormat(), m_arguments.GetArgumentAdditionalText());
         }
     };
 }

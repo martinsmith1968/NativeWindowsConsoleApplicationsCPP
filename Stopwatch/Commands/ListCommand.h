@@ -17,6 +17,7 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
 // ReSharper disable CppClangTidyClangDiagnosticCoveredSwitchDefault
+// ReSharper disable CppClangTidyClangDiagnosticPadded
 
 using namespace std;
 
@@ -90,18 +91,18 @@ namespace Stopwatch
 
     class DisplayOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
-        size_t m_max_name_width = 0;
+        size_t m_max_name_width  = 0;
         size_t m_max_state_width = 0;
 
     public:
         void Reset(ListArguments& arguments) override
         {
-            m_max_name_width = 0;
+            m_max_name_width  = 0;
             m_max_state_width = 0;
         }
         void PreProcess(const Timer& timer) override
         {
-            m_max_name_width = max(m_max_name_width, timer.GetName().length());
+            m_max_name_width  = max(m_max_name_width, timer.GetName().length());
             m_max_state_width = max(m_max_state_width, TimerStateTypeTextResolver().GetText(timer.GetState()).length());
         }
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
@@ -115,7 +116,7 @@ namespace Stopwatch
                 << setw(static_cast<streamsize>(m_max_state_width))
                 << TimerStateTypeTextResolver().GetText(timer.GetState())
                 << " - "
-                << TimerDisplayBuilder::GetFormattedText(timer, TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
+                << TimerDisplayBuilder::GetFormattedDisplayText(timer, TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -137,7 +138,7 @@ namespace Stopwatch
                 << ","
                 << TimerStateTypeTextResolver().GetText(timer.GetState())
                 << ","
-                << TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), "{days}:{hours}:{minutes}:{seconds}")
+                << TimerDisplayBuilder::GetFormattedElapsedTime(timer.GetAccumulatedElapsed(), TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -158,7 +159,7 @@ namespace Stopwatch
 
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
         {
-            return TimerDisplayBuilder::GetFormattedText(timer, m_custom_format_string);
+            return TimerDisplayBuilder::GetFormattedDisplayText(timer, m_custom_format_string);
         }
     };
 

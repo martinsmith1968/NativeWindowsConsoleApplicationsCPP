@@ -14,7 +14,7 @@ using namespace Stopwatch;
 const string TimerDisplayBuilder::DefaultElapsedTimeTextFormat = "{days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
 const string TimerDisplayBuilder::DefaultStartTimeTextFormat = "%Y-%m-%d %H:%M:%S";
 
-string TimerDisplayBuilder::GetFormattedText(const Timer& timer, const string& format, const string& action)
+string TimerDisplayBuilder::GetFormattedDisplayText(const Timer& timer, const string& format, const string& action)
 {
     auto text = format;
 

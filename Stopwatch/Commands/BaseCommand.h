@@ -7,6 +7,7 @@
 #include "../TimerDisplayBuilder.h"
 #include "../TimerRepository.h"
 #include <chrono>
+#include <iostream>
 #include <string>
 
 // ReSharper disable CppInconsistentNaming
@@ -33,6 +34,7 @@ namespace Stopwatch
         const string ArgumentNameDataFileName             = "data-filename";
         const string ArgumentNameStopwatchName            = "stopwatch-name";
         const string ArgumentNameVerboseOutput            = "verbose-output";
+        const string ArgumentNameQuiet                    = "quiet";
         const string ArgumentNameIgnoreInvalidState       = "ignore-invalid-state";
         const string ArgumentNameShowElapsedTime          = "show-elapsed-time";
         const string ArgumentNameElapsedTimeDisplayFormat = "elapsed-time-display-format";
@@ -43,6 +45,7 @@ namespace Stopwatch
         void AddParameterStopwatchName();
         void AddOptionAdditionalText();
         void AddSwitchVerboseOutput(bool default_value);
+        void AddSwitchQuiet(bool default_value);
         void AddSwitchIgnoreInvalidState(bool default_value);
         void AddSwitchShowElapsedTime(bool default_value);
         void AddOptionElapsedTimeDisplayFormat();
@@ -57,7 +60,6 @@ namespace Stopwatch
         bool GetShowElapsedTime();
         string GetElapsedTimeDisplayFormat();
         string GetArgumentAdditionalText();
-
     };
 
     //------------------------------------------------------------------------------
@@ -104,9 +106,46 @@ namespace Stopwatch
             throw exception(exception_text.c_str());
         }
 
-        static string GetTimerStatusDisplayText(const Timer& timer, const string& status)
+        static string GetDataFileDetails(const TimerRepository& repository)
         {
-            return timer.GetName() + " " + status;
+            return string("Accessing Data File: ")
+                .append(repository.GetFileName());
+        }
+
+        static void ShowDataFileDetails(const TimerRepository& repository)
+        {
+            cout << GetDataFileDetails(repository) << endl
+                << endl;
+        }
+
+        static string GetTimerDisplayDetailsText(const Timer& timer)
+        {
+            const TimerStateTypeTextResolver resolver;
+
+            return timer.GetName()
+                .append(" ")
+                .append(TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), TimerDisplayBuilder::DefaultStartTimeTextFormat))
+                .append(resolver.GetText(timer.GetState()));
+        }
+
+        static void ShowTimerDisplayDetails(const Timer& timer)
+        {
+            cout << GetTimerDisplayDetailsText(timer) << endl
+                << endl;;
+        }
+
+        static void ShowTimerDetailsElapsed(const Timer& timer, BaseArguments& arguments, const string& status)
+        {
+            const auto text = TimerDisplayBuilder::GetFormattedDisplayText(timer, arguments.GetElapsedTimeDisplayFormat(), status);
+            cout << text << endl;
+        }
+
+        static void ShowFormattedElapsedTime(const Timer& timer, const string& display_format, const string& additional_text)
+        {
+            string text = TimerDisplayBuilder::GetFormattedDisplayText(timer, display_format);
+            if (!additional_text.empty())
+                text = text.append(" - ").append(additional_text);
+            cout << text << endl;
         }
 
     public:

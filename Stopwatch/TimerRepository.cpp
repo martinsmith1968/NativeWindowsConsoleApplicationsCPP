@@ -40,6 +40,11 @@ string TimerRepository::GetDefaultRepositoryFileName()
     return file_path;
 }
 
+string TimerRepository::GetFileName() const
+{
+    return m_fileName;
+}
+
 map<string, Timer> TimerRepository::ReadAll() const
 {
     map<string, Timer> items;

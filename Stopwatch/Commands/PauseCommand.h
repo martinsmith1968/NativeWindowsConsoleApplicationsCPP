@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
+#include "../stdafx.h"
 #include <string>
-#include <iostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -49,9 +48,15 @@ namespace Stopwatch
             const auto stopwatch_name = m_arguments.GetStopwatchName();
             auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             auto timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
+
+            if (m_arguments.GetVerboseOutput())
+                ShowTimerDisplayDetails(timer);
 
             if (!timer.CanStop())
             {
@@ -61,17 +66,11 @@ namespace Stopwatch
 
             timer.Pause();
 
-            if (m_arguments.GetVerboseOutput())
-                cout << GetTimerStatusDisplayText(timer, "paused") << endl;
+            if (m_arguments.GetShowElapsedTime())
+                ShowTimerDetailsElapsed(timer, m_arguments, "stopped");
 
             if (m_arguments.GetShowElapsedTime())
-            {
-                string text = TimerDisplayBuilder::GetFormattedText(timer, m_arguments.GetElapsedTimeDisplayFormat(), "paused");
-                const string additional_text = m_arguments.GetArgumentAdditionalText();
-                if (!additional_text.empty())
-                    text = text.append(" - ").append(additional_text);
-                cout << text << endl;
-            }
+                ShowFormattedElapsedTime(timer, m_arguments.GetElapsedTimeDisplayFormat(), m_arguments.GetArgumentAdditionalText());
 
             repository.Update(timer);
         }

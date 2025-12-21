@@ -26,11 +26,13 @@ namespace Stopwatch
             : BaseArguments(m_parser_context)
         {
             AddParameterStopwatchName();
-            AddSwitchVerboseOutput(true);
+            AddSwitchVerboseOutput(false);
+            AddSwitchQuiet(false);
             AddSwitch("f", ArgumentNameForce, false, "Force starting even if already exists", false);
         }
 
         bool GetForce() { return GetSwitchValue(ArgumentNameForce); }
+        bool GetQuiet() { return GetSwitchValue(ArgumentNameQuiet); }
     };
 
     //------------------------------------------------------------------------------
@@ -52,6 +54,9 @@ namespace Stopwatch
             const auto stopwatch_name = m_arguments.GetStopwatchName();
             auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             auto timer = repository.GetByName(stopwatch_name);
             if (!timer.IsEmpty())
             {
@@ -63,11 +68,14 @@ namespace Stopwatch
 
             timer = Timer(stopwatch_name);
             timer.Start();
-
-            if (m_arguments.GetVerboseOutput())
-                cout << GetTimerStatusDisplayText(timer, "started at " + TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), START_TIME_DISPLAY_FORMAT)) << endl;
-
             repository.Add(timer);
+
+            if (!m_arguments.GetQuiet())
+            {
+                cout << timer.GetName()
+                        << " started at " + TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), START_TIME_DISPLAY_FORMAT)
+                        << endl;
+            }
         }
     };
 }

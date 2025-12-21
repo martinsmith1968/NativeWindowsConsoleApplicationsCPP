@@ -32,6 +32,10 @@ void BaseArguments::AddSwitchVerboseOutput(const bool default_value)
 {
     AddSwitch("v", ArgumentNameVerboseOutput, default_value, "Control verbosity of output messages", false, APP_MAX - 10);
 }
+void BaseArguments::AddSwitchQuiet(const bool default_value)
+{
+    AddSwitch("q", ArgumentNameQuiet, default_value, "Suppress output messages", false, APP_MAX - 15);
+}
 void BaseArguments::AddSwitchIgnoreInvalidState(const bool default_value)
 {
     AddSwitch("i", ArgumentNameIgnoreInvalidState, default_value, "Ignore errors of Stopwatch being in invalid state for the action", false, APP_MAX - 20);
@@ -48,12 +52,10 @@ void BaseArguments::AddOptionElapsedTimeAlternativeDisplayFormat()
 {
     AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
 }
-
 string BaseArguments::GetDataFileName()
 {
     return GetArgumentValue(ArgumentNameDataFileName);
 }
-
 string BaseArguments::GetStopwatchName()
 {
     return GetArgumentValue(ArgumentNameStopwatchName);
