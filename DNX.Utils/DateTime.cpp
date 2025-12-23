@@ -60,10 +60,12 @@ date::hh_mm_ss<duration<long long, ratio<1, 1000>>> DateTime::GetAsTimeInternal(
 const string DateTime::Formats::Default  = "%a, %b %e %T %Y";   // Sun, Aug 11 12:34:56 1968
 const string DateTime::Formats::Sortable = "%F %T%z";
 const string DateTime::Formats::ISO      = "%FT%T%z";
+const string DateTime::Formats::Display  = "%Y-%m-%d %X"; // "%H:%M:%S"; // ":%S";
 
 const string DateTime::Formats::Date_Default  = "%a, %b %e %Y";   // Sun, Aug 11 1968
 const string DateTime::Formats::Date_Sortable = "%F";
 const string DateTime::Formats::Date_ISO      = "%F";
+const string DateTime::Formats::Date_Display  = "%Y-%m-%d";
 
 time_point<system_clock> DateTime::GetTimePoint() const
 {
@@ -115,6 +117,21 @@ DateTime::DateTime(tm time)
 DateTime DateTime::Now()
 {
     return { system_clock::now() };
+}
+
+DateTime DateTime::Min()
+{
+    return { Min_Year, 1, 1 };
+}
+
+DateTime DateTime::Max()
+{
+    return { Max_Year, 12, 31, 23, 59, 59, 999 };
+}
+
+DateTime DateTime::Epoch()
+{
+    return { Epoch_Year, 1, 1 };
 }
 
 DateTime DateTime::Parse(const string& text)
@@ -392,4 +409,48 @@ DateTime& DateTime::AddMilliseconds(const int milliseconds)
     if (milliseconds != 0)
         m_time_point += chrono::milliseconds(milliseconds);
     return *this;
+}
+
+DateTime& DateTime::SetHours(const int hours)
+{
+    const auto adjustment = hours == GetHour()
+        ? 0
+        : hours > GetHour()
+            ? GetHour() - hours
+            : hours - GetHour();
+
+    return AddHours(adjustment);
+}
+
+DateTime& DateTime::SetMinutes(const int minutes)
+{
+    const auto adjustment = minutes == GetMinute()
+        ? 0
+        : minutes > GetMinute()
+            ? GetMinute() - minutes
+            : minutes - GetMinute();
+
+    return AddMinutes(adjustment);
+}
+
+DateTime& DateTime::SetSeconds(const int seconds)
+{
+    const auto adjustment = seconds == GetSeconds()
+        ? 0
+        : seconds > GetSeconds()
+            ? GetSeconds() - seconds
+            : seconds - GetSeconds();
+
+    return AddSeconds(adjustment);
+}
+
+DateTime& DateTime::SetMilliseconds(const int milliseconds)
+{
+    const auto adjustment = milliseconds == GetMilliseconds()
+        ? 0
+        : milliseconds > GetMilliseconds()
+            ? GetMilliseconds() - milliseconds
+            : milliseconds - GetMilliseconds();
+
+    return AddMilliseconds(adjustment);
 }

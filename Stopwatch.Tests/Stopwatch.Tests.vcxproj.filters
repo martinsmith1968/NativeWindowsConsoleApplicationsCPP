@@ -23,10 +23,7 @@
     <Text Include="ExpectedOutput\Execute_command_start_with_help_request_short_produces_command_list.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
-    <Text Include="ExpectedOutput\Execute_with_help_request_long_produces_command_list.txt">
-      <Filter>ExpectedOutput</Filter>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_help_request_short_produces_command_list.txt">
+    <Text Include="ExpectedOutput\Execute_with_help_request_produces_command_list.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
     <Text Include="ExpectedOutput\Execute_command_cancel_with_help_request_short_produces_command_list.txt">

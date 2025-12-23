@@ -46,12 +46,12 @@ static void ShowDateTime(const DateTime& dateTime, string name = "")
 
 static void ShowDuration(const chrono::system_clock::duration duration)
 {
-    auto hours = std::chrono::duration_cast<std::chrono::hours>(duration);
-    auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration - hours);
-    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration - hours - minutes);
-    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration - hours - minutes - seconds);
-    auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(duration - hours - minutes - seconds - milliseconds);
-    auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration - hours - minutes - seconds - milliseconds - microseconds);
+    const auto hours = std::chrono::duration_cast<std::chrono::hours>(duration);
+    const auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration - hours);
+    const auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration - hours - minutes);
+    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration - hours - minutes - seconds);
+    const auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(duration - hours - minutes - seconds - milliseconds);
+    const auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(duration - hours - minutes - seconds - milliseconds - microseconds);
 
     std::cout << hours.count() << "h ";
     std::cout << minutes.count() << "m ";

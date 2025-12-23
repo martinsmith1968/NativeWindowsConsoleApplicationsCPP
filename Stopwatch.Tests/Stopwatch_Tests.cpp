@@ -82,17 +82,12 @@ protected:
     }
 };
 
-TEST_F(TEST_GROUP, Execute_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_produces_command_list)
 {
     const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
     _chdir(_tempRunFolderName.c_str());
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(_movedTargetExecutableFileName, "-?"));
-}
-
-TEST_F(TEST_GROUP, Execute_with_help_request_long_produces_command_list)
-{
-    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
-    _chdir(_tempRunFolderName.c_str());
+    TestHelper::WriteMajorSeparator(100);
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(_movedTargetExecutableFileName, "--help"));
 }
 

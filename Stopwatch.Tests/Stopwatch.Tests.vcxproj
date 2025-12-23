@@ -163,10 +163,7 @@
     <Text Include="ExpectedOutput\Execute_command_stop_with_help_request_short_produces_command_list.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
-    <Text Include="ExpectedOutput\Execute_with_help_request_long_produces_command_list.txt">
-      <DeploymentContent>true</DeploymentContent>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_help_request_short_produces_command_list.txt">
+    <Text Include="ExpectedOutput\Execute_with_help_request_produces_command_list.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
   </ItemGroup>
