@@ -103,6 +103,6 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (FigLetText.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 
-Default App arguments can be specified in : C:\Temp\ae7d2ec50b3d4cddbd96d7f7076f2173\FigLetText.options
+Default App arguments can be specified in : C:\Temp\8202bbc2ba474df4bef2a146fe9bb927\FigLetText.options
 Local App arguments can be specified in : C:\Temp\FigLetText.options
 ```
