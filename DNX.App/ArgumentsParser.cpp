@@ -45,7 +45,7 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
         }
         else if (StringUtils::Contains(parts, " "))
         {
-            auto argument_name = SanitizeText(StringUtils::Before(parts, " "));
+            auto argument_name  = SanitizeText(StringUtils::Before(parts, " "));
             auto argument_value = SanitizeText(StringUtils::After(parts, " "));
 
             raw_arguments.push_back(argument_name);
@@ -216,7 +216,7 @@ void ArgumentsParser::ValidateRequired(Arguments& arguments)
 
     for (auto iter = requiredArguments.begin(); iter != requiredArguments.end(); ++iter)
     {
-        if (!arguments.HasArgumentValue(iter->GetShortName()))
+        if (!arguments.HasArgumentValue(iter->GetLongName()))
         {
             arguments.AddError(iter->GetNameDescription() + " is required");
         }
@@ -232,25 +232,29 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
         list<string> values;
         if (iter->GetAllowMultiple())
         {
-            for (auto multipleValue : arguments.GetArgumentValues(iter->GetShortName()))
-                values.push_back(multipleValue);
+            for (const auto& multiple_value : arguments.GetArgumentValues(iter->GetShortName()))
+                values.push_back(multiple_value);
         }
         else
         {
-            values.push_back(arguments.GetArgumentValue(iter->GetShortName()));
+            if (arguments.HasArgumentValue(iter->GetLongName()))
+            {
+                const auto& value = arguments.GetArgumentValue(iter->GetLongName());
+                values.push_back(value);
+            }
         }
 
-        for (auto optionValue : values)
+        for (const auto& option_value : values)
         {
-            if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
+            if (!ValueConverter::IsValueValid(option_value, iter->GetValueType()))
             {
-                if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
+                if (iter->GetValueType() == ValueType::STRING && option_value.empty() && !iter->GetRequired())
                     continue;
 
                 if (!iter->GetValueList().empty())
                     continue;   // Already reported
 
-                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
+                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + option_value + ")");
             }
         }
     }
