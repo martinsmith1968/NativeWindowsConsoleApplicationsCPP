@@ -4,6 +4,7 @@
 #include "ElapsedCommand.h"
 #include "ListCommand.h"
 #include "PauseCommand.h"
+#include "PurgeCommand.h"
 #include "ResumeCommand.h"
 #include "StartCommand.h"
 #include "StopCommand.h"
@@ -85,6 +86,7 @@ const ParserContext CancelArguments::m_parser_context  = ParserContext(StringUti
 const ParserContext ElapsedArguments::m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::ELAPSED)));
 const ParserContext ListArguments::m_parser_context    = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST)));
 const ParserContext PauseArguments::m_parser_context   = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::PAUSE)));
+const ParserContext PurgeArguments::m_parser_context   = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::PAUSE)));
 const ParserContext ResumeArguments::m_parser_context  = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::RESUME)));
 const ParserContext StartArguments::m_parser_context   = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::START)));
 const ParserContext StopArguments::m_parser_context    = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::STOP)));

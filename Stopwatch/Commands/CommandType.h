@@ -25,6 +25,7 @@ namespace Stopwatch
         RESUME,
         ELAPSED,
         CANCEL,
+        PURGE,
     };
 
     class CommandTypeTextResolver : public EnumTextResolver<CommandType>
@@ -39,6 +40,7 @@ namespace Stopwatch
             SetText(CommandType::RESUME, "Resume");
             SetText(CommandType::ELAPSED, "Elapsed");
             SetText(CommandType::CANCEL, "Cancel");
+            SetText(CommandType::PURGE, "Purge");
         }
     };
 }
