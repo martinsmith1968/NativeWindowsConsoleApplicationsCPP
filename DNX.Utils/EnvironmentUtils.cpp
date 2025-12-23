@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "EnvironmentUtils.h"
 #include "StringUtils.h"
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 #include <stdlib.h>
 #include <windows.h>
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "stdafx.h"
-#include <string>
 #include "DateTime.h"
 #include "PathUtils.h"
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 

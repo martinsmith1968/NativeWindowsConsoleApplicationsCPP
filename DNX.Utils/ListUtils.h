@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "stdafx.h"
+#include "MathUtils.h"
 #include <list>
 #include <string>
-#include "MathUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene

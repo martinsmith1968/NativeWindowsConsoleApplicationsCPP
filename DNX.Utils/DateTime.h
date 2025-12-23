@@ -1,8 +1,8 @@
 #pragma once
 
+#include "date.h"
 #include <chrono>
 #include <string>
-#include "date.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -33,12 +33,16 @@ namespace DNX::Utils
             static const string Default;
             static const string Sortable;
             static const string ISO;
+            static const string Display;
 
             static const string Date_Default;
             static const string Date_Sortable;
             static const string Date_ISO;
+            static const string Date_Display;
         };
 
+        static constexpr int Min_Year = 0000;
+        static constexpr int Max_Year = 9999;
         static constexpr int Base_Year  = 1900;
         static constexpr int Epoch_Year = 1970;
 
@@ -55,6 +59,9 @@ namespace DNX::Utils
         }
 
         static DateTime Now();
+        static DateTime Min();
+        static DateTime Max();
+        static DateTime Epoch();
 
         static DateTime Parse(const string& text);
         static DateTime Parse(const string& text, const string& format);
@@ -91,5 +98,10 @@ namespace DNX::Utils
         DateTime& AddMinutes(int minutes);
         DateTime& AddSeconds(int seconds);
         DateTime& AddMilliseconds(int milliseconds);
+
+        DateTime& SetHours(int hours);
+        DateTime& SetMinutes(int minutes);
+        DateTime& SetSeconds(int seconds);
+        DateTime& SetMilliseconds(int milliseconds);
     };
 }

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "CommandType.h"
-#include "../../DNX.App/Arguments.h"
-#include "../../DNX.App/Command.h"
 #include "../TimerDisplayBuilder.h"
 #include "../TimerRepository.h"
+#include "../stdafx.h"
+#include "../../DNX.App/Arguments.h"
+#include "../../DNX.App/Command.h"
 #include <chrono>
 #include <iostream>
 #include <string>
@@ -125,6 +125,7 @@ namespace Stopwatch
             return timer.GetName()
                 .append(" ")
                 .append(TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), TimerDisplayBuilder::DefaultStartTimeTextFormat))
+                .append(" - ")
                 .append(resolver.GetText(timer.GetState()));
         }
 

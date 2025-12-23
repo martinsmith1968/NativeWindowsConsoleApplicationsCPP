@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "DateTime.h"
 #include "FileUtils.h"
+#include "DateTime.h"
 #include "PathUtils.h"
 #include <chrono>
-#include <sys/stat.h>
 #include <exception>
-#include <sstream>
-#include <fstream>
-#include <iostream>
 #include <filesystem>
-#include <list>
+#include <fstream>
 #include <ios>
+#include <iostream>
+#include <list>
+#include <sstream>
 #include <string>
 #include <system_error>
+#include <sys/stat.h>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl

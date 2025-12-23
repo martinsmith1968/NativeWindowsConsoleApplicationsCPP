@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
-#include <string>
+#include "../stdafx.h"
 #include <iostream>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault

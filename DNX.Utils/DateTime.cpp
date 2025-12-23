@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "DateTime.h"
-#include "date.h"
 #include "MathUtils.h"
 #include "StringUtils.h"
+#include "date.h"
 #include <chrono>
 #include <cmath>
 #include <corecrt.h>
+#include <ctime>
 #include <exception>
 #include <iostream>
-#include <string>
-#include <ctime>
-#include <regex>
 #include <ratio>
+#include <regex>
 #include <stdexcept>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCertMsc51Cpp

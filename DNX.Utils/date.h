@@ -45,8 +45,8 @@
 #  endif
 #endif  // HAS_STRING_VIEW
 
-#include <cassert>
 #include <algorithm>
+#include <cassert>
 #include <cctype>
 #include <chrono>
 #include <climits>
@@ -69,8 +69,8 @@
 #if HAS_STRING_VIEW
 # include <string_view>
 #endif
-#include <utility>
 #include <type_traits>
+#include <utility>
 
 #ifdef __GNUC__
 # pragma GCC diagnostic push

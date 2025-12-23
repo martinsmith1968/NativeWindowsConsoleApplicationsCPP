@@ -2,9 +2,9 @@
 
 #include "stdafx.h"
 #include <cstdint>
+#include <initializer_list>
 #include <list>
 #include <string>
-#include <initializer_list>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene

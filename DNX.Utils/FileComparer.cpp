@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "FileComparer.h"
 #include "FileUtils.h"
+#include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <filesystem>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl

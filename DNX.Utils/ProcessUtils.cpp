@@ -2,8 +2,8 @@
 #include "ProcessUtils.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
-#include <algorithm>
 #include <Windows.h>
+#include <algorithm>
 
 // ReSharper disable CppInconsistentNaming
 

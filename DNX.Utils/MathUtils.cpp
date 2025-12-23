@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "DateUtils.h"
 #include "MathUtils.h"
+#include "DateUtils.h"
 #include <cstdlib>
 
 // ReSharper disable CppInconsistentNaming

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ConsoleUtils.h"
-#include <iostream>
 #include <Windows.h>
+#include <iostream>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming

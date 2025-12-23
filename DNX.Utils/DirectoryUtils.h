@@ -2,8 +2,8 @@
 
 #include "stdafx.h"
 #include "DateTime.h"
-#include <list>
 #include <cstdint>
+#include <list>
 #include <string>
 
 // ReSharper disable CppInconsistentNaming

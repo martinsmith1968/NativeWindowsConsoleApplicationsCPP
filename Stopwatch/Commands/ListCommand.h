@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
-#include <string>
-#include <iomanip>
-#include <sstream>
-#include <iostream>
-#include <ostream>
+#include "../stdafx.h"
 #include "../../DNX.Utils/MapUtils.h"
 #include "../../DNX.Utils/StringUtils.h"
+#include <iomanip>
+#include <iostream>
+#include <ostream>
+#include <sstream>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -47,7 +47,7 @@ namespace Stopwatch
 
     class ListArguments final : public BaseArguments
     {
-        const string ArgumentNameOutputFormat = "output-format";
+        const string ArgumentNameOutputFormat     = "output-format";
         const string ArgumentNameCustomFormatText = "custom-format-text";
 
         static const ParserContext m_parser_context;
