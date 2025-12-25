@@ -200,6 +200,9 @@ namespace Stopwatch
         {
             const auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             const auto all_timers = repository.ReadAll();
             auto timers = MapUtils::GetValues(all_timers);
             timers.sort(Timer::CompareByStartTime);
@@ -218,12 +221,6 @@ namespace Stopwatch
             if (!timers.empty())
                 cout << endl;
             cout << "Found: " << timers.size() << " stopwatches" << endl;
-
-            if (m_arguments.GetVerboseOutput())
-            {
-                cout << endl;
-                cout << "Data File : " << m_arguments.GetDataFileName() << endl;
-            }
         }
     };
 }
