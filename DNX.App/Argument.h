@@ -68,6 +68,7 @@ namespace DNX::App
         static Argument& Empty() { return _empty_argument; }
 
         static bool CompareByPosition(const Argument& first, const Argument& second);
+        static bool AreOptionTypesEqual(ArgumentType first, ArgumentType second);
         static bool CompareByTypeAndPosition(const Argument& first, const Argument& second);
     };
 }

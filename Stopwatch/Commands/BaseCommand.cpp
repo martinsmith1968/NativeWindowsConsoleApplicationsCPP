@@ -47,11 +47,11 @@ void BaseArguments::AddSwitchShowElapsedTime(const bool default_value)
 }
 void BaseArguments::AddOptionElapsedTimeDisplayFormat()
 {
-    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
+    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 30);
 }
 void BaseArguments::AddOptionElapsedTimeAlternativeDisplayFormat()
 {
-    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 34);
+    AddOption(ValueType::STRING, "etadf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 35);
 }
 string BaseArguments::GetDataFileName()
 {
