@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "AppInfo.h"
 #include "TimerRepository.h"
+#include "AppInfo.h"
 #include "Timer.h"
+#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/MapUtils.h"
-#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 

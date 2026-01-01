@@ -2,8 +2,8 @@
 
 #include "stdafx.h"
 #include "Timer.h"
-#include <string>
 #include <iomanip>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers

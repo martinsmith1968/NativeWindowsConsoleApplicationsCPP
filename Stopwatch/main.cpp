@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 #include "App.h"
-#include "AppInfo.h"
 #include "AppCommands.h"
+#include "AppInfo.h"
 
 // ReSharper disable CppInconsistentNaming
 
