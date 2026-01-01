@@ -29,11 +29,11 @@
 - [ ] (Optionally) Support default argument files per command ([appname].[commandname].options)
 - [ ] (Optionally) Support default argument files per command in Help text
 - [X] Add Help text for adding a file of arguments
-- [ ] Line Wrapping Help Writer for long argument descriptions to wrap better
+- [X] Line Wrapping Help Writer for long argument descriptions to wrap better
 
 ### Enhancements - Stopwatch
 
-- [ ] Introduce `SortOrder` parameter to `List` command
+- [X] Introduce `SortOrder` parameter to `List` command
 - [ ] Output Tests for `Stopwatch` app and commands
 
 ### Enhabcements - FigLetText
