@@ -30,6 +30,14 @@ namespace Stopwatch
         CUSTOM
     };
 
+    enum class SortFieldType : uint8_t
+    {
+        NAME,
+        START,
+        STATE,
+        ELAPSED
+    };
+
     //------------------------------------------------------------------------------
 
     class OutputFormatTypeTextResolver : public EnumTextResolver<OutputFormatType>
@@ -43,12 +51,26 @@ namespace Stopwatch
         }
     };
 
+    class SortFieldTypeTextResolver : public EnumTextResolver<SortFieldType>
+    {
+    public:
+        SortFieldTypeTextResolver()
+        {
+            SetText(SortFieldType::NAME, "Name");
+            SetText(SortFieldType::START, "Start");
+            SetText(SortFieldType::STATE, "State");
+            SetText(SortFieldType::ELAPSED, "Elapsed");
+        }
+    };
+
     //------------------------------------------------------------------------------
 
     class ListArguments final : public BaseArguments
     {
-        const string ArgumentNameOutputFormat     = "output-format";
-        const string ArgumentNameCustomFormatText = "custom-format-text";
+        const string ArgumentNameOutputFormat        = "output-format";
+        const string ArgumentNameCustomFormatText    = "custom-format-text";
+        const string ArgumentNameSortField           = "sort-by";
+        const string ArgumentNameSortReverse         = "sort-reverse";
 
         static const ParserContext m_parser_context;
 
@@ -58,6 +80,8 @@ namespace Stopwatch
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);
+            AddOption(ValueType::STRING, "s", ArgumentNameSortField, SortFieldTypeTextResolver().GetText(SortFieldType::NAME), "The field to order the Timers by", false, 0, SortFieldTypeTextResolver().GetAllText());
+            AddSwitch("r", ArgumentNameSortReverse, false, "Sort in reverse order", false);
             AddSwitchVerboseOutput(false);
         }
 
@@ -74,6 +98,8 @@ namespace Stopwatch
 
         OutputFormatType GetOutputFormatType() { return OutputFormatTypeTextResolver().GetValue(GetArgumentValue(ArgumentNameOutputFormat)); }
         string GetCustomFormatText() { return GetArgumentValue(ArgumentNameCustomFormatText); }
+        SortFieldType GetSortFieldType() { return SortFieldTypeTextResolver().GetValue(GetArgumentValue(ArgumentNameSortField)); }
+        bool GetSortReverse() { return GetSwitchValue(ArgumentNameSortReverse); }
     };
 
     //------------------------------------------------------------------------------
@@ -196,6 +222,23 @@ namespace Stopwatch
         {
         }
 
+        static bool (* GetSortFunction(const SortFieldType sort_order))(const Timer&, const Timer&)
+        {
+            switch (sort_order)
+            {
+                case SortFieldType::NAME:
+                    return &Timer::CompareByName;
+                case SortFieldType::START:
+                    return &Timer::CompareByStartTime;
+                case SortFieldType::STATE:
+                    return &Timer::CompareByState;
+                case SortFieldType::ELAPSED:
+                    return &Timer::CompareByElapsed;
+                default:
+                    return &Timer::CompareByName;
+            }
+        }
+
         void Execute() override
         {
             const auto repository = TimerRepository(m_arguments.GetDataFileName());
@@ -205,7 +248,14 @@ namespace Stopwatch
 
             const auto all_timers = repository.ReadAll();
             auto timers = MapUtils::GetValues(all_timers);
-            timers.sort(Timer::CompareByStartTime);
+
+            const auto sort_field = m_arguments.GetSortFieldType();
+            const auto reverse = m_arguments.GetSortReverse();
+
+            const auto sort_function = GetSortFunction(sort_field);
+            timers.sort(sort_function);
+            if (reverse)
+                timers.reverse();
 
             const auto builder = OutputFormatFactory().GetOutputFormatBuilder(m_arguments.GetOutputFormatType());
 
