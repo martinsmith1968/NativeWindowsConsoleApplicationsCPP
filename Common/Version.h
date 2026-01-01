@@ -7,4 +7,4 @@
 
 #define VERSION_MODIFIER    "-dev"
 
-#define COPYRIGHT_YEAR      2025
+#define COPYRIGHT_YEAR      2026
