@@ -63,7 +63,7 @@ The full help text looks something like this :
 
 ```text
 BannerText v2.0.0.0-dev - Display a Text Banner in the console
-Copyright ® 2018-2025 Martin Smith
+Copyright ® 2018-2026 Martin Smith
 
 Usage:
 BannerText [message-text] [OPTIONS]
@@ -87,6 +87,6 @@ Options:
 -@, --use-default-arguments-file +/-    Use Default Arguments File (BannerText.options) (Default:true)
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 
-Default App arguments can be specified in : C:\Temp\8202bbc2ba474df4bef2a146fe9bb927\BannerText.options
+Default App arguments can be specified in : C:\Temp\e40f117bddc7411ab9797a4bc6f1fa42\BannerText.options
 Local App arguments can be specified in : C:\Temp\BannerText.options
 ```

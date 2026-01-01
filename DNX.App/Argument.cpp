@@ -117,9 +117,23 @@ bool Argument::CompareByPosition(const Argument& first, const Argument& second)
     return first.GetPosition() < second.GetPosition();
 }
 
+bool Argument::AreOptionTypesEqual(ArgumentType first, ArgumentType second)
+{
+    if (first == second)
+        return true;
+
+    if (first == ArgumentType::SWITCH && second == ArgumentType::OPTION)
+        return true;
+
+    if (first == ArgumentType::OPTION && second == ArgumentType::SWITCH)
+        return true;
+
+    return false;
+}
+
 bool Argument::CompareByTypeAndPosition(const Argument& first, const Argument& second)
 {
-    if (first.GetArgumentType() != second.GetArgumentType())
+    if (!AreOptionTypesEqual(first.GetArgumentType(), second.GetArgumentType()))
     {
         return first.GetArgumentType() < second.GetArgumentType();
     }
