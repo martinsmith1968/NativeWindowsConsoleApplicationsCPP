@@ -25,10 +25,6 @@ void BaseArguments::AddParameterStopwatchName()
 {
     AddParameter(ValueType::STRING, 1, ArgumentNameStopwatchName, "", "The name of the Stopwatch", true);
 }
-void BaseArguments::AddOptionAdditionalText()
-{
-    AddOption(ValueType::STRING, "at", ArgumentNameAdditionalText, "", "Additional text for the output", false, APP_MAX - 5);
-}
 void BaseArguments::AddSwitchVerboseOutput(const bool default_value)
 {
     AddSwitch("v", ArgumentNameVerboseOutput, default_value, "Control verbosity of output messages", false, APP_MAX - 10);
@@ -43,15 +39,19 @@ void BaseArguments::AddSwitchIgnoreInvalidState(const bool default_value)
 }
 void BaseArguments::AddSwitchShowElapsedTime(const bool default_value)
 {
-    AddSwitch("set", ArgumentNameShowElapsedTime, default_value, "Show the Stopwatch Elapsed Time", false, APP_MAX - 35);
+    AddSwitch("set", ArgumentNameShowElapsedTime, default_value, "Show the Stopwatch Elapsed Time", false, APP_MAX - 50);
 }
-void BaseArguments::AddOptionElapsedTimeDisplayFormat()
+void BaseArguments::AddOptionAdditionalText()
 {
-    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 30);
+    AddOption(ValueType::STRING, "at", ArgumentNameAdditionalText, "", "Additional text for the output", false, APP_MAX - 40);
 }
-void BaseArguments::AddOptionElapsedTimeAlternativeDisplayFormat()
+void BaseArguments::AddOptionElapsedTimeDisplayFormatStillActive()
 {
-    AddOption(ValueType::STRING, "etadf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 35);
+    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {state} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 45);
+}
+void BaseArguments::AddOptionElapsedTimeDisplayFormatNotActive()
+{
+    AddOption(ValueType::STRING, "etdf", ArgumentNameElapsedTimeDisplayFormat, "{name}: {action} - " + TimerDisplayBuilder::DefaultElapsedTimeTextFormat, "The format string to use to display Elapsed Time", false, APP_MAX - 45);
 }
 string BaseArguments::GetDataFileName()
 {

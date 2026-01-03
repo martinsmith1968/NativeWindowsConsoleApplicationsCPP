@@ -48,8 +48,8 @@ namespace Stopwatch
         void AddSwitchQuiet(bool default_value);
         void AddSwitchIgnoreInvalidState(bool default_value);
         void AddSwitchShowElapsedTime(bool default_value);
-        void AddOptionElapsedTimeDisplayFormat();
-        void AddOptionElapsedTimeAlternativeDisplayFormat();
+        void AddOptionElapsedTimeDisplayFormatStillActive();
+        void AddOptionElapsedTimeDisplayFormatNotActive();
 
     public:
         string GetDataFileName();

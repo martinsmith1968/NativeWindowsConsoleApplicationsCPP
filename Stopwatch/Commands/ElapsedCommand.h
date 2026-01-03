@@ -24,7 +24,7 @@ namespace Stopwatch
         {
             AddParameterStopwatchName();
             AddOptionAdditionalText();
-            AddOptionElapsedTimeDisplayFormat();
+            AddOptionElapsedTimeDisplayFormatStillActive();
         }
     };
 

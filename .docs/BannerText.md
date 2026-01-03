@@ -87,6 +87,6 @@ Options:
 -@, --use-default-arguments-file +/-    Use Default Arguments File (BannerText.options) (Default:true)
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 
-Default App arguments can be specified in : C:\Temp\e40f117bddc7411ab9797a4bc6f1fa42\BannerText.options
+Default App arguments can be specified in : C:\Temp\fb97fd76d78242b1a08386c2fc0806d7\BannerText.options
 Local App arguments can be specified in : C:\Temp\BannerText.options
 ```

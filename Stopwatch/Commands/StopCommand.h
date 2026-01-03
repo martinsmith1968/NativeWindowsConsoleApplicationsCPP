@@ -23,7 +23,7 @@ namespace Stopwatch
         {
             AddParameterStopwatchName();
             AddSwitchShowElapsedTime(true);
-            AddOptionElapsedTimeAlternativeDisplayFormat();
+            AddOptionElapsedTimeDisplayFormatNotActive();
             AddSwitchVerboseOutput(false);
         }
     };
