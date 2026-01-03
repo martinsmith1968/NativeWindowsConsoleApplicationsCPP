@@ -7,8 +7,10 @@ Stopwatch List [OPTIONS]
 Options:
 -o, --output-format Text              Control output format of list (Default:Display, Values: Display, CSV, Custom)
 -fmt, --custom-format-text Text       A custom format string for the Timer details
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-s, --sort-by Text                    The field to order the Timers by (Default:Name, Values: Name, Start, State, Elapsed)
+-r, --sort-reverse +/-                Sort in reverse order (Default:false)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.list.options) (Default:true)
