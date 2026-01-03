@@ -361,3 +361,5 @@ ASALocalRun/
 *.bak
 
 *.testout
+
+**/ExpectedOutput/*.example

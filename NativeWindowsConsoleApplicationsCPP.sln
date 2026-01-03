@@ -75,7 +75,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".scripts", ".scripts", "{87B8729D-B4A1-473A-94ED-C3BE0C5DEF24}"
 	ProjectSection(SolutionItems) = preProject
 		commands.json = commands.json
-		.scripts\PopulateHelpText.cmd = .scripts\PopulateHelpText.cmd
+		.scripts\GenerateExampleExpectedOutputText.ps1 = .scripts\GenerateExampleExpectedOutputText.ps1
 		.scripts\PopulateHelpText.ps1 = .scripts\PopulateHelpText.ps1
 	EndProjectSection
 EndProject
