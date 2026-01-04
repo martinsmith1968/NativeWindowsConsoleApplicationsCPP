@@ -15,6 +15,9 @@ namespace DNX::Tests::Common
         static const string SingleQuote;
         static const string DoubleQuote;
 
+        static const list<string> BuildPlatforms;
+        static const list<string> BuildConfigurations;
+
     public:
         static list<string> GetBuildPlatforms();
         static list<string> GetBuildConfigurations();

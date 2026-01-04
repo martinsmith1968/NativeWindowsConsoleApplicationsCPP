@@ -229,7 +229,7 @@ bool FileUtils::Copy(const string& file_name, const string& destination, const b
     if (!Exists(file_name))
         return false;
 
-    copy_options options = overwrite
+    const copy_options options = overwrite
         ? copy_options::overwrite_existing
         : copy_options::none;
 

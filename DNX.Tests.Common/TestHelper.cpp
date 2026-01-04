@@ -3,6 +3,7 @@
 #include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -20,25 +21,25 @@ using namespace DNX::Tests::Common;
 const string TestHelper::SingleQuote = "'";
 const string TestHelper::DoubleQuote = "\"";
 
+const list<string> TestHelper::BuildPlatforms =
+{
+    "x64"
+};
+
+const list<string> TestHelper::BuildConfigurations =
+{
+    "Debug" ,
+    "Release"
+};
+
 list<string> TestHelper::GetBuildPlatforms()
 {
-    static const list<string> platforms =
-    {
-        "x64"
-    };
-
-    return platforms;
+    return BuildPlatforms;
 }
 
 list<string> TestHelper::GetBuildConfigurations()
 {
-    static const list<string> configurations =
-    {
-        "Debug" ,
-        "Release"
-    };
-
-    return configurations;
+    return BuildConfigurations;
 }
 
 void TestHelper::WriteMajorSeparator(const int length)

@@ -3,15 +3,20 @@
 #include "StringUtils.h"
 #include <cstdlib>
 #include <iostream>
-#include <stdlib.h>
 #include <windows.h>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppExpressionWithoutSideEffects
 // ReSharper disable CppClangTidyMiscUseAnonymousNamespace
+// ReSharper disable CppClangTidyClangDiagnosticUnusedValue
 
 using namespace DNX::Utils;
+
+const string EnvironmentUtils::CARRIAGE_RETURN = "\r";
+const string EnvironmentUtils::LINE_FEED       = "\n";
+
+const string EnvironmentUtils::NewLine = "\r\n";
 
 namespace DNX::Utils::EnvironmentUtilsHelpers
 {
@@ -25,9 +30,9 @@ namespace DNX::Utils::EnvironmentUtilsHelpers
     }
 }
 
-string EnvironmentUtils::GetNewLine()
+const string& EnvironmentUtils::GetNewLine()
 {
-    return "\r\n";
+    return NewLine;
 }
 
 list<string> EnvironmentUtils::GetEnvironmentVariablesData()
