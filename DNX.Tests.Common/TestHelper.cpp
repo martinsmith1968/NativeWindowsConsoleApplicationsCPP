@@ -3,7 +3,6 @@
 #include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
@@ -56,18 +55,18 @@ void TestHelper::WriteMinorSeparator(const int length)
 
 string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName)
 {
-    cout << "Searching for file: " << fileName << endl;
+    cout << "DEBUG: Searching for file: " << fileName << endl;
     for (const auto& platform : GetBuildPlatforms())
     {
         for (const auto& configuration : GetBuildConfigurations())
         {
             auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), "..", top_level_name, platform, configuration);
-            cout << "Checking directory: " << directory << endl;
+            cout << "DEBUG: Checking directory: " << directory << endl;
 
             auto targetFileName = PathUtils::Combine(directory, fileName);
             if (FileUtils::Exists(targetFileName))
             {
-                cout << "Found file: " << targetFileName << endl;
+                cout << "DEBUG: Found file: " << targetFileName << endl;
                 return directory;
             }
         }
@@ -110,6 +109,8 @@ string TestHelper::FindExecutableFileName(const string& executableFileName, cons
 
 string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
 {
+    cout << "DEBUG: Starting ExecuteAndCaptureOutput" << endl;
+
     static const auto quote = "\"";
 
     const auto targetExecutable = FindExecutableFileName(executableFileName);
@@ -166,11 +167,15 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
         WriteMinorSeparator(80);
     }
 
+    cout << "DEBUG: Ending ExecuteAndCaptureOutput" << endl;
+
     return output_text;
 }
 
 string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpectedOutput, const bool replaceEnvironmentVariables)
 {
+    cout << "DEBUG: Starting GetExpectedOutput" << endl;
+
     auto fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
     if (!FileUtils::Exists(fullFileName))
     { const auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), PathUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
@@ -212,6 +217,8 @@ string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpe
         cout << "-- " << file_text.size() << " characters" << endl;
         WriteMinorSeparator(80);
     }
+
+    cout << "DEBUG: Ending GetExpectedOutput" << endl;
 
     return file_text;
 }

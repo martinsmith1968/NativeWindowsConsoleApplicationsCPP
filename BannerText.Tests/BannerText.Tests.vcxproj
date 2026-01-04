@@ -142,6 +142,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
     <Text Include="ExpectedOutput\Execute_with_text_only_produces_expected_output.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>

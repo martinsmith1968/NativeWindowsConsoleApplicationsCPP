@@ -13,5 +13,5 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.cancel.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.cancel.options) (Default:true)
 
-Default App arguments can be specified in : %TEMP%\Stopwatch.cancel.options
-Local App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.cancel.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.cancel.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.cancel.options

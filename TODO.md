@@ -6,11 +6,11 @@
   - https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8
   - https://superuser.com/questions/1823317/how-to-identify-a-file-encoding
 
-- [ ] Test File Line Ending Detector / Normaliser
+- [ ] Text File Line Ending Detector / Normaliser
 
 ## Fixes
 
-- None
+- [ ] Utils - File Reading (ReadAllText / ReadAllLines) better line ending support
 
 ### General
 
@@ -26,9 +26,9 @@
 - [X] Support arrays of arguments (multiple instances of a single Parameter)
 - [ ] Separate some classes only in header files into header and implementation
 - [X] Support arguments files at all levels in Help
-- [ ] (Optionally) Support default argument files per command ([appname].[commandname].options)
-- [ ] (Optionally) Support default argument files per command in Help text
-- [X] Add Help text for adding a file of arguments
+- [X] (Optionally) Support default argument files per command ([appname].[commandname].options)
+- [X] (Optionally) Support default argument files per command in Help text
+- [ ] Add Help text for adding a file of arguments
 - [X] Line Wrapping Help Writer for long argument descriptions to wrap better
 
 ### Enhancements - Stopwatch
