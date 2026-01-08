@@ -8,9 +8,6 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="ExpectedOutput\Execute_HelloWorld_default_font_produces_expected_output.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
@@ -46,5 +43,8 @@
     <Filter Include="ExpectedOutput">
       <UniqueIdentifier>{0518a1fa-8716-4dfc-ab8f-95e777f22e86}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

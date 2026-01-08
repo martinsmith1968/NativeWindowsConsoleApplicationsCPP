@@ -14,13 +14,13 @@ using namespace Stopwatch;
 const string TimerDisplayBuilder::DefaultElapsedTimeTextFormat = "{days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
 const string TimerDisplayBuilder::DefaultStartTimeTextFormat = "%Y-%m-%d %H:%M:%S";
 
-string TimerDisplayBuilder::GetFormattedText(const Timer& timer, const string& format, const string& action)
+string TimerDisplayBuilder::GetFormattedDisplayText(const Timer& timer, const string& format, const string& action)
 {
     auto text = format;
 
-    text = StringUtils::ReplaceString(text, "{name}", timer.GetName());
-    text = StringUtils::ReplaceString(text, "{action}", action);
-    text = StringUtils::ReplaceString(text, "{state}", TimerStateTypeTextResolver().GetText(timer.GetState()));
+    text = StringUtils::Replace(text, "{name}", timer.GetName());
+    text = StringUtils::Replace(text, "{action}", action);
+    text = StringUtils::Replace(text, "{state}", TimerStateTypeTextResolver().GetText(timer.GetState()));
 
     text = GetFormattedStartTime(timer.GetStartDateTime(), text);
 
@@ -35,14 +35,14 @@ string TimerDisplayBuilder::GetFormattedElapsedTime(const double timespan, const
 
     const auto elapsed_time = ElapsedTime(timespan);
 
-    text = StringUtils::ReplaceString(text, "{days}", to_string(elapsed_time.GetDays()));
-    text = StringUtils::ReplaceString(text, "{hours}", to_string(elapsed_time.GetHours()));
-    text = StringUtils::ReplaceString(text, "{minutes}", to_string(elapsed_time.GetMinutes()));
-    text = StringUtils::ReplaceString(text, "{seconds}", to_string(elapsed_time.GetSeconds()));
+    text = StringUtils::Replace(text, "{days}", to_string(elapsed_time.GetDays()));
+    text = StringUtils::Replace(text, "{hours}", to_string(elapsed_time.GetHours()));
+    text = StringUtils::Replace(text, "{minutes}", to_string(elapsed_time.GetMinutes()));
+    text = StringUtils::Replace(text, "{seconds}", to_string(elapsed_time.GetSeconds()));
 
-    text = StringUtils::ReplaceString(text, "0 days, 0 hours, 0 minutes, ", "");
-    text = StringUtils::ReplaceString(text, "0 days, 0 hours, ", "");
-    text = StringUtils::ReplaceString(text, "0 days, ", "");
+    text = StringUtils::Replace(text, "0 days, 0 hours, 0 minutes, ", "");
+    text = StringUtils::Replace(text, "0 days, 0 hours, ", "");
+    text = StringUtils::Replace(text, "0 days, ", "");
 
     return text;
 }

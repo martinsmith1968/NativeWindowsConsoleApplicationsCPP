@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
-#include <string>
+#include "../stdafx.h"
+#include "../../DNX.Utils/MapUtils.h"
+#include "../../DNX.Utils/StringUtils.h"
 #include <iomanip>
-#include <sstream>
 #include <iostream>
 #include <ostream>
-
-#include "../../DNX.Utils/MapUtils.h"
+#include <sstream>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -17,6 +17,7 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
 // ReSharper disable CppClangTidyCppcoreguidelinesSpecialMemberFunctions
 // ReSharper disable CppClangTidyClangDiagnosticCoveredSwitchDefault
+// ReSharper disable CppClangTidyClangDiagnosticPadded
 
 using namespace std;
 
@@ -27,6 +28,14 @@ namespace Stopwatch
         DISPLAY,
         CSV,
         CUSTOM
+    };
+
+    enum class SortFieldType : uint8_t
+    {
+        NAME,
+        START,
+        STATE,
+        ELAPSED
     };
 
     //------------------------------------------------------------------------------
@@ -42,14 +51,28 @@ namespace Stopwatch
         }
     };
 
+    class SortFieldTypeTextResolver : public EnumTextResolver<SortFieldType>
+    {
+    public:
+        SortFieldTypeTextResolver()
+        {
+            SetText(SortFieldType::NAME, "Name");
+            SetText(SortFieldType::START, "Start");
+            SetText(SortFieldType::STATE, "State");
+            SetText(SortFieldType::ELAPSED, "Elapsed");
+        }
+    };
+
     //------------------------------------------------------------------------------
 
     class ListArguments final : public BaseArguments
     {
-        const string ArgumentNameOutputFormat = "output-format";
-        const string ArgumentNameCustomFormatText = "custom-format-text";
+        const string ArgumentNameOutputFormat        = "output-format";
+        const string ArgumentNameCustomFormatText    = "custom-format-text";
+        const string ArgumentNameSortField           = "sort-by";
+        const string ArgumentNameSortReverse         = "sort-reverse";
 
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::LIST)));
+        static const ParserContext m_parser_context;
 
     public:
         ListArguments()
@@ -57,6 +80,8 @@ namespace Stopwatch
         {
             AddOption(ValueType::STRING, "o", ArgumentNameOutputFormat, OutputFormatTypeTextResolver().GetText(OutputFormatType::DISPLAY), "Control output format of list", false, 0, OutputFormatTypeTextResolver().GetAllText());
             AddOption(ValueType::STRING, "fmt", ArgumentNameCustomFormatText, "", "A custom format string for the Timer details", false);
+            AddOption(ValueType::STRING, "s", ArgumentNameSortField, SortFieldTypeTextResolver().GetText(SortFieldType::NAME), "The field to order the Timers by", false, 0, SortFieldTypeTextResolver().GetAllText());
+            AddSwitch("r", ArgumentNameSortReverse, false, "Sort in reverse order", false);
             AddSwitchVerboseOutput(false);
         }
 
@@ -73,6 +98,8 @@ namespace Stopwatch
 
         OutputFormatType GetOutputFormatType() { return OutputFormatTypeTextResolver().GetValue(GetArgumentValue(ArgumentNameOutputFormat)); }
         string GetCustomFormatText() { return GetArgumentValue(ArgumentNameCustomFormatText); }
+        SortFieldType GetSortFieldType() { return SortFieldTypeTextResolver().GetValue(GetArgumentValue(ArgumentNameSortField)); }
+        bool GetSortReverse() { return GetSwitchValue(ArgumentNameSortReverse); }
     };
 
     //------------------------------------------------------------------------------
@@ -90,18 +117,18 @@ namespace Stopwatch
 
     class DisplayOutputFormatBuilder final : public BaseOutputFormatBuilder
     {
-        size_t m_max_name_width = 0;
+        size_t m_max_name_width  = 0;
         size_t m_max_state_width = 0;
 
     public:
         void Reset(ListArguments& arguments) override
         {
-            m_max_name_width = 0;
+            m_max_name_width  = 0;
             m_max_state_width = 0;
         }
         void PreProcess(const Timer& timer) override
         {
-            m_max_name_width = max(m_max_name_width, timer.GetName().length());
+            m_max_name_width  = max(m_max_name_width, timer.GetName().length());
             m_max_state_width = max(m_max_state_width, TimerStateTypeTextResolver().GetText(timer.GetState()).length());
         }
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
@@ -115,7 +142,7 @@ namespace Stopwatch
                 << setw(static_cast<streamsize>(m_max_state_width))
                 << TimerStateTypeTextResolver().GetText(timer.GetState())
                 << " - "
-                << TimerDisplayBuilder::GetFormattedText(timer, TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
+                << TimerDisplayBuilder::GetFormattedDisplayText(timer, TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -137,7 +164,7 @@ namespace Stopwatch
                 << ","
                 << TimerStateTypeTextResolver().GetText(timer.GetState())
                 << ","
-                << TimerDisplayBuilder::GetFormattedStartTime(timer.GetStartDateTime(), "{days}:{hours}:{minutes}:{seconds}")
+                << TimerDisplayBuilder::GetFormattedElapsedTime(timer.GetAccumulatedElapsed(), TimerDisplayBuilder::DefaultElapsedTimeTextFormat)
                 ;
 
             return ss.str();
@@ -158,7 +185,7 @@ namespace Stopwatch
 
         [[nodiscard]] string GetOutputText(const Timer& timer) const override
         {
-            return TimerDisplayBuilder::GetFormattedText(timer, m_custom_format_string);
+            return TimerDisplayBuilder::GetFormattedDisplayText(timer, m_custom_format_string);
         }
     };
 
@@ -195,13 +222,40 @@ namespace Stopwatch
         {
         }
 
+        static bool (* GetSortFunction(const SortFieldType sort_order))(const Timer&, const Timer&)
+        {
+            switch (sort_order)
+            {
+                case SortFieldType::NAME:
+                    return &Timer::CompareByName;
+                case SortFieldType::START:
+                    return &Timer::CompareByStartTime;
+                case SortFieldType::STATE:
+                    return &Timer::CompareByState;
+                case SortFieldType::ELAPSED:
+                    return &Timer::CompareByElapsed;
+                default:
+                    return &Timer::CompareByName;
+            }
+        }
+
         void Execute() override
         {
             const auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             const auto all_timers = repository.ReadAll();
             auto timers = MapUtils::GetValues(all_timers);
-            timers.sort(Timer::CompareByStartTime);
+
+            const auto sort_field = m_arguments.GetSortFieldType();
+            const auto reverse = m_arguments.GetSortReverse();
+
+            const auto sort_function = GetSortFunction(sort_field);
+            timers.sort(sort_function);
+            if (reverse)
+                timers.reverse();
 
             const auto builder = OutputFormatFactory().GetOutputFormatBuilder(m_arguments.GetOutputFormatType());
 
@@ -217,12 +271,6 @@ namespace Stopwatch
             if (!timers.empty())
                 cout << endl;
             cout << "Found: " << timers.size() << " stopwatches" << endl;
-
-            if (m_arguments.GetVerboseOutput())
-            {
-                cout << endl;
-                cout << "Data File : " << m_arguments.GetDataFileName() << endl;
-            }
         }
     };
 }

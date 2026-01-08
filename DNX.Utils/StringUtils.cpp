@@ -18,8 +18,8 @@ using namespace DNX::Utils;
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 wstring StringUtils::ToWideString(const string& str)
 {
-    std::wstring wstr(str.length(), 0);
-    std::transform(str.begin(), str.end(), wstr.begin(), [](const char c) {
+    wstring wstr(str.length(), 0);
+    transform(str.begin(), str.end(), wstr.begin(), [](const char c) {
         return static_cast<wchar_t>(c);
         });
 
@@ -29,12 +29,41 @@ wstring StringUtils::ToWideString(const string& str)
 // From : https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 string StringUtils::ToString(const wstring& wstr)
 {
-    std::string str(wstr.length(), 0);
-    std::transform(wstr.begin(), wstr.end(), str.begin(), [](const wchar_t c) {
+    string str(wstr.length(), 0);
+    transform(wstr.begin(), wstr.end(), str.begin(), [](const wchar_t c) {
         return static_cast<char>(c);
         });
 
     return str;
+}
+
+bool StringUtils::IsNullOrEmpty(const string* str)
+{
+    return str == nullptr || IsEmpty(*str);
+}
+
+bool StringUtils::IsNullOrWhiteSpace(const string* str)
+{
+    return str == nullptr || IsEmptyOrWhiteSpace(*str);
+}
+
+bool StringUtils::IsEmpty(const string& str)
+{
+    return str.empty();
+}
+
+bool StringUtils::IsEmptyOrWhiteSpace(const string& str)
+{
+    if (IsEmpty(str))
+        return true;
+
+    for (auto ch : str)
+    {
+        if (!isspace(ch) && !isblank(ch) && !iscntrl(ch))
+            return false;
+    }
+
+    return true;
 }
 
 string StringUtils::Trim(const string& str, const char removeChar)
@@ -164,12 +193,32 @@ string StringUtils::Between(const string& str, const string& first, const string
     return BeforeLast(After(str, first), second);
 }
 
+string StringUtils::Between(const string& str, const string& firstAndSecond)
+{
+    return Between(str, firstAndSecond, firstAndSecond);
+}
+
 string StringUtils::BetweenInner(const string& str, const string& first, const string& second)
 {
     return Before(AfterLast(str, first), second);
 }
 
-string StringUtils::ReplaceString(string subject, const string& search, const string& replace)
+string StringUtils::BetweenInner(const string& str, const string& firstAndSecond)
+{
+    return BetweenInner(str, firstAndSecond, firstAndSecond);
+}
+
+string StringUtils::BetweenOuter(const string& str, const string& first, const string& second)
+{
+    return BeforeLast(After(str, first), second);
+}
+
+string StringUtils::BetweenOuter(const string& str, const string& firstAndSecond)
+{
+    return BetweenOuter(str, firstAndSecond, firstAndSecond);
+}
+
+string StringUtils::Replace(string subject, const string& search, const string& replace)
 {
     size_t pos = 0;
 
@@ -185,7 +234,7 @@ string StringUtils::ReplaceString(string subject, const string& search, const st
 string StringUtils::Repeat(const string& subject, const int count)
 {
     // Source : https://stackoverflow.com/questions/166630/how-can-i-repeat-a-string-a-variable-number-of-times-in-c
-    std::ostringstream os;
+    ostringstream os;
     for (int i = 0; i < count; i++)
         os << subject;
     return os.str();
@@ -205,6 +254,17 @@ string StringUtils::ToUpper(const string& text)
     transform(copy.begin(), copy.end(), copy.begin(), toupper);
 
     return copy;
+}
+
+bool StringUtils::Equals(const string& text1, const string& text2, bool caseSensitive)
+{
+    return (text1.size() == text2.size())
+        && std::equal(text1.begin(), text1.end(), text2.begin(),
+            [caseSensitive](const char& c1, const char& c2)
+            {
+                return (c1 == c2 || (!caseSensitive && std::toupper(c1) == std::toupper(c2)));
+            }
+        );
 }
 
 string StringUtils::Left(const string& text, const size_t length)
@@ -420,7 +480,7 @@ string StringUtils::RemoveAny(const string& str, const string& characters)
     if (str.empty() || characters.empty())
         return str;
 
-    std::ostringstream result;
+    ostringstream result;
 
     for (const auto ch : str)
     {
@@ -443,7 +503,7 @@ string StringUtils::RemoveAnyExcept(const string& str, const string& characters)
     if (str.empty() || characters.empty())
         return str;
 
-    std::ostringstream result;
+    ostringstream result;
 
     for (const auto ch : str)
     {
@@ -478,9 +538,14 @@ bool StringUtils::EndsWith(const string& str, const string& suffix)
     return Right(str, suffix.length()) == suffix;
 }
 
+bool StringUtils::StartsAndEndsWith(const string& str, const string& prefix, const string& suffix)
+{
+    return StartsWith(str, prefix) && EndsWith(str, suffix);
+}
+
 bool StringUtils::StartsAndEndsWith(const string& str, const string& prefixAndSuffix)
 {
-    return StartsWith(str, prefixAndSuffix) && EndsWith(str, prefixAndSuffix);
+    return StartsAndEndsWith(str, prefixAndSuffix, prefixAndSuffix);
 }
 
 string StringUtils::EnsureStartsWith(const string& str, const string& prefix)
@@ -523,7 +588,7 @@ string StringUtils::RemoveStartsWith(const string& str, const string& prefix, in
         return str;
 
     string trimmedStr = str;
-    while (StartsWith(trimmedStr, prefix) && count != 0)
+    while (!prefix.empty() && StartsWith(trimmedStr, prefix) && count != 0)
     {
         trimmedStr = trimmedStr == prefix
             ? ""
@@ -542,7 +607,7 @@ string StringUtils::RemoveEndsWith(const string& str, const string& suffix, int 
         return str;
 
     string trimmedStr = str;
-    while (EndsWith(trimmedStr, suffix) && count != 0)
+    while (!suffix.empty() && EndsWith(trimmedStr, suffix) && count != 0)
     {
         trimmedStr = trimmedStr == suffix
             ? ""
@@ -563,4 +628,44 @@ string StringUtils::RemoveStartsAndEndsWith(const string& str, const string& pre
 string StringUtils::RemoveStartsAndEndsWith(const string& str, const string& prefix, const string& suffix, int count)
 {
     return RemoveStartsWith(RemoveEndsWith(str, suffix), prefix);
+}
+
+list<string> StringUtils::SeparateByLineEndings(const string& text)
+{
+    const string& possibleLineEndingCharacters = "\n\r";
+
+    auto lines = list<string>();
+
+    string remaining = Replace(text, "\r\n", Left(possibleLineEndingCharacters, 1));
+
+    if (!remaining.empty())
+    {
+        while (true)
+        {
+            if (remaining.empty())
+            {
+                lines.push_back(remaining);
+                break;
+            }
+
+            auto found = remaining.find_first_of(possibleLineEndingCharacters);
+            if (found == string::npos)
+            {
+                lines.push_back(remaining);
+                break;
+            }
+
+            lines.push_back(Left(remaining, found));
+            remaining = Right(remaining, remaining.length() - found - 1);
+        }
+    }
+
+    return lines;
+}
+
+string StringUtils::NormalizeLineEndings(const string& text, const string& desiredLineEndings)
+{
+    const auto lines = SeparateByLineEndings(text);
+
+    return JoinText(lines, desiredLineEndings);
 }

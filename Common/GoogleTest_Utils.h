@@ -28,14 +28,14 @@ namespace DNX::GoogleTest::Utils
         {
             m_file_name = file_name;
 
-            m_output = std::ofstream(m_file_name);
-            m_old_output = std::cout.rdbuf();
-            std::cout.rdbuf(m_output.rdbuf()); //redirect std::cout to out.txt!
+            m_output = ofstream(m_file_name);
+            m_old_output = cout.rdbuf();
+            cout.rdbuf(m_output.rdbuf()); //redirect cout to out.txt!
         }
 
         ~StdOutRedirect()
         {
-            std::cout.rdbuf(m_old_output); //reset to standard output again
+            cout.rdbuf(m_old_output); //reset to standard output again
         }
     };
 
@@ -43,7 +43,7 @@ namespace DNX::GoogleTest::Utils
     {
         string file_path;
         const size_t last_slash_idx = file_name.rfind('\\');
-        if (std::string::npos != last_slash_idx)
+        if (string::npos != last_slash_idx)
         {
             file_path = file_name.substr(0, last_slash_idx);
         }
@@ -57,7 +57,7 @@ namespace DNX::GoogleTest::Utils
         ifstream file(file_name);
         string str;
 
-        while (std::getline(file, str))
+        while (getline(file, str))
         {
             lines.emplace_back(str);
         }
@@ -69,8 +69,8 @@ namespace DNX::GoogleTest::Utils
 
     static void CompareFileContents(const string& test_output_file_name, const string& expected_output_file_name)
     {
-        EXPECT_TRUE(std::filesystem::exists(test_output_file_name)) << test_output_file_name + " not exist";
-        EXPECT_TRUE(std::filesystem::exists(expected_output_file_name)) << expected_output_file_name + " not exist";
+        EXPECT_TRUE(filesystem::exists(test_output_file_name)) << test_output_file_name + " not exist";
+        EXPECT_TRUE(filesystem::exists(expected_output_file_name)) << expected_output_file_name + " not exist";
 
         const auto test_output_lines     = GetFileLines(test_output_file_name);
         const auto expected_output_lines = GetFileLines(expected_output_file_name);

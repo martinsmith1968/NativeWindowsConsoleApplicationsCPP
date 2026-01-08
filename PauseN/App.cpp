@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "App.h"
 #include "../DNX.Utils/DateUtils.h"
-#include <iostream>
-#include <conio.h>
+#include <Windows.h>
 #include <chrono>
+#include <conio.h>
+#include <iostream>
 #include <regex>
 #include <thread>
-#include <Windows.h>
 
 using namespace std;
 using namespace PauseN;

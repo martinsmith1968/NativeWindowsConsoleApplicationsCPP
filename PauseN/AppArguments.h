@@ -1,11 +1,11 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../DNX.Utils/StringUtils.h"
-#include "../DNX.App/ValueConverter.h"
 #include "../DNX.App/Arguments.h"
-#include <string>
+#include "../DNX.App/ValueConverter.h"
+#include "../DNX.Utils/StringUtils.h"
 #include <chrono>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -76,8 +76,8 @@ namespace PauseN
         {
             auto formatted_text = GetMessageText();
 
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
-            formatted_text = StringUtils::ReplaceString(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
+            formatted_text = StringUtils::Replace(formatted_text, GetReplacementText(ArgumentNameTimeout), std::to_string(GetTimeoutSeconds()));
+            formatted_text = StringUtils::Replace(formatted_text, GetReplacementText(ArgumentNameSleep), std::to_string(GetSleepMilliseconds()));
 
             return formatted_text;
         }

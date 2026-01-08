@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../DNX.Utils/StringUtils.h"
 #include "../DNX.App/Arguments.h"
+#include "../DNX.Utils/StringUtils.h"
 #include <algorithm>
 #include <string>
 
@@ -229,7 +229,7 @@ namespace BannerText
             size_t lineLength = 0;
             for (const auto& text : GetMessageTexts())
             {
-                lineLength = std::max(lineLength, text.length());
+                lineLength = max(lineLength, text.length());
             }
 
             lineLength +=
@@ -238,12 +238,12 @@ namespace BannerText
 
             if (GetMinimumTotalLength() > 0)
             {
-                lineLength = std::max(lineLength, GetMinimumTotalLength());
+                lineLength = max(lineLength, GetMinimumTotalLength());
             }
 
             if (GetMaximumTotalLength() > 0)
             {
-                lineLength = std::min(lineLength, GetMaximumTotalLength());
+                lineLength = min(lineLength, GetMaximumTotalLength());
             }
 
             return lineLength;

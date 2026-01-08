@@ -1,0 +1,19 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch Start [stopwatch-name] [OPTIONS]
+
+Options:
+[stopwatch-name] Text                 The name of the Stopwatch (Required)
+-f, --force +/-                       Force starting even if already exists (Default:false)
+-q, --quiet +/-                       Suppress output messages (Default:false)
+-v, --verbose-output +/-              Control verbosity of output messages (Default:false)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:%USERPROFILE%\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.start.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.start.options) (Default:true)
+
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.start.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.start.options

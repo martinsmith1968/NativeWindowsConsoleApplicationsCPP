@@ -42,7 +42,7 @@ int ListUtils::GetMinLength(const list<string>& list)
     if (list.empty())
         return 0;
 
-    const auto max_text_length = std::min_element(list.begin(),
+    const auto max_text_length = min_element(list.begin(),
         list.end(),
         [](const string& a, const string& b) { return (a.length()) < b.length(); }
     )->length();
@@ -55,7 +55,7 @@ int ListUtils::GetMaxLength(const list<string>& list)
     if (list.empty())
 		return 0;
 
-    const auto max_text_length = std::max_element(
+    const auto max_text_length = max_element(
         list.begin(),
         list.end(),
         [](const string& a, const string& b)

@@ -3,8 +3,8 @@
 #include "stdafx.h"
 #include "Command.h"
 #include "CommandsParser.h"
-#include <map>
 #include <list>
+#include <map>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers

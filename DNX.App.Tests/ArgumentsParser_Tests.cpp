@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "../DNX.App/Arguments.h"
-#include "../DNX.App/ArgumentsParser.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
 #include "Arguments1.h"
 #include "Arguments2.h"
 #include "Arguments3.h"
 #include "TestHelper.h"
+#include "../DNX.App/Arguments.h"
+#include "../DNX.App/ArgumentsParser.h"
+#include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/PathUtils.h"
 
 // ReSharper disable CppClangTidyPerformanceUnnecessaryCopyInitialization
 // ReSharper disable CppInconsistentNaming
@@ -152,7 +152,7 @@ TEST(TEST_GROUP, ParseArguments_parse_a_file_of_arguments_correctly)
     auto lines = list<string>();
     lines.emplace_back(quote + message_text + quote);
     lines.emplace_back("-t " + to_string(timeout));
-    FileUtils::WriteLines(fileName, lines);
+    FileUtils::WriteAllLines(fileName, lines);
 
     auto args = list<string>();
     args.emplace_back("@" + fileName);

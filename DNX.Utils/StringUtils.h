@@ -4,6 +4,8 @@
 #include <list>
 #include <string>
 
+#include "EnvironmentUtils.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 
@@ -19,6 +21,11 @@ namespace DNX::Utils
     public:
         static wstring ToWideString(const string& str);
         static string ToString(const wstring& wstr);
+
+        static bool IsNullOrEmpty(const string* str);
+        static bool IsNullOrWhiteSpace(const string* str);
+        static bool IsEmpty(const string& str);
+        static bool IsEmptyOrWhiteSpace(const string& str);
 
         static string Trim(const string& str, const char removeChar = ' ');
         static string LTrim(const string& str, const char removeChar = ' ');
@@ -37,13 +44,19 @@ namespace DNX::Utils
         static string AfterLast(const string& str, const string& find);
 
         static string Between(const string& str, const string& first, const string& second);
+        static string Between(const string& str, const string& firstAndSecond);
         static string BetweenInner(const string& str, const string& first, const string& second);
+        static string BetweenInner(const string& str, const string& firstAndSecond);
+        static string BetweenOuter(const string& str, const string& first, const string& second);
+        static string BetweenOuter(const string& str, const string& firstAndSecond);
 
-        static string ReplaceString(string subject, const string& search, const string& replace);
+        static string Replace(string subject, const string& search, const string& replace);
         static string Repeat(const string& subject, const int count);
 
         static string ToLower(const string& text);
         static string ToUpper(const string& text);
+
+        static bool Equals(const string& text1, const string& text2, bool caseSensitive = true);
 
         static string Left(const string& text, const size_t length);
         static string Right(const string& text, const size_t length);
@@ -75,6 +88,7 @@ namespace DNX::Utils
 
         static bool StartsWith(const string& str, const string& prefix);
         static bool EndsWith(const string& str, const string& suffix);
+        static bool StartsAndEndsWith(const string& str, const string& prefix, const string& suffix);
         static bool StartsAndEndsWith(const string& str, const string& prefixAndSuffix);
 
         static string EnsureStartsWith(const string& str, const string& prefix);
@@ -86,5 +100,8 @@ namespace DNX::Utils
         static string RemoveEndsWith(const string& str, const string& suffix, int count = -1);
         static string RemoveStartsAndEndsWith(const string& str, const string& prefixAndSuffix, int count = -1);
         static string RemoveStartsAndEndsWith(const string& str, const string& prefix, const string& suffix, int count = -1);
+
+        static list<string> SeparateByLineEndings(const string& text);
+        static string NormalizeLineEndings(const string& text, const string& desiredLineEndings = EnvironmentUtils::GetNewLine());
     };
 }

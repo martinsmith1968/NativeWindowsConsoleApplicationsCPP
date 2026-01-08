@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "CommandArguments.h"
 #include "CommandsParser.h"
 #include "ArgumentsParser.h"
+#include "CommandArguments.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 #include <string>

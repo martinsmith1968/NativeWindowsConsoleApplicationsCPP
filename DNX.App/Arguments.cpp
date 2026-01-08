@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Argument.h"
 #include "Arguments.h"
-#include "../DNX.Utils/FileUtils.h"
+#include "Argument.h"
 #include "../DNX.Utils/ListUtils.h"
+#include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 #include <complex>
 
@@ -21,12 +21,12 @@ Arguments Arguments::_empty_arguments = Arguments();
 // Internal methods
 string Arguments::GetUseDefaultArgumentsFileDesc() const
 {
-    return "Use Default Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
+    return "Use Default Arguments File (" + PathUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
 }
 string Arguments::GetUseLocalArgumentsFileDesc() const
 {
-    // TODO: This should be called GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
-    return "Use Local Arguments File (" + FileUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
+    // TODO: This should call GetLocalArgumentsFileName() from ParserContext, bu this causes the tests to hang
+    return "Use Local Arguments File (" + PathUtils::GetFileNameAndExtension(_parser_context.GetDefaultArgumentsFileName()) + ")";
 }
 
 void Arguments::PostParseValidate()

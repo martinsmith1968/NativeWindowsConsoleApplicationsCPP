@@ -1,15 +1,22 @@
-$app_output_path = Join-Path $PSScriptRoot -ChildPath ".." "Output"
-
-# TODO: Adjust paths in output content (or call from temp folder)
-
-$latest_version_slug = "[//]: # (APP_LATESTVERSION)"
-$help_output_slug = "[//]: # (APP_HELPOUTPUT)"
+$latest_version_slug        = "[//]: # (APP_LATESTVERSION)"
+$help_output_slug           = "[//]: # (APP_HELPOUTPUT)"
 $command_output_slug_prefix = "[//]: # (CMD_HELPOUTPUT"
 $command_output_slug_suffix = ")"
 
+$app_output_path = Join-Path $PSScriptRoot -ChildPath ".." "Output"
+$temp_base_path  = [System.IO.Path]::GetTempPath()
+$run_id          = [System.Guid]::NewGuid().ToString("N")
+$temp_run_path   = Join-Path -Path $temp_base_path -ChildPath $run_id
+
+Write-Host "App Output Path : $($app_output_path)"
+Write-Host "Temp Path       : $($temp_base_path)"
+Write-Host "Run Path        : $($temp_run_path)"
+
+
+# Start
+
 $allfiles = Get-ChildItem -Path $app_output_path -File -Filter "*.exe" -Recurse
-Write-Host $allfiles.Length
-Write-Host $allfiles
+Write-Host "Found $($allfiles.Length) candidate executables"
 
 # Build Apps List
 $apps = @{}
@@ -23,15 +30,30 @@ foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Debug") }) {
     $apps[$file.Name] = $file
 }
 
+# Copy Apps to Run Folder
+$run_apps = @{}
+Write-Host "Copying $($apps.Count) applications to temp run folder: $temp_run_path"
+New-Item -Path $temp_run_path -ItemType Directory -Force | Out-Null
+foreach ( $app in $apps.GetEnumerator() ) {
+    $appName = $app.Key
+    $appFile = $app.Value
+    $destFile = Join-Path -Path $temp_run_path -ChildPath $appName
+
+    Write-Host "  Copying App: ${appName} to ${destFile}"
+    Copy-Item -Path $appFile.FullName -Destination $destFile -Force
+
+    $run_apps[$appName] = Get-Item -Path $destFile
+}
 
 # Process each App and generate Version and About help text
-Write-Host "Generating $($apps.Count) applications Help Text"
-foreach ( $app in $apps.GetEnumerator() ) {
+Write-Host "Generating $($run_apps.Count) applications Help Text"
+foreach ( $app in $run_apps.GetEnumerator() ) {
     $appName = $app.Key
     $appFile = $app.Value
     $appBaseName = [System.IO.Path]::GetFileNameWithoutExtension($appName)
 
     Write-Host "Processing App: ${appName}" -ForegroundColor Cyan
+    Set-Location -Path $temp_base_path
 
     $docs_folder = Join-Path $PSScriptRoot -ChildPath ".." ".docs"
     $docs_helptext_folder = Join-Path $docs_folder -ChildPath "HelpText"
@@ -84,8 +106,8 @@ foreach ( $app in $apps.GetEnumerator() ) {
 
 
 # Process each App and bind help text into docs
-Write-Host "Binding $($apps.Count) applications Docs"
-foreach ( $app in $apps.GetEnumerator() ) {
+Write-Host "Binding $($run_apps.Count) applications Docs"
+foreach ( $app in $run_apps.GetEnumerator() ) {
     $appName = $app.Key
     $appFile = $app.Value
     $appBaseName = [System.IO.Path]::GetFileNameWithoutExtension($appName)
@@ -108,7 +130,7 @@ foreach ( $app in $apps.GetEnumerator() ) {
     $replacing_about = $false
     $replacing_cmd_about = $false
     foreach($line in $doc_content) {
-        
+
         if ($line -eq "``````") {
             if ($replacing_version -or $replacing_about -or $replacing_cmd_about) {
                 $replacing_version = $false

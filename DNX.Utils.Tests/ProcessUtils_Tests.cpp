@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <Windows.h>
 #include <codecvt>
 #include <locale>
-#include <Windows.h>
 
 using namespace std;
 using namespace DNX::Utils;
@@ -22,7 +22,7 @@ TEST(TEST_GROUP, GetExecutableFileNameWide_returns_something)
     const auto result = ProcessUtils::GetExecutableFileNameWide();
 
     // Assert
-    cout << "GetExecutableFileNameWide: " << result.c_str() << endl;
+    wcout << "GetExecutableFileNameWide: " << result.c_str() << endl;
     EXPECT_NE(result.size(), 0);
 }
 

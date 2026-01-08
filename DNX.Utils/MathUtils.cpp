@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "DateUtils.h"
 #include "MathUtils.h"
+#include "DateUtils.h"
 #include <cstdlib>
 
 // ReSharper disable CppInconsistentNaming
@@ -36,4 +36,23 @@ int MathUtils::GetRandomNumber(const int min_value, const int max_value, const b
     const auto result = rand() % (max_value - min_value + adjustment) + min_value;
 
     return result;
+}
+
+int MathUtils::Clamp(int value, const int min_value, const int max_value)
+{
+    value = max(min(value, max_value), min_value);
+    return value;
+}
+
+int MathUtils::ClampModulo(int value, const int min_value, const int max_value)
+{
+    const auto diff = max_value - min_value + 1;
+
+    while (value < min_value)
+        value += diff;
+
+    while (value > max_value)
+        value -= diff;
+
+    return value;
 }

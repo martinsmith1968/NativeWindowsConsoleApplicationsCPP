@@ -1,9 +1,8 @@
 #pragma once
 
 #include "BuildInfo.h"
-#include "Version.h"
 #include "Macros.h"
-
+#include "Version.h"
 #include "../DNX.App/AppDetails.h"
 
 using namespace DNX::App;

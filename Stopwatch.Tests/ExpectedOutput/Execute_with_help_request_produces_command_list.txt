@@ -12,7 +12,8 @@ Stop     Start an active Stopwatch
 Cancel   Cancel an active Stopwatch
 Elapsed  Display the current elapsed time of an active Stopwatch
 Pause    Pause an active Stopwatch
+Purge    Purge old Stopwatches
 Resume   Resume a paused Stopwatch
 
-Default App arguments can be specified in : %TEMP%\Stopwatch.options
-Local App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.options

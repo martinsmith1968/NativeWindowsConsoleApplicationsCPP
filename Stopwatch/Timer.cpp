@@ -4,6 +4,7 @@
 #include "../DNX.Utils/DateUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include "Commands/ListCommand.h"
 #include <chrono>
 #include <ctime>
 #include <sstream>
@@ -33,9 +34,25 @@ Timer::Timer(const string& name)
     m_TotalElapsed = 0;
 }
 
+bool Timer::CompareByName(const Timer& first, const Timer& second)
+{
+    return first.GetName() < second.GetName();
+}
+
 bool Timer::CompareByStartTime(const Timer& first, const Timer& second)
 {
     return first.GetStart() < second.GetStart();
+}
+
+bool Timer::CompareByState(const Timer& first, const Timer& second)
+{
+    const auto text_resolver = TimerStateTypeTextResolver();
+
+    return text_resolver.GetText(first.GetState()) < text_resolver.GetText(second.GetState());
+}
+bool Timer::CompareByElapsed(const Timer& first, const Timer& second)
+{
+    return first.GetTotalElapsed() < second.GetTotalElapsed();
 }
 
 string Timer::GetName() const

@@ -1,13 +1,18 @@
 #pragma once
 
 #include "stdafx.h"
+#include "DateTime.h"
+#include "PathUtils.h"
+#include <filesystem>
 #include <list>
 #include <string>
+
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 
 using namespace std;
+using namespace std::filesystem;
 
 namespace DNX::Utils
 {
@@ -16,22 +21,32 @@ namespace DNX::Utils
     //--------------------------------------------------------------------------
     class FileUtils
     {
+        static DateTime ConvertToDateTime(const file_time_type file_time);
+        static file_time_type ConvertToFileTime(DateTime date_time);
+
     public:
-        static string GetPath(const string& filePath);
-        static string GetFileNameOnly(const string& filePath);
-        static string GetFileNameAndExtension(const string& filePath);
-        static string ChangeFileExtension(const string& filePath, const string& fileExtension);
+        static bool Exists(const string& file_name);
+        static int GetSize(const string& file_name);
+        static FileSystemItemAttributes GetAttributes(const string& file_name);
+        static void SetAttributes(const string& file_name, FileSystemItemAttributes attributes);
 
-        static bool FileExists(const string& fileName);
-        static bool Create(const string& fileName);
-        static bool Delete(const string& fileName, bool ignoreResultCode = false);
+        static DateTime GetCreationTime(const string& file_name);
+        static DateTime GetLastWriteTime(const string& file_name);
+        static DateTime GetLastAccessTime(const string& file_name);
+        static bool SetCreationTime(const string& file_name, DateTime date_time);
+        static bool SetLastWriteTime(const string& file_name, DateTime date_time);
+        static bool SetLastAccessTime(const string& file_name, DateTime date_time);
 
-        static list<string> ReadLines(const string& fileName);
-        static string ReadText(const string& fileName);
-        static void WriteLines(const string& fileName, const list<string>& lines);
-        static void WriteText(const string& fileName, const string& text);
+        static bool Create(const string& file_name, bool overwrite = false);
+        static bool Delete(const string& file_name, bool ignore_result_code = false);
+        static bool Move(const string& file_name, const string& destination, bool overwrite = false);
+        static bool Copy(const string& file_name, const string& destination, bool overwrite = false);
 
-        static bool CompareTextFiles(const string& fileName1, const string& fileName2);
-        static bool CompareBinaryFiles(const string& fileName1, const string& fileName2);
+        static list<string> ReadAllLines(const string& file_name);
+        static string ReadAllText(const string& file_name);
+        static void WriteAllLines(const string& file_name, const list<string>& lines);
+        static void WriteAllText(const string& file_name, const string& text);
+        static void AppendAllLines(const string& file_name, const list<string>& lines);
+        static void AppendAllText(const string& file_name, const string& text);
     };
 }

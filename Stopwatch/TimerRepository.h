@@ -22,6 +22,8 @@ namespace Stopwatch
         static string GetDefaultFileName();
         static string GetDefaultRepositoryFileName();
 
+        string GetFileName() const;
+
         [[nodiscard]] map<string, Timer> ReadAll() const;
         void SaveAll(const map<string, Timer>& timers);
 

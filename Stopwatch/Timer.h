@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../DNX.Utils/EnumUtils.h"
-#include <string>
 #include <ctime>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
@@ -67,6 +67,9 @@ namespace Stopwatch
 
         static Timer& Empty() { return m_empty_timer; }
 
+        static bool CompareByName(const Timer& first, const Timer& second);
         static bool CompareByStartTime(const Timer& first, const Timer& second);
+        static bool CompareByState(const Timer& first, const Timer& second);
+        static bool CompareByElapsed(const Timer& first, const Timer& second);
     };
 }

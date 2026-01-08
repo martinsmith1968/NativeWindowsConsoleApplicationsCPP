@@ -4,6 +4,7 @@
 #include <ostream>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
@@ -13,18 +14,17 @@
 using namespace std;
 
 // Source : https://stackoverflow.com/questions/53164946/c-approach-to-handling-a-collection-of-multiple-exceptions
-class AggregateException : public std::exception
+class AggregateException : public exception
 {
-private:
-    std::vector<std::exception> _exceptions;
-    std::string _whatMessage;
+    vector<exception> _exceptions;
+    string _whatMessage;
 
 public:
-    explicit AggregateException(std::vector<std::exception> exceptions)
+    explicit AggregateException(vector<exception> exceptions)
     {
         _exceptions = std::move(exceptions);
 
-        std::stringstream what_string;
+        stringstream what_string;
         what_string << "AggregateException: (" << _exceptions.size() << ")" << endl;
         for (auto const& ex : _exceptions) {
             what_string << " " << ex.what() << endl;
@@ -32,12 +32,11 @@ public:
         _whatMessage = what_string.str();
     }
 
-
     [[nodiscard]] const char* what() const noexcept override {
         return _whatMessage.c_str();
     }
 
-    [[nodiscard]] std::vector<std::exception> GetExceptions() const
+    [[nodiscard]] vector<exception> GetExceptions() const
     {
         return _exceptions;
     }

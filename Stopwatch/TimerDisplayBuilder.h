@@ -2,8 +2,8 @@
 
 #include "stdafx.h"
 #include "Timer.h"
-#include <string>
 #include <iomanip>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers
@@ -19,7 +19,7 @@ namespace Stopwatch
         static const string DefaultElapsedTimeTextFormat;
         static const string DefaultStartTimeTextFormat;
 
-        [[nodiscard]] static string GetFormattedText(const Timer& timer, const string& format, const string& action = "");
+        [[nodiscard]] static string GetFormattedDisplayText(const Timer& timer, const string& format, const string& action = "");
         [[nodiscard]] static string GetFormattedElapsedTime(double timespan, const string& format);
         [[nodiscard]] static string GetFormattedStartTime(const tm& tm, const string& format);
     };

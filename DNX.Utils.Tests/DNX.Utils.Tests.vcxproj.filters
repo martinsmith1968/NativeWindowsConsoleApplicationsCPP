@@ -13,16 +13,18 @@
     <ClCompile Include="ConsoleUtils_Tests.cpp" />
     <ClCompile Include="FileUtils_Tests.cpp" />
     <ClCompile Include="CryptoUtils_Tests.cpp" />
+    <ClCompile Include="DateTime_Tests.cpp" />
+    <ClCompile Include="DirectoryUtils_Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestItem.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="expected\ConsoleUtils\ShowBlankLines_outputs_the_correct_number_of_line.expected">
       <Filter>expected\ConsoleUtils</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="expected">

@@ -1,0 +1,18 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch Elapsed [stopwatch-name] [OPTIONS]
+
+Options:
+[stopwatch-name] Text                      The name of the Stopwatch (Required)
+-etdf, --elapsed-time-display-format Text  The format string to use to display Elapsed Time (Default:{name}: {state} - {days} days, {hours} hours, {minutes} minutes, {seconds} seconds)
+-at, --additional-text Text                Additional text for the output
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:%USERPROFILE%\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-!, --version +/-                          Show App Version details (Default:false)
+-?, --help +/-                             Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.elapsed.options) (Default:true)
+-$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.elapsed.options) (Default:true)
+
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.elapsed.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.elapsed.options

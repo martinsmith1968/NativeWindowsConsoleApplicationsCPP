@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
-#include "ArgumentType.h"
 #include "Argument.h"
+#include "ArgumentType.h"
 #include "ParserContext.h"
 #include "ValueConverter.h"
 #include <list>
@@ -24,18 +24,19 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class Arguments
     {
-        const string HelpShortName = "?";
-        const string VersionShortName = "!";
+        const string HelpShortName                    = "?";
+        const string VersionShortName                 = "!";
         const string UseDefaultArgumentsFileShortName = "@";
-        const string UseLocalArgumentsFileShortName = "$";
+        const string UseLocalArgumentsFileShortName   = "$";
 
-        const string HelpLongName = "help";
-        const string VersionLongName = "version";
+        const string HelpLongName                    = "help";
+        const string VersionLongName                 = "version";
         const string UseDefaultArgumentsFileLongName = "use-default-arguments-file";
-        const string UseLocalArgumentsFileLongName = "use-local-arguments-file";
+        const string UseLocalArgumentsFileLongName   = "use-local-arguments-file";
 
-        const string HelpDescription = "Show Help screen";
+        const string HelpDescription    = "Show Help screen";
         const string VersionDescription = "Show App Version details";
+
         [[nodiscard]] string GetUseDefaultArgumentsFileDesc() const;
         [[nodiscard]] string GetUseLocalArgumentsFileDesc() const;
 
@@ -111,6 +112,41 @@ namespace DNX::App
             bool required = false,
             int position = 0
         );
+
+        // TODO: Add typed shortcuts
+        //void AddOptionINT(
+        //    const string& shortName,
+        //    const string& longName = "",
+        //    int defaultValue = 0,
+        //    const string& description = "",
+        //    bool required = false,
+        //    int position = 0,
+        //    const list<int>& valueList = list<int>()
+        //);
+        //
+        // or templated
+        //template<typename T>
+        //void AddOptionTyped(
+        //    const string& shortName,
+        //    const string& longName = "",
+        //    T defaultValue = 0,
+        //    const string& description = "",
+        //    bool required = false,
+        //    int position = 0,
+        //    const list<T>& valueList = list<T>()
+        //)
+        //{
+        //    AddOption(
+        //        ValueTypeTextResolver::GetValue(T),
+        //        shortName,
+        //        longName,
+        //        to_string(defaultValue),
+        //        description,
+        //        required,
+        //        position,
+        //        ValueConverter::ConvertListToStringList(valueList)
+        //    );
+        //}
 
         void AddError(const string& text);
 

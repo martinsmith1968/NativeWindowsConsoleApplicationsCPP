@@ -1,17 +1,16 @@
 #include "pch.h"
 
-#include <cstdlib>
-#include "../DNX.Tests.Common/TestHelper.h"
-#include "../DNX.Utils/EnvironmentUtils.h"
-#include "../DNX.Utils/PathUtils.h"
-
 #define VER_PRODUCTNAME_STR         "Stopwatch.Tests"
 #define VER_FILE_DESCRIPTION_STR    "Stopwatch Google Tests"
-#include <filesystem>
 
 #include "../Common/AppInfo.h"
+#include "../DNX.Tests.Common/TestHelper.h"
+#include "../DNX.Tests.Common/TestRunRelocatingController.h"
 #include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/DirectoryUtils.h"
+#include "gtest/gtest.h"
+#include <filesystem>
+#include <string>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
@@ -25,73 +24,82 @@ using namespace filesystem;
 
 //------------------------------------------------------------------------------
 
-class TestConfig
-{
-public:
-    static string GetExecutableName()
-    {
-        return "Stopwatch.exe";
-    }
-
-    static string GetExpectedOutputFileName()
-    {
-        return PathUtils::Combine("ExpectedOutput", string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt");
-    }
-};
-
-//------------------------------------------------------------------------------
-
-class TEST_GROUP : public ::testing::Test
+class TEST_GROUP : public testing::Test
 {
 protected:
-    AppInfo _appInfo;
-    string _run_id;
-    string _defaultTargetExecutableFileName;
-    string _movedTargetExecutableFileName;
-    string _tempRunFolderName;
+    AppInfo m_app_info;
+    TestRunRelocatingController* m_test_controller = nullptr;
+    string m_target_executable_filepath;
 
     void SetUp() override
     {
-        const auto now = DateUtils::ToCalendarDateTime(DateUtils::GetNow());
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "Stopwatch.exe", "sw");
+        m_test_controller->SetUp();
 
-        //srand(static_cast<unsigned>(time(nullptr)));
-        //_run_id = to_string(rand());
-        _run_id = DateUtils::FormatDate(&now, "%Y%m%d%H%M%S");
-
-        EnvironmentUtils::SetEnvironmentVariableValue("APP_VERSION", _appInfo.GetVersionDetails());
-        EnvironmentUtils::SetEnvironmentVariableValue("DATE_CURRENTYEAR", DateUtils::FormatDate(&now, "%Y"));
-
-        const auto executableFileName = TestConfig::GetExecutableName();
-
-        _defaultTargetExecutableFileName = TestHelper::FindExecutableFileName(executableFileName);
-
-        _tempRunFolderName = PathUtils::Combine(PathUtils::GetTempPath(), "test" + _run_id);
-        PathUtils::CreateDirectory(_tempRunFolderName);
-        EnvironmentUtils::SetEnvironmentVariableValue("RUN_FOLDERNAME", _tempRunFolderName);
-
-        _movedTargetExecutableFileName = PathUtils::Combine(PathUtils::GetTempPath(), FileUtils::GetFileNameAndExtension(_defaultTargetExecutableFileName));
-        copy_file(_defaultTargetExecutableFileName.c_str(), _movedTargetExecutableFileName.c_str(), copy_options::overwrite_existing);
+        m_target_executable_filepath = m_test_controller->GetRelocatedExecutableFilePath();
     }
 
     void TearDown() override
     {
-        if (!_tempRunFolderName.empty() && PathUtils::DirectoryExists(_tempRunFolderName))
-        {
-            PathUtils::DeleteDirectory(_tempRunFolderName, true, true);
-        }
+        m_test_controller->TearDown();
     }
 };
 
-TEST_F(TEST_GROUP, Execute_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_produces_command_list)
 {
-    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
-    chdir(_tempRunFolderName.c_str());
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(_movedTargetExecutableFileName, "-?"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-?"));
+
+    TestHelper::WriteMajorSeparator(100);
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "--help"));
 }
 
-TEST_F(TEST_GROUP, Execute_with_help_request_long_produces_command_list)
+TEST_F(TEST_GROUP, Execute_command_cancel_with_help_request_short_produces_command_list)
 {
-    const auto expectedResultsFileName = TestConfig::GetExpectedOutputFileName();
-    chdir(_tempRunFolderName.c_str());
-    EXPECT_EQ(TestHelper::ExecuteAndCaptureOutput(_movedTargetExecutableFileName, "--help"), TestHelper::GetExpectedOutput(expectedResultsFileName));
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "cancel|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_elapsed_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "elapsed|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_list_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "list|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_pause_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "pause|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_resume_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "resume|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_start_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "start|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_command_stop_with_help_request_short_produces_command_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "stop|-?"));
 }

@@ -170,6 +170,7 @@
     <ClInclude Include="Commands\CommandType.h" />
     <ClInclude Include="Commands\ElapsedCommand.h" />
     <ClInclude Include="Commands\ListCommand.h" />
+    <ClInclude Include="Commands\PurgeCommand.h" />
     <ClInclude Include="Commands\StopCommand.h" />
     <ClInclude Include="Commands\ResumeCommand.h" />
     <ClInclude Include="Commands\StartCommand.h" />

@@ -6,6 +6,7 @@
 #include "Commands/ElapsedCommand.h"
 #include "Commands/ListCommand.h"
 #include "Commands/PauseCommand.h"
+#include "Commands/PurgeCommand.h"
 #include "Commands/ResumeCommand.h"
 #include "Commands/StartCommand.h"
 #include "Commands/StopCommand.h"
@@ -27,13 +28,14 @@ namespace Stopwatch
     {
         //ListArguments  _list_arguments;
 
-        ListCommand m_list_command;
-        StartCommand m_start_command;
-        StopCommand m_stop_command;
+        ListCommand    m_list_command;
+        StartCommand   m_start_command;
+        StopCommand    m_stop_command;
         ElapsedCommand m_elapsed_command;
-        PauseCommand m_pause_command;
-        ResumeCommand m_resume_command;
-        CancelCommand m_cancel_command;
+        PauseCommand   m_pause_command;
+        ResumeCommand  m_resume_command;
+        CancelCommand  m_cancel_command;
+        PurgeCommand   m_purge_command;
 
     public:
         AppCommands()
@@ -45,6 +47,7 @@ namespace Stopwatch
             AddCommand(m_pause_command);
             AddCommand(m_resume_command);
             AddCommand(m_cancel_command);
+            AddCommand(m_purge_command);
         }
 
         void Execute(const Command& command) override
@@ -82,6 +85,10 @@ namespace Stopwatch
             else if (command.GetName() == m_cancel_command.GetName())
             {
                 m_cancel_command.Execute();
+            }
+            else if (command.GetName() == m_purge_command.GetName())
+            {
+                m_purge_command.Execute();
             }
             else
             {

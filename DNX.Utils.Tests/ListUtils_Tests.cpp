@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../DNX.Utils/ListUtils.h"
 #include "TestItem.h"
+#include "../DNX.Utils/ListUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -12,19 +12,19 @@ using namespace DNX::Utils;
 
 TEST(TEST_GROUP, ToList_converts_correctly)
 {
-    constexpr auto argc = 7;
-    char* argv[argc] = {
-        "",
-        "-t",
-        "5",
-        "bob",
-        "-x",
-        "-s",
-        "500",
+    char* argv[] =
+    {
+        const_cast<char*>(""),
+        const_cast<char*>("-t"),
+        const_cast<char*>("5"),
+        const_cast<char*>("bob"),
+        const_cast<char*>("-x"),
+        const_cast<char*>("-s"),
+        const_cast<char*>("500"),
     };
 
     // Act
-    auto result = ListUtils::ToList(argc, argv);
+    auto result = ListUtils::ToList(size(argv), argv);
     auto iter = result.begin();
 
     // Assert
@@ -210,7 +210,7 @@ TEST(TEST_GROUP, GetMaxLength_returns_corect_value_from_a_items)
     items.emplace_back("ABCDE");
 
     // Act
-	const auto result = ListUtils::GetMaxLength(items);
+    const auto result = ListUtils::GetMaxLength(items);
 
     // Assert
     EXPECT_EQ(5, result);

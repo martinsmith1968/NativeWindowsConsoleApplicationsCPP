@@ -73,7 +73,7 @@ The spec can be found here : http://jave.de/figlet/figfont.html:
 > FigLetText -!
 
 ```text
-v1.15.0.0-dev
+v2.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -85,8 +85,8 @@ The full help text looks something like this :
 > FigLetText -?
 
 ```text
-FigLetText v1.15.0.0-dev - Generate Text in FigLet format
-Copyright ® 2018-2025 Martin Smith
+FigLetText v2.0.0.0-dev - Generate Text in FigLet format
+Copyright ® 2018-2026 Martin Smith
 
 Usage:
 FigLetText [message-text] [OPTIONS]
@@ -103,6 +103,6 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (FigLetText.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\FigLetText.options
-Local App arguments can be specified in : C:\utils\FigLetText.options
+Default App arguments can be specified in : C:\Temp\fb97fd76d78242b1a08386c2fc0806d7\FigLetText.options
+Local App arguments can be specified in : C:\Temp\FigLetText.options
 ```

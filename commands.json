@@ -1,0 +1,14 @@
+{
+  "commands": {
+    "PopulateHelpText": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c .scripts\\PopulateHelpText.cmd"
+    },
+    "GenerateExpectedOutputText": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c .scripts\\GenerateExampleExpectedOutputText.cmd"
+    }
+  }
+}

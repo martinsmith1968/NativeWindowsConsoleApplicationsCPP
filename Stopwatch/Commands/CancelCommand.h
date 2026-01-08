@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "BaseCommand.h"
-#include "../../DNX.Utils/StringUtils.h"
+#include "../stdafx.h"
 #include <string>
-#include <iostream>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyModernizeUseEqualsDefault
@@ -17,7 +15,7 @@ namespace Stopwatch
 {
     class CancelArguments final : public BaseArguments
     {
-        const ParserContext m_parser_context = ParserContext(StringUtils::ToLower(CommandTypeTextResolver().GetText(CommandType::CANCEL)));
+        static const ParserContext m_parser_context;
 
     public:
         CancelArguments()
@@ -45,14 +43,17 @@ namespace Stopwatch
             const auto stopwatch_name = m_arguments.GetStopwatchName();
             auto repository = TimerRepository(m_arguments.GetDataFileName());
 
+            if (m_arguments.GetVerboseOutput())
+                ShowDataFileDetails(repository);
+
             auto timer = repository.GetByName(stopwatch_name);
             if (timer.IsEmpty())
                 AbortNotFound(stopwatch_name);
 
-            timer.Stop();
-
             if (m_arguments.GetVerboseOutput())
-                cout << GetTimerStatusDisplayText(timer, "cancelled") << endl;
+                ShowTimerDisplayDetails(timer);
+
+            timer.Stop();
 
             repository.Delete(timer);
         }

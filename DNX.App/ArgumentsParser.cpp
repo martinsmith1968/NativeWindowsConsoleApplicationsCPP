@@ -39,13 +39,13 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
     {
         string parts = StringUtils::Trim(line);
 
-        if (StringUtils::StartsAndEndsWith(parts, quote) && StringUtils::CountOccurrences(parts, quote[0]) == 2)
+        if (StringUtils::StartsAndEndsWith(parts, quote) && StringUtils::CountOccurrences(parts, quote) == 2)
         {
             raw_arguments.push_back(StringUtils::RemoveStartsAndEndsWith(parts, quote));
         }
         else if (StringUtils::Contains(parts, " "))
         {
-            auto argument_name = SanitizeText(StringUtils::Before(parts, " "));
+            auto argument_name  = SanitizeText(StringUtils::Before(parts, " "));
             auto argument_value = SanitizeText(StringUtils::After(parts, " "));
 
             raw_arguments.push_back(argument_name);
@@ -62,7 +62,7 @@ list<string> ArgumentsParser::ConvertLinesToRawArguments(const list<string>& lin
 
 void ArgumentsParser::ParseArgumentsFile(Arguments& arguments, const string& fileName) const
 {
-    if (FileUtils::FileExists(fileName))
+    if (FileUtils::Exists(fileName))
     {
         const auto arg = _parser_config.GetCustomArgumentsFilePrefix() + fileName;
 
@@ -96,7 +96,7 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
 
         try
         {
-            const auto lines = FileUtils::ReadLines(fileName);
+            const auto lines = FileUtils::ReadAllLines(fileName);
             auto argumentsText = ConvertLinesToRawArguments(lines);
 
             ParseArgumentsList(arguments, argumentsText);
@@ -216,7 +216,7 @@ void ArgumentsParser::ValidateRequired(Arguments& arguments)
 
     for (auto iter = requiredArguments.begin(); iter != requiredArguments.end(); ++iter)
     {
-        if (!arguments.HasArgumentValue(iter->GetShortName()))
+        if (!arguments.HasArgumentValue(iter->GetLongName()))
         {
             arguments.AddError(iter->GetNameDescription() + " is required");
         }
@@ -232,25 +232,29 @@ void ArgumentsParser::ValidateValues(Arguments& arguments)
         list<string> values;
         if (iter->GetAllowMultiple())
         {
-            for (auto multipleValue : arguments.GetArgumentValues(iter->GetShortName()))
-                values.push_back(multipleValue);
+            for (const auto& multiple_value : arguments.GetArgumentValues(iter->GetShortName()))
+                values.push_back(multiple_value);
         }
         else
         {
-            values.push_back(arguments.GetArgumentValue(iter->GetShortName()));
+            if (arguments.HasArgumentValue(iter->GetLongName()))
+            {
+                const auto& value = arguments.GetArgumentValue(iter->GetLongName());
+                values.push_back(value);
+            }
         }
 
-        for (auto optionValue : values)
+        for (const auto& option_value : values)
         {
-            if (!ValueConverter::IsValueValid(optionValue, iter->GetValueType()))
+            if (!ValueConverter::IsValueValid(option_value, iter->GetValueType()))
             {
-                if (iter->GetValueType() == ValueType::STRING && optionValue.empty() && !iter->GetRequired())
+                if (iter->GetValueType() == ValueType::STRING && option_value.empty() && !iter->GetRequired())
                     continue;
 
                 if (!iter->GetValueList().empty())
                     continue;   // Already reported
 
-                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + optionValue + ")");
+                arguments.AddError(iter->GetNameDescription() + " value is invalid (" + option_value + ")");
             }
         }
     }

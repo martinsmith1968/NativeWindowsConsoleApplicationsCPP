@@ -1,8 +1,9 @@
 ﻿#include "stdafx.h"
 #include "AppDetails.h"
-#include "../DNX.Utils/ProcessUtils.h"
+#include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
+#include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 #include <sstream>
 
@@ -46,7 +47,7 @@ string AppDetails::GetHeaderLine() const
 
 string AppDetails::GetApplicationName()
 {
-    return FileUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly());
+    return PathUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly());
 }
 
 string AppDetails::GetDefaultArgumentsFileExtension()
@@ -58,14 +59,14 @@ string AppDetails::GetArgumentsFileNameOnly()
 {
     const auto executableName = ProcessUtils::GetExecutableFileNameOnly();
 
-    return FileUtils::ChangeFileExtension(executableName, _arguments_file_extension);
+    return PathUtils::ChangeFileExtension(executableName, _arguments_file_extension);
 }
 
 string AppDetails::GetArgumentsFileNameOnly(const string& file_name_suffix)
 {
     const auto executableName = ProcessUtils::GetExecutableFileNameOnly();
 
-    return FileUtils::ChangeFileExtension(executableName, file_name_suffix + "." + _arguments_file_extension);
+    return PathUtils::ChangeFileExtension(executableName, file_name_suffix + "." + _arguments_file_extension);
 
 }
 
@@ -76,7 +77,7 @@ string AppDetails::GetDefaultArgumentsFileName()
 
 string AppDetails::GetLocalArgumentsFileName()
 {
-    return PathUtils::Combine(PathUtils::GetCurrentDirectory(), GetArgumentsFileNameOnly());
+    return PathUtils::Combine(DirectoryUtils::GetCurrentDirectory(), GetArgumentsFileNameOnly());
 }
 
 string AppDetails::GetDefaultCommandArgumentsFileName(const string& command_name)
@@ -88,5 +89,5 @@ string AppDetails::GetDefaultCommandArgumentsFileName(const string& command_name
 string AppDetails::GetLocalCommandArgumentsFileName(const string& command_name)
 {
     const auto fileName = GetArgumentsFileNameOnly(StringUtils::ToLower(command_name));
-    return PathUtils::Combine(PathUtils::GetCurrentDirectory(), fileName);
+    return PathUtils::Combine(DirectoryUtils::GetCurrentDirectory(), fileName);
 }

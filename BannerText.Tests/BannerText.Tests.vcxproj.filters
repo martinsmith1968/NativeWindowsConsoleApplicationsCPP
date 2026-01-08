@@ -9,9 +9,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="ExpectedOutput">
       <UniqueIdentifier>{22719b0a-b441-4d02-af26-46f5afaeb1fe}</UniqueIdentifier>
     </Filter>
@@ -32,10 +29,16 @@
     <Text Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.txt">
       <Filter>ExpectedOutput</Filter>
     </Text>
+    <Text Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

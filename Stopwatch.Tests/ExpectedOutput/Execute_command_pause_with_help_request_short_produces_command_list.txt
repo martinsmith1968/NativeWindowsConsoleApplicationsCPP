@@ -1,0 +1,21 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch Pause [stopwatch-name] [OPTIONS]
+
+Options:
+[stopwatch-name] Text                      The name of the Stopwatch (Required)
+-set, --show-elapsed-time +/-              Show the Stopwatch Elapsed Time (Default:true)
+-etdf, --elapsed-time-display-format Text  The format string to use to display Elapsed Time (Default:{name}: {action} - {days} days, {hours} hours, {minutes} minutes, {seconds} seconds)
+-at, --additional-text Text                Additional text for the output
+-i, --ignore-invalid-state +/-             Ignore errors of Stopwatch being in invalid state for the action (Default:false)
+-v, --verbose-output +/-                   Control verbosity of output messages (Default:false)
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:%USERPROFILE%\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-!, --version +/-                          Show App Version details (Default:false)
+-?, --help +/-                             Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.pause.options) (Default:true)
+-$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.pause.options) (Default:true)
+
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.pause.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.pause.options

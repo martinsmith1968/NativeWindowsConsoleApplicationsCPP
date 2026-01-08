@@ -217,8 +217,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef FIGLET_HH
 #define FIGLET_HH
 
-#include <iostream>
 #include <cstdint>
+#include <iostream>
 
 /*! \brief
  * Collects structures and classes for banner generation
