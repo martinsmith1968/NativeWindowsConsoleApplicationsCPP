@@ -5,6 +5,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticPadded
+// ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 
 using namespace std;
 

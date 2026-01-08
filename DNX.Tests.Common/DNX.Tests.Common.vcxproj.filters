@@ -24,16 +24,19 @@
     <ClInclude Include="TestHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlockTimer.hpp">
+    <ClInclude Include="BlockTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RunFolderPathManager.h">
+    <ClInclude Include="AppRelocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RunIdGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestRunRelocatingController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,16 +50,25 @@
     <ClCompile Include="RunIdGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestEnvironmentHelper.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestEnvironmentHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RunFolderPathManager.cpp">
+    <ClCompile Include="AppRelocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentFolderHistoryManager.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentFolderHistoryManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRunController.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRunController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRunRelocatingController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

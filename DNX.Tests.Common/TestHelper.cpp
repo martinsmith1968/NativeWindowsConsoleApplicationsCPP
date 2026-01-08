@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TestHelper.h"
+#include "../DNX.Utils/DateUtils.h"
 #include "../DNX.Utils/DirectoryUtils.h"
 #include "../DNX.Utils/EnvironmentUtils.h"
 #include "../DNX.Utils/FileUtils.h"
@@ -76,7 +77,7 @@ string TestHelper::GetOutputDirectoryWithFileName(const string& top_level_name, 
     return "";
 }
 
-string TestHelper::FindExecutableFileName(const string& executableFileName, const bool ensureExists)
+string TestHelper::FindExecutableFilePath(const string& executableFileName, const bool ensureExists)
 {
     auto targetExecutableFileName = executableFileName;
 
@@ -113,7 +114,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
 
     static const auto quote = "\"";
 
-    const auto targetExecutable = FindExecutableFileName(executableFileName);
+    const auto targetExecutable = FindExecutableFilePath(executableFileName);
 
     if (!FileUtils::Exists(targetExecutable))
         throw exception(("File not found: " + targetExecutable).c_str());
@@ -221,4 +222,21 @@ string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpe
     cout << "DEBUG: Ending GetExpectedOutput" << endl;
 
     return file_text;
+}
+
+void TestHelper::SetEnvironment(const AppDetails& app_info)
+{
+    EnvironmentUtils::SetEnvironmentVariableValue("APP_VERSION", app_info.GetVersionDetails());
+}
+
+void TestHelper::SetEnvironment(const RunIdGenerator& run_id_generator)
+{
+    const auto start_datetime = run_id_generator.GetStartDateTime();
+
+    EnvironmentUtils::SetEnvironmentVariableValue("DATE_CURRENTYEAR", DateUtils::FormatDate(&start_datetime, "%Y"));
+}
+
+void TestHelper::SetEnvironment(const AppRelocator& run_folder_path_manager)
+{
+    EnvironmentUtils::SetEnvironmentVariableValue("RUN_FOLDERNAME", run_folder_path_manager.GetAppFolderPath());
 }

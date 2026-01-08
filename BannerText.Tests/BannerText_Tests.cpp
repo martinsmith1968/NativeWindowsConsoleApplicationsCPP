@@ -26,37 +26,26 @@ class TEST_GROUP : public testing::Test
 {
 protected:
     AppInfo m_app_info;
-    RunIdGenerator m_run_id_generator;
-    RunFolderPathManager m_run_folder_path_manager;
-    TestConfig m_test_config = TestConfig(::testing::UnitTest::GetInstance(), "BannerText.exe", "bt");
-
-    string m_run_folder_path;
+    TestRunRelocatingController* m_test_controller = nullptr;
     string m_target_executable_filename;
 
     void SetUp() override
     {
-        m_run_folder_path = PathUtils::Combine(PathUtils::GetTempPath(), "test" + m_test_config.GetSlugId() + m_run_id_generator.GetRunId());
-        m_run_folder_path_manager.SetRunFolderPath(m_run_folder_path);
-        m_run_folder_path_manager.SetWorkingFolderPath(PathUtils::GetTempPath());
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "BannerText.exe", "bt");
+        m_test_controller->SetUp();
 
-        m_target_executable_filename = m_run_folder_path_manager.MoveFileToRunFolder(TestHelper::FindExecutableFileName(m_test_config.GetExecutableName()));
-
-        TestEnvironmentHelper::Setup(m_app_info);
-        TestEnvironmentHelper::Setup(m_run_id_generator);
-        TestEnvironmentHelper::Setup(m_run_folder_path_manager);
-
-        m_run_folder_path_manager.Setup();
+        m_target_executable_filename = m_test_controller->GetRelocatedExecutableFilePath();
     }
 
     void TearDown() override
     {
-        m_run_folder_path_manager.Cleanup();
+        m_test_controller->TearDown();
     }
 };
 
 TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
 {
-    const auto expectedResultsFileName = m_test_config.GetExpectedOutputFileName();
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "-?"));
 
@@ -66,28 +55,28 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
 
 TEST_F(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 {
-    const auto expectedResultsFileName = m_test_config.GetExpectedOutputFileName(); // string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName(); // string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "bob"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_text_and_min_length_produces_expected_output)
 {
-    const auto expectedResultsFileName = m_test_config.GetExpectedOutputFileName()    ;
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName()    ;
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "bob|-minl|80"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_multiple_text_lines_produces_expected_output)
 {
-    const auto expectedResultsFileName = m_test_config.GetExpectedOutputFileName();
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "a|bb|ccc|dddd|eeeee"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_multiple_text_lines_aligned_center_produces_expected_output)
 {
-    const auto expectedResultsFileName = m_test_config.GetExpectedOutputFileName();
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "a|bb|ccc|dddd|eeeee|-ta|Center"));
 }
