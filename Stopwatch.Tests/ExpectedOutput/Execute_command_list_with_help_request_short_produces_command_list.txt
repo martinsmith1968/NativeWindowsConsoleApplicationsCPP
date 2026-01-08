@@ -10,7 +10,7 @@ Options:
 -s, --sort-by Text                    The field to order the Timers by (Default:Name, Values: Name, Start, State, Elapsed)
 -r, --sort-reverse +/-                Sort in reverse order (Default:false)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:%USERPROFILE%\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.list.options) (Default:true)
