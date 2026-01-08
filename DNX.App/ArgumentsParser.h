@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Arguments.h"
 #include "AppDetails.h"
+#include "Arguments.h"
 #include "ParserConfig.h"
 #include <string>
 

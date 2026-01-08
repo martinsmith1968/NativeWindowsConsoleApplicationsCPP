@@ -1,8 +1,8 @@
 #pragma once
 
 #include "stdafx.h"
-#include "ArgumentType.h"
 #include "Argument.h"
+#include "ArgumentType.h"
 #include "ParserContext.h"
 #include "ValueConverter.h"
 #include <list>

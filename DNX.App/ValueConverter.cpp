@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
 #include "ValueConverter.h"
 #include "../DNX.Utils/StringUtils.h"
-#include <iostream>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 
 // ReSharper disable CppInconsistentNaming

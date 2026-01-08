@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "../DNX.App/Arguments.h"
-#include "../DNX.App/ArgumentsParser.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
 #include "Arguments1.h"
 #include "Arguments2.h"
 #include "Arguments3.h"
 #include "TestHelper.h"
+#include "../DNX.App/Arguments.h"
+#include "../DNX.App/ArgumentsParser.h"
+#include "../DNX.Utils/FileUtils.h"
+#include "../DNX.Utils/PathUtils.h"
 
 // ReSharper disable CppClangTidyPerformanceUnnecessaryCopyInitialization
 // ReSharper disable CppInconsistentNaming

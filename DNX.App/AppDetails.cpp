@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
 #include "AppDetails.h"
 #include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
+#include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
 #include <sstream>
 

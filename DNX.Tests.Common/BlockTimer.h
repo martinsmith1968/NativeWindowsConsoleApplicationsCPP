@@ -5,9 +5,9 @@
 
 #pragma once
 
-#include <vector>
-#include <string>
 #include <chrono>
+#include <string>
+#include <vector>
 
 // ReSharper disable CppClangTidyClangDiagnosticCoveredSwitchDefault
 

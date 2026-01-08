@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../DNX.Utils/StringUtils.h"
 #include "../DNX.Utils/ListUtils.h"
+#include "../DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

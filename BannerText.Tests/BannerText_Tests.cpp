@@ -4,14 +4,10 @@
 #define VER_FILE_DESCRIPTION_STR    "BannerText Google Tests"
 
 #include "../Common/AppInfo.h"
-#include "../DNX.Tests.Common/RunFolderPathManager.h"
-#include "../DNX.Tests.Common/RunIdGenerator.h"
-#include "../DNX.Tests.Common/TestConfig.h"
-#include "../DNX.Tests.Common/TestEnvironmentHelper.h"
 #include "../DNX.Tests.Common/TestHelper.h"
+#include "../DNX.Tests.Common/TestRunRelocatingController.h"
 #include "../DNX.Utils/DateUtils.h"
 #include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/PathUtils.h"
 #include <filesystem>
 #include <string>
 

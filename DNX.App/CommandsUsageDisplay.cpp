@@ -2,8 +2,8 @@
 #include "CommandsUsageDisplay.h"
 #include "../DNX.Utils/ConsoleUtils.h"
 #include "../DNX.Utils/FileUtils.h"
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming

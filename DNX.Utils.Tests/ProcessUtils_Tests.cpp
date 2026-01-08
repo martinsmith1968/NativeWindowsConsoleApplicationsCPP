@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "../DNX.Utils/ProcessUtils.h"
 #include "../DNX.Utils/StringUtils.h"
+#include <Windows.h>
 #include <codecvt>
 #include <locale>
-#include <Windows.h>
 
 using namespace std;
 using namespace DNX::Utils;

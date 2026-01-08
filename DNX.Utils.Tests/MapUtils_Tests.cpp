@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "../DNX.Utils/MapUtils.h"
-#include "../DNX.Utils/ListUtils.h"
 #include "TestItem.h"
+#include "../DNX.Utils/ListUtils.h"
+#include "../DNX.Utils/MapUtils.h"
 #include <list>
 
 using namespace std;

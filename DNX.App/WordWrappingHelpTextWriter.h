@@ -1,8 +1,8 @@
 #pragma once
 
+#include "HelpTextWriter.h"
 #include <list>
 #include <string>
-#include "HelpTextWriter.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyCppcoreguidelinesAvoidConstOrRefDataMembers

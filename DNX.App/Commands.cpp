@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Command.h"
 #include "Commands.h"
+#include "Command.h"
 #include <complex>
 
 // ReSharper disable CppInconsistentNaming

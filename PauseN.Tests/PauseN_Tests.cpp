@@ -1,9 +1,13 @@
 #include "pch.h"
 
-#include "../DNX.Tests.Common/BlockTimer.hpp"
+#define VER_PRODUCTNAME_STR         "BannerText.Tests"
+#define VER_FILE_DESCRIPTION_STR    "BannerText Google Tests"
+
+#include "../Common/AppInfo.h"
+#include "../DNX.Tests.Common/BlockTimer.h"
 #include "../DNX.Tests.Common/TestHelper.h"
+#include "../DNX.Tests.Common/TestRunController.h"
 #include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
 #include "../Stopwatch/AppCommands.h"
 
 // ReSharper disable CppInconsistentNaming
