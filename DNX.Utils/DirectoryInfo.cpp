@@ -28,7 +28,7 @@ DirectoryInfo::DirectoryInfo(const string& directory_name)
 
     if (!PathUtils::HasDriveReference(m_full_directory_name))
     {
-        m_full_directory_name = PathUtils::GetDrive(DirectoryUtils::GetCurrentDirectory())
+        m_full_directory_name = PathUtils::GetDriveReference(DirectoryUtils::GetCurrentDirectory())
             + m_full_directory_name;
     }
 
@@ -70,7 +70,7 @@ DirectoryInfo DirectoryInfo::GetParentDirectory() const
 
 DirectoryInfo DirectoryInfo::GetRootDirectory() const
 {
-    const auto root_path = PathUtils::GetDrive(m_full_directory_name)
+    const auto root_path = PathUtils::GetDriveReference(m_full_directory_name)
         + PathUtils::PATH_SEPARATOR;
 
     return DirectoryInfo(root_path);
@@ -88,7 +88,7 @@ FileSystemItemAttributes DirectoryInfo::GetAttributes() const
 
 bool DirectoryInfo::IsRoot() const
 {
-    const auto drive_reference = PathUtils::GetDrive(m_full_directory_name);
+    const auto drive_reference = PathUtils::GetDriveReference(m_full_directory_name);
 
     return (m_full_directory_name == drive_reference + PathUtils::PATH_SEPARATOR);
 }

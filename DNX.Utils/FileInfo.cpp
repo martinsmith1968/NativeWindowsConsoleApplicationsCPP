@@ -28,7 +28,7 @@ FileInfo::FileInfo(const string& file_name)
 
     if (!PathUtils::HasDriveReference(m_full_file_name))
     {
-        m_full_file_name = PathUtils::GetDrive(DirectoryUtils::GetCurrentDirectory())
+        m_full_file_name = PathUtils::GetDriveReference(DirectoryUtils::GetCurrentDirectory())
             + m_full_file_name;
     }
 

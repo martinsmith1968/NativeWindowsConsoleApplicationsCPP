@@ -113,10 +113,10 @@ bool PathUtils::HasDriveReference(const string& file_path)
 
 int PathUtils::GetDriveId(const string& file_path)
 {
-    if (HasDriveReference(file_path))
+    if (!HasDriveReference(file_path))
         return 0;
 
-    const auto drive_char = StringUtils::ToUpper(GetDrive(file_path))[0];
+    const auto drive_char = StringUtils::ToUpper(GetDriveReference(file_path))[0];
     if (drive_char < 'A' || drive_char > 'Z')
         return 0;
 
@@ -125,10 +125,18 @@ int PathUtils::GetDriveId(const string& file_path)
 
 string PathUtils::GetDriveReference(const int drive_id)
 {
-    if ((drive_id < 'A' || drive_id > 'Z') && (drive_id < 'a' || drive_id > 'z'))
+    char drive_char = 0;
+
+    if (drive_id >= 1 && drive_id <= 26)
+        drive_char = static_cast<char>('A') - 1 + static_cast<char>(drive_id);
+    else if ((drive_id >= 'A' && drive_id <= 'Z') || (drive_id >= 'a' && drive_id <= 'z'))
+        drive_char = static_cast<char>(drive_id);
+    else
         return "";
 
-    return to_string(static_cast<char>(drive_id));
+    const auto drive_reference = string(1, drive_char) + DRIVE_SEPARATOR;
+
+    return drive_reference;
 }
 
 string PathUtils::GetParentPath(const string& file_path)
@@ -174,7 +182,7 @@ string PathUtils::GetAbsolutePath(const string& file_path)
     return StringUtils::JoinText(absolute_parts, PATH_SEPARATOR);
 }
 
-string PathUtils::GetDrive(const string& file_path)
+string PathUtils::GetDriveReference(const string& file_path)
 {
     if (file_path.empty())
         return "";

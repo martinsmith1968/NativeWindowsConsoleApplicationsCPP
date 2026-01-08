@@ -6,6 +6,7 @@
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/ProcessUtils.h"
+#include "../DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -38,14 +39,15 @@ TEST(TEST_GROUP, GetCurrentDirectory_returns_something)
 
 TEST(TEST_GROUP, GetCurrentDirectory_returns_expected)
 {
-    DirectoryUtils::SetCurrentDirectory(PathUtils::GetTempPath());
+    const auto& temp_path = PathUtils::GetTempPath();
+    DirectoryUtils::SetCurrentDirectory(temp_path);
 
     // Act
     const auto result = DirectoryUtils::GetCurrentDirectory();
     cout << "GetCurrentDirectory: " << result << endl;
 
     // Assert
-    EXPECT_EQ(PathUtils::GetTempPath(), result);
+    EXPECT_EQ(temp_path, result);
 }
 
 TEST(TEST_GROUP, SetCurrentDirectory_functions_as_expected)
@@ -64,7 +66,30 @@ TEST(TEST_GROUP, SetCurrentDirectory_functions_as_expected)
     EXPECT_EQ(ProcessUtils::GetExecutableFilePath(), result2);
 }
 
+TEST(TEST_GROUP, GetCurrentDriveReference_returns_as_expected)
+{
+    const auto& temp_path = PathUtils::GetTempPath();
+    DirectoryUtils::SetCurrentDirectory(temp_path);
 
+    // Act
+    const auto result = DirectoryUtils::GetCurrentDriveReference();
+
+    // Assert
+    EXPECT_EQ(StringUtils::ToUpper(StringUtils::Left(temp_path, 2)), result);
+}
+
+TEST(TEST_GROUP, GetCurrentDriveId_returns_as_expected)
+{
+    const auto& temp_path = PathUtils::GetTempPath();
+    DirectoryUtils::SetCurrentDirectory(temp_path);
+
+    // Act
+    const auto result = DirectoryUtils::GetCurrentDriveId();
+
+    // Assert
+    EXPECT_TRUE(result >= 1 && result <= 26);
+    EXPECT_EQ(PathUtils::GetDriveId(temp_path), result);
+}
 
 
 

@@ -57,7 +57,7 @@ TEST(TEST_GROUP, IsDriveReference_returns_an_appropriate_value)
     // Assert
     EXPECT_FALSE(PathUtils::IsDriveReference(PathUtils::GetTempPath()));
     EXPECT_FALSE(PathUtils::IsDriveReference(PathUtils::GetTempFileName("q")));
-    EXPECT_TRUE(PathUtils::IsDriveReference(PathUtils::GetDrive(PathUtils::GetTempFileName("q"))));
+    EXPECT_TRUE(PathUtils::IsDriveReference(PathUtils::GetDriveReference(PathUtils::GetTempFileName("q"))));
     EXPECT_TRUE(PathUtils::IsDriveReference("C:"));
     EXPECT_TRUE(PathUtils::IsDriveReference("d:"));
     EXPECT_FALSE(PathUtils::IsDriveReference("4:"));
@@ -126,9 +126,9 @@ TEST(TEST_GROUP, GetAbsolutePath_returns_an_appropriate_value)
 TEST(TEST_GROUP, GetDrive_returns_an_appropriate_value)
 {
     // Act
-    const auto result1 = PathUtils::GetDrive(TestData::GetFile1FullName());
+    const auto result1 = PathUtils::GetDriveReference(TestData::GetFile1FullName());
     cout << "Result1: " << result1 << endl;
-    const auto result2 = PathUtils::GetDrive(TestData::GetFile2FullName());
+    const auto result2 = PathUtils::GetDriveReference(TestData::GetFile2FullName());
     cout << "Result2: " << result2 << endl;
 
     // Assert

@@ -66,12 +66,12 @@ namespace DNX::Utils
 
         static bool HasDriveReference(const string& file_path);
         static int GetDriveId(const string& file_path);
-        static string GetDriveReference(const int drive_id);
+        static string GetDriveReference(int drive_id);
 
         static string GetParentPath(const string& file_path);
         static string GetAbsolutePath(const string& file_path);
 
-        static string GetDrive(const string& file_path);
+        static string GetDriveReference(const string& file_path);
         static string GetDriveAndPath(const string& file_path);
         static string GetFileNameOnly(const string& file_path);
         static string GetFileNameAndExtension(const string& file_path);

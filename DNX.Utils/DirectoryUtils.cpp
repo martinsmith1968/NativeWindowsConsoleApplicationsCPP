@@ -4,7 +4,6 @@
 #include "EnvironmentUtils.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
-#include <cstdlib>
 #include <direct.h>
 #include <exception>
 #include <filesystem>
@@ -15,6 +14,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
+// ReSharper disable CppTooWideScopeInitStatement
 
 using namespace std;
 using namespace std::filesystem;
@@ -37,7 +37,7 @@ string DirectoryUtils::GetCurrentDirectory(const string& drive_reference)
     if (!PathUtils::IsDriveReference(drive_reference))
         return GetCurrentDirectory();
 
-    const auto current_drive = GetCurrentDrive();
+    const auto current_drive = GetCurrentDriveReference();
     SetCurrentDrive(drive_reference);
 
     const auto current_directory = GetCurrentDirectory();
@@ -53,7 +53,7 @@ string DirectoryUtils::SetCurrentDirectory(const string& path)
     return GetCurrentDirectory();
 }
 
-string DirectoryUtils::GetCurrentDrive()
+string DirectoryUtils::GetCurrentDriveReference()
 {
     return PathUtils::GetDriveReference(GetCurrentDriveId());
 }
@@ -140,7 +140,7 @@ bool DirectoryUtils::Delete(const string& path, bool recurse_sub_directories, bo
     if (!Exists(path))
         return false;
 
-    for (const auto& entry : filesystem::directory_iterator(path))
+    for (const auto& entry : directory_iterator(path))
         cout << "DEBUG: " << entry.path() << endl;
 
     const auto part = StringUtils::BeforeLast(path, PathUtils::PATH_SEPARATOR);
@@ -158,7 +158,7 @@ bool DirectoryUtils::Delete(const string& path, bool recurse_sub_directories, bo
     return true;
 }
 
-bool DirectoryUtils::Move(const string& path, const string& newPath, bool overwrite)
+bool DirectoryUtils::Move(const string& path, const string& newPath, const bool overwrite)
 {
     if (!Exists(path))
         return false;
@@ -188,7 +188,7 @@ bool DirectoryUtils::Move(const string& path, const string& newPath, bool overwr
     }
 }
 
-bool DirectoryUtils::Copy(const string& path, const string& newPath, bool overwrite)
+bool DirectoryUtils::Copy(const string& path, const string& newPath, const bool overwrite)
 {
     if (!Exists(path))
         return false;
