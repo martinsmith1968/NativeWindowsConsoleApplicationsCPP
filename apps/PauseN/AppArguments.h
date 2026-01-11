@@ -1,9 +1,9 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../DNX.App/Arguments.h"
-#include "../DNX.App/ValueConverter.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.App/Arguments.h"
+#include "../../libs/DNX.App/ValueConverter.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 #include <chrono>
 #include <string>
 

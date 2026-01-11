@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AppArguments.h"
-#include "../DNX.App/SimpleApp.h"
+#include "../../libs/DNX.App/SimpleApp.h"
 
 // ReSharper disable CppInconsistentNaming
 
