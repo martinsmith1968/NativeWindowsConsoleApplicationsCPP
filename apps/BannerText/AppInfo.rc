@@ -1,6 +1,6 @@
 #include <windows.h>
 #include "AppInfo.h"
-#include "../Common/BuildInfo.h"
+#include "../../Common/BuildInfo.h"
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_REVISION, VERSION_BUILD
