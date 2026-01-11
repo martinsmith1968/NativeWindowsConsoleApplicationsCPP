@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "App.h"
-#include "../DNX.Utils/ConsoleUtils.h"
-#include "../DNX.Utils/EnvironmentUtils.h"
-#include "../DNX.Utils/ListUtils.h"
+#include "../../libs/DNX.Utils/ConsoleUtils.h"
+#include "../../libs/DNX.Utils/EnvironmentUtils.h"
+#include "../../libs/DNX.Utils/ListUtils.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 #include <chrono>
 #include <iostream>
 #include <regex>

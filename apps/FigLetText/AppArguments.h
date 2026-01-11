@@ -1,8 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../DNX.App/Arguments.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.App/Arguments.h"
 #include "figlet-1.0/Figlet.hh"
 #include <chrono>
 #include <string>
