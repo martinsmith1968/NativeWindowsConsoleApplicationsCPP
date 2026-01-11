@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DirectoryUtils.h"
 #include "DateTime.h"
+#include "DriveUtils.h"
 #include "EnvironmentUtils.h"
 #include "PathUtils.h"
 #include "StringUtils.h"
@@ -37,11 +38,11 @@ string DirectoryUtils::GetCurrentDirectory(const string& drive_reference)
     if (!PathUtils::IsDriveReference(drive_reference))
         return GetCurrentDirectory();
 
-    const auto current_drive = GetCurrentDriveReference();
-    SetCurrentDrive(drive_reference);
+    const auto current_drive = DriveUtils::GetCurrentDriveReference();
+    DriveUtils::SetCurrentDrive(drive_reference);
 
     const auto current_directory = GetCurrentDirectory();
-    SetCurrentDrive(current_drive);
+    DriveUtils::SetCurrentDrive(current_drive);
 
     return current_directory;
 }
@@ -51,36 +52,6 @@ string DirectoryUtils::SetCurrentDirectory(const string& path)
     auto _ = _chdir(path.c_str());
 
     return GetCurrentDirectory();
-}
-
-string DirectoryUtils::GetCurrentDriveReference()
-{
-    return PathUtils::GetDriveReference(GetCurrentDriveId());
-}
-
-int DirectoryUtils::GetCurrentDriveId()
-{
-    const auto drive_id = _getdrive();
-
-    return drive_id;
-}
-
-bool DirectoryUtils::SetCurrentDrive(const string& drive_reference)
-{
-    const auto drive_id = PathUtils::GetDriveId(drive_reference);
-
-    return SetCurrentDrive(drive_id);
-}
-
-bool DirectoryUtils::SetCurrentDrive(const int drive_id)
-{
-    if (drive_id < 1 || drive_id > 26)
-        return false;
-
-    if (_chdrive(drive_id) != 0)
-        return false;
-
-    return true;
 }
 
 string DirectoryUtils::GetUserHomeDirectory()

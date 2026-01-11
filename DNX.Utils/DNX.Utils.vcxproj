@@ -167,6 +167,7 @@
     <ClInclude Include="DateUtils.h" />
     <ClInclude Include="DirectoryInfo.h" />
     <ClInclude Include="DirectoryUtils.h" />
+    <ClInclude Include="DriveUtils.h" />
     <ClInclude Include="EnumUtils.h" />
     <ClInclude Include="EnvironmentUtils.h" />
     <ClInclude Include="FileComparer.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="DateUtils.cpp" />
     <ClCompile Include="DirectoryInfo.cpp" />
     <ClCompile Include="DirectoryUtils.cpp" />
+    <ClCompile Include="DriveUtils.cpp" />
     <ClCompile Include="EnvironmentUtils.cpp" />
     <ClCompile Include="FileComparer.cpp" />
     <ClCompile Include="FileInfo.cpp" />

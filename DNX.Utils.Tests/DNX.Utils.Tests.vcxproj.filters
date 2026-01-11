@@ -15,6 +15,7 @@
     <ClCompile Include="CryptoUtils_Tests.cpp" />
     <ClCompile Include="DateTime_Tests.cpp" />
     <ClCompile Include="DirectoryUtils_Tests.cpp" />
+    <ClCompile Include="DriveUtils_Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

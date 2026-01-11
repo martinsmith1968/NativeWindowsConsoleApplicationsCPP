@@ -113,6 +113,7 @@
     <ClCompile Include="DateTime_Tests.cpp" />
     <ClCompile Include="DateUtils_Tests.cpp" />
     <ClCompile Include="DirectoryUtils_Tests.cpp" />
+    <ClCompile Include="DriveUtils_Tests.cpp" />
     <ClCompile Include="EnvironmentUtils_Tests.cpp" />
     <ClCompile Include="FileUtils_Tests.cpp" />
     <ClCompile Include="ListUtils_Tests.cpp" />

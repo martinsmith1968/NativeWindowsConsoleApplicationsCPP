@@ -29,11 +29,6 @@ namespace DNX::Utils
         static string GetCurrentDirectory(const string& drive_reference);
         static string SetCurrentDirectory(const string& path);
 
-        static string GetCurrentDriveReference();
-        static int GetCurrentDriveId();
-        static bool SetCurrentDrive(const string& drive_reference);
-        static bool SetCurrentDrive(int drive_id);
-
         static string GetUserHomeDirectory();
         static string GetUserDataDirectory();
 

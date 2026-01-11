@@ -6,7 +6,6 @@
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/PathUtils.h"
 #include "../DNX.Utils/ProcessUtils.h"
-#include "../DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;
@@ -66,31 +65,6 @@ TEST(TEST_GROUP, SetCurrentDirectory_functions_as_expected)
     EXPECT_EQ(ProcessUtils::GetExecutableFilePath(), result2);
 }
 
-TEST(TEST_GROUP, GetCurrentDriveReference_returns_as_expected)
-{
-    const auto& temp_path = PathUtils::GetTempPath();
-    DirectoryUtils::SetCurrentDirectory(temp_path);
-
-    // Act
-    const auto result = DirectoryUtils::GetCurrentDriveReference();
-
-    // Assert
-    EXPECT_EQ(StringUtils::ToUpper(StringUtils::Left(temp_path, 2)), result);
-}
-
-TEST(TEST_GROUP, GetCurrentDriveId_returns_as_expected)
-{
-    const auto& temp_path = PathUtils::GetTempPath();
-    DirectoryUtils::SetCurrentDirectory(temp_path);
-
-    // Act
-    const auto result = DirectoryUtils::GetCurrentDriveId();
-
-    // Assert
-    EXPECT_TRUE(result >= 1 && result <= 26);
-    EXPECT_EQ(PathUtils::GetDriveId(temp_path), result);
-}
-
 
 
 
@@ -105,6 +79,7 @@ TEST(TEST_GROUP, GetCurrentDriveId_returns_as_expected)
 TEST(TEST_GROUP, Exists_returns_appropriate_value)
 {
     EXPECT_EQ(DirectoryUtils::Exists(""), false);
+    EXPECT_EQ(DirectoryUtils::Exists(PathUtils::GetTempPath()), true);
     EXPECT_EQ(DirectoryUtils::Exists(PathUtils::Combine(PathUtils::GetTempPath(), TestData::GetUniqueFolderName())), false);
     EXPECT_EQ(DirectoryUtils::Exists(DirectoryUtils::GetCurrentDirectory()), true);
 }

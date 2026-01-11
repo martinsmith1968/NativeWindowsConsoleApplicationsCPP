@@ -81,6 +81,9 @@
     <ClInclude Include="FileComparer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DriveUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DirectoryInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DriveUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

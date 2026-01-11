@@ -31,10 +31,9 @@
 - [ ] Add Help text for adding a file of arguments
 - [X] Line Wrapping Help Writer for long argument descriptions to wrap better
 
-### Enhancements - Stopwatch
+### Enhancements - BannerText
 
-- [X] Introduce `SortOrder` parameter to `List` command
-- [ ] Output Tests for `Stopwatch` app and commands
+- [ ] Introduce `LineWrappingType` parameter for lines that exceed max length (Can use LineWrappingWriter for help usage)
 
 ### Enhabcements - FigLetText
 
@@ -42,3 +41,8 @@
   - https://github.com/drewnoakes/figgle
   - [link text](https://github.com/WenceyWang/FIGlet.Net)
 - [ ] Support external Font files
+
+### Enhancements - Stopwatch
+
+- [X] Introduce `SortOrder` parameter to `List` command
+- [ ] Output Tests for `Stopwatch` app and commands

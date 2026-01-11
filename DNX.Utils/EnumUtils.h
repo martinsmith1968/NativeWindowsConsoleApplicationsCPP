@@ -6,6 +6,7 @@
 #include <string>
 
 // ReSharper disable CppInconsistentNaming
+// ReSharper disable CppUseAssociativeContains
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 
 using namespace std;
@@ -25,7 +26,12 @@ namespace DNX::Utils::EnumUtils
         }
 
     public:
-        string GetText(const T value) const
+        [[nodiscard]] bool IsValid(const T value) const
+        {
+            return _map.find(value) != _map.end();
+        }
+
+        [[nodiscard]] string GetText(const T value) const
         {
             static string empty_result;
 
@@ -39,7 +45,7 @@ namespace DNX::Utils::EnumUtils
             return empty_result;
         }
 
-        T GetValue(const string& text) const
+        [[nodiscard]] T GetValue(const string& text) const
         {
             for (auto iter = _map.begin(); iter != _map.end(); ++iter)
             {
@@ -63,7 +69,7 @@ namespace DNX::Utils::EnumUtils
             return list;
         }
 
-        list<T> GetAllValues() const
+        [[nodiscard]] list<T> GetAllValues() const
         {
             list<T> list;
 
