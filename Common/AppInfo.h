@@ -3,7 +3,7 @@
 #include "BuildInfo.h"
 #include "Macros.h"
 #include "Version.h"
-#include "../DNX.App/AppDetails.h"
+#include "../libs/DNX.App/AppDetails.h"
 
 using namespace DNX::App;
 
