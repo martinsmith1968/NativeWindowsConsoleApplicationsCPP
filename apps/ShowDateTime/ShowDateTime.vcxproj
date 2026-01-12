@@ -180,15 +180,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DNX.App\DNX.App.vcxproj">
-      <Project>{bd49f55e-7151-4702-92bf-4bd6138496e6}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DNX.Utils\DNX.Utils.vcxproj">
-      <Project>{bd755021-f792-4b24-91f6-4352a88ef567}</Project>
-    </ProjectReference>
+    <ResourceCompile Include="AppInfo.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="AppInfo.rc" />
+    <ProjectReference Include="..\..\libs\DNX.App\DNX.App.vcxproj">
+      <Project>{bd49f55e-7151-4702-92bf-4bd6138496e6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\DNX.Utils\DNX.Utils.vcxproj">
+      <Project>{bd755021-f792-4b24-91f6-4352a88ef567}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
