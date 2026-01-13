@@ -1,8 +1,7 @@
 #pragma once
 
 #include "pch.h"
-#include "../DNX.App/Arguments.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.App/Arguments.h"
 
 // ReSharper disable CppInconsistentNaming
 

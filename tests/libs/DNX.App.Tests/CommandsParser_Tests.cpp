@@ -2,8 +2,8 @@
 
 #include "Commands1.h"
 #include "TestHelper.h"
-#include "../DNX.App/Commands.h"
-#include "../DNX.App/CommandsParser.h"
+#include "../../../libs/DNX.App/Commands.h"
+#include "../../../libs/DNX.App/CommandsParser.h"
 
 using namespace std;
 using namespace DNX::App;

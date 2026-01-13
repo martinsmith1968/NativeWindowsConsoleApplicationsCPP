@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../DNX.App/Arguments.h"
-#include "../DNX.App/Commands.h"
+#include "../../../libs/DNX.App/Arguments.h"
+#include "../../../libs/DNX.App/Commands.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
