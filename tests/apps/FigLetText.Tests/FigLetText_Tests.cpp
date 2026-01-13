@@ -1,8 +1,7 @@
 #include "pch.h"
-
-#include "../DNX.Tests.Common/TestHelper.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../../libs/DNX.Utils/FileUtils.h"
+#include "../../../libs/DNX.Utils/PathUtils.h"
+#include "../../DNX.Tests.Common/TestHelper.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
