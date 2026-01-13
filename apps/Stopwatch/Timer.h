@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../DNX.Utils/EnumUtils.h"
+#include "../../libs/DNX.Utils/EnumUtils.h"
 #include <ctime>
 #include <string>
 

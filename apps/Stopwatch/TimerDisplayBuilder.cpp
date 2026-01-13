@@ -2,8 +2,8 @@
 #include "TimerDisplayBuilder.h"
 #include "ElapsedTime.h"
 #include "Timer.h"
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.Utils/DateUtils.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 

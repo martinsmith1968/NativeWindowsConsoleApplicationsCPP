@@ -8,7 +8,7 @@
 #include "ResumeCommand.h"
 #include "StartCommand.h"
 #include "StopCommand.h"
-#include "../../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 
 // ReSharper disable CppInconsistentNaming
 

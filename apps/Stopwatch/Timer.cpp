@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Timer.h"
-#include "../DNX.App/ValueConverter.h"
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/ListUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.App/ValueConverter.h"
+#include "../../libs/DNX.Utils/DateUtils.h"
+#include "../../libs/DNX.Utils/ListUtils.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 #include "Commands/ListCommand.h"
 #include <chrono>
 #include <ctime>

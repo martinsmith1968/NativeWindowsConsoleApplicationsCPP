@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../stdafx.h"
-#include "../../DNX.Utils/EnumUtils.h"
+#include "../../../libs/DNX.Utils/EnumUtils.h"
 #include <cstdint>
 
 // ReSharper disable CppInconsistentNaming

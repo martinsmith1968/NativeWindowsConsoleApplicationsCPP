@@ -4,8 +4,8 @@
 #include "../TimerDisplayBuilder.h"
 #include "../TimerRepository.h"
 #include "../stdafx.h"
-#include "../../DNX.App/Arguments.h"
-#include "../../DNX.App/Command.h"
+#include "../../../libs/DNX.App/Arguments.h"
+#include "../../../libs/DNX.App/Command.h"
 #include <chrono>
 #include <iostream>
 #include <string>

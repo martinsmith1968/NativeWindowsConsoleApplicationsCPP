@@ -2,8 +2,8 @@
 
 #include "BaseCommand.h"
 #include "../stdafx.h"
-#include "../../DNX.Utils/MapUtils.h"
-#include "../../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/MapUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 #include <iomanip>
 #include <iostream>
 #include <ostream>

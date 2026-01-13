@@ -2,11 +2,11 @@
 #include "TimerRepository.h"
 #include "AppInfo.h"
 #include "Timer.h"
-#include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/MapUtils.h"
-#include "../DNX.Utils/PathUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../libs/DNX.Utils/FileUtils.h"
+#include "../../libs/DNX.Utils/MapUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace Stopwatch;
