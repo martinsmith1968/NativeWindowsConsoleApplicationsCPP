@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "TestRunRelocatingController.h"
 #include "TestHelper.h"
-#include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

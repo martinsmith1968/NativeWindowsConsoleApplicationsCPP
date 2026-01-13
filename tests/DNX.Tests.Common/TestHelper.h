@@ -2,7 +2,7 @@
 
 #include "AppRelocator.h"
 #include "RunIdGenerator.h"
-#include "../DNX.App/AppDetails.h"
+#include "../../libs/DNX.App/AppDetails.h"
 #include <list>
 #include <string>
 

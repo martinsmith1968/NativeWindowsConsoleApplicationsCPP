@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TestRunController.h"
 #include "TestHelper.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

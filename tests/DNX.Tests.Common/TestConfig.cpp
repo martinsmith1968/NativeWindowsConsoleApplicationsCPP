@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TestConfig.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

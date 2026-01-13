@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "AppRelocator.h"
-#include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
 #include <filesystem>
 #include <iostream>
 

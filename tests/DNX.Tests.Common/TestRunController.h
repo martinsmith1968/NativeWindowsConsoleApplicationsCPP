@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "../DNX.App/AppDetails.h"
+#include "../../libs/DNX.App/AppDetails.h"
 #include "gtest/gtest.h"
 #include <string>
 

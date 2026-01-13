@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "TestHelper.h"
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/EnvironmentUtils.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
-#include "../DNX.Utils/ProcessUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../libs/DNX.Utils/DateUtils.h"
+#include "../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../libs/DNX.Utils/EnvironmentUtils.h"
+#include "../../libs/DNX.Utils/FileUtils.h"
+#include "../../libs/DNX.Utils/PathUtils.h"
+#include "../../libs/DNX.Utils/ProcessUtils.h"
+#include "../../libs/DNX.Utils/StringUtils.h"
 #include <complex>
 #include <iostream>
 
