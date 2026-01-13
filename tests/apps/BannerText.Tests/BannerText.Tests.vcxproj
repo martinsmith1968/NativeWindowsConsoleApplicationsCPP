@@ -128,17 +128,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BannerText\BannerText.vcxproj">
+    <ProjectReference Include="..\..\..\apps\BannerText\BannerText.vcxproj">
       <Project>{2968b888-ff0a-47fe-b31b-51564700eaff}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DNX.App\DNX.App.vcxproj">
+    <ProjectReference Include="..\..\..\libs\DNX.App\DNX.App.vcxproj">
       <Project>{bd49f55e-7151-4702-92bf-4bd6138496e6}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DNX.Tests.Common\DNX.Tests.Common.vcxproj">
-      <Project>{1632dedb-e753-48bd-b6a4-7c42f0e51c06}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DNX.Utils\DNX.Utils.vcxproj">
+    <ProjectReference Include="..\..\..\libs\DNX.Utils\DNX.Utils.vcxproj">
       <Project>{bd755021-f792-4b24-91f6-4352a88ef567}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DNX.Tests.Common\DNX.Tests.Common.vcxproj">
+      <Project>{1632dedb-e753-48bd-b6a4-7c42f0e51c06}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -160,12 +160,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets')" />
+    <Import Project="..\..\..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets" Condition="Exists('..\..\..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-static.targets'))" />
   </Target>
 </Project>

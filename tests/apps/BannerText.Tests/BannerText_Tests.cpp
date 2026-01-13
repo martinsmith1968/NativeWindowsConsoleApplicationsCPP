@@ -3,11 +3,11 @@
 #define VER_PRODUCTNAME_STR         "BannerText.Tests"
 #define VER_FILE_DESCRIPTION_STR    "BannerText Google Tests"
 
-#include "../Common/AppInfo.h"
-#include "../DNX.Tests.Common/TestHelper.h"
-#include "../DNX.Tests.Common/TestRunRelocatingController.h"
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/DirectoryUtils.h"
+#include "../../../Common/AppInfo.h"
+#include "../../../libs/DNX.Utils/DateUtils.h"
+#include "../../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../DNX.Tests.Common/TestHelper.h"
+#include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 #include <filesystem>
 #include <string>
 
