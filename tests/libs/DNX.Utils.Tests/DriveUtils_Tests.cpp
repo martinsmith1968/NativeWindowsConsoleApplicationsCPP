@@ -1,10 +1,10 @@
 #include "pch.h"
 
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/DirectoryUtils.h"
-#include "../DNX.Utils/DriveUtils.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
+#include "../../../libs/DNX.Utils/DateUtils.h"
+#include "../../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../../libs/DNX.Utils/DriveUtils.h"
+#include "../../../libs/DNX.Utils/FileUtils.h"
+#include "../../../libs/DNX.Utils/PathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

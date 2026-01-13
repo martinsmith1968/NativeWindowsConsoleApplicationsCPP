@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../DNX.Utils/ProcessUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/ProcessUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 #include <Windows.h>
 #include <codecvt>
 #include <locale>

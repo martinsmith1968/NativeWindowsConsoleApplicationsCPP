@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../DNX.Utils/CryptoUtils.h"
+#include "../../../libs/DNX.Utils/CryptoUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

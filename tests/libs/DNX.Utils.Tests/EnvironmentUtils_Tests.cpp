@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "../DNX.Utils/EnvironmentUtils.h"
-#include "../DNX.Utils/ListUtils.h"
-#include "../DNX.Utils/MathUtils.h"
+#include "../../../libs/DNX.Utils/EnvironmentUtils.h"
+#include "../../../libs/DNX.Utils/ListUtils.h"
+#include "../../../libs/DNX.Utils/MathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

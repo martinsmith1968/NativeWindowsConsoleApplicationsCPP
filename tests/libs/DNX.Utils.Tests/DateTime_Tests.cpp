@@ -2,8 +2,8 @@
 
 #include <thread>
 
-#include "../DNX.Utils/DateTime.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/DateTime.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

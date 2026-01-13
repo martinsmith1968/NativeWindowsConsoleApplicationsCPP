@@ -1,9 +1,7 @@
 #include "pch.h"
-
+#include "../../../libs/DNX.Utils/MathUtils.h"
 #include <chrono>
 #include <thread>
-
-#include "../DNX.Utils/MathUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

@@ -1,7 +1,7 @@
 #include "pch.h"
 
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/DateUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

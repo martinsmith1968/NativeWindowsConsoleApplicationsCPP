@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "../Common/GoogleTest_Utils.h"
-#include "../DNX.Utils/ConsoleUtils.h"
+#include "../../../Common/GoogleTest_Utils.h"
+#include "../../../libs/DNX.Utils/ConsoleUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

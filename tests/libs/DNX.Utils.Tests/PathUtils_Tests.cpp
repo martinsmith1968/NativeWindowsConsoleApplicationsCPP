@@ -1,10 +1,10 @@
 #include "pch.h"
 
-#include "../DNX.Utils/CryptoUtils.h"
-#include "../DNX.Utils/DateUtils.h"
-#include "../DNX.Utils/FileUtils.h"
-#include "../DNX.Utils/PathUtils.h"
-#include "../DNX.Utils/StringUtils.h"
+#include "../../../libs/DNX.Utils/CryptoUtils.h"
+#include "../../../libs/DNX.Utils/DateUtils.h"
+#include "../../../libs/DNX.Utils/FileUtils.h"
+#include "../../../libs/DNX.Utils/PathUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 
 using namespace std;
 using namespace DNX::Utils;

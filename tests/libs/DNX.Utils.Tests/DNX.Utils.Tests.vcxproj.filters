@@ -22,10 +22,10 @@
     <ClInclude Include="TestItem.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="expected\ConsoleUtils\ShowBlankLines_outputs_the_correct_number_of_line.expected">
+    <None Include="packages.config" />
+    <None Include="expected\ConsoleUtils\ShowBlankLines_outputs_the_correct_number_of_lines.expected">
       <Filter>expected\ConsoleUtils</Filter>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="expected">
