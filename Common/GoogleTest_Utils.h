@@ -88,7 +88,7 @@ namespace DNX::GoogleTest::Utils
     string test_class_name           = ::testing::UnitTest::GetInstance()->current_test_info()->test_case_name(); \
     string test_name                 = ::testing::UnitTest::GetInstance()->current_test_info()->name(); \
     string test_file_root_path       = GetFilePath(test_file_name); \
-    string base_path_name            = test_file_root_path + "\\expected\\" + test_class_name + "\\"; \
+    string base_path_name            = test_file_root_path + "\\ExpectedOutput\\" + test_class_name + "\\"; \
     string test_output_file_name     = base_path_name + test_name + ".testout"; \
     string expected_output_file_name = base_path_name + test_name + ".expected"; \
     \
