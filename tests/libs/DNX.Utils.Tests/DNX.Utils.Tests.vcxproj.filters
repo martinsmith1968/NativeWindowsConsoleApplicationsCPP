@@ -1,37 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="DateUtils_Tests.cpp" />
-    <ClCompile Include="EnvironmentUtils_Tests.cpp" />
-    <ClCompile Include="ListUtils_Tests.cpp" />
-    <ClCompile Include="MapUtils_Tests.cpp" />
-    <ClCompile Include="MathUtils_Tests.cpp" />
-    <ClCompile Include="PathUtils_Tests.cpp" />
-    <ClCompile Include="ProcessUtils_Tests.cpp" />
-    <ClCompile Include="StringUtils_Tests.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="ConsoleUtils_Tests.cpp" />
-    <ClCompile Include="FileUtils_Tests.cpp" />
-    <ClCompile Include="CryptoUtils_Tests.cpp" />
-    <ClCompile Include="DateTime_Tests.cpp" />
-    <ClCompile Include="DirectoryUtils_Tests.cpp" />
-    <ClCompile Include="DriveUtils_Tests.cpp" />
+    <ClCompile Include="ConsoleUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CryptoUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DateTime_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DateUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectoryUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DriveUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnvironmentUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="TestItem.h" />
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="expected\ConsoleUtils\ShowBlankLines_outputs_the_correct_number_of_lines.expected">
-      <Filter>expected\ConsoleUtils</Filter>
+      <Filter>ExpectedOutput\ConsoleUtils</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="expected">
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9aaf86ab-da29-4cfb-ae80-41cf4f6d85b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d604b569-6e3b-4fa4-b696-4076a419c751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExpectedOutput">
       <UniqueIdentifier>{ae2f2ef3-facf-4b8f-8a7b-41fa4e5ff710}</UniqueIdentifier>
     </Filter>
-    <Filter Include="expected\ConsoleUtils">
+    <Filter Include="ExpectedOutput\ConsoleUtils">
       <UniqueIdentifier>{ebec877f-46a7-498e-a6de-0cd7d15d3c75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
