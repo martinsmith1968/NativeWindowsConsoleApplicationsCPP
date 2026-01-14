@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="PauseN_Tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ExpectedOutput\Execute_custom_text_showing_timeout_value_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+    <Text Include="ExpectedOutput\Execute_no_parameters_produces_expected_output.txt">
+      <Filter>ExpectedOutput</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ExpectedOutput">
+      <UniqueIdentifier>{0518a1fa-8716-4dfc-ab8f-95e777f22e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9d8f420a-3b7f-4c95-bdf7-623262520e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6bb952d4-7c3f-4cc7-a586-9fa98c8124e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
