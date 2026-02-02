@@ -12,6 +12,9 @@ using namespace DNX::Utils;
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppTooWideScope
 // ReSharper disable CppClangTidyMiscUseAnonymousNamespace
+// ReSharper disable CppClangTidyClangDiagnosticPadded
+// ReSharper disable CppClangTidyClangDiagnosticVariadicMacroArgumentsOmitted
+// ReSharper disable CppDeclaratorNeverUsed
 
 #define TEST_GROUP DateTime
 
@@ -41,7 +44,7 @@ static void ShowDateTime(const DateTime& dateTime, string name = "")
     cout << "    Hour: " << dateTime.GetHour() << endl;
     cout << "  Minute: " << dateTime.GetMinute() << endl;
     cout << "  Second: " << dateTime.GetSeconds() << endl;
-    cout << "      Ms: " << dateTime.GetMilliseconds() << endl;
+    cout << "      ms: " << dateTime.GetMilliseconds() << endl;
 }
 
 static void ShowDuration(const chrono::system_clock::duration duration)
@@ -169,6 +172,22 @@ TEST(TEST_GROUP, Static_GetDaysInMonth_returns_appropriate_values)
 
     EXPECT_EQ(DateTime::GetDaysInMonth(0), DateTime::GetDaysInMonth(12));
     EXPECT_EQ(DateTime::GetDaysInMonth(13), DateTime::GetDaysInMonth(1));
+}
+
+TEST(TEST_GROUP, ToString_built_in_formats_format_as_expected)
+{
+    const auto test_date = DateTime(2023, 10, 28, 14, 30, 45, 123);
+
+    // Act & Assert
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::Default), "Sat, Oct 28 14:30:45.1230000 2023");
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::Sortable), "2023-10-28 14:30:45.1230000+0000");
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::ISO), "2023-10-28T14:30:45.1230000+0000");
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::Display), "2023-10-28 14:30:45");
+
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::Date_Default), "Sat, Oct 28 2023");
+    ASSERT_EQ(test_date.ToString(DateTime::Formats::Date_Sortable), "2023-10-28");
+    EXPECT_EQ(test_date.ToString(DateTime::Formats::Date_ISO), "2023-10-28");
+    EXPECT_EQ(test_date.ToString(DateTime::Formats::Date_Display), "2023-10-28");
 }
 
 //--------------------------------------------------------------------------------

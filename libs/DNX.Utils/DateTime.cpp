@@ -60,7 +60,7 @@ date::hh_mm_ss<duration<long long, ratio<1, 1000>>> DateTime::GetAsTimeInternal(
 const string DateTime::Formats::Default  = "%a, %b %e %T %Y";   // Sun, Aug 11 12:34:56 1968
 const string DateTime::Formats::Sortable = "%F %T%z";
 const string DateTime::Formats::ISO      = "%FT%T%z";
-const string DateTime::Formats::Display  = "%Y-%m-%d %X"; // "%H:%M:%S"; // ":%S";
+const string DateTime::Formats::Display  = "%Y-%m-%d %X";
 
 const string DateTime::Formats::Date_Default  = "%a, %b %e %Y";   // Sun, Aug 11 1968
 const string DateTime::Formats::Date_Sortable = "%F";

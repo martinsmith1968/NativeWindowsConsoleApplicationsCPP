@@ -51,3 +51,6 @@ These include :
 ## Language Notes
 
 - [C++ 14 vs 17 vs 20](https://www.geeksforgeeks.org/cpp/cpp14-vs-cpp17-vs-cpp20/)
+- [C++ for C# Developers](https://www.jacksondunstan.com/articles/5772)
+- [Google Test](https://google.github.io/googletest/reference/testing.html)
+-

@@ -74,15 +74,19 @@
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -162,6 +166,8 @@
     <ClInclude Include="CharUtils.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="CryptoUtils.h" />
+    <ClInclude Include="Crypto\Guid.h" />
+    <ClInclude Include="Crypto\GuidGenerator.h" />
     <ClInclude Include="date.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="DateUtils.h" />
@@ -188,6 +194,8 @@
     <ClCompile Include="CharUtils.cpp" />
     <ClCompile Include="ConsoleUtils.cpp" />
     <ClCompile Include="CryptoUtils.cpp" />
+    <ClCompile Include="Crypto\Guid.cpp" />
+    <ClCompile Include="Crypto\GuidGenerator.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="DateUtils.cpp" />
     <ClCompile Include="DirectoryInfo.cpp" />

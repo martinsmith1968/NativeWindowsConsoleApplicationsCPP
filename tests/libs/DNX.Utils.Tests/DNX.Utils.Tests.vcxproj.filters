@@ -46,6 +46,9 @@
     <ClCompile Include="StringUtils_Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Crypto\Guid_Tests.cpp">
+      <Filter>Source Files\Crypto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,6 +76,9 @@
     </Filter>
     <Filter Include="ExpectedOutput\ConsoleUtils">
       <UniqueIdentifier>{ebec877f-46a7-498e-a6de-0cd7d15d3c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Crypto">
+      <UniqueIdentifier>{86a089b8-cc81-4d3d-9f8c-019fbcfe8fca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
