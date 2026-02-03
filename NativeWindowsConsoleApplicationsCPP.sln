@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{38B555AD-D4AB-4186-A178-789947E6D37D}"
 	ProjectSection(SolutionItems) = preProject
@@ -82,6 +82,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PauseN.Tests", "tests\apps\PauseN.Tests\PauseN.Tests.vcxproj", "{77794131-111B-40D7-873D-DB4F41159497}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stopwatch.Tests", "tests\apps\Stopwatch.Tests\Stopwatch.Tests.vcxproj", "{BD31BEB3-D870-4382-9D92-30FBA60F7725}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GuidGenerator", "apps\GuidGenerator\GuidGenerator.vcxproj", "{20912DCB-8C33-48F8-BE4B-0E837112F886}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +205,14 @@ Global
 		{BD31BEB3-D870-4382-9D92-30FBA60F7725}.Release|x64.Build.0 = Release|x64
 		{BD31BEB3-D870-4382-9D92-30FBA60F7725}.Release|x86.ActiveCfg = Release|Win32
 		{BD31BEB3-D870-4382-9D92-30FBA60F7725}.Release|x86.Build.0 = Release|Win32
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Debug|x64.ActiveCfg = Debug|x64
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Debug|x64.Build.0 = Debug|x64
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Debug|x86.ActiveCfg = Debug|Win32
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Debug|x86.Build.0 = Debug|Win32
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Release|x64.ActiveCfg = Release|x64
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Release|x64.Build.0 = Release|x64
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Release|x86.ActiveCfg = Release|Win32
+		{20912DCB-8C33-48F8-BE4B-0E837112F886}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,6 +235,7 @@ Global
 		{CAC710FC-B5D5-496D-999E-8AD037A6FCD0} = {8A2943F9-A3A0-45E8-B091-3B19F6A3E782}
 		{77794131-111B-40D7-873D-DB4F41159497} = {CAC710FC-B5D5-496D-999E-8AD037A6FCD0}
 		{BD31BEB3-D870-4382-9D92-30FBA60F7725} = {CAC710FC-B5D5-496D-999E-8AD037A6FCD0}
+		{20912DCB-8C33-48F8-BE4B-0E837112F886} = {50EC96D2-6E9C-4F27-A757-2A560FE087CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14CB252E-DEB4-45FE-BFB2-C8E87801F070}
