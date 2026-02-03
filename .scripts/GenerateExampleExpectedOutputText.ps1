@@ -49,7 +49,7 @@ function Set-ExpectedOutput {
     $app_name = [System.IO.Path]::GetFileNameWithoutExtension($app_name)
 
     if ( [string]::IsNullOrEmpty($expected_output_path) ) {
-        $expected_output_path = Join-Path -Path $PSScriptRoot -ChildPath ".." ($app_name + ".Tests") "Expectedoutput"
+        $expected_output_path = Join-Path -Path $PSScriptRoot -ChildPath ".." "tests" "apps" ($app_name + ".Tests") "Expectedoutput"
     }
 
     $parameters = $arguments.Split("|")
