@@ -36,6 +36,18 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)\Output.Tests\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,6 +122,7 @@
   <ItemGroup>
     <ClCompile Include="ConsoleUtils_Tests.cpp" />
     <ClCompile Include="CryptoUtils_Tests.cpp" />
+    <ClCompile Include="Crypto\Guid_Tests.cpp" />
     <ClCompile Include="DateTime_Tests.cpp" />
     <ClCompile Include="DateUtils_Tests.cpp" />
     <ClCompile Include="DirectoryUtils_Tests.cpp" />

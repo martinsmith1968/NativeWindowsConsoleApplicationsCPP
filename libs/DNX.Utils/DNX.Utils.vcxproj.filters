@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Crypto">
+      <UniqueIdentifier>{669fcf11-9843-441d-af6f-2dc7606b840a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Crypto">
+      <UniqueIdentifier>{51e90621-47b0-4035-b3b5-6ec086f1f2db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -84,6 +90,12 @@
     <ClInclude Include="DriveUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Crypto\Guid.h">
+      <Filter>Header Files\Crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto\GuidGenerator.h">
+      <Filter>Header Files\Crypto</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="DriveUtils.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypto\Guid.cpp">
+      <Filter>Source Files\Crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="Crypto\GuidGenerator.cpp">
+      <Filter>Source Files\Crypto</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
