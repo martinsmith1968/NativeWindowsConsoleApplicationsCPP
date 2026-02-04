@@ -15,6 +15,12 @@ namespace DNX::Utils
     //--------------------------------------------------------------------------
     // Class: DateTime
     //--------------------------------------------------------------------------
+
+    // Sources : https://app.studyraid.com/en/read/12460/402659/converting-between-time-points
+    //           https://stackoverflow.com/questions/15957805/extract-year-month-day-etc-from-stdchronotime-point-in-c
+    //           https://howardhinnant.github.io/date/date.html#Introduction
+    //           https://www.geeksforgeeks.org/cpp/chrono-in-c/
+    //           https://www.geeksforgeeks.org/cpp/date-and-time-parsing-in-cpp/
     class DateTime
     {
         chrono::time_point<std::chrono::system_clock> m_time_point;
@@ -56,6 +62,16 @@ namespace DNX::Utils
         bool operator==(const DateTime& other) const
         {
             return GetTimePoint() == other.GetTimePoint();
+        }
+
+        bool operator<(const DateTime& other) const
+        {
+            return GetTimePoint() < other.GetTimePoint();
+        }
+
+        bool operator>(const DateTime& other) const
+        {
+            return GetTimePoint() > other.GetTimePoint();
         }
 
         static DateTime Now();
