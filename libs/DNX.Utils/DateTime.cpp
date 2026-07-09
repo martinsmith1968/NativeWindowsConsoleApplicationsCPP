@@ -163,8 +163,6 @@ DateTime DateTime::Parse(const string& text, const string& format)
             StringUtils::Replace("Failed to parse date time (#WHAT#)", "#WHAT#", ex.what())
         );
     }
-
-    return Now();
 }
 
 int DateTime::GetDaysInMonth(int month)
