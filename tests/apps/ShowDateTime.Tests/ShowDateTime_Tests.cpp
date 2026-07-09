@@ -115,3 +115,37 @@ TEST_F(TEST_GROUP, Execute_with_custom_format_replaces_millisecond_tokens)
     static const regex pattern(R"(^\d{3}-\d{1,3}$)");
     EXPECT_TRUE(regex_match(line, pattern));
 }
+
+TEST_F(TEST_GROUP, Execute_with_fixed_datetime_produces_that_date_at_midnight)
+{
+    const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-dt|2024-03-17");
+
+    const auto line = GetOutputLine(output);
+
+    EXPECT_EQ("2024-03-17 00:00:00.000", line);
+}
+
+TEST_F(TEST_GROUP, Execute_with_fixed_datetime_and_custom_format_produces_expected_date)
+{
+    const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, R"(|-dt|2024-03-17|-f|%Y-%m-%d)");
+
+    const auto line = GetOutputLine(output);
+
+    EXPECT_EQ("2024-03-17", line);
+}
+
+TEST_F(TEST_GROUP, Execute_with_fixed_datetime_and_type_UTC_produces_same_fixed_datetime)
+{
+    const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-dt|2024-03-17|-t|UTC");
+
+    const auto line = GetOutputLine(output);
+
+    EXPECT_EQ("2024-03-17 00:00:00.000", line);
+}
+
+TEST_F(TEST_GROUP, Execute_with_invalid_fixed_datetime_produces_error_and_nonzero_exitcode)
+{
+    const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-dt|not-a-date");
+
+    EXPECT_NE(output.find("ERROR: Option: datetime value is invalid (not-a-date)"), string::npos);
+}
