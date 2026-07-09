@@ -6,6 +6,8 @@
 #include <chrono>
 #include <string>
 
+#include "../../libs/DNX.Utils/DateTime.h"
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppClangTidyClangDiagnosticHeaderHygiene
 // ReSharper disable CppTooWideScopeInitStatement
@@ -45,8 +47,30 @@ namespace ShowDateTime
     {
         const string ArgumentNameFormat = "format";
         const string ArgumentNameTimeType = "type";
+        const string ArgumentNameDateTime = "datetime";
 
         TimeTypeTextResolver TimeTypeTextConverter;
+
+    protected:
+
+        void PostParseValidate() override
+        {
+            if (!IsValid())
+                return;
+
+            const auto datetime_str = GetArgumentValue(ArgumentNameDateTime);
+            if (!datetime_str.empty())
+            {
+                try
+                {
+                    auto datetime = DateTime::Parse(datetime_str);
+                }
+                catch (const exception& ex)
+                {
+                    AddError(string("Failed to parse date time: ") + ex.what());
+                }
+            }
+        }
 
     public:
         AppArguments()
@@ -55,6 +79,7 @@ namespace ShowDateTime
 
             AddOption(ValueType::STRING, "f", ArgumentNameFormat, defaultFormat, "The format to use to display the datetime value", false);
             AddOption(ValueType::ENUM, "t", ArgumentNameTimeType, TimeTypeTextConverter.GetText(TimeType::LOCAL), "The time value to use", false, 0, TimeTypeTextConverter.GetAllText());
+            AddOption(ValueType::DATETIME, "dt", ArgumentNameDateTime, "", "The datetime value to format (default is current time)", false);
 
             AddNote("This uses 'strftime' internally, so see the following for supported date formats:");
             AddNote("  https://cplusplus.com/reference/ctime/strftime/");
@@ -77,6 +102,17 @@ namespace ShowDateTime
         TimeType GetTimeType()
         {
             return TimeTypeTextConverter.GetValue(GetArgumentValue(ArgumentNameTimeType));
+        }
+
+        time_point<system_clock> GetDateTime()
+        {
+            const auto datetime_str = GetArgumentValue(ArgumentNameDateTime);
+            if (datetime_str.empty())
+            {
+                return system_clock::now();
+            }
+
+            return DateTime::Parse(datetime_str).GetTimePoint();
         }
 
         string GetFormattedDateTime(const time_point<system_clock>& datetime)
