@@ -121,7 +121,7 @@ if ( $null -ne $app ) {
 $app_name = "FigLetText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-	Clear-ExpectedOutput -app_full_name $app.FullName
+    Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "HelloWorld!"             -output_filename "Execute_HelloWorld_default_font_produces_expected_output"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "HelloWorld!|-n|banner"   -output_filename "Execute_HelloWorld_font_banner_produces_expected_output"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "HelloWorld!|-n|big"      -output_filename "Execute_HelloWorld_font_big_produces_expected_output"

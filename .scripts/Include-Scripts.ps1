@@ -7,7 +7,7 @@ function Build-AppsList {
     if (Test-Path -Path $base_path_name -PathType Container) {
         $allfiles = Get-ChildItem -Path $base_path_name -File -Filter "*.exe" -Recurse
         Write-Host "Found $($allfiles.Length) candidate executables"
-    }    
+    }
 
     if ($allfiles.Length -gt 0) {
         $allfiles = $allfiles | Where-Object { -Not $_.FullName.contains("deps") } | Where-Object { -Not $_.FullName.contains("_build-") }
@@ -43,4 +43,23 @@ function Search-AppByName {
         return $apps[$app_name]
     }
     return $null
+}
+
+#---------------------------------------------------------------------------------------------------
+
+function Copy-AppByName-ToTarget {
+    param (
+        [hashtable]$apps,
+        [string]$app_name,
+        [string]$target_folder
+    )
+
+    $app = Search-AppByName $apps $app_name
+    if ($app -eq $null) {
+        return $false
+    }
+
+    Write-Host "Copying app : $($app_name)..." -ForegroundColor Yellow
+    Copy-Item -Path $app.FullName -Destination $target_folder -Force
+    return $true
 }
