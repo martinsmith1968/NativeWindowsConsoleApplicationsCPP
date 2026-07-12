@@ -52,6 +52,9 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_command_list)
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-?"));
 
     TestHelper::WriteMajorSeparator(100);
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "/?"));
+
+    TestHelper::WriteMajorSeparator(100);
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "--help"));
 }
 

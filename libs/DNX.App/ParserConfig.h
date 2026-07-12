@@ -1,8 +1,6 @@
 #pragma once
 
 #include "stdafx.h"
-#include <string>
-
 #include "HelpTextWriter.h"
 
 // ReSharper disable CppInconsistentNaming
@@ -19,6 +17,7 @@ namespace DNX::App
     //--------------------------------------------------------------------------
     class ParserConfig {
         static const string DefaultShortNamePrefix;
+        static const string DefaultAlternateShortNamePrefix;
         static const string DefaultLongNamePrefix;
         static const string DefaultCustomArgumentsFilePrefix;
         static constexpr bool DefaultUseDefaultArgumentsFile = true;
@@ -29,6 +28,7 @@ namespace DNX::App
         static constexpr bool DefaultIgnoreAdditionalArguments = false;
 
         string _shortNamePrefix;
+        string _alternateShortNamePrefix;
         string _longNamePrefix;
         string _customArgumentsFilePrefix;
         bool _useDefaultArgumentsFile;
@@ -41,6 +41,7 @@ namespace DNX::App
 
     public:
         [[nodiscard]] const string& GetShortNamePrefix() const { return _shortNamePrefix; }
+        [[nodiscard]] const string& GetAlternateShortNamePrefix() const { return _alternateShortNamePrefix; }
         [[nodiscard]] const string& GetLongNamePrefix() const { return _longNamePrefix; }
         [[nodiscard]] const string& GetCustomArgumentsFilePrefix() const { return _customArgumentsFilePrefix; }
         [[nodiscard]] bool GetUseDefaultArgumentsFile() const { return _useDefaultArgumentsFile; }
@@ -49,6 +50,11 @@ namespace DNX::App
         [[nodiscard]] char GetSwitchOnSuffix() const { return _switchOnSuffix; }
         [[nodiscard]] char GetSwitchOffSuffix() const { return _switchOffSuffix; }
         [[nodiscard]] bool GetIgnoreAdditionalArguments() const { return _ignoreAdditionalArguments; }
+
+        void SetShortNamePrefix(const string& shortNamePrefix);
+        void SetAlternateShortNamePrefix(const string& alternateShortNamePrefix);
+        void SetLongNamePrefix(const string& longNamePrefix);
+        void SetCustomArgumentsFilePrefix(const string& customArgumentsFilePrefix);
 
         void SetIgnoreAdditionalArguments(const bool value) { _ignoreAdditionalArguments = value; }
 
@@ -59,6 +65,7 @@ namespace DNX::App
 
         ParserConfig(
             const string& shortNamePrefix,
+            const string& alternateShortNamePrefix,
             const string& longNamePrefix,
             const string& customArgumentsFilePrefix,
             bool useDefaultArgumentsFile,
