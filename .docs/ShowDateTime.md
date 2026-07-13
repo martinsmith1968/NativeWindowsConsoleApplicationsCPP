@@ -66,8 +66,9 @@ Options:
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (ShowDateTime.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
+@<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\8912feb268c244518f5faa7a8c242e86\ShowDateTime.options
+Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\ShowDateTime.options
 Local App arguments can be specified in : C:\Temp\ShowDateTime.options
 
 Notes:
