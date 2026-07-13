@@ -92,12 +92,12 @@ $app_name = "BannerText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
     Clear-ExpectedOutput -app_full_name $app.FullName
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "execute_app_with_help_request_produces_arguments_list"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                         -output_filename "execute_app_with_full_help_request_produces_arguments_list"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob"                            -output_filename "execute_app_with_text_only_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob|-m|80"                      -output_filename "execute_app_with_text_and_min_length_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee"            -output_filename "execute_app_with_multiple_text_lines_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee|-a|Center"  -output_filename "execute_app_with_multiple_text_lines_aligned_center_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "Execute_with_help_request_produces_arguments_list"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                         -output_filename "Execute_with_full_help_request_produces_arguments_list"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob"                            -output_filename "Execute_with_text_only_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob|-minl|80"                   -output_filename "Execute_with_text_and_min_length_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee"            -output_filename "Execute_with_multiple_text_lines_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee|-a|Center"  -output_filename "Execute_with_multiple_text_lines_aligned_center_produces_expected_output"
 }
 
 

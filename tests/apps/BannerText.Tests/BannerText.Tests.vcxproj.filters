@@ -20,25 +20,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ExpectedOutput\Execute_with_text_only_produces_expected_output.txt">
-      <Filter>ExpectedOutput</Filter>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_text_and_min_length_produces_expected_output.txt">
-      <Filter>ExpectedOutput</Filter>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.txt">
-      <Filter>ExpectedOutput</Filter>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.txt">
-      <Filter>ExpectedOutput</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ExpectedOutput\Execute_with_full_help_request_produces_arguments_list.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_multiple_text_lines_aligned_center_produces_expected_output.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_text_and_min_length_produces_expected_output.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_text_only_produces_expected_output.example">
+      <Filter>ExpectedOutput</Filter>
+    </None>
   </ItemGroup>
 </Project>
