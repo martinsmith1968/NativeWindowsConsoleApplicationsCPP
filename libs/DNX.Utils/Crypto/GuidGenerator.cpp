@@ -11,6 +11,7 @@
 #include <sstream>
 
 #pragma comment(lib,"ole32.lib")
+#pragma warning( disable : 6031 ) // return variable ignored
 
 // ReSharper disable CppClangTidyPerformanceAvoidEndl
 // ReSharper disable CppInconsistentNaming
@@ -39,7 +40,7 @@ string GuidGenerator::FormatAsGuid(const string& text)
             + text.substr(20, 12)
             ;
     }
-    catch (const exception& ex)
+    catch ([[maybe_unused]] const exception& ex)
     {
         return "";
     }
