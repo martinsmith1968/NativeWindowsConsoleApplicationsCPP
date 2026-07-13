@@ -1,5 +1,5 @@
 BannerText v2.2.0.0-dev - Display a Text Banner in the console
-Copyright ® 2018-%CURRENT_YEAR% Martin Smith
+Copyright � 2018-%CURRENT_YEAR% Martin Smith
 
 Usage:
 BannerText [message-text] [OPTIONS]
