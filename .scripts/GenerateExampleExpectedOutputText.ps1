@@ -1,7 +1,6 @@
 . $PSScriptRoot\Include-Scripts.ps1
 
 #---------------------------------------------------------------------------------------------------
-
 function Set-ExpectedOutput {
     param (
         [string]$app_full_path,
@@ -24,6 +23,7 @@ function Set-ExpectedOutput {
     $example_filename = "$($output_filename).example"
 
     Write-Host "  $($app_name) - Generating : $($example_filename)"
+
     # Use ProcessStartInfo with redirected stdout so the binary has no Win32 console,
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $app_full_path
@@ -44,6 +44,7 @@ function Set-ExpectedOutput {
     Set-Content -Path (Join-Path -Path $expected_output_path -ChildPath $example_filename) -Value $text -Encoding UTF8 -NoNewline
 }
 
+#---------------------------------------------------------------------------------------------------
 function Clear-ExpectedOutput {
     param (
         [string]$app_full_name
@@ -53,7 +54,7 @@ function Clear-ExpectedOutput {
 
     $expected_output_path = [System.IO.Path]::GetFullPath((Join-Path -Path $PSScriptRoot -ChildPath ".." $app_name "tests" "Expectedoutput"))
 
-    if ( Test-Path -Path $expected_output_path) {
+    if (Test-Path -Path $expected_output_path) {
         Remove-Item -Path $expected_output_path -Include *.example -Recurse -Force
     }
 }
@@ -91,8 +92,7 @@ Write-Host "$($apps.Count) Apps found" -ForegroundColor Green
 $app_name = "BannerText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $output = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut
-    $current_app_version = $output.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "Execute_with_help_request_produces_arguments_list"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                         -output_filename "Execute_with_full_help_request_produces_arguments_list"
@@ -107,7 +107,7 @@ if ( $null -ne $app ) {
 $app_name = "Stopwatch"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "execute_app_with_help_request_produces_arguments_list"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                     -output_filename "execute_app_with_full_help_request_produces_arguments_list"

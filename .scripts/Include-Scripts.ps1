@@ -1,3 +1,4 @@
+#---------------------------------------------------------------------------------------------------
 function Build-AppsList {
     param (
         [string]$base_path_name
@@ -32,7 +33,6 @@ function Build-AppsList {
 }
 
 #---------------------------------------------------------------------------------------------------
-
 function Search-AppByName {
     param (
         [hashtable]$apps,
@@ -46,7 +46,6 @@ function Search-AppByName {
 }
 
 #---------------------------------------------------------------------------------------------------
-
 function Copy-AppByName-ToTarget {
     param (
         [hashtable]$apps,
@@ -65,7 +64,6 @@ function Copy-AppByName-ToTarget {
 }
 
 #---------------------------------------------------------------------------------------------------
-
 function Invoke-CaptureOutput {
     param (
         [string]$app_full_path,
@@ -73,12 +71,12 @@ function Invoke-CaptureOutput {
     )
 
     $start_info = New-Object System.Diagnostics.ProcessStartInfo
-    $start_info.FileName = $app_full_path
-    $start_info.Arguments = $arguments
+    $start_info.FileName               = $app_full_path
+    $start_info.Arguments              = $arguments
     $start_info.RedirectStandardOutput = $true
-    $start_info.RedirectStandardError = $true
-    $start_info.UseShellExecute = $false
-    $start_info.CreateNoWindow = $true
+    $start_info.RedirectStandardError  = $true
+    $start_info.UseShellExecute        = $false
+    $start_info.CreateNoWindow         = $true
 
     $process = New-Object System.Diagnostics.Process
     $process.StartInfo = $start_info
