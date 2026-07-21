@@ -39,6 +39,7 @@ These include :
 
 - [BannerText](.docs/BannerText.md)
 - [FigLetText](.docs/FigLetText.md)
+- [GuidGenerator](.docs/GuidGenerator.md)
 - [PauseN](.docs/PauseN.md)
 - [ShowDateTime](.docs/ShowDateTime.md)
 - [Stopwatch](.docs/Stopwatch.md)
@@ -48,9 +49,12 @@ These include :
 - [Guides](Guides.md)
 - [Future To Do](TODO.md)
 
+## Pipelines
+
+- [CI Build](https://github.com/martinsmith1968/NativeWindowsConsoleApplicationsCPP/actions/workflows/ci-build.yml)
+
 ## Language Notes
 
 - [C++ 14 vs 17 vs 20](https://www.geeksforgeeks.org/cpp/cpp14-vs-cpp17-vs-cpp20/)
 - [C++ for C# Developers](https://www.jacksondunstan.com/articles/5772)
 - [Google Test](https://google.github.io/googletest/reference/testing.html)
--
