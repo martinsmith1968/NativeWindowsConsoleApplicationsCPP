@@ -55,7 +55,7 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
 
 TEST_F(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 {
-    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName(); // string(::testing::UnitTest::GetInstance()->current_test_info()->name()) + ".txt";
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "bob"));
 }

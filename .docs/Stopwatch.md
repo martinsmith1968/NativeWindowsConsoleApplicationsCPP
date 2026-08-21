@@ -120,7 +120,7 @@ Pause    Pause an active Stopwatch
 Purge    Purge old Stopwatches
 Resume   Resume a paused Stopwatch
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.options
 ```
 
@@ -152,14 +152,14 @@ Options:
 -s, --sort-by Text                    The field to order the Timers by (Default:Name, Values: Name, Start, State, Elapsed)
 -r, --sort-reverse +/-                Sort in reverse order (Default:false)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.list.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.list.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.list.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.list.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.list.options
 ```
 
@@ -188,14 +188,14 @@ Options:
 -f, --force +/-                       Force starting even if already exists (Default:false)
 -q, --quiet +/-                       Suppress output messages (Default:false)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.start.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.start.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.start.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.start.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.start.options
 ```
 
@@ -224,14 +224,14 @@ Options:
 -set, --show-elapsed-time +/-              Show the Stopwatch Elapsed Time (Default:true)
 -etdf, --elapsed-time-display-format Text  The format string to use to display Elapsed Time (Default:{name}: {action} - {days} days, {hours} hours, {minutes} minutes, {seconds} seconds)
 -v, --verbose-output +/-                   Control verbosity of output messages (Default:false)
--df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                          Show App Version details (Default:false)
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.stop.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.stop.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.stop.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.stop.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.stop.options
 ```
 
@@ -259,14 +259,14 @@ Options:
 [stopwatch-name] Text                      The name of the Stopwatch (Required)
 -etdf, --elapsed-time-display-format Text  The format string to use to display Elapsed Time (Default:{name}: {state} - {days} days, {hours} hours, {minutes} minutes, {seconds} seconds)
 -at, --additional-text Text                Additional text for the output
--df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                          Show App Version details (Default:false)
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.elapsed.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.elapsed.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.elapsed.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.elapsed.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.elapsed.options
 ```
 
@@ -292,14 +292,14 @@ Stopwatch Cancel [stopwatch-name] [OPTIONS]
 Options:
 [stopwatch-name] Text                 The name of the Stopwatch (Required)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:false)
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.cancel.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.cancel.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.cancel.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.cancel.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.cancel.options
 ```
 
@@ -329,14 +329,14 @@ Options:
 -at, --additional-text Text                Additional text for the output
 -i, --ignore-invalid-state +/-             Ignore errors of Stopwatch being in invalid state for the action (Default:false)
 -v, --verbose-output +/-                   Control verbosity of output messages (Default:false)
--df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                          Show App Version details (Default:false)
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.pause.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.pause.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.pause.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.pause.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.pause.options
 ```
 
@@ -371,14 +371,14 @@ Options:
 -at, --additional-text Text                Additional text for the output
 -i, --ignore-invalid-state +/-             Ignore errors of Stopwatch being in invalid state for the action (Default:false)
 -v, --verbose-output +/-                   Control verbosity of output messages (Default:true)
--df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text                  The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                          Show App Version details (Default:false)
 -?, --help +/-                             Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-       Use Default Arguments File (Stopwatch.resume.options) (Default:true)
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.resume.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.resume.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.resume.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.resume.options
 ```
 
@@ -407,13 +407,13 @@ Options:
 -h, --hours Integer                   Remove Timers started before specified hours
 -s, --state Text                      Limit which Timer states can be removed (Values: Active, Inactive)
 -v, --verbose-output +/-              Control verbosity of output messages (Default:true)
--df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\marti\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:C:\Users\ext.msmith258\AppData\Local\DNXSolutions\Stopwatch\Stopwatch.data)
 -!, --version +/-                     Show App Version details (Default:false)
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.pause.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.pause.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\Stopwatch.pause.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\Stopwatch.pause.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.pause.options
 ```

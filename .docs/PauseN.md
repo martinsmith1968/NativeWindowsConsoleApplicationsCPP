@@ -53,7 +53,8 @@ Options:
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (PauseN.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
+@<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\PauseN.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\PauseN.options
 Local App arguments can be specified in : C:\Temp\PauseN.options
 ```

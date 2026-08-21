@@ -85,7 +85,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (GuidGenerator.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\494da5cd89994f94ba15165e6ae0a256\GuidGenerator.options
+Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\GuidGenerator.options
 Local App arguments can be specified in : C:\Temp\GuidGenerator.options
 
 Notes:

@@ -1,6 +1,7 @@
 function Build-AppsList {
     param (
-        [string]$base_path_name
+        [string]$base_path_name,
+        [bool]$showAppsist = $true
     )
 
     $allfiles = @{}
@@ -28,6 +29,13 @@ function Build-AppsList {
         $apps[$file_name_only] = $file
     }
 
+    Write-Host "$($apps.Count) Apps found" -ForegroundColor Green
+    if ($showAppsist) {
+        foreach( $app in $apps.GetEnumerator() ) {
+            Write-Host "$($app.Key) : $($app.Value.FullName)" -ForegroundColor DarkGray
+        }
+    }
+
     return $apps
 }
 
@@ -36,13 +44,25 @@ function Build-AppsList {
 function Search-AppByName {
     param (
         [hashtable]$apps,
-        [string]$app_name
+        [string]$app_name,
+        [bool]$showFoundDetails = $true
     )
+
+    $app = $null
     Write-Host "Looking for app : $($app_name)..." -ForegroundColor Yellow
     if ( $apps.ContainsKey($app_name) ) {
-        return $apps[$app_name]
+        $app = $apps[$app_name]
     }
-    return $null
+
+    if ($showFoundDetails) {
+        if ($null -ne $app) {
+            Write-Host "Found app : $($app_name) : $($app.FullName)" -ForegroundColor Green
+        } else {
+            Write-Host "App not found : $($app_name)" -ForegroundColor Red
+        }
+    }
+
+    return $app
 }
 
 #---------------------------------------------------------------------------------------------------
@@ -55,7 +75,7 @@ function Copy-AppByName-ToTarget {
     )
 
     $app = Search-AppByName $apps $app_name
-    if ($app -eq $null) {
+    if ($null -eq $app) {
         return $false
     }
 
