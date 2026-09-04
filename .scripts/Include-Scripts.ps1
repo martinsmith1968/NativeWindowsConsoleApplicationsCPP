@@ -16,12 +16,12 @@ function Build-AppsList {
 
     $apps = @{}
 
-    foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Release") }) {
+    foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Release", 'InvariantCultureIgnoreCase') }) {
         $file_name_only = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         $apps[$file_name_only] = $file
     }
 
-    foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Debug") }) {
+    foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Debug", 'InvariantCultureIgnoreCase') }) {
         $file_name_only = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         if ( $apps.ContainsKey($file_name_only) ) {
             continue
