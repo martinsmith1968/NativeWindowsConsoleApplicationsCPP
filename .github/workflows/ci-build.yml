@@ -244,7 +244,7 @@ jobs:
 
     - name: Compress Artifact
       id: compress
-      uses: OctopusDeploy/create-zip-package-action@v3
+      uses: OctopusDeploy/create-zip-package-action@v4
       with:
         package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
         version: v${{ needs.setup.outputs.executable_version }}
