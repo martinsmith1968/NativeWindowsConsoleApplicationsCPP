@@ -211,7 +211,7 @@ jobs:
         }
 
     - name: Setup Nuget
-      uses: Nuget/setup-nuget@v2
+      uses: Nuget/setup-nuget@v4
 
     - name: Restore nuget packages
       run: nuget restore
