@@ -142,7 +142,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Write Version Header file
       run: |
@@ -211,7 +211,7 @@ jobs:
         }
 
     - name: Setup Nuget
-      uses: Nuget/setup-nuget@v2
+      uses: Nuget/setup-nuget@v4
 
     - name: Restore nuget packages
       run: nuget restore
@@ -244,7 +244,7 @@ jobs:
 
     - name: Compress Artifact
       id: compress
-      uses: OctopusDeploy/create-zip-package-action@v3
+      uses: OctopusDeploy/create-zip-package-action@v4
       with:
         package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
         version: v${{ needs.setup.outputs.executable_version }}
@@ -255,7 +255,7 @@ jobs:
           *.md
 
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: build_output
         path: Output\\*.zip
@@ -299,7 +299,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - uses: actions/download-artifact@v4
       with:
@@ -307,7 +307,7 @@ jobs:
         path: build
 
     - name: Build Changelog
-      uses: mikepenz/release-changelog-builder-action@v5
+      uses: mikepenz/release-changelog-builder-action@v6
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
