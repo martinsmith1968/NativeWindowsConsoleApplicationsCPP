@@ -1,3 +1,4 @@
+#---------------------------------------------------------------------------------------------------
 function Build-AppsList {
     param (
         [string]$base_path_name,
@@ -40,7 +41,6 @@ function Build-AppsList {
 }
 
 #---------------------------------------------------------------------------------------------------
-
 function Search-AppByName {
     param (
         [hashtable]$apps,
@@ -66,7 +66,6 @@ function Search-AppByName {
 }
 
 #---------------------------------------------------------------------------------------------------
-
 function Copy-AppByName-ToTarget {
     param (
         [hashtable]$apps,
@@ -82,4 +81,33 @@ function Copy-AppByName-ToTarget {
     Write-Host "Copying app : $($app_name)..." -ForegroundColor Yellow
     Copy-Item -Path $app.FullName -Destination $target_folder -Force
     return $true
+}
+
+#---------------------------------------------------------------------------------------------------
+function Invoke-CaptureOutput {
+    param (
+        [string]$app_full_path,
+        [string]$arguments
+    )
+
+    $start_info = New-Object System.Diagnostics.ProcessStartInfo
+    $start_info.FileName               = $app_full_path
+    $start_info.Arguments              = $arguments
+    $start_info.RedirectStandardOutput = $true
+    $start_info.RedirectStandardError  = $true
+    $start_info.UseShellExecute        = $false
+    $start_info.CreateNoWindow         = $true
+
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo = $start_info
+    $process.Start() | Out-Null
+
+    # Capture the output and error streams
+    $stdout = $process.StandardOutput.ReadToEnd()
+    $stderr = $process.StandardError.ReadToEnd()
+
+    # Wait for the process to exit
+    $process.WaitForExit()
+
+    return @{ StdOut = $stdout; StdErr = $stderr; ExitCode = $process.ExitCode }
 }

@@ -177,16 +177,21 @@ string TestHelper::GetExpectedOutput(const string& fileName, const bool showExpe
 {
     cout << "DEBUG: Starting GetExpectedOutput" << endl;
 
-    auto fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
-    if (!FileUtils::Exists(fullFileName))
-    { const auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), PathUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
-        cout << "DEBUG: Checking directory: " << directory << endl;
-
-        const auto targetFileName = PathUtils::Combine(directory, fileName);
-        if (FileUtils::Exists(targetFileName))
+    auto fullFileName = fileName;
+    if (!PathUtils::HasDriveReference(fileName))
+    {
+        fullFileName = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), fileName);
+        if (!FileUtils::Exists(fullFileName))
         {
-            cout << "DEBUG: Found file: " << targetFileName << endl;
-            fullFileName = targetFileName;
+            const auto directory = PathUtils::Combine(ProcessUtils::GetExecutableFilePath(), PathUtils::GetFileNameOnly(ProcessUtils::GetExecutableFileNameOnly()));
+            cout << "DEBUG: Checking directory: " << directory << endl;
+
+            const auto targetFileName = PathUtils::Combine(directory, fileName);
+            if (FileUtils::Exists(targetFileName))
+            {
+                cout << "DEBUG: Found file: " << targetFileName << endl;
+                fullFileName = targetFileName;
+            }
         }
     }
 

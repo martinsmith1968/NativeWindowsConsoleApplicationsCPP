@@ -1,7 +1,6 @@
 . $PSScriptRoot\Include-Scripts.ps1
 
 #---------------------------------------------------------------------------------------------------
-
 function Set-ExpectedOutput {
     param (
         [string]$app_full_path,
@@ -25,6 +24,7 @@ function Set-ExpectedOutput {
     $example_filename = "$($output_filename).example"
 
     Write-Host "  $($app_name) - Generating : $($example_filename)"
+
     # Use ProcessStartInfo with redirected stdout so the binary has no Win32 console,
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = $app_full_path
@@ -50,6 +50,7 @@ function Set-ExpectedOutput {
     }
 }
 
+#---------------------------------------------------------------------------------------------------
 function Clear-ExpectedOutput {
     param (
         [string]$app_full_name
@@ -96,13 +97,14 @@ if ( $apps.Count -eq 0 ) {
 $app_name = "BannerText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
     Clear-ExpectedOutput -app_full_name $app.FullName
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "execute_app_with_help_request_produces_arguments_list"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                         -output_filename "execute_app_with_full_help_request_produces_arguments_list"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob"                            -output_filename "execute_app_with_text_only_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob|-m|80"                      -output_filename "execute_app_with_text_and_min_length_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee"            -output_filename "execute_app_with_multiple_text_lines_produces_expected_output"
-    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee|-a|Center"  -output_filename "execute_app_with_multiple_text_lines_aligned_center_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "Execute_with_help_request_produces_arguments_list"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                         -output_filename "Execute_with_full_help_request_produces_arguments_list"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob"                            -output_filename "Execute_with_text_only_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "bob|-minl|80"                   -output_filename "Execute_with_text_and_min_length_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee"            -output_filename "Execute_with_multiple_text_lines_produces_expected_output"
+    Set-ExpectedOutput -app_full_path $app.FullName -arguments "a|bb|ccc|dddd|eeeee|-a|Center"  -output_filename "Execute_with_multiple_text_lines_aligned_center_produces_expected_output"
 }
 
 
@@ -110,6 +112,7 @@ if ( $null -ne $app ) {
 $app_name = "Stopwatch"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "execute_app_with_help_request_produces_arguments_list"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "--help"                     -output_filename "execute_app_with_full_help_request_produces_arguments_list"
@@ -126,6 +129,7 @@ if ( $null -ne $app ) {
 $app_name = "FigLetText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").TrimStart('v')
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "HelloWorld!"             -output_filename "Execute_HelloWorld_default_font_produces_expected_output"
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "HelloWorld!|-n|banner"   -output_filename "Execute_HelloWorld_font_banner_produces_expected_output"

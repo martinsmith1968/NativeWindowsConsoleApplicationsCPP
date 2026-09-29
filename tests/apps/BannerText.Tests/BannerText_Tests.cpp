@@ -50,6 +50,13 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "-?"));
 
     TestHelper::WriteMajorSeparator(100);
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "/?"));
+}
+
+TEST_F(TEST_GROUP, Execute_with_full_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "--help"));
 }
 
