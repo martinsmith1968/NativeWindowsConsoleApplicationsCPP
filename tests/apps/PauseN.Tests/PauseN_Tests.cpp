@@ -5,10 +5,11 @@
 
 #include "../../../Common/AppInfo.h"
 #include "../../../apps/Stopwatch/AppCommands.h"
+#include "../../../libs/DNX.Utils/DirectoryUtils.h"
 #include "../../../libs/DNX.Utils/FileUtils.h"
 #include "../../DNX.Tests.Common/BlockTimer.h"
 #include "../../DNX.Tests.Common/TestHelper.h"
-#include "../../DNX.Tests.Common/TestRunController.h"
+#include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
@@ -41,10 +42,12 @@ protected:
 
     void SetUp() override
     {
-        m_test_controller = new TestRunController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "PauseN.exe", "p");
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "PauseN.exe", "p");
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetExecutableFilePath();
+
+        cout << "Current Directory: " << DirectoryUtils::GetCurrentDirectory() << endl;
     }
 
     void TearDown() override

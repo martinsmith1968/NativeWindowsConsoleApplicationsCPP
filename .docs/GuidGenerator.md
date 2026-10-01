@@ -84,7 +84,7 @@ Options:
 -@, --use-default-arguments-file +/-  Use Default Arguments File (GuidGenerator.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (GuidGenerator.options) (Default:true)
 
-Default App arguments can be specified in : C:\Temp\a6e4aa6c3091438b97abf6d2b52171ed\GuidGenerator.options
+Default App arguments can be specified in : C:\Temp\ae0ca9fd266d407493d7308c21dd5832\GuidGenerator.options
 Local App arguments can be specified in : C:\Temp\GuidGenerator.options
 
 Notes:

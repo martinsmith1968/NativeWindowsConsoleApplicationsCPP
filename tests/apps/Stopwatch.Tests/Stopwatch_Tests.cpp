@@ -37,6 +37,8 @@ protected:
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetRelocatedExecutableFilePath();
+
+        cout << "Current Directory: " << DirectoryUtils::GetCurrentDirectory() << endl;
     }
 
     void TearDown() override
