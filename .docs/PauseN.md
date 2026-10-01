@@ -25,7 +25,7 @@ Both the `message-text` and the `timeout-seconds` to wait can be configured (as 
 > PauseN -!
 
 ```text
-v2.2.0.0-dev
+v3.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -37,7 +37,7 @@ The full help text looks something like this :
 > PauseN -?
 
 ```text
-PauseN v2.2.0.0-dev - Pause console output for a keypress, or a timeout
+PauseN v3.0.0.0-dev - Pause console output for a keypress, or a timeout
 Copyright ® 2018-2026 Martin Smith
 
 Usage:
@@ -55,6 +55,6 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\PauseN.options
+Default App arguments can be specified in : C:\Temp\7dc8846c00ed4e88988e3e0568ddb018\PauseN.options
 Local App arguments can be specified in : C:\Temp\PauseN.options
 ```

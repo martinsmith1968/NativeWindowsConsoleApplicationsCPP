@@ -50,7 +50,7 @@ BannerText "Hello World" -minl 80 -ta Center
 > BannerText -!
 
 ```text
-v2.2.0.0-dev
+v3.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -62,7 +62,7 @@ The full help text looks something like this :
 > BannerText -?
 
 ```text
-BannerText v2.2.0.0-dev - Display a Text Banner in the console
+BannerText v3.0.0.0-dev - Display a Text Banner in the console
 Copyright ® 2018-2026 Martin Smith
 
 Usage:
@@ -88,6 +88,6 @@ Options:
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 @<filename>                             Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\BannerText.options
+Default App arguments can be specified in : C:\Temp\7dc8846c00ed4e88988e3e0568ddb018\BannerText.options
 Local App arguments can be specified in : C:\Temp\BannerText.options
 ```

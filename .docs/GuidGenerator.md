@@ -56,7 +56,7 @@ And the general output :
 > GuidGenerator -!
 
 ```text
-v2.2.0.0-dev
+v3.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -68,7 +68,7 @@ The full help text looks something like this :
 > GuidGenerator -?
 
 ```text
-GuidGenerator v2.2.0.0-dev - Generate Guid(s) and output to the console
+GuidGenerator v3.0.0.0-dev - Generate Guid(s) and output to the console
 Copyright ® 2018-2026 Martin Smith
 
 Usage:
@@ -85,7 +85,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (GuidGenerator.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\GuidGenerator.options
+Default App arguments can be specified in : C:\Temp\7dc8846c00ed4e88988e3e0568ddb018\GuidGenerator.options
 Local App arguments can be specified in : C:\Temp\GuidGenerator.options
 
 Notes:

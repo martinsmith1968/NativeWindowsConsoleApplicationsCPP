@@ -40,7 +40,7 @@ So I came up with ShowDateTime, which allows you to control the format of the ou
 > ShowDateTime -!
 
 ```text
-v2.2.0.0-dev
+v3.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -52,7 +52,7 @@ The full help text looks something like this :
 > ShowDateTime -?
 
 ```text
-ShowDateTime v2.2.0.0-dev - Show current date and time formatted
+ShowDateTime v3.0.0.0-dev - Show current date and time formatted
 Copyright ® 2018-2026 Martin Smith
 
 Usage:
@@ -68,7 +68,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\572b11b7511f49e89579b6f814271a0b\ShowDateTime.options
+Default App arguments can be specified in : C:\Temp\7dc8846c00ed4e88988e3e0568ddb018\ShowDateTime.options
 Local App arguments can be specified in : C:\Temp\ShowDateTime.options
 
 Notes:
