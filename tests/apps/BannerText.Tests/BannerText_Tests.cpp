@@ -13,6 +13,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CppUseInternalLinkage
 
 using namespace std;
 using namespace DNX::Utils;
