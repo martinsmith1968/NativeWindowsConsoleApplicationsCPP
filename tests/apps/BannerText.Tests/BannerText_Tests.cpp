@@ -13,6 +13,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CppUseInternalLinkage
 
 using namespace std;
 using namespace DNX::Utils;
@@ -27,14 +28,16 @@ class TEST_GROUP : public testing::Test
 protected:
     AppInfo m_app_info;
     TestRunRelocatingController* m_test_controller = nullptr;
-    string m_target_executable_filename;
+    string m_target_executable_filepath;
 
     void SetUp() override
     {
         m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "BannerText.exe", "bt");
         m_test_controller->SetUp();
 
-        m_target_executable_filename = m_test_controller->GetRelocatedExecutableFilePath();
+        m_target_executable_filepath = m_test_controller->GetRelocatedExecutableFilePath();
+
+        cout << "Current Directory: " << DirectoryUtils::GetCurrentDirectory() << endl;
     }
 
     void TearDown() override
@@ -47,7 +50,7 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "-?"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-?"));
 
     TestHelper::WriteMajorSeparator(100);
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "/?"));
@@ -64,26 +67,26 @@ TEST_F(TEST_GROUP, Execute_with_text_only_produces_expected_output)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "bob"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "bob"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_text_and_min_length_produces_expected_output)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName()    ;
 
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "bob|-minl|80"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "bob|-minl|80"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_multiple_text_lines_produces_expected_output)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "a|bb|ccc|dddd|eeeee"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "a|bb|ccc|dddd|eeeee"));
 }
 
 TEST_F(TEST_GROUP, Execute_with_multiple_text_lines_aligned_center_produces_expected_output)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filename, "a|bb|ccc|dddd|eeeee|-ta|Center"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "a|bb|ccc|dddd|eeeee|-ta|Center"));
 }

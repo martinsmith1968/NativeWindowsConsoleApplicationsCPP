@@ -14,6 +14,7 @@
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CppUseInternalLinkage
 
 using namespace std;
 using namespace DNX::Utils;
@@ -37,6 +38,8 @@ protected:
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetRelocatedExecutableFilePath();
+
+        cout << "Current Directory: " << DirectoryUtils::GetCurrentDirectory() << endl;
     }
 
     void TearDown() override
