@@ -104,6 +104,6 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\849d3fdc60d04da69fdd5f6e00c8c2e8\FigLetText.options
+Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\FigLetText.options
 Local App arguments can be specified in : C:\Temp\FigLetText.options
 ```
