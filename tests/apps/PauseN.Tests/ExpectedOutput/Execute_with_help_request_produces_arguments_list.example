@@ -1,5 +1,5 @@
-PauseN v3.0.0.0-dev - Pause console output for a keypress, or a timeout
-Copyright Â® 2018-%CURRENT_YEAR% Martin Smith
+PauseN %APP_VERSION% - Pause console output for a keypress, or a timeout
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
 
 Usage:
 PauseN [message-text] [OPTIONS]
@@ -16,5 +16,5 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\PauseN.options
-Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\PauseN.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\PauseN.options
+Local App arguments can be specified in : %TEMP%\PauseN.options

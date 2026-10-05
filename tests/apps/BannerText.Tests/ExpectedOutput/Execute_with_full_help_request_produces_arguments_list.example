@@ -1,5 +1,5 @@
-BannerText v3.0.0.0-dev - Display a Text Banner in the console
-Copyright Â® 2018-%CURRENT_YEAR% Martin Smith
+BannerText %APP_VERSION% - Display a Text Banner in the console
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
 
 Usage:
 BannerText [message-text] [OPTIONS]
@@ -24,5 +24,5 @@ Options:
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 @<filename>                             Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\BannerText.options
-Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\BannerText.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\BannerText.options
+Local App arguments can be specified in : %TEMP%\BannerText.options

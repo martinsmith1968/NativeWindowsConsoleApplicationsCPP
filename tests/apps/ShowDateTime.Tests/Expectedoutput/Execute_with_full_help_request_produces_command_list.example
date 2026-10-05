@@ -1,5 +1,5 @@
-ShowDateTime v3.0.0.0-dev - Show current date and time formatted
-Copyright Â® 2018-%CURRENT_YEAR% Martin Smith
+ShowDateTime %APP_VERSION% - Show current date and time formatted
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
 
 Usage:
 ShowDateTime [OPTIONS]
@@ -14,8 +14,8 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\ShowDateTime.options
-Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\ShowDateTime.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\ShowDateTime.options
+Local App arguments can be specified in : %TEMP%\ShowDateTime.options
 
 Notes:
 This uses 'strftime' internally, so see the following for supported date formats:

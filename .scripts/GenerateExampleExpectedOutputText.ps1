@@ -13,10 +13,13 @@ function Set-ExpectedOutput {
         [bool]$show_output = $true
     )
 
-    $app_name = [System.IO.Path]::GetFileNameWithoutExtension($app_name)
+    $app_name = [System.IO.Path]::GetFileNameWithoutExtension($app_full_path)
+
+    # Single-byte encoding, so the app's output bytes round-trip exactly (as the tests compare raw bytes)
+    $raw_encoding = [System.Text.Encoding]::Latin1
 
     if ( [string]::IsNullOrEmpty($expected_output_path) ) {
-        $expected_output_path = [System.IO.Path]::GetFullPath((Join-Path -Path $PSScriptRoot -ChildPath ".." "tests" "apps" ($app_name + ".Tests") "Expectedoutput"))
+        $expected_output_path = [System.IO.Path]::GetFullPath((Join-Path -Path $PSScriptRoot -ChildPath ".." "tests" "apps" ($app_name + ".Tests") "ExpectedOutput"))
     }
     if ( -not (Test-Path -Path $expected_output_path -PathType Container) ) {
         New-Item -Path $expected_output_path -ItemType Directory -Force | Out-Null
@@ -25,27 +28,47 @@ function Set-ExpectedOutput {
     $parameters = $arguments.Split("|")
 
     $example_filename = "$($output_filename).example"
+    $example_full_path = Join-Path -Path $expected_output_path -ChildPath $example_filename
 
     Write-Host "  $($app_name) - Generating : $($example_filename)"
 
-    # Use ProcessStartInfo with redirected stdout so the binary has no Win32 console,
-    $psi = New-Object System.Diagnostics.ProcessStartInfo
-    $psi.FileName = $app_full_path
-    $parameters | ForEach-Object { $psi.ArgumentList.Add($_) }
-    $psi.RedirectStandardOutput = $true
-    $psi.RedirectStandardError  = $true
-    $psi.UseShellExecute        = $false
-    $psi.CreateNoWindow         = $true
-    $proc = [System.Diagnostics.Process]::Start($psi)
-    $stdout = $proc.StandardOutput.ReadToEnd()
-    $proc.WaitForExit()
-    Set-Content -Path (Join-Path -Path $expected_output_path -ChildPath $example_filename) -Value $stdout -Encoding UTF8 -NoNewline
+    # Mirror the tests (TestRunRelocatingController): run a copy of the app from a folder under TEMP,
+    # with TEMP as the current directory
+    $temp_path       = $env:TEMP.TrimEnd('\')
+    $run_folder_path = Join-Path -Path $temp_path -ChildPath ("testgen" + [System.Guid]::NewGuid().ToString("N"))
+    New-Item -Path $run_folder_path -ItemType Directory -Force | Out-Null
+
+    try {
+        $relocated_app_path = Join-Path -Path $run_folder_path -ChildPath ([System.IO.Path]::GetFileName($app_full_path))
+        Copy-Item -Path $app_full_path -Destination $relocated_app_path -Force
+
+        # Use ProcessStartInfo with redirected stdout so the binary has no Win32 console,
+        $psi = New-Object System.Diagnostics.ProcessStartInfo
+        $psi.FileName = $relocated_app_path
+        $psi.WorkingDirectory = $temp_path
+        $parameters | ForEach-Object { $psi.ArgumentList.Add($_) }
+        $psi.RedirectStandardOutput = $true
+        $psi.RedirectStandardError  = $true
+        $psi.StandardOutputEncoding = $raw_encoding
+        $psi.UseShellExecute        = $false
+        $psi.CreateNoWindow         = $true
+        $proc = [System.Diagnostics.Process]::Start($psi)
+        $stdout = $proc.StandardOutput.ReadToEnd()
+        $proc.WaitForExit()
+    }
+    finally {
+        Remove-Item -Path $run_folder_path -Recurse -Force -ErrorAction SilentlyContinue
+    }
 
     Write-Host "  $($app_name) - Adjusting : $($example_filename)"
-    $text = (Get-Content -Path (Join-Path -Path $expected_output_path -ChildPath $example_filename) -Raw)
-    $text = $text -replace $current_app_version, "%APP_VERSION%"
-    $text = $text -replace "-${current_year}", '-%CURRENT_YEAR%'
-    Set-Content -Path (Join-Path -Path $expected_output_path -ChildPath $example_filename) -Value $text -Encoding UTF8 -NoNewline
+    # Placeholders are expanded by the tests (TestHelper::GetExpectedOutput) from environment variables.
+    # Order matters : the run folder is under TEMP
+    $text = $stdout
+    $text = $text -replace [regex]::Escape($run_folder_path), "%RUN_FOLDERNAME%"
+    $text = $text -replace [regex]::Escape($temp_path), "%TEMP%"
+    $text = $text -replace [regex]::Escape($current_app_version), "%APP_VERSION%"
+    $text = $text -replace "-${current_year}", '-%DATE_CURRENTYEAR%'
+    [System.IO.File]::WriteAllText($example_full_path, $text, $raw_encoding)
 
     if ($show_output) {
         Write-Host "  $($app_name) - Output : $($example_filename)" -ForegroundColor Gray
@@ -100,7 +123,7 @@ if ( $apps.Count -eq 0 ) {
 $app_name = "BannerText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -115,7 +138,7 @@ if ( $null -ne $app ) {
 $app_name = "FigLetText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -136,7 +159,7 @@ if ( $null -ne $app ) {
 $app_name = "GuidGenerator"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -148,7 +171,7 @@ if ( $null -ne $app ) {
 $app_name = "PauseN"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                                 -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -162,7 +185,7 @@ if ( $null -ne $app ) {
 $app_name = "ShowDateTime"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                                 -output_filename "Execute_with_help_request_produces_command_list"
@@ -173,7 +196,7 @@ if ( $null -ne $app ) {
 $app_name = "Stopwatch"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.TrimStart('v')
+    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
 
     $dataFileName = New-TempFileName
     Remove-Item-IfExists $dataFileName

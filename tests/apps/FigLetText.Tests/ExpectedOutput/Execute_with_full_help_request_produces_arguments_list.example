@@ -1,5 +1,5 @@
-FigLetText v3.0.0.0-dev - Generate Text in FigLet format
-Copyright Â® 2018-%CURRENT_YEAR% Martin Smith
+FigLetText %APP_VERSION% - Generate Text in FigLet format
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
 
 Usage:
 FigLetText [message-text] [OPTIONS]
@@ -17,5 +17,5 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\FigLetText.options
-Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\FigLetText.options
+Default App arguments can be specified in : %RUN_FOLDERNAME%\FigLetText.options
+Local App arguments can be specified in : %TEMP%\FigLetText.options
