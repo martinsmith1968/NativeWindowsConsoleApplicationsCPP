@@ -2,7 +2,7 @@
 function Build-AppsList {
     param (
         [string]$base_path_name,
-        [bool]$showAppsist = $true
+        [bool]$showAppsList = $true
     )
 
     $allfiles = @{}
@@ -31,7 +31,7 @@ function Build-AppsList {
     }
 
     Write-Host "$($apps.Count) Apps found" -ForegroundColor Green
-    if ($showAppsist) {
+    if ($showAppsList) {
         foreach( $app in $apps.GetEnumerator() ) {
             Write-Host "$($app.Key) : $($app.Value.FullName)" -ForegroundColor DarkGray
         }
@@ -92,7 +92,11 @@ function Invoke-CaptureOutput {
 
     $start_info = New-Object System.Diagnostics.ProcessStartInfo
     $start_info.FileName               = $app_full_path
-    $start_info.Arguments              = $arguments
+    if ($arguments.contains("|")) {
+        $arguments.Split("|") | ForEach-Object { $start_info.ArgumentList.Add($_) }
+    } else {
+        $start_info.Arguments          = $arguments
+    }
     $start_info.RedirectStandardOutput = $true
     $start_info.RedirectStandardError  = $true
     $start_info.UseShellExecute        = $false
@@ -110,4 +114,35 @@ function Invoke-CaptureOutput {
     $process.WaitForExit()
 
     return @{ StdOut = $stdout; StdErr = $stderr; ExitCode = $process.ExitCode }
+}
+
+#---------------------------------------------------------------------------------------------------
+function Remove-Item-IfExists {
+    param (
+        [string]$filePath
+    )
+
+    if (Test-Path $filePath -PathType Leaf) {
+        Remove-Item $filePath
+    }
+}
+
+#---------------------------------------------------------------------------------------------------
+function New-TempFileName {
+    param (
+        [string]$filePrefix = "Temp",
+        [string]$fileExtension = "tmp",
+        [bool]$createFile = $True
+    )
+
+    $value = ([guid]::NewGuid()).Guid.ToString().Replace("-", "")
+
+    $fileName = Join-Path ( [System.IO.Path]::GetTempPath() ) "$($filePrefix)$($value).$($fileExtension)"
+
+    if ($createFile) {
+        Remove-Item-IfExists $fileName
+        New-Item $fileName -ItemType File | Out-Null
+    }
+
+    return $fileName
 }

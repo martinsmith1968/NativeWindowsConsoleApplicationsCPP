@@ -10,6 +10,7 @@
 #include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 #include "gtest/gtest.h"
 #include <filesystem>
+#include <iostream>
 #include <string>
 
 // ReSharper disable CppInconsistentNaming
@@ -56,54 +57,65 @@ TEST_F(TEST_GROUP, Execute_with_help_request_produces_command_list)
 
     TestHelper::WriteMajorSeparator(100);
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "/?"));
+}
 
-    TestHelper::WriteMajorSeparator(100);
+TEST_F(TEST_GROUP, Execute_with_full_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "--help"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_cancel_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Cancel_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "cancel|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_elapsed_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Elapsed_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "elapsed|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_list_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_List_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "list|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_pause_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Pause_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "pause|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_resume_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Purge_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "purge|-?"));
+}
+
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Resume_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "resume|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_start_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Start_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "start|-?"));
 }
 
-TEST_F(TEST_GROUP, Execute_command_stop_with_help_request_short_produces_command_list)
+TEST_F(TEST_GROUP, Execute_with_help_request_for_Stop_produces_arguments_list)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 

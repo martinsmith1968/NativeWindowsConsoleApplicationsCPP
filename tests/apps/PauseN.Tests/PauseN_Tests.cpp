@@ -28,7 +28,7 @@ class TestData
 public:
     static string GetText_CustomWithTimeoutValue()
     {
-        return "Press a key, or wait {timeout} seconds...";
+        return "Pausing for {timeout} seconds";
     }
 };
 
@@ -57,16 +57,42 @@ protected:
     }
 };
 
-TEST_F(TEST_GROUP, Execute_no_parameters_produces_expected_output)
+TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-?"));
+
+    TestHelper::WriteMajorSeparator(100);
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "/?"));
+}
+
+TEST_F(TEST_GROUP, Execute_with_full_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "--help"));
+}
+
+TEST_F(TEST_GROUP, Execute_for_1_second_default_message)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     auto timer = BlockTimer();
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-t|3"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-t|1"));
+    EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 1);
+}
+
+TEST_F(TEST_GROUP, Execute_for_5_seconds_default_message)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    auto timer = BlockTimer();
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-t|5"));
     EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 3);
 }
 
-TEST_F(TEST_GROUP, Execute_custom_text_showing_timeout_value_produces_expected_output)
+TEST_F(TEST_GROUP, Execute_for_5_seconds_custom_message)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 

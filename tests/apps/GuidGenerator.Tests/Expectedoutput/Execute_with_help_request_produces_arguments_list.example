@@ -1,0 +1,33 @@
+GuidGenerator v3.0.0.0-dev - Generate Guid(s) and output to the console
+Copyright ® 2018-%CURRENT_YEAR% Martin Smith
+
+Usage:
+GuidGenerator [OPTIONS]
+
+Options:
+-g, --generator Value                 The Guid generation method to use (Default:OS, Values: OS, DateTime)
+-c, --count Integer                   How many Guids to generate (Default:1)
+-f, --format Text                     The .NET format to use to output the Guid value(s)
+-of, --output Text                    The output format to use when writing the value(s) (Default:{guid})
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (GuidGenerator.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (GuidGenerator.options) (Default:true)
+@<filename>                           Read additional arguments from a file
+
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\GuidGenerator.options
+Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\GuidGenerator.options
+
+Notes:
+Guid Format options:
+ N - 00000000000000000000000000000000
+ D - 00000000-0000-0000-0000-000000000000
+ B - {00000000-0000-0000-0000-000000000000}
+ P - (00000000-0000-0000-0000-000000000000)
+(Lower case format specifiers generate values in Lowercase format)
+See also : https://learn.microsoft.com/en-us/dotnet/api/system.guid.tostring
+
+Output Format options:
+ {guid} - The Guid value
+ {seq}  - The incrementing sequence number of generated values (From: 1)
+ {id}   - {sequence} left padded with zeroes

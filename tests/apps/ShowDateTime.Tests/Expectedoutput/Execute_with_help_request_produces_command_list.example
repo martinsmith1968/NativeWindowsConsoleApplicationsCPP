@@ -1,0 +1,31 @@
+ShowDateTime v3.0.0.0-dev - Show current date and time formatted
+Copyright ® 2018-%CURRENT_YEAR% Martin Smith
+
+Usage:
+ShowDateTime [OPTIONS]
+
+Options:
+-f, --format Text                     The format to use to display the datetime value (Default:%Y-%m-%d %H:%M:%S.{fff})
+-t, --type Value                      The time value to use (Default:Local, Values: Local, UTC)
+-dt, --datetime DateTime              The datetime value to format (default is current time)
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (ShowDateTime.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
+@<filename>                           Read additional arguments from a file
+
+Default App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\Output\x64\Debug\ShowDateTime.options
+Local App arguments can be specified in : C:\Dev\GitHub\martinsmith1968\NativeWindowsConsoleApplicationsCPP\.scripts\ShowDateTime.options
+
+Notes:
+This uses 'strftime' internally, so see the following for supported date formats:
+  https://cplusplus.com/reference/ctime/strftime/
+As well as:
+  {fff} - Milliseconds - always 3 digits
+  {f}   - Milliseconds - as few digits as possible
+  {qq}  - Month Quarter (left padded with 0 to 2 digits
+  {q}   - Month Quarter
+  {M}   - Month number (1 - 12)
+  {d}   - Day number (1 - 31)
+  {H}   - 24 Hour number (0 - 23)
+  {h}   - Hour number (0 - 12)

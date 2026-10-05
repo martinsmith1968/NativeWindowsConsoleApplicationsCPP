@@ -6,7 +6,7 @@
 #include "../../../Common/AppInfo.h"
 #include "../../../libs/DNX.Utils/StringUtils.h"
 #include "../../DNX.Tests.Common/TestHelper.h"
-#include "../../DNX.Tests.Common/TestRunController.h"
+#include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 #include <regex>
 
 // ReSharper disable CppInconsistentNaming
@@ -47,7 +47,7 @@ protected:
 
     void SetUp() override
     {
-        m_test_controller = new TestRunController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "ShowDateTime.exe", "sdt");
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "ShowDateTime.exe", "sdt");
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetExecutableFilePath();

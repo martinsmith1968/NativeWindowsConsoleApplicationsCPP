@@ -4,18 +4,25 @@
 #define VER_FILE_DESCRIPTION_STR    "GuidGenerator Google Tests"
 
 #include "../../../Common/AppInfo.h"
+#include "../../../libs/DNX.Utils/DateUtils.h"
+#include "../../../libs/DNX.Utils/DirectoryUtils.h"
 #include "../../../libs/DNX.Utils/StringUtils.h"
 #include "../../DNX.Tests.Common/TestHelper.h"
-#include "../../DNX.Tests.Common/TestRunController.h"
+#include "../../DNX.Tests.Common/TestRunRelocatingController.h"
+#include "gtest/gtest.h"
+#include <filesystem>
 #include <regex>
+#include <string>
 #include <vector>
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CppUseInternalLinkage
 
 using namespace std;
 using namespace DNX::Utils;
 using namespace DNX::Tests::Common;
+using namespace filesystem;
 
 #define TEST_GROUP GuidGenerator
 
@@ -66,7 +73,7 @@ protected:
 
     void SetUp() override
     {
-        m_test_controller = new TestRunController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "GuidGenerator.exe", "gg");
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "GuidGenerator.exe", "gg");
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetExecutableFilePath();
@@ -77,7 +84,7 @@ protected:
         m_test_controller->TearDown();
     }
 
-    static vector<string> GetOutputLines(const string& output)
+    static vector<string> GetSanitisedOutputLines(const string& output)
     {
         const auto split_lines = StringUtils::SplitText(StringUtils::Trim(output), '\n');
 
@@ -94,7 +101,7 @@ TEST_F(TEST_GROUP, Execute_no_parameters_produces_single_guid_in_default_format)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetDefaultFormatPattern()));
@@ -104,7 +111,7 @@ TEST_F(TEST_GROUP, Execute_with_count_produces_multiple_guids)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-c|5");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(5, lines.size());
     for (const auto& line : lines)
@@ -117,7 +124,7 @@ TEST_F(TEST_GROUP, Execute_with_format_n_produces_32_digit_guid)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-f|n");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetDigitsFormatPattern()));
@@ -127,7 +134,7 @@ TEST_F(TEST_GROUP, Execute_with_format_d_produces_dashed_guid)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-f|d");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetDefaultFormatPattern()));
@@ -137,7 +144,7 @@ TEST_F(TEST_GROUP, Execute_with_format_b_produces_braced_guid)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-f|b");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetBracedFormatPattern()));
@@ -147,7 +154,7 @@ TEST_F(TEST_GROUP, Execute_with_format_p_produces_parenthesized_guid)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-f|p");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetParenthesizedFormatPattern()));
@@ -157,7 +164,7 @@ TEST_F(TEST_GROUP, Execute_with_format_D_produces_uppercase_dashed_guid)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-f|D");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(1, lines.size());
     EXPECT_TRUE(regex_match(lines[0], TestData::GetUpperCaseDefaultFormatPattern()));
@@ -167,7 +174,7 @@ TEST_F(TEST_GROUP, Execute_with_output_format_produces_custom_template)
 {
     const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, R"(|-c|3|-of|{seq}:{id}:{guid})");
 
-    const auto lines = GetOutputLines(output);
+    const auto lines = GetSanitisedOutputLines(output);
 
     ASSERT_EQ(3, lines.size());
 
