@@ -362,4 +362,4 @@ ASALocalRun/
 
 *.testout
 
-**/ExpectedOutput/*.example
+**/ExpectedOutput/*.txt

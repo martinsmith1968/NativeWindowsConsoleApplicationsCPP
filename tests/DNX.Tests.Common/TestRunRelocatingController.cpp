@@ -20,6 +20,9 @@ TestRunRelocatingController::TestRunRelocatingController(testing::UnitTest* unit
 
     m_app_relocator.SetAppFolderPath(m_run_folder_path);
     m_relocated_executable_filepath = m_app_relocator.CopyFileToAppFolder(m_executable_filepath, true);
+
+    // Tests must run the relocated copy, so that app-folder-relative output (e.g. the default options file path) is predictable
+    m_executable_filepath = m_relocated_executable_filepath;
 }
 
 void TestRunRelocatingController::SetUp()

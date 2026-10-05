@@ -73,7 +73,7 @@ The spec can be found here : http://jave.de/figlet/figfont.html:
 > FigLetText -!
 
 ```text
-v2.2.0.0-dev
+v3.0.0.0-dev
 ```
 
 ## Full Help Text
@@ -85,7 +85,7 @@ The full help text looks something like this :
 > FigLetText -?
 
 ```text
-FigLetText v2.2.0.0-dev - Generate Text in FigLet format
+FigLetText v3.0.0.0-dev - Generate Text in FigLet format
 Copyright ® 2018-2026 Martin Smith
 
 Usage:
@@ -102,7 +102,8 @@ Options:
 -?, --help +/-                        Show Help screen (Default:false)
 -@, --use-default-arguments-file +/-  Use Default Arguments File (FigLetText.options) (Default:true)
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
+@<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\a6e4aa6c3091438b97abf6d2b52171ed\FigLetText.options
+Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\FigLetText.options
 Local App arguments can be specified in : C:\Temp\FigLetText.options
 ```

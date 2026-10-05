@@ -18,9 +18,9 @@ using namespace ShowDateTime;
 // Execute
 void App::Execute(AppArguments& arguments)
 {
-    const auto now = system_clock::now();
+    const auto time_point = arguments.GetDateTime();
 
-    const auto output = arguments.GetFormattedDateTime(now);
+    const auto output = arguments.GetFormattedDateTime(time_point);
 
     cout << output << endl;
 }

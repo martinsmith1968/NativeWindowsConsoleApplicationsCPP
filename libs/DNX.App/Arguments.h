@@ -194,6 +194,5 @@ namespace DNX::App
         bool IsHelp();
         bool IsVersion();
         bool IsUsingDefaultArgumentsFile();
-
     };
 }

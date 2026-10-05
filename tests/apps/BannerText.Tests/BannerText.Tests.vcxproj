@@ -24,7 +24,7 @@
     <RootNamespace>BannerTextTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -35,6 +35,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <OutDir>$(SolutionDir)\Output.Tests\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -142,20 +154,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.txt">
+    <None Include="ExpectedOutput\Execute_with_full_help_request_produces_arguments_list.example">
       <DeploymentContent>true</DeploymentContent>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_text_only_produces_expected_output.txt">
+    </None>
+    <None Include="ExpectedOutput\Execute_with_help_request_produces_arguments_list.example">
       <DeploymentContent>true</DeploymentContent>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_text_and_min_length_produces_expected_output.txt">
+    </None>
+    <None Include="ExpectedOutput\Execute_with_multiple_text_lines_aligned_center_produces_expected_output.example">
       <DeploymentContent>true</DeploymentContent>
-    </Text>
-    <Text Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.txt">
+    </None>
+    <None Include="ExpectedOutput\Execute_with_multiple_text_lines_produces_expected_output.example">
       <DeploymentContent>true</DeploymentContent>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_text_and_min_length_produces_expected_output.example">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="ExpectedOutput\Execute_with_text_only_produces_expected_output.example">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

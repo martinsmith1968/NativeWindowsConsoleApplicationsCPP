@@ -3,8 +3,8 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 
 env:
   PRIMARY_BRANCH_NAME: master
-  APP_MAJOR_VERSION: 2
-  APP_MINOR_VERSION: 2
+  APP_MAJOR_VERSION: 3
+  APP_MINOR_VERSION: 0
   PROJECT_NAME: NativeWindowsConsoleApplicationsCPP
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -235,7 +235,11 @@ jobs:
             Write-Host "-- Testing: ${filename}"
             Write-Host "----------------------------------------------------------------------------------------------------"
 
-            & $filename
+            # App tests locate their ExpectedOutput folder relative to the working directory
+            $testFolder = Join-Path "tests/apps" $filename.BaseName
+            if (Test-Path $testFolder) { Push-Location $testFolder } else { Push-Location . }
+            & $filename.FullName
+            Pop-Location
         }
 
     - name: Add files to output folder

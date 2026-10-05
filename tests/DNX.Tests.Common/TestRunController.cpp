@@ -22,7 +22,7 @@ TestRunController::TestRunController(testing::UnitTest* unit_test_instance, AppD
 
 string TestRunController::GetExpectedOutputFileName() const
 {
-    return PathUtils::Combine("ExpectedOutput", string(m_unit_test_instance->current_test_info()->name()) + ".txt");
+    return PathUtils::Combine(m_unit_test_instance->original_working_dir(), "ExpectedOutput", string(m_unit_test_instance->current_test_info()->name()) + ".example");
 }
 
 void TestRunController::SetUp()
