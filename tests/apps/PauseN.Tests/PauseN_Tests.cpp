@@ -5,13 +5,15 @@
 
 #include "../../../Common/AppInfo.h"
 #include "../../../apps/Stopwatch/AppCommands.h"
+#include "../../../libs/DNX.Utils/DirectoryUtils.h"
 #include "../../../libs/DNX.Utils/FileUtils.h"
 #include "../../DNX.Tests.Common/BlockTimer.h"
 #include "../../DNX.Tests.Common/TestHelper.h"
-#include "../../DNX.Tests.Common/TestRunController.h"
+#include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable StringLiteralTypo
+// ReSharper disable CppUseInternalLinkage
 
 using namespace std;
 using namespace DNX::Utils;
@@ -26,7 +28,7 @@ class TestData
 public:
     static string GetText_CustomWithTimeoutValue()
     {
-        return "Press a key, or wait {timeout} seconds...";
+        return "Pausing for {timeout} seconds";
     }
 };
 
@@ -41,10 +43,12 @@ protected:
 
     void SetUp() override
     {
-        m_test_controller = new TestRunController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "PauseN.exe", "p");
+        m_test_controller = new TestRunRelocatingController(::testing::UnitTest::GetInstance(), static_cast<AppDetails>(m_app_info), "PauseN.exe", "p");
         m_test_controller->SetUp();
 
         m_target_executable_filepath = m_test_controller->GetExecutableFilePath();
+
+        cout << "Current Directory: " << DirectoryUtils::GetCurrentDirectory() << endl;
     }
 
     void TearDown() override
@@ -53,16 +57,43 @@ protected:
     }
 };
 
-TEST_F(TEST_GROUP, Execute_no_parameters_produces_expected_output)
+TEST_F(TEST_GROUP, Execute_with_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-?"));
+
+    TestHelper::WriteMajorSeparator(100);
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "/?"));
+}
+
+TEST_F(TEST_GROUP, Execute_with_full_help_request_produces_arguments_list)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "--help"));
+}
+
+TEST_F(TEST_GROUP, Execute_for_1_second_default_message)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     auto timer = BlockTimer();
-    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "|-t|3"));
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-t|1"));
+    // The app compares whole seconds, so it can finish in under 1s; it always sleeps at least one (200ms) cycle
+    EXPECT_GE(timer.elapsed<BlockTimer::MILLISECONDS>(), 200);
+}
+
+TEST_F(TEST_GROUP, Execute_for_5_seconds_default_message)
+{
+    const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
+
+    auto timer = BlockTimer();
+    EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-t|5"));
     EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 3);
 }
 
-TEST_F(TEST_GROUP, Execute_custom_text_showing_timeout_value_produces_expected_output)
+TEST_F(TEST_GROUP, Execute_for_5_seconds_custom_message)
 {
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 

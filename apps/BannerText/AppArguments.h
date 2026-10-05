@@ -54,6 +54,19 @@ namespace BannerText
 
         TextAlignmentTypeTextResolver TextAlignmentTypeTextConverter;
 
+    protected:
+        void PostParseValidate() override
+        {
+            if (!IsValid())
+                return;
+
+            const auto printableLineLength = GetTextPrintableLineLength();
+            if (printableLineLength <= 0)
+            {
+                AddError(string("Maximum line length too restrictive: ") + to_string(printableLineLength));
+            }
+        }
+
     public:
         AppArguments()
         {
@@ -70,18 +83,6 @@ namespace BannerText
             AddOption(ValueType::ENUM, "ta", ArgumentNameTextAlignment, TextAlignmentTypeTextConverter.GetText(TextAlignmentType::LEFT), "Set Text Alignment", false, 0, TextAlignmentTypeTextConverter.GetAllText());
             AddOption(ValueType::INT, "minl", ArgumentNameMinTotalLength, "0", "Set Minimum Total line length", false);
             AddOption(ValueType::INT, "maxl", ArgumentNameMaxTotalLength, "0", "Set Maximum Total line length", false);
-        }
-
-        void PostParseValidate() override
-        {
-            if (!IsValid())
-                return;
-
-            const auto printableLineLength = GetTextPrintableLineLength();
-            if (printableLineLength <= 0)
-            {
-                AddError(string("Maximum line length too restrictive: ") + to_string(printableLineLength));
-            }
         }
 
         list<string> GetMessageTexts()
