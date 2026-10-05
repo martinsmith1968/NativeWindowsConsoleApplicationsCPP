@@ -80,7 +80,8 @@ TEST_F(TEST_GROUP, Execute_for_1_second_default_message)
 
     auto timer = BlockTimer();
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "-t|1"));
-    EXPECT_GE(timer.elapsed<BlockTimer::SECONDS>(), 1);
+    // The app compares whole seconds, so it can finish in under 1s; it always sleeps at least one (200ms) cycle
+    EXPECT_GE(timer.elapsed<BlockTimer::MILLISECONDS>(), 200);
 }
 
 TEST_F(TEST_GROUP, Execute_for_5_seconds_default_message)

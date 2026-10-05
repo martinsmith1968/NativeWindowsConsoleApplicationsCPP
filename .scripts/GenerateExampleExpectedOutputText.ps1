@@ -62,10 +62,11 @@ function Set-ExpectedOutput {
 
     Write-Host "  $($app_name) - Adjusting : $($example_filename)"
     # Placeholders are expanded by the tests (TestHelper::GetExpectedOutput) from environment variables.
-    # Order matters : the run folder is under TEMP
+    # Order matters : the run folder is under TEMP, which is under LOCALAPPDATA
     $text = $stdout
     $text = $text -replace [regex]::Escape($run_folder_path), "%RUN_FOLDERNAME%"
     $text = $text -replace [regex]::Escape($temp_path), "%TEMP%"
+    $text = $text -replace [regex]::Escape($env:LOCALAPPDATA.TrimEnd([char]92)), "%LOCALAPPDATA%"
     $text = $text -replace [regex]::Escape($current_app_version), "%APP_VERSION%"
     $text = $text -replace "-${current_year}", '-%DATE_CURRENTYEAR%'
     [System.IO.File]::WriteAllText($example_full_path, $text, $raw_encoding)
