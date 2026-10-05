@@ -1,3 +1,7 @@
+. $PSScriptRoot\Include-Scripts.ps1
+
+#---------------------------------------------------------------------------------------------------
+
 $latest_version_slug        = "[//]: # (APP_LATESTVERSION)"
 $help_output_slug           = "[//]: # (APP_HELPOUTPUT)"
 $command_output_slug_prefix = "[//]: # (CMD_HELPOUTPUT"
@@ -13,36 +17,24 @@ Write-Host "Temp Path       : $($temp_base_path)"
 Write-Host "Run Path        : $($temp_run_path)"
 
 
-# Start
-
-$allfiles = Get-ChildItem -Path $app_output_path -File -Filter "*.exe" -Recurse
-Write-Host "Found $($allfiles.Length) candidate executables"
-
 # Build Apps List
-$apps = @{}
-foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Release") }) {
-    $apps[$file.Name] = $file
+$apps = Build-AppsList -base_path_name $app_output_path
+if ( $apps.Count -eq 0 ) {
+    Write-Host "No apps found in output path. Please build the apps before running this script." -ForegroundColor Red
+    Write-Host "Searched Path : $($app_output_path)" -ForegroundColor Red
+    exit 1
 }
-foreach ($file in $allfiles | Where-Object { $_.FullName.contains("Debug") }) {
-    if ( $apps.ContainsKey($file.Name) ) {
-        continue
-    }
-    $apps[$file.Name] = $file
-}
+Write-Host "$($apps.Count) Apps found" -ForegroundColor Green
 
 # Copy Apps to Run Folder
 $run_apps = @{}
 Write-Host "Copying $($apps.Count) applications to temp run folder: $temp_run_path"
 New-Item -Path $temp_run_path -ItemType Directory -Force | Out-Null
 foreach ( $app in $apps.GetEnumerator() ) {
-    $appName = $app.Key
-    $appFile = $app.Value
-    $destFile = Join-Path -Path $temp_run_path -ChildPath $appName
+    Copy-AppByName-ToTarget -apps $apps -app_name $app.Key -target_folder $temp_run_path
 
-    Write-Host "  Copying App: ${appName} to ${destFile}"
-    Copy-Item -Path $appFile.FullName -Destination $destFile -Force
-
-    $run_apps[$appName] = Get-Item -Path $destFile
+    $destFile = Join-Path -Path $temp_run_path -ChildPath $app.Value.Name
+    $run_apps[$app.Key] = Get-Item -Path $destFile
 }
 
 # Process each App and generate Version and About help text
@@ -50,10 +42,10 @@ Write-Host "Generating $($run_apps.Count) applications Help Text"
 foreach ( $app in $run_apps.GetEnumerator() ) {
     $appName = $app.Key
     $appFile = $app.Value
-    $appBaseName = [System.IO.Path]::GetFileNameWithoutExtension($appName)
+    $appBaseName = [System.IO.Path]::GetFileNameWithoutExtension($appFile)
 
     Write-Host "Processing App: ${appName}" -ForegroundColor Cyan
-    Set-Location -Path $temp_base_path
+    Push-Location -Path $temp_base_path
 
     $docs_folder = Join-Path $PSScriptRoot -ChildPath ".." ".docs"
     $docs_helptext_folder = Join-Path $docs_folder -ChildPath "HelpText"
@@ -102,6 +94,8 @@ foreach ( $app in $run_apps.GetEnumerator() ) {
             Set-Content -Path $cmd_help_output_file -Value $cmd_help_text -Encoding UTF8
         }
     }
+
+    Pop-Location
 }
 
 

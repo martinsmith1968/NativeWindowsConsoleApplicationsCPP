@@ -1,0 +1,20 @@
+Stopwatch %APP_VERSION% - Control named out-of-process Timers
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+Stopwatch Purge [OPTIONS]
+
+Options:
+-d, --days Integer                    Remove Timers started before specified days
+-h, --hours Integer                   Remove Timers started before specified hours
+-s, --state Text                      Limit which Timer states can be removed (Values: Active, Inactive)
+-v, --verbose-output +/-              Control verbosity of output messages (Default:true)
+-df, --data-filename Text             The filename to store Stopwatch data in (Default:%LOCALAPPDATA%\DNXSolutions\Stopwatch\Stopwatch.data)
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (Stopwatch.pause.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.pause.options) (Default:true)
+@<filename>                           Read additional arguments from a file
+
+Default App arguments can be specified in : %RUN_FOLDERNAME%\Stopwatch.pause.options
+Local App arguments can be specified in : %TEMP%\Stopwatch.pause.options

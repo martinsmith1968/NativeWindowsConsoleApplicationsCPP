@@ -1,0 +1,21 @@
+FigLetText %APP_VERSION% - Generate Text in FigLet format
+Copyright © 2018-%DATE_CURRENTYEAR% Martin Smith
+
+Usage:
+FigLetText [message-text] [OPTIONS]
+
+Options:
+[message-text] Text                   The Text(s) to display (Required)
+-n, --font-type Value                 The font to use (Default:standard, Values: banner, big, doom, larry3d, mini, script, small, standard, straight)
+-f, --framing-type Value              The text framing outline to use (Default:none, Values: none, single, double)
+-s, --spacing-type Value              The character spacing to use (Default:smushed, Values: smushed, packed, fullwidth, monospaced)
+-ta, --text-alignment-type Value      The Text Alignment (Default:Left, Values: Left, Right, Center)
+-w, --output-width Integer            Specify a fixed output width (for alignment) (Default:0)
+-!, --version +/-                     Show App Version details (Default:false)
+-?, --help +/-                        Show Help screen (Default:false)
+-@, --use-default-arguments-file +/-  Use Default Arguments File (FigLetText.options) (Default:true)
+-$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
+@<filename>                           Read additional arguments from a file
+
+Default App arguments can be specified in : %RUN_FOLDERNAME%\FigLetText.options
+Local App arguments can be specified in : %TEMP%\FigLetText.options

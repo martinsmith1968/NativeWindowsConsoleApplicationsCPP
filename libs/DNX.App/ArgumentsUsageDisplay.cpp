@@ -110,6 +110,13 @@ void ArgumentsUsageDisplay::ShowUsage(const Arguments& arguments, const ParserCo
                 }
             }
         }
+
+        if (!parser_config.GetCustomArgumentsFilePrefix().empty())
+        {
+            cout << left << setfill(' ') << setw(static_cast<streamsize>(argument_details_width)) << parser_config.GetCustomArgumentsFilePrefix() + "<filename>"
+                << "Read additional arguments from a file"
+                << endl;
+        }
     }
 
     list<string> argument_file_lines;

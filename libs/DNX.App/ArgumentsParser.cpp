@@ -3,7 +3,6 @@
 #include "../DNX.Utils/FileUtils.h"
 #include "../DNX.Utils/ListUtils.h"
 #include "../DNX.Utils/StringUtils.h"
-#include <fstream>
 #include <list>
 #include <string>
 
@@ -133,6 +132,22 @@ bool ArgumentsParser::ParseArgument(Arguments& arguments, const string& argument
         {
             argumentValueConsumed = true;
             return true;
+        }
+    }
+
+    if (!StringUtils::IsNullOrEmpty(&_parser_config.GetAlternateShortNamePrefix()))
+    {
+        if (StringUtils::StartsWith(argumentName, _parser_config.GetAlternateShortNamePrefix()))
+        {
+            const auto switch_short_name = StringUtils::RemoveStartsWith(argumentName, _parser_config.GetAlternateShortNamePrefix(), 1);
+
+            if (HandleAsSwitch(arguments, _parser_config, switch_short_name))
+                return true;
+            if (HandleAsOption(arguments, switch_short_name, argumentValue))
+            {
+                argumentValueConsumed = true;
+                return true;
+            }
         }
     }
 

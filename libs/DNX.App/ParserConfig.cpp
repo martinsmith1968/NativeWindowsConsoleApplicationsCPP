@@ -2,12 +2,15 @@
 #include "ParserConfig.h"
 #include "WordWrappingHelpTextWriter.h"
 
+#include <stdexcept>
+
 // ReSharper disable CppInconsistentNaming
 // ReSharper disable CppMemberFunctionMayBeConst
 
 using namespace DNX::App;
 
 const string ParserConfig::DefaultShortNamePrefix           = "-";
+const string ParserConfig::DefaultAlternateShortNamePrefix  = "/";
 const string ParserConfig::DefaultLongNamePrefix            = "--";
 const string ParserConfig::DefaultCustomArgumentsFilePrefix = "@";
 
@@ -24,6 +27,7 @@ void ParserConfig::SetHelpTextWriter(HelpTextWriter* help_text_writer)
 ParserConfig::ParserConfig()
     : ParserConfig(
         DefaultShortNamePrefix,
+        DefaultAlternateShortNamePrefix,
         DefaultLongNamePrefix,
         DefaultCustomArgumentsFilePrefix,
         DefaultUseDefaultArgumentsFile,
@@ -38,6 +42,7 @@ ParserConfig::ParserConfig()
 
 ParserConfig::ParserConfig(
     const string& shortNamePrefix,
+    const string& alternateShortNamePrefix,
     const string& longNamePrefix,
     const string& customArgumentsFilePrefix,
     const bool useDefaultArgumentsFile,
@@ -49,8 +54,9 @@ ParserConfig::ParserConfig(
 )
     : _helpTextWriter(&WordWrappingHelpTextWriter::GetDefaultInstance())
 {
-    _shortNamePrefix           = shortNamePrefix;
-    _longNamePrefix            = longNamePrefix;
+    SetShortNamePrefix(shortNamePrefix);
+    SetAlternateShortNamePrefix(alternateShortNamePrefix);
+    SetLongNamePrefix(longNamePrefix);
     _customArgumentsFilePrefix = customArgumentsFilePrefix;
     _useDefaultArgumentsFile   = useDefaultArgumentsFile;
     _useLocalArgumentsFile     = useLocalArgumentsFile;
@@ -58,4 +64,36 @@ ParserConfig::ParserConfig(
     _switchOnSuffix            = switchOnSuffix;
     _switchOffSuffix           = switchOffSuffix;
     _ignoreAdditionalArguments = ignoreAdditionalArguments;
+}
+
+void ParserConfig::SetShortNamePrefix(const string& shortNamePrefix)
+{
+    if (shortNamePrefix.length() != 1)
+        throw invalid_argument("shortNamePrefix must be a single character string");
+
+    _shortNamePrefix = shortNamePrefix;
+}
+
+void ParserConfig::SetAlternateShortNamePrefix(const string& alternateShortNamePrefix)
+{
+    if (alternateShortNamePrefix.length() > 1)
+        throw invalid_argument("alternateShortNamePrefix must be a single character string, or empty");
+
+    _alternateShortNamePrefix = alternateShortNamePrefix;
+}
+
+void ParserConfig::SetLongNamePrefix(const string& longNamePrefix)
+{
+    if (longNamePrefix.empty())
+        throw invalid_argument("longNamePrefix must not be empty");
+
+    _longNamePrefix = longNamePrefix;
+}
+
+void ParserConfig::SetCustomArgumentsFilePrefix(const string& customArgumentsFilePrefix)
+{
+    if (customArgumentsFilePrefix.length() > 1)
+        throw invalid_argument("customArgumentsFilePrefix must be a single character string, or empty");
+
+    _customArgumentsFilePrefix = customArgumentsFilePrefix;
 }
