@@ -85,10 +85,11 @@ function Clear-ExpectedOutput {
 
     $app_name = [System.IO.Path]::GetFileNameWithoutExtension($app_full_name)
 
-    $expected_output_path = [System.IO.Path]::GetFullPath((Join-Path -Path $PSScriptRoot -ChildPath ".." $app_name "tests" "Expectedoutput"))
+    $expected_output_path = [System.IO.Path]::GetFullPath((Join-Path -Path $PSScriptRoot -ChildPath ".." "tests" "apps" ($app_name + ".Tests") "ExpectedOutput"))
 
-    if (Test-Path -Path $expected_output_path) {
-        Remove-Item -Path $expected_output_path -Include *.example -Recurse -Force
+    if (Test-Path -Path $expected_output_path -PathType Container) {
+        Write-Host "  $($app_name) - Clearing : $($expected_output_path)"
+        Get-ChildItem -Path $expected_output_path -Filter *.example -File | Remove-Item -Force
     }
 }
 
