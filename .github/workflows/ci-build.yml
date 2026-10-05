@@ -235,7 +235,11 @@ jobs:
             Write-Host "-- Testing: ${filename}"
             Write-Host "----------------------------------------------------------------------------------------------------"
 
-            & $filename
+            # App tests locate their ExpectedOutput folder relative to the working directory
+            $testFolder = Join-Path "tests/apps" $filename.BaseName
+            if (Test-Path $testFolder) { Push-Location $testFolder } else { Push-Location . }
+            & $filename.FullName
+            Pop-Location
         }
 
     - name: Add files to output folder
