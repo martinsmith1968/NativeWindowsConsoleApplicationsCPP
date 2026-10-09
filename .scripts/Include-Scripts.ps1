@@ -146,3 +146,14 @@ function New-TempFileName {
 
     return $fileName
 }
+
+#---------------------------------------------------------------------------------------------------
+function Get-AppVersion {
+    param (
+        [string]$app_full_path
+    )
+
+    # Output of "-!" is either "<version>" or "<appname> <version>" - the version is always the last word
+    $output = (Invoke-CaptureOutput -app_full_path $app_full_path -arguments "-!").StdOut.Trim()
+    return ($output -split "\s+")[-1]
+}

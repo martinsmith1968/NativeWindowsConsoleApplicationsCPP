@@ -125,7 +125,7 @@ if ( $apps.Count -eq 0 ) {
 $app_name = "BannerText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                             -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -140,7 +140,7 @@ if ( $null -ne $app ) {
 $app_name = "FigLetText"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -161,7 +161,7 @@ if ( $null -ne $app ) {
 $app_name = "GuidGenerator"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                         -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -173,7 +173,7 @@ if ( $null -ne $app ) {
 $app_name = "PauseN"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                                 -output_filename "Execute_with_help_request_produces_arguments_list"
@@ -187,7 +187,7 @@ if ( $null -ne $app ) {
 $app_name = "ShowDateTime"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     Clear-ExpectedOutput -app_full_name $app.FullName
     Set-ExpectedOutput -app_full_path $app.FullName -arguments "-?"                                 -output_filename "Execute_with_help_request_produces_command_list"
@@ -198,7 +198,7 @@ if ( $null -ne $app ) {
 $app_name = "Stopwatch"
 $app = Search-AppByName -apps $apps -app_name $app_name
 if ( $null -ne $app ) {
-    $current_app_version = (Invoke-CaptureOutput -app_full_path $app.FullName -arguments "-!").StdOut.Trim()
+    $current_app_version = Get-AppVersion -app_full_path $app.FullName
 
     $dataFileName = New-TempFileName
     Remove-Item-IfExists $dataFileName
