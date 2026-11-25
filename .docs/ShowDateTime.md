@@ -53,7 +53,7 @@ The full help text looks something like this :
 
 ```text
 ShowDateTime v3.0.0.0-dev - Show current date and time formatted
-Copyright ® 2018-2026 Martin Smith
+Copyright © 2018-2026 Martin Smith
 
 Usage:
 ShowDateTime [OPTIONS]
@@ -68,7 +68,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (ShowDateTime.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\ShowDateTime.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\ShowDateTime.options
 Local App arguments can be specified in : C:\Temp\ShowDateTime.options
 
 Notes:

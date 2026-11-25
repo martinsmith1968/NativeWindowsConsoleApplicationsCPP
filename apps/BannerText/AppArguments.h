@@ -60,6 +60,14 @@ namespace BannerText
             if (!IsValid())
                 return;
 
+            const auto minTotalLength = ValueConverter::ToInt(GetArgumentValue(ArgumentNameMinTotalLength));
+            const auto maxTotalLength = ValueConverter::ToInt(GetArgumentValue(ArgumentNameMaxTotalLength));
+            if (maxTotalLength > 0 && minTotalLength > maxTotalLength)
+            {
+                AddError(ArgumentNameMinTotalLength + " must not be greater than " + ArgumentNameMaxTotalLength);
+                return;
+            }
+
             const auto printableLineLength = GetTextPrintableLineLength();
             if (printableLineLength <= 0)
             {
@@ -253,7 +261,7 @@ namespace BannerText
         {
             return GetLineLength()
                 - GetTitlePrefixCount() - GetTitlePrefixGapSize()
-                - GetTitleSuffixCount() - GetTitleSuffixCount();
+                - GetTitleSuffixCount() - GetTitleSuffixGapSize();
         }
 
         list<string> GetTextLinesToOutput()

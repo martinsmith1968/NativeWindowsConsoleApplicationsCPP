@@ -69,7 +69,7 @@ The full help text looks something like this :
 
 ```text
 GuidGenerator v3.0.0.0-dev - Generate Guid(s) and output to the console
-Copyright ® 2018-2026 Martin Smith
+Copyright © 2018-2026 Martin Smith
 
 Usage:
 GuidGenerator [OPTIONS]
@@ -85,7 +85,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (GuidGenerator.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\GuidGenerator.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\GuidGenerator.options
 Local App arguments can be specified in : C:\Temp\GuidGenerator.options
 
 Notes:

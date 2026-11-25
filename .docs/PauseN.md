@@ -38,7 +38,7 @@ The full help text looks something like this :
 
 ```text
 PauseN v3.0.0.0-dev - Pause console output for a keypress, or a timeout
-Copyright ® 2018-2026 Martin Smith
+Copyright © 2018-2026 Martin Smith
 
 Usage:
 PauseN [message-text] [OPTIONS]
@@ -55,6 +55,6 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (PauseN.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\PauseN.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\PauseN.options
 Local App arguments can be specified in : C:\Temp\PauseN.options
 ```

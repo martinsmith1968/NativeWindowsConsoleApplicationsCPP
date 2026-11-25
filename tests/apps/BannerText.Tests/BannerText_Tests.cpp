@@ -6,6 +6,7 @@
 #include "../../../Common/AppInfo.h"
 #include "../../../libs/DNX.Utils/DateUtils.h"
 #include "../../../libs/DNX.Utils/DirectoryUtils.h"
+#include "../../../libs/DNX.Utils/StringUtils.h"
 #include "../../DNX.Tests.Common/TestHelper.h"
 #include "../../DNX.Tests.Common/TestRunRelocatingController.h"
 #include <filesystem>
@@ -89,4 +90,14 @@ TEST_F(TEST_GROUP, Execute_with_multiple_text_lines_aligned_center_produces_expe
     const auto expectedResultsFileName = m_test_controller->GetExpectedOutputFileName();
 
     EXPECT_EQ(TestHelper::GetExpectedOutput(expectedResultsFileName), TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "a|bb|ccc|dddd|eeeee|-ta|Center"));
+}
+
+TEST_F(TEST_GROUP, Execute_with_min_length_greater_than_max_length_fails)
+{
+    int exitCode = 0;
+    const auto output = TestHelper::ExecuteAndCaptureOutput(m_target_executable_filepath, "bob|-minl|80|-maxl|40", exitCode);
+
+    EXPECT_EQ(3, exitCode);
+    EXPECT_TRUE(StringUtils::Contains(output, "min-total-length"));
+    EXPECT_TRUE(StringUtils::Contains(output, "max-total-length"));
 }

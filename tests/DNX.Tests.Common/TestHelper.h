@@ -31,6 +31,7 @@ namespace DNX::Tests::Common
         static string GetOutputDirectoryWithFileName(const string& top_level_name, const string& fileName);
         static string FindExecutableFilePath(const string& executableFileName, const bool ensureExists = true);
         static string ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator = '|', bool showGeneratedOutput = true);
+        static string ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, int& exitCode, const char argumentsSeparator = '|', bool showGeneratedOutput = true);
         static string GetExpectedOutput(const string& fileName, const bool showExpectedOutput = true, const bool replaceEnvironmentVariables = true);
 
         static void SetEnvironment(const AppDetails& app_info);

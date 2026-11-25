@@ -110,6 +110,12 @@ string TestHelper::FindExecutableFilePath(const string& executableFileName, cons
 
 string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, const char argumentsSeparator, const bool showGeneratedOutput)
 {
+    int exitCode = 0;
+    return ExecuteAndCaptureOutput(executableFileName, argumentsText, exitCode, argumentsSeparator, showGeneratedOutput);
+}
+
+string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, const string& argumentsText, int& exitCode, const char argumentsSeparator, const bool showGeneratedOutput)
+{
     cout << "DEBUG: Starting ExecuteAndCaptureOutput" << endl;
 
     static const auto quote = "\"";
@@ -157,7 +163,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
     FILE* output_stream = _popen(commandLine.c_str(), "r");
     while (fgets(buf, sizeof(buf), output_stream))
         output_text += buf;
-    _pclose(output_stream);
+    exitCode = _pclose(output_stream);
 
     if (showGeneratedOutput)
     {
@@ -165,6 +171,7 @@ string TestHelper::ExecuteAndCaptureOutput(const string& executableFileName, con
         cout << "-- Generated Output:" << endl;
         cout << output_text << endl;
         cout << "-- " << output_text.size() << " characters" << endl;
+        cout << "-- Exit Code: " << exitCode << endl;
         WriteMinorSeparator(80);
     }
 
