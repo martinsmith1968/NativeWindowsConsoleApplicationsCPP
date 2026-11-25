@@ -90,8 +90,14 @@ function Invoke-CaptureOutput {
         [string]$arguments
     )
 
+    # Single-byte encoding, so the app's output bytes round-trip exactly
+    $raw_encoding = [System.Text.Encoding]::Latin1
+
     $start_info = New-Object System.Diagnostics.ProcessStartInfo
-    $start_info.FileName               = $app_full_path
+    $start_info.FileName = $app_full_path
+    # See Invoke-AppRawOutput for why WorkingDirectory is set explicitly rather than relying on
+    # Environment.CurrentDirectory.
+    $start_info.WorkingDirectory = (Get-Location).Path
     if ($arguments.contains("|")) {
         $arguments.Split("|") | ForEach-Object { $start_info.ArgumentList.Add($_) }
     } else {
@@ -106,12 +112,17 @@ function Invoke-CaptureOutput {
     $process.StartInfo = $start_info
     $process.Start() | Out-Null
 
-    # Capture the output and error streams
-    $stdout = $process.StandardOutput.ReadToEnd()
-    $stderr = $process.StandardError.ReadToEnd()
-
-    # Wait for the process to exit
+    # Read the raw pipe bytes via BaseStream rather than through StandardOutput/StandardError's
+    # text-reading methods: see Invoke-AppRawOutput for why (BOM auto-detection, stream-drain deadlock).
+    $stdout_buffer = New-Object System.IO.MemoryStream
+    $stderr_buffer = New-Object System.IO.MemoryStream
+    $stdout_task = $process.StandardOutput.BaseStream.CopyToAsync($stdout_buffer)
+    $stderr_task = $process.StandardError.BaseStream.CopyToAsync($stderr_buffer)
+    [System.Threading.Tasks.Task]::WaitAll(@($stdout_task, $stderr_task))
     $process.WaitForExit()
+
+    $stdout = $raw_encoding.GetString($stdout_buffer.ToArray())
+    $stderr = $raw_encoding.GetString($stderr_buffer.ToArray())
 
     return @{ StdOut = $stdout; StdErr = $stderr; ExitCode = $process.ExitCode }
 }

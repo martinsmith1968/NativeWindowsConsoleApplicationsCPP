@@ -88,6 +88,6 @@ Options:
 -$, --use-local-arguments-file +/-      Use Local Arguments File (BannerText.options) (Default:true)
 @<filename>                             Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\BannerText.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\BannerText.options
 Local App arguments can be specified in : C:\Temp\BannerText.options
 ```

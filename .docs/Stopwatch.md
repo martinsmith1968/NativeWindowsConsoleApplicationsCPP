@@ -120,7 +120,7 @@ Pause    Pause an active Stopwatch
 Purge    Purge old Stopwatches
 Resume   Resume a paused Stopwatch
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.options
 ```
 
@@ -159,7 +159,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.list.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.list.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.list.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.list.options
 ```
 
@@ -195,7 +195,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.start.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.start.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.start.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.start.options
 ```
 
@@ -231,7 +231,7 @@ Options:
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.stop.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.stop.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.stop.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.stop.options
 ```
 
@@ -267,7 +267,7 @@ Options:
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.elapsed.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.elapsed.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.elapsed.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.elapsed.options
 ```
 
@@ -300,7 +300,7 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.cancel.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.cancel.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.cancel.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.cancel.options
 ```
 
@@ -337,7 +337,7 @@ Options:
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.pause.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.pause.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.pause.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.pause.options
 ```
 
@@ -379,7 +379,7 @@ Options:
 -$, --use-local-arguments-file +/-         Use Local Arguments File (Stopwatch.resume.options) (Default:true)
 @<filename>                                Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.resume.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.resume.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.resume.options
 ```
 
@@ -415,6 +415,6 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (Stopwatch.pause.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\Stopwatch.pause.options
+Default App arguments can be specified in : C:\Temp\a0c6800decec44c3b98d033854bc74f4\Stopwatch.pause.options
 Local App arguments can be specified in : C:\Temp\Stopwatch.pause.options
 ```

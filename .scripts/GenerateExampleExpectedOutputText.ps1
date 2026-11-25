@@ -69,7 +69,11 @@ function Set-ExpectedOutput {
         $stdout = $raw_encoding.GetString($stdout_buffer.ToArray())
         $stderr = $raw_encoding.GetString($stderr_buffer.ToArray())
 
-        if ( $proc.ExitCode -ne 0 -or -not [string]::IsNullOrEmpty($stderr) ) {
+        # Exit codes 0-5 are this codebase's deliberate convention for success/help/version/invalid-args
+        # display (see MultiCommandApp.h / SimpleApp.h); anything else (e.g. 98/99) means an unhandled
+        # exception, which is always worth flagging here.
+        $known_exit_codes = 0..5
+        if ( $known_exit_codes -notcontains $proc.ExitCode -or -not [string]::IsNullOrEmpty($stderr) ) {
             Write-Host "  $($app_name) - WARNING : exit code $($proc.ExitCode), stderr: $($stderr)" -ForegroundColor Yellow
         }
     }
