@@ -52,13 +52,13 @@ foreach ( $app in $run_apps.GetEnumerator() ) {
 
     Write-Host "  Generating Version info for: $appName"
     $version_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + ".Version.txt")
-    $version_text = (& $appFile.FullName -!)
+    $version_text = (Invoke-AppRawOutput -app_full_path $appFile.FullName -arguments @("-!")).TrimEnd("`r", "`n") -split "`r?`n"
     Write-Host "    Writing Version info to: $version_output_file"
     Set-Content -Path $version_output_file -Value $version_text -Encoding UTF8
 
     Write-Host "  Generating About info for: $appName"
     $about_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + ".About.txt")
-    $about_text = (& $appFile.FullName -?)
+    $about_text = (Invoke-AppRawOutput -app_full_path $appFile.FullName -arguments @("-?")).TrimEnd("`r", "`n") -split "`r?`n"
     Write-Host "    Writing About info to: $about_output_file"
     Set-Content -Path $about_output_file -Value $about_text -Encoding UTF8
 
@@ -89,7 +89,7 @@ foreach ( $app in $run_apps.GetEnumerator() ) {
         foreach ($cmd in $commands) {
             Write-Host "    Generating Help info for Command: $cmd"
             $cmd_help_output_file = Join-Path -Path $docs_helptext_folder -ChildPath ($appBaseName + "-" + $cmd + ".About.txt")
-            $cmd_help_text = (& $appFile.FullName $cmd -?)
+            $cmd_help_text = (Invoke-AppRawOutput -app_full_path $appFile.FullName -arguments @($cmd, "-?")).TrimEnd("`r", "`n") -split "`r?`n"
             Write-Host "      Writing Command Help info to: $cmd_help_output_file"
             Set-Content -Path $cmd_help_output_file -Value $cmd_help_text -Encoding UTF8
         }

@@ -49,12 +49,29 @@ function Set-ExpectedOutput {
         $parameters | ForEach-Object { $psi.ArgumentList.Add($_) }
         $psi.RedirectStandardOutput = $true
         $psi.RedirectStandardError  = $true
-        $psi.StandardOutputEncoding = $raw_encoding
         $psi.UseShellExecute        = $false
         $psi.CreateNoWindow         = $true
         $proc = [System.Diagnostics.Process]::Start($psi)
-        $stdout = $proc.StandardOutput.ReadToEnd()
+
+        # Read the raw pipe bytes via BaseStream rather than through StandardOutput/StandardError's
+        # text-reading methods: StreamReader always sniffs the first bytes for a BOM regardless of
+        # the encoding assigned to ProcessStartInfo, which would silently corrupt output that happens
+        # to start with a byte sequence matching a UTF-8/UTF-16/UTF-32 BOM. Draining both streams
+        # concurrently also avoids the classic deadlock where the child blocks writing to a full
+        # stderr pipe while we're blocked reading stdout (or vice versa).
+        $stdout_buffer = New-Object System.IO.MemoryStream
+        $stderr_buffer = New-Object System.IO.MemoryStream
+        $stdout_task = $proc.StandardOutput.BaseStream.CopyToAsync($stdout_buffer)
+        $stderr_task = $proc.StandardError.BaseStream.CopyToAsync($stderr_buffer)
+        [System.Threading.Tasks.Task]::WaitAll(@($stdout_task, $stderr_task))
         $proc.WaitForExit()
+
+        $stdout = $raw_encoding.GetString($stdout_buffer.ToArray())
+        $stderr = $raw_encoding.GetString($stderr_buffer.ToArray())
+
+        if ( $proc.ExitCode -ne 0 -or -not [string]::IsNullOrEmpty($stderr) ) {
+            Write-Host "  $($app_name) - WARNING : exit code $($proc.ExitCode), stderr: $($stderr)" -ForegroundColor Yellow
+        }
     }
     finally {
         Remove-Item -Path $run_folder_path -Recurse -Force -ErrorAction SilentlyContinue
@@ -68,8 +85,15 @@ function Set-ExpectedOutput {
     $text = $text -replace [regex]::Escape($temp_path), "%TEMP%"
     $text = $text -replace [regex]::Escape($env:LOCALAPPDATA.TrimEnd([char]92)), "%LOCALAPPDATA%"
     $text = $text -replace [regex]::Escape($current_app_version), "%APP_VERSION%"
-    $text = $text -replace "-${current_year}", '-%DATE_CURRENTYEAR%'
+    $text = $text -replace [regex]::Escape("-${current_year}"), '-%DATE_CURRENTYEAR%'
     [System.IO.File]::WriteAllText($example_full_path, $text, $raw_encoding)
+
+    # Sanity check : the file should decode back to exactly what we wrote. A mismatch here
+    # would indicate the Latin1 round-trip lost or altered bytes somewhere along the way.
+    $written_text = [System.IO.File]::ReadAllText($example_full_path, $raw_encoding)
+    if ( $written_text -cne $text ) {
+        Write-Host "  $($app_name) - WARNING : written file does not round-trip byte-for-byte : $($example_full_path)" -ForegroundColor Red
+    }
 
     if ($show_output) {
         Write-Host "  $($app_name) - Output : $($example_filename)" -ForegroundColor Gray

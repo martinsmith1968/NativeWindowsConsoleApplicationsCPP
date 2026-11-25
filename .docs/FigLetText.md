@@ -86,7 +86,7 @@ The full help text looks something like this :
 
 ```text
 FigLetText v3.0.0.0-dev - Generate Text in FigLet format
-Copyright ® 2018-2026 Martin Smith
+Copyright © 2018-2026 Martin Smith
 
 Usage:
 FigLetText [message-text] [OPTIONS]
@@ -104,6 +104,6 @@ Options:
 -$, --use-local-arguments-file +/-    Use Local Arguments File (FigLetText.options) (Default:true)
 @<filename>                           Read additional arguments from a file
 
-Default App arguments can be specified in : C:\Temp\ef1bd4c158f442d2bd840b25979784dc\FigLetText.options
+Default App arguments can be specified in : C:\Temp\0bd395a2d6d34885ba06ef2232842f44\FigLetText.options
 Local App arguments can be specified in : C:\Temp\FigLetText.options
 ```
