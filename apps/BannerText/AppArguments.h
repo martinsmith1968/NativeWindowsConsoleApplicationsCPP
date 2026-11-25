@@ -253,7 +253,7 @@ namespace BannerText
         {
             return GetLineLength()
                 - GetTitlePrefixCount() - GetTitlePrefixGapSize()
-                - GetTitleSuffixCount() - GetTitleSuffixCount();
+                - GetTitleSuffixCount() - GetTitleSuffixGapSize();
         }
 
         list<string> GetTextLinesToOutput()
